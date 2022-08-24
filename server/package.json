@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "rimraf dist && tsc-watch --onSuccess && npm run watch-server",
-    "watch-server": "nodemon './src/app.ts' --watch './src'"
+    "watch-server": "nodemon './src/app.ts' --watch './src'",
+    "lint": "eslint --cache --ext .js,.ts src",
+    "lint:fix": "npm run lint -- --fix"
   },
   "author": "Viktor Myronenko",
   "license": "ISC",
