@@ -27,7 +27,7 @@
                 "json": "always"
             }
         ],
-        "class-methods-use-this": "off",
+        "class-methods-use-this": ["error", { "exceptMethods": ["up", "down"] }],
         "no-unused-vars": ["error", {
             "args": "none"
         }],
