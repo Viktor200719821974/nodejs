@@ -7,8 +7,11 @@
     "watch-server": "nodemon './src/app.ts' --watch './src'",
     "lint": "eslint --cache --ext .js,.ts src",
     "lint:fix": "npm run lint -- --fix",
+
     "typeorm": "node -r ts-node/register ./node_modules/typeorm/cli.js",
-    "typeorm:run": "npm run typeorm migration:run"
+    "migration:generate": "typeorm migration:create -n $npm_config_name",
+    "migration:run": "npm run typeorm migration:run",
+    "migration:revert": "npm run typeorm migration:revert"
   },
   "author": "Viktor Myronenko",
   "license": "ISC",
@@ -17,7 +20,7 @@
     "express": "^4.18.1",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.45"
+    "typeorm": "^0.2.43"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
