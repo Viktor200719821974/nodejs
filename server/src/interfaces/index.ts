@@ -5,9 +5,9 @@ export interface IRequestExtended extends Request{
     user?: IUser;
 }
 export interface ITokenDataToSave {
-    refreshToken?: string;
-    accessToken?: string;
-    userId?: number;
+    refreshToken: string;
+    accessToken: string;
+    userId: number;
 }
 export interface ITokenPair {
     accessToken: string;
@@ -15,11 +15,9 @@ export interface ITokenPair {
 }
 
 export interface IUserPayload {
-    userId?: number,
-    userEmail?: string,
+    userId: number,
+    userEmail: string,
 }
 export interface ITokenActivate {
     activateToken: string;
 }
-
-export type ITokenData = ITokenPair & IUserPayload;

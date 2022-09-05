@@ -1,38 +1,26 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { EntityRepository, getManager, UpdateResult } from 'typeorm';
-import { ITokenPair, IUserPayload, ITokenActivate } from '../interfaces';
+import { IUserPayload, ITokenActivate, ITokenDataToSave } from '../interfaces';
 import { User } from '../entity/user';
-import { Token } from '../entity/tokens';
+import { Token } from '../entity/token';
 
 dotenv.config();
 
 @EntityRepository(Token)
 class TokenService {
-    async generateTokenActivate(payload: IUserPayload):Promise<ITokenActivate> {
-        // const accessToken = jwt.sign(
-        //     payload,
-        //     process.env.SECRET_ACCESS_KEY,
-        //     { expiresIn: '1h' },
-        // );
-        // const refreshToken = jwt.sign(
-        //     payload,
-        //     process.env.SECRET_REFRESH_KEY,
-        //     { expiresIn: '24h' },
-        // );
+    public async generateTokenActivate(payload: IUserPayload):Promise<ITokenActivate> {
         const activateToken = jwt.sign(
             payload,
             process.env.SECRET_ACTIVATE_KEY!,
             { expiresIn: '48h' },
         );
         return {
-            // accessToken,
-            // refreshToken,
             activateToken,
         };
     }
 
-    async generateTokenPair(payload: IUserPayload):Promise<ITokenPair> {
+    public async generateTokenPair(payload: IUserPayload):Promise<ITokenDataToSave> {
         const accessToken = jwt.sign(
             payload,
             process.env.SECRET_ACCESS_KEY!,
@@ -46,44 +34,45 @@ class TokenService {
         return {
             accessToken,
             refreshToken,
+            userId: payload.userId,
         };
     }
 
-    async saveTokenActivate(id: number, activateToken: string): Promise<UpdateResult> {
+    public async saveTokenActivate(id: number, activateToken: string): Promise<UpdateResult> {
         return getManager().getRepository(User).update({ id }, { activateToken });
     }
 
-    async saveToken(userId: { id: number | undefined }, refreshToken: string, accessToken: string) {
-        return getManager().getRepository(Token).save(userId);
+    public async saveToken(tokenPair: ITokenDataToSave): Promise<ITokenDataToSave> {
+        const token = await getManager().getRepository(Token).find({ userId: tokenPair.userId });
+        if (token) {
+            await getManager().getRepository(Token).delete({ userId: tokenPair.userId });
+        }
+        return getManager().getRepository(Token).save(tokenPair);
     }
 
-    // async deleteUserTokenPair(userId: number) {
-    //     return model.Token.destroy({ where: { userId } });
-    // }
+    public async deleteUserTokenPair(userId: number) {
+        return getManager().getRepository(Token).delete({ userId });
+    }
 
-    // async deleteTokenPairByParams(refreshToken: string | undefined) {
-    //     return model.Token.findOne({ where: { refreshToken } });
-    // }
+    async findTokenRefresh(refreshToken: string | undefined) {
+        return getManager().getRepository(Token).findOne({ refreshToken });
+    }
 
-    async verifyToken(authToken: string, tokenType = 'accessToken') {
-        let secretWord = process.env.SECRET_ACCESS_KEY;
+    public async verifyToken(authToken: string, tokenType = 'accessToken'): Promise<JwtPayload | string> {
+        let secretWord = process.env.SECRET_ACCESS_KEY!;
         if (tokenType === 'refreshToken') {
-            secretWord = process.env.SECRET_REFRESH_KEY;
+            secretWord = process.env.SECRET_REFRESH_KEY!;
         }
-        let tokenPayload;
-        if (secretWord) {
-            tokenPayload = jwt.verify(authToken, secretWord);
-        }
-        return tokenPayload;
+        return jwt.verify(authToken, secretWord);
     }
 
-    // async findByParamsAccess(accessToken: string) {
-    //     return model.Token.findOne({ where: { accessToken } });
-    // }
-    //
-    // async findByParamsRefresh(refreshToken: string) {
-    //     return model.Token.findOne({ where: { refreshToken } });
-    // }
+    async findByParamsAccess(accessToken: string) {
+        return getManager().getRepository(Token).findOne({ accessToken });
+    }
+
+    async findByParamsRefresh(refreshToken: string) {
+        return getManager().getRepository(Token).findOne({ refreshToken });
+    }
 }
 
 export const tokenService = new TokenService();

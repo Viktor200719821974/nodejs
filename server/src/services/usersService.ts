@@ -23,9 +23,25 @@ class UsersService {
         return usersRepository.getUserByEmail(email);
     }
 
-    // private async _hashPassword(password: string): Promise<string> {
-    //     return bcrypt.hash(password, 10);
-    // }
+    async userManager(id: number): Promise<User | undefined> {
+        return usersRepository.userManager(id);
+    }
+
+    async userIsNotManager(id: number): Promise<User | undefined> {
+        return usersRepository.userIsNotManager(id);
+    }
+
+    async userBlocked(id: number): Promise<User | undefined> {
+        return usersRepository.userBlocked(id);
+    }
+
+    async userUnlocked(id: number): Promise<User | undefined> {
+        return usersRepository.userUnlocked(id);
+    }
+
+    async activateUser(activateToken: string): Promise<string> {
+        return usersRepository.activateUser(activateToken);
+    }
 }
 
 export const usersService = new UsersService();

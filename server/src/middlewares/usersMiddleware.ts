@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { ErrorHandler } from '../error/errorHandler';
 import { usersRepository } from '../repositories/usersRepository';
-import { IRequestExtended } from '../interfaces';
 
 class UsersMiddleware {
     public async findUserByEmail(req: Request, res: Response, next: NextFunction)
@@ -18,16 +17,15 @@ class UsersMiddleware {
         }
     }
 
-    public async findUser(req: IRequestExtended, res: Response, next: NextFunction)
+    public async findUser(req: Request, res: Response, next: NextFunction)
         :Promise<void | never> {
         try {
             const { email, password } = req.body;
-            const user = await usersRepository.getUserByEmail(email);
+            const user = await usersRepository.getUserByEmailMiddleware(email);
             if (!user) {
                 next(new ErrorHandler('Bad email or password'));
                 return;
             }
-            req.user = user;
             const userPassword = user.password;
             const comparePassword = bcrypt.compareSync(password, userPassword);
             if (!comparePassword) {

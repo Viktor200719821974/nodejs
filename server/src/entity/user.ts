@@ -3,7 +3,7 @@ import {
 } from 'typeorm';
 import dotenv from 'dotenv';
 import { CommonFields } from './commonFields';
-import { Token } from './tokens';
+import { Token } from './token';
 
 dotenv.config();
 
@@ -71,6 +71,7 @@ export class User extends CommonFields implements IUser {
         type: 'varchar',
         width: 250,
         default: 'noActive',
+        select: false,
     })
         activateToken?: string;
 

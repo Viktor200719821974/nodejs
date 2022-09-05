@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { usersService } from '../services/usersService';
+import { IRequestExtended } from '../interfaces';
+import { ErrorHandler } from '../error/errorHandler';
 
 class UsersController {
     public async getUsers(req:Request, res:Response, next: NextFunction) {
@@ -46,6 +48,79 @@ class UsersController {
             const { id } = req.params;
             await usersService.deletedUser(id);
             res.json('Ok');
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async userManager(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            const user = await usersService.userManager(+id);
+            res.json(user);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async userIsNotManager(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            const user = await usersService.userIsNotManager(+id);
+            res.json(user);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async userBlocked(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            const user = await usersService.userBlocked(+id);
+            // const { email, name, surname } = user;
+            // eslint-disable-next-line max-len
+            // const sendEmail = await emailService.sendMail(email, 'ACCOUNT_BLOCKED', { userName: name, surname })
+            //     .catch(console.error);
+            // if (!sendEmail) {
+            //     next(new ErrorHandler('Problems is send email', 404));
+            //     return;
+            // }
+            res.json(user);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async userUnlocked(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            const user = await usersService.userUnlocked(+id);
+            // const { email, name, surname } = user;
+            // eslint-disable-next-line max-len
+            // const sendEmail =  await emailService.sendMail(email, 'ACCOUNT_UNLOCKED', { userName: name, surname })
+            //     .catch(console.error);
+            // if (!sendEmail) {
+            //     next(new ErrorHandler('Problems is send email', 404));
+            //     return;
+            // }
+            res.json(user);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async activateUser(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const activateToken = req.params.token;
+            if (!activateToken) {
+                next(new ErrorHandler('Bad request'));
+            }
+            const activate = await usersService.activateUser(activateToken);
+            if (activate !== 'Ok') {
+                next(new ErrorHandler('Not found', 404));
+                return;
+            }
+            res.json('User activated');
         } catch (e) {
             next(e);
         }

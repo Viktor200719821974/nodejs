@@ -11,10 +11,10 @@ export class CommonFields implements ICommonFields {
         nullable: false,
         default: Date.now(),
     })
-    @CreateDateColumn({ type: 'timestamp' })
+    @CreateDateColumn({ type: 'timestamp', select: false })
         createdAt: string;
 
     @Column()
-    @DeleteDateColumn({ type: 'timestamp' })
+    @DeleteDateColumn({ type: 'timestamp', select: false })
         deletedAt?: string;
 }
