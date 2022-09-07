@@ -2,11 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import { usersService } from '../services/usersService';
 import { IRequestExtended } from '../interfaces';
 import { ErrorHandler } from '../error/errorHandler';
+import { emailService } from '../services/emailService';
 
 class UsersController {
     public async getUsers(req:Request, res:Response, next: NextFunction) {
         try {
-            const users = await usersService.getUsers([]);
+            const users = await usersService.getUsers();
             res.json(users);
         } catch (e) {
             next(e);
@@ -77,14 +78,19 @@ class UsersController {
         try {
             const { id } = req.params;
             const user = await usersService.userBlocked(+id);
-            // const { email, name, surname } = user;
-            // eslint-disable-next-line max-len
-            // const sendEmail = await emailService.sendMail(email, 'ACCOUNT_BLOCKED', { userName: name, surname })
-            //     .catch(console.error);
-            // if (!sendEmail) {
-            //     next(new ErrorHandler('Problems is send email', 404));
-            //     return;
-            // }
+            const email = user?.email;
+            const firstName = user?.firstName;
+            const lastName = user?.lastName;
+            const sendEmail = await emailService.sendMail(email, 'ACCOUNT_BLOCKED', {
+                userName: firstName,
+                surname: lastName,
+            })
+                // eslint-disable-next-line no-console
+                .catch(console.error);
+            if (!sendEmail) {
+                next(new ErrorHandler('Problems is send email', 404));
+                return;
+            }
             res.json(user);
         } catch (e) {
             next(e);
@@ -95,14 +101,19 @@ class UsersController {
         try {
             const { id } = req.params;
             const user = await usersService.userUnlocked(+id);
-            // const { email, name, surname } = user;
-            // eslint-disable-next-line max-len
-            // const sendEmail =  await emailService.sendMail(email, 'ACCOUNT_UNLOCKED', { userName: name, surname })
-            //     .catch(console.error);
-            // if (!sendEmail) {
-            //     next(new ErrorHandler('Problems is send email', 404));
-            //     return;
-            // }
+            const email = user?.email;
+            const firstName = user?.firstName;
+            const lastName = user?.lastName;
+            const sendEmail = await emailService.sendMail(email, 'ACCOUNT_UNLOCKED', {
+                userName: firstName,
+                surname: lastName,
+            })
+                // eslint-disable-next-line no-console
+                .catch(console.error);
+            if (!sendEmail) {
+                next(new ErrorHandler('Problems is send email', 404));
+                return;
+            }
             res.json(user);
         } catch (e) {
             next(e);

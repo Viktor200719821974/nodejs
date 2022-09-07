@@ -3,7 +3,7 @@ import { IUser, User } from '../entity/user';
 import { usersRepository } from '../repositories/usersRepository';
 
 class UsersService {
-    public async getUsers(users: User[]): Promise<User[]> {
+    public async getUsers(): Promise<User[]> {
         return getManager().getRepository(User).find();
     }
 
@@ -23,19 +23,19 @@ class UsersService {
         return usersRepository.getUserByEmail(email);
     }
 
-    async userManager(id: number): Promise<User | undefined> {
+    async userManager(id: number): Promise<IUser | undefined> {
         return usersRepository.userManager(id);
     }
 
-    async userIsNotManager(id: number): Promise<User | undefined> {
+    async userIsNotManager(id: number): Promise<IUser | undefined> {
         return usersRepository.userIsNotManager(id);
     }
 
-    async userBlocked(id: number): Promise<User | undefined> {
+    async userBlocked(id: number): Promise<IUser | undefined> {
         return usersRepository.userBlocked(id);
     }
 
-    async userUnlocked(id: number): Promise<User | undefined> {
+    async userUnlocked(id: number): Promise<IUser | undefined> {
         return usersRepository.userUnlocked(id);
     }
 

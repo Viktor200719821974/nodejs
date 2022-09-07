@@ -1,14 +1,17 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { EntityRepository, getManager, UpdateResult } from 'typeorm';
+import {
+    DeleteResult, EntityRepository, getManager, Repository, UpdateResult,
+} from 'typeorm';
 import { IUserPayload, ITokenActivate, ITokenDataToSave } from '../interfaces';
 import { User } from '../entity/user';
 import { Token } from '../entity/token';
+import { ITokenRepository } from './tokenRepository.interface';
 
 dotenv.config();
 
 @EntityRepository(Token)
-class TokenService {
+class TokenRepository extends Repository<Token> implements ITokenRepository {
     public async generateTokenActivate(payload: IUserPayload):Promise<ITokenActivate> {
         const activateToken = jwt.sign(
             payload,
@@ -50,11 +53,11 @@ class TokenService {
         return getManager().getRepository(Token).save(tokenPair);
     }
 
-    public async deleteUserTokenPair(userId: number) {
+    public async deleteUserTokenPair(userId: number): Promise<DeleteResult> {
         return getManager().getRepository(Token).delete({ userId });
     }
 
-    async findTokenRefresh(refreshToken: string | undefined) {
+    async findTokenRefresh(refreshToken: string | undefined): Promise<Token | undefined> {
         return getManager().getRepository(Token).findOne({ refreshToken });
     }
 
@@ -66,13 +69,13 @@ class TokenService {
         return jwt.verify(authToken, secretWord);
     }
 
-    async findByParamsAccess(accessToken: string) {
+    async findByParamsAccess(accessToken: string): Promise<Token | undefined> {
         return getManager().getRepository(Token).findOne({ accessToken });
     }
 
-    async findByParamsRefresh(refreshToken: string) {
+    async findByParamsRefresh(refreshToken: string): Promise<Token | undefined> {
         return getManager().getRepository(Token).findOne({ refreshToken });
     }
 }
 
-export const tokenService = new TokenService();
+export const tokenRepository = new TokenRepository();

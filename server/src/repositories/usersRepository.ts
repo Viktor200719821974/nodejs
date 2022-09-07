@@ -1,5 +1,5 @@
 import {
-    DeleteResult, EntityRepository, getManager, Repository,
+    DeleteResult, EntityRepository, Repository, getManager,
 } from 'typeorm';
 import { IUser, User } from '../entity/user';
 import { IUsersRepository } from './usersRepository.interface';
@@ -41,7 +41,6 @@ class UsersRepository extends Repository<User> implements IUsersRepository {
     }
 
     public async getUserByEmail(email: string): Promise<IUser | undefined> {
-        // return getManager().getRepository(User).findOne({ email });
         return getManager().getRepository(User)
             .createQueryBuilder('user')
             .where('user.email = :email', { email })
@@ -64,22 +63,22 @@ class UsersRepository extends Repository<User> implements IUsersRepository {
         return getManager().getRepository(User).findOne({ email });
     }
 
-    async userManager(id: number): Promise<User | undefined> {
+    async userManager(id: number): Promise<IUser | undefined> {
         await getManager().getRepository(User).update({ id }, { is_staff: true });
         return getManager().getRepository(User).findOne({ id });
     }
 
-    async userIsNotManager(id: number): Promise<User | undefined> {
+    async userIsNotManager(id: number): Promise<IUser | undefined> {
         await getManager().getRepository(User).update({ id }, { is_staff: false });
         return getManager().getRepository(User).findOne({ id });
     }
 
-    async userBlocked(id: number): Promise<User | undefined> {
+    async userBlocked(id: number): Promise<IUser | undefined> {
         await getManager().getRepository(User).update({ id }, { is_active: false });
         return getManager().getRepository(User).findOne({ id });
     }
 
-    async userUnlocked(id: number): Promise<User | undefined> {
+    async userUnlocked(id: number): Promise<IUser | undefined> {
         await getManager().getRepository(User).update({ id }, { is_active: true });
         return getManager().getRepository(User).findOne({ id });
     }

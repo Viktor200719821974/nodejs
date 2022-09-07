@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { IRequestExtended } from '../interfaces';
 import { ErrorHandler } from '../error/errorHandler';
-import { tokenService } from '../services/tokenService';
+import { tokenRepository } from '../repositories/tokenRepository';
 import { usersService } from '../services/usersService';
 
 class AuthMiddleware {
@@ -16,11 +16,11 @@ class AuthMiddleware {
                 return;
             }
             // @ts-ignore
-            const { userEmail } = await tokenService.verifyToken(token);
+            const { userEmail } = await tokenRepository.verifyToken(token);
             if (!userEmail) {
                 next(new ErrorHandler('Unauthorized', 401));
             }
-            await tokenService.findByParamsAccess(token);
+            await tokenRepository.findByParamsAccess(token);
             const user = await usersService.getUserByEmail(userEmail)
                 .then((data) => data);
             if (user) {
@@ -45,8 +45,8 @@ class AuthMiddleware {
                 return;
             }
             // @ts-ignore
-            const { userEmail } = await tokenService.verifyToken(token, 'refreshToken');
-            await tokenService.findByParamsRefresh(token);
+            const { userEmail } = await tokenRepository.verifyToken(token, 'refreshToken');
+            await tokenRepository.findByParamsRefresh(token);
             const user = await usersService.getUserByEmail(userEmail).then((data) => data);
             if (user) {
                 req.user = user;

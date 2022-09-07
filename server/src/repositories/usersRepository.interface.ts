@@ -7,4 +7,10 @@ export interface IUsersRepository {
     changeUser(user: IUser, id: number): Promise<IUser | undefined>;
     deletedUser(id: string): Promise<DeleteResult>;
     getUserByEmail(email: string): Promise<IUser | undefined>;
+    getUserByEmailMiddleware(email: string): Promise<IUser | undefined>;
+    userManager(id: number): Promise<IUser | undefined>;
+    userIsNotManager(id: number): Promise<IUser | undefined>;
+    userBlocked(id: number): Promise<IUser | undefined>;
+    userUnlocked(id: number): Promise<IUser | undefined>;
+    activateUser(activateToken: string): Promise<string>;
 }

@@ -1,22 +1,30 @@
 import { NextFunction, Request, Response } from 'express';
 import { authService } from '../services/authService';
-import { tokenService } from '../services/tokenService';
+import { tokenRepository } from '../repositories/tokenRepository';
 import { ErrorHandler } from '../error/errorHandler';
 import { usersRepository } from '../repositories/usersRepository';
 import { IRequestExtended } from '../interfaces';
 import { IUser } from '../entity/user';
 import { constants } from '../constants/constants';
+import { emailService } from '../services/emailService';
 
 class AuthController {
     public async registration(req: Request, res: Response, next: NextFunction) {
         try {
             const user = await authService.registration(req.body);
-            const { email, id } = user;
-            const token = await tokenService.generateTokenActivate({
+            const { email, id, firstName } = user;
+            const token = await tokenRepository.generateTokenActivate({
                 userId: id,
                 userEmail: email,
             });
-            await tokenService.saveTokenActivate(id, token.activateToken);
+            await tokenRepository.saveTokenActivate(id, token.activateToken);
+            const sendEmail = await emailService.sendMail(email, 'WELCOME', { firstName }, token)
+                // eslint-disable-next-line no-console
+                .catch(console.error);
+            if (!sendEmail) {
+                next(new ErrorHandler('Problems is send email', 404));
+                return;
+            }
             res.json(user);
         } catch (e) {
             next(e);
@@ -32,11 +40,11 @@ class AuthController {
                 return;
             }
             const { id } = user;
-            const tokenPair = await tokenService.generateTokenPair({
+            const tokenPair = await tokenRepository.generateTokenPair({
                 userId: id,
                 userEmail: email,
             });
-            const token = await tokenService.saveToken(tokenPair);
+            const token = await tokenRepository.saveToken(tokenPair);
             res.json({
                 token,
                 user,
@@ -49,7 +57,7 @@ class AuthController {
     public async logout(req: IRequestExtended, res: Response, next: NextFunction) {
         const id = req.user?.id;
         if (id !== undefined) {
-            await tokenService.deleteUserTokenPair(id);
+            await tokenRepository.deleteUserTokenPair(id);
         } else {
             next(new ErrorHandler('Bad request'));
         }
@@ -60,16 +68,16 @@ class AuthController {
         try {
             const { id, email } = req.user as IUser;
             const refreshTokenToDelete = req.get(constants.AUTHORIZATION);
-            const token = await tokenService.findTokenRefresh(refreshTokenToDelete);
+            const token = await tokenRepository.findTokenRefresh(refreshTokenToDelete);
             if (!token) {
                 next(new ErrorHandler('Unauthorized', 401));
                 return;
             }
-            const tokenPair = await tokenService.generateTokenPair(
+            const tokenPair = await tokenRepository.generateTokenPair(
                 { userId: id, userEmail: email },
             );
             const { accessToken, refreshToken } = tokenPair;
-            await tokenService.saveToken(tokenPair);
+            await tokenRepository.saveToken(tokenPair);
             res.json({
                 refreshToken,
                 accessToken,
