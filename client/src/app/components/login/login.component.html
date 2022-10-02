@@ -1,4 +1,4 @@
-<div class="form_div_main">
+<!-- <div class="form_div_main">
   <form [formGroup]="loginForm" class="form">
     <div class="form_div">
         <label class="label">Email:</label>
@@ -14,4 +14,24 @@
     </div>
     <button (click)="login()">login</button>
     </form>  
-</div>
+</div> -->
+<form [formGroup]="loginForm">
+    <div class="form_div">
+      <div class="mb-3 row" >
+        <label for="inputEmail" class="col-sm-2 col-form-label" >Email</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputEmail" formControlName="email">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="inputPassword" formControlName="password">
+        </div> 
+    </div> 
+    <div class="button_div">
+        <button (click)="login()" type="button" class="btn btn-primary">login</button> 
+    </div>
+
+    </div>
+</form>

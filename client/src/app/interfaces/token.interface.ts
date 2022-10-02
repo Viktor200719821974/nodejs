@@ -7,7 +7,7 @@ export interface IToken {
     userId: number;
 }
  
-export interface ITokenData {
-    token: IToken;
-    user: IUser;
-}
+// export interface ITokenData {
+//     token: IToken;
+//     user: IUser;
+// }

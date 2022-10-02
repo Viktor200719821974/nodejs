@@ -8,7 +8,10 @@
     padding: 40px;
 }
 .form_div {
-    margin: 20px;
+    /* margin: 20px; */
+    border: 1px solid #0d6efd;
+    padding: 40px;
+    border-radius: 10px;
 }
 .input {
     margin-right: -140px;
@@ -19,4 +22,17 @@
 } */
 .label {
     margin-right: 15px;
+}
+.row {
+    width: 500px;
+}
+form {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.button_div {
+    display: flex;
+    justify-content: right;
+    margin-top: 35px;
 }

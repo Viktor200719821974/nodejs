@@ -1,1 +1,3 @@
-<p>header works!</p>
+<div>{{user?.firstName || 'Anonymus'}}</div>
+<button (click)="logOut()" *ngIf="isLogin">logOut</button>
+<button (click)="login()" *ngIf="!isLogin">login</button>

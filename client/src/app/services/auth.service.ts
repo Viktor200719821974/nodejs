@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { urls } from '../configs';
 
-import { IAuth, IToken, ITokenData } from '../interfaces';
+import { IAuth, IToken, IUser } from '../interfaces';
 import { DataTransferService } from './data-transfer.service';
 import { UserService } from './user.service';
 
@@ -20,16 +20,27 @@ export class AuthService {
     private userService: UserService
     ) {}
 
-  login(user: IAuth) {
-    return this.httpClient.post<IToken>(`${urls.auth}/login`, user)
+  login (userLogin: IAuth): Observable<IToken> {
+    return this.httpClient.post<IToken>(`${urls.auth}/login`, userLogin)
     .pipe(
-      tap((tokens:ITokenData['token']) => {
-        this.userService.getUserById(tokens.userId).subscribe((value: any) => {
+      tap((token: IToken) => {
+        this.setTokens(token);
+        this.userService.getUserById(token.userId).subscribe(value => {
           this.transferService.currentUserSubject.next(value);
-        });
-        this.setTokens(tokens);
+        })
       }
-    ));
+    )
+  );
+  }
+
+  registration(user: any): Observable<IUser> {
+    return this.httpClient.post<IUser>(`${urls.auth}/registration`, user);
+  }
+
+  logOut():void {
+    localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
+    this.httpClient.post(`${urls.auth}/logout`, '');
   }
 
   refreshToken(): Observable<IToken> {
@@ -61,8 +72,8 @@ export class AuthService {
     return localStorage.getItem(this.refreshTokenKey);
   }
 
-  private setTokens(token: IToken): void {
-    const {accessToken, refreshToken} = token;
+  private setTokens(tokens: IToken): void {
+    const {accessToken, refreshToken} = tokens;
     this.setAccessToken(accessToken);
     this.setRefreshToken(refreshToken);
   }

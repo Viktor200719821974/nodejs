@@ -1,1 +1,41 @@
-<p>registration works!</p>
+<div class="form_div_main">
+    <form [formGroup]="registrationForm">
+        <div>
+            <label>First name:</label>
+            <span class="span">
+                 <input type="text" formControlName="firstName">
+            </span> 
+        </div>
+        <div class="form_div">
+            <label class="label">Last name:</label>
+            <span class="span">
+                 <input type="text" formControlName="lastName">
+            </span>
+        </div>
+        <div class="form_div">
+            <label class="label">Email:</label>
+            <span class="span">
+                <input type="text" formControlName="email">
+            </span>
+        </div>
+        <div class="form_div">
+            <label class="label">Password:</label>
+            <span class="span">
+                <input type="password" formControlName="password">
+            </span>
+        </div>
+        <div class="form_div">
+            <label class="label">Age:</label>
+            <span class="span">
+              <input type="number" formControlName="age">  
+            </span> 
+        </div>
+        <div class="form_div">
+            <label class="label">Phone:</label>
+            <span class="span">
+                <input type="text" formControlName="phone">
+            </span>
+        </div>
+    <button (click)="registration()">Send</button>
+</form>
+</div>
