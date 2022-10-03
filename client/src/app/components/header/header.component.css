@@ -1,0 +1,37 @@
+.navBar_main_div {
+    display: flex; 
+    background: #0d6efd;
+    height: 80px;
+    align-items: flex-end;
+}
+.navBar_div_button {
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+}
+.navBar_div_button_home {
+    width: 30%;
+}
+.navBar_div_name_site {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    font-size: 30px;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 20px;
+}
+.navBar_name {
+    color: white;
+    margin: 10px;
+    text-transform: uppercase;
+}
+.btn-link {
+    color: white;
+    text-decoration-line: none;
+    margin: 3px;
+}
+.btn-link:hover {
+    color: black;
+}

@@ -1,41 +1,82 @@
-<div class="form_div_main">
-    <form [formGroup]="registrationForm">
-        <div>
-            <label>First name:</label>
-            <span class="span">
-                 <input type="text" formControlName="firstName">
-            </span> 
+<div class="title">Registration</div> 
+<form [formGroup]="registrationForm"> 
+    <div class="form_div">
+      <div class="mb-3 row" >
+        <label for="inputEmail" class="col-sm-3 col-form-label">Email:</label>
+        <div class="col-sm-10">
+            <input 
+            type="text" 
+            class="form-control" 
+            id="inputEmail" 
+            formControlName="email"
+            placeholder="email@gmail.com"
+            >
         </div>
-        <div class="form_div">
-            <label class="label">Last name:</label>
-            <span class="span">
-                 <input type="text" formControlName="lastName">
-            </span>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-3 col-form-label">
+            Password:
+        </label>
+        <div class="col-sm-10">
+            <input 
+            type="password" 
+            class="form-control" 
+            id="inputPassword" 
+            formControlName="password"
+            placeholder="password min 8 symbols"
+            >
+        </div> 
+    </div> 
+    <div class="mb-3 row" >
+        <label for="inputFirstName" class="col-sm-3 col-form-label">First name:</label>
+        <div class="col-sm-10">
+            <input 
+            type="text" 
+            class="form-control" 
+            id="inputFirstName" 
+            formControlName="firstName"
+            placeholder="min 2 symbols"
+            >
         </div>
-        <div class="form_div">
-            <label class="label">Email:</label>
-            <span class="span">
-                <input type="text" formControlName="email">
-            </span>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputLastName" class="col-sm-3 col-form-label">Last name: </label>
+        <div class="col-sm-10">
+            <input 
+            type="password" 
+            class="form-control" 
+            id="inputLastName" 
+            formControlName="lastName"
+            placeholder="min 2 symbols"
+            >
+        </div> 
+    </div> 
+    <div class="mb-3 row" >
+        <label for="inputAge" class="col-sm-3 col-form-label">Age:</label>
+        <div class="col-sm-10">
+            <input 
+            type="number" 
+            class="form-control"
+            id="inputAge" 
+            formControlName="age"
+            placeholder="min 18 old years"
+            >
         </div>
-        <div class="form_div">
-            <label class="label">Password:</label>
-            <span class="span">
-                <input type="password" formControlName="password">
-            </span>
-        </div>
-        <div class="form_div">
-            <label class="label">Age:</label>
-            <span class="span">
-              <input type="number" formControlName="age">  
-            </span> 
-        </div>
-        <div class="form_div">
-            <label class="label">Phone:</label>
-            <span class="span">
-                <input type="text" formControlName="phone">
-            </span>
-        </div>
-    <button (click)="registration()">Send</button>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputPhone" class="col-sm-3 col-form-label">Phone:</label>
+        <div class="col-sm-10">
+            <input 
+            type="text" 
+            class="form-control" 
+            id="inputPhone" 
+            formControlName="phone"
+            placeholder="+48256789123"
+            >
+        </div> 
+    </div> 
+    <div class="button_div">
+        <button (click)="registration()" type="button" class="btn btn-primary">Send</button> 
+    </div>
+    </div>
 </form>
-</div>

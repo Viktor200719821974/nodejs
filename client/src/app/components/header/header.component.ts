@@ -38,4 +38,8 @@ export class HeaderComponent implements OnInit {
     this.isLogin = false;
   }
 
+  home() {
+    this.router.navigate(['']);
+  }
+
 }

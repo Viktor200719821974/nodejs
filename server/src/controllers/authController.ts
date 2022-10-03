@@ -18,14 +18,13 @@ class AuthController {
                 userEmail: email,
             });
             await tokenRepository.saveTokenActivate(id, token.activateToken);
-            console.log(firstName);
-            // const sendEmail = await emailService.sendMail(email, 'WELCOME', { firstName }, token)
-            //     // eslint-disable-next-line no-console
-            //     .catch(console.error);
-            // if (!sendEmail) {
-            //     next(new ErrorHandler('Problems is send email', 404));
-            //     return;
-            // }
+            const sendEmail = await emailService.sendMail(email, 'WELCOME', { firstName }, token)
+                // eslint-disable-next-line no-console
+                .catch(console.error);
+            if (!sendEmail) {
+                next(new ErrorHandler('Problems is send email', 404));
+                return;
+            }
             res.json(user);
         } catch (e) {
             next(e);

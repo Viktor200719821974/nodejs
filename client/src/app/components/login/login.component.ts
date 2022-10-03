@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -22,13 +23,16 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.loginForm.getRawValue());
     this.authService.login(this.loginForm.getRawValue()).subscribe(value => {
       if (value) {
         this.router.navigate(['']);
       }
     });
     // .subscribe(() => {}, error => console.log(error));
+  }
+
+  registration() {
+    this.router.navigate(['registration']);
   }
 
 }
