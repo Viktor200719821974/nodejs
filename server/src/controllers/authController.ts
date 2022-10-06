@@ -6,7 +6,7 @@ import { usersRepository } from '../repositories/usersRepository';
 import { IRequestExtended } from '../interfaces';
 import { IUser } from '../entity/user';
 import { constants } from '../constants/constants';
-// import { emailService } from '../services/emailService';
+import { emailService } from '../services/emailService';
 
 class AuthController {
     public async registration(req: Request, res: Response, next: NextFunction) {
