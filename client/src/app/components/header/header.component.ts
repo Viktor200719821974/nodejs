@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { IUser } from 'src/app/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataTransferService } from 'src/app/services/data-transfer.service';
@@ -13,11 +14,12 @@ export class HeaderComponent implements OnInit {
 
   user: IUser | undefined;
   isLogin: boolean = false;
+  isAdmin: boolean = false;
   
   constructor(
     private transfer: DataTransferService, 
     private authService: AuthService,
-    private router: Router
+    private router: Router,
     ) { }
 
   ngOnInit(): void {
@@ -25,6 +27,9 @@ export class HeaderComponent implements OnInit {
       if (value) {
         this.user = value;
         this.isLogin = true;
+        if (value.is_staff || value.is_superuser) {
+          this.isAdmin = true;
+        }
       }
     });
   }
@@ -40,6 +45,10 @@ export class HeaderComponent implements OnInit {
 
   home() {
     this.router.navigate(['']);
+  }
+
+  admin() {
+    this.router.navigate(['admin']);
   }
 
 }

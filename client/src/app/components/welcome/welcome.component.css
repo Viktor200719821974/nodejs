@@ -1,0 +1,21 @@
+.div_thank_you {
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: blue;
+    margin-top: 100px;
+}
+.div_account_active {
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: rgb(255, 0, 115);
+    margin-top: 20px;
+}
+.div_already_registred {
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: rgb(64, 255, 0);
+    margin-top: 100px;
+}

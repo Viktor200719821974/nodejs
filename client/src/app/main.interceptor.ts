@@ -47,6 +47,12 @@ export class MainInterceptor implements HttpInterceptor {
     })
   }
 
+  addRefreshToken(request: HttpRequest<any>, token: string | null): HttpRequest<any> {
+    return request.clone({
+      setHeaders: {Authorization: `${token}`}
+    })
+  }
+
   private handle401Error(request: HttpRequest<any>, next: HttpHandler): any {
     return this.authService.refreshToken().pipe(
       switchMap((tokens: IToken) => {

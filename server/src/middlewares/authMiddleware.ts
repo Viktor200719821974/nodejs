@@ -40,6 +40,7 @@ class AuthMiddleware {
         }
         try {
             const token = req.headers.authorization;
+            console.log(token);
             if (!token) {
                 next(new ErrorHandler('Unauthorized', 401));
                 return;

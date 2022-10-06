@@ -66,11 +66,18 @@ class TokenRepository extends Repository<Token> implements ITokenRepository {
         if (tokenType === 'refreshToken') {
             secretWord = process.env.SECRET_REFRESH_KEY!;
         }
+        if (tokenType === 'activateToken') {
+            secretWord = process.env.SECRET_ACTIVATE_KEY!;
+        }
         return jwt.verify(authToken, secretWord);
     }
 
     async findByParamsAccess(accessToken: string): Promise<Token | undefined> {
         return getManager().getRepository(Token).findOne({ accessToken });
+    }
+
+    async findByParamsActive(activateToken: string):Promise<User | undefined> {
+        return getManager().getRepository(User).findOne({ activateToken });
     }
 
     async findByParamsRefresh(refreshToken: string): Promise<Token | undefined> {

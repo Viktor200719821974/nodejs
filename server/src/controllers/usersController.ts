@@ -3,6 +3,7 @@ import { usersService } from '../services/usersService';
 import { IRequestExtended } from '../interfaces';
 import { ErrorHandler } from '../error/errorHandler';
 import { emailService } from '../services/emailService';
+import { tokenRepository } from '../repositories/tokenRepository';
 
 class UsersController {
     public async getUsers(req:Request, res:Response, next: NextFunction) {
@@ -125,6 +126,12 @@ class UsersController {
             const activateToken = req.params.token;
             if (!activateToken) {
                 next(new ErrorHandler('Bad request'));
+                return;
+            }
+            const truthToken = await tokenRepository.findByParamsActive(activateToken);
+            if (!truthToken) {
+                next(new ErrorHandler('Bad token'));
+                return;
             }
             const activate = await usersService.activateUser(activateToken);
             if (activate !== 'Ok') {

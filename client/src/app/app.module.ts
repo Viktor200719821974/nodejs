@@ -12,6 +12,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { HeaderComponent } from './components/header/header.component';
 import { MainInterceptor } from './main.interceptor';
 import { ErrorIntercept } from './error.interceptor';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ErrorIntercept } from './error.interceptor';
     HomeComponent,
     LoginComponent,
     RegistrationComponent,
-    HeaderComponent
+    HeaderComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

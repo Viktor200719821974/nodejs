@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { urls } from '../configs';
 
 import { IAuth, IToken, IUser } from '../interfaces';
@@ -17,7 +17,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient, 
     private transferService: DataTransferService,
-    private userService: UserService
+    private userService: UserService,
     ) {}
 
   login (userLogin: IAuth): Observable<IToken> {
@@ -41,6 +41,10 @@ export class AuthService {
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
     this.httpClient.post(`${urls.auth}/logout`, '');
+  }
+
+  activateUser(token: string | null):any {
+    return this.httpClient.get(`${urls.users}/activateUser/${token}`);
   }
 
   refreshToken(): Observable<IToken> {
