@@ -11,7 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainInterceptor } from './main.interceptor';
-import { ErrorIntercept } from './error.interceptor';
+// import { ErrorIntercept } from './error.interceptor';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
@@ -37,11 +37,11 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
       multi: true,
       useClass: MainInterceptor
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      multi: true,
-      useClass: ErrorIntercept
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   multi: true,
+    //   useClass: ErrorIntercept
+    // }
   ],
   bootstrap: [AppComponent]
 })

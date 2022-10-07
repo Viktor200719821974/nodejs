@@ -5,7 +5,6 @@ import { ErrorHandler } from '../error/errorHandler';
 import { usersRepository } from '../repositories/usersRepository';
 import { IRequestExtended } from '../interfaces';
 import { IUser } from '../entity/user';
-import { constants } from '../constants/constants';
 import { emailService } from '../services/emailService';
 
 class AuthController {
@@ -64,7 +63,7 @@ class AuthController {
     async refreshToken(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const { id, email } = req.user as IUser;
-            const refreshTokenToDelete = req.get(constants.AUTHORIZATION);
+            const refreshTokenToDelete = req.body.refreshToken;
             const token = await tokenRepository.findTokenRefresh(refreshTokenToDelete);
             if (!token) {
                 next(new ErrorHandler('Unauthorized', 401));

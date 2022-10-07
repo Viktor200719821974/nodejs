@@ -27,7 +27,7 @@ class TokenRepository extends Repository<Token> implements ITokenRepository {
         const accessToken = jwt.sign(
             payload,
             process.env.SECRET_ACCESS_KEY!,
-            { expiresIn: '10m' },
+            { expiresIn: '1m' },
         );
         const refreshToken = jwt.sign(
             payload,
@@ -69,7 +69,16 @@ class TokenRepository extends Repository<Token> implements ITokenRepository {
         if (tokenType === 'activateToken') {
             secretWord = process.env.SECRET_ACTIVATE_KEY!;
         }
-        return jwt.verify(authToken, secretWord);
+        const token = jwt.verify(authToken, secretWord, (err, decoded) => {
+            if (err) {
+                return undefined;
+            }
+            return decoded;
+        });
+        if (token !== undefined) {
+            return token;
+        }
+        return 'Unauthorized';
     }
 
     async findByParamsAccess(accessToken: string): Promise<Token | undefined> {

@@ -5,7 +5,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { catchError, switchMap } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { IToken } from './interfaces';
@@ -15,7 +15,7 @@ export class MainInterceptor implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
     ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): any {
@@ -24,8 +24,8 @@ export class MainInterceptor implements HttpInterceptor {
       request = this.addToken(request, this.authService.getAccessToken());
     }
     return next.handle(request).pipe(
-      catchError((res: HttpErrorResponse) => {
-        if (res && res.error) {
+        catchError((res: HttpErrorResponse) => {
+        if (res) {
           if (res.status === 401) {
             return this.handle401Error(request, next)
           }
@@ -38,18 +38,12 @@ export class MainInterceptor implements HttpInterceptor {
           }
         }
       })
-    )
+    )   
   }
 
   addToken(request: HttpRequest<any>, token: string | null): HttpRequest<any> {
     return request.clone({
       setHeaders: {Authorization: `Bearer ${token}`}
-    })
-  }
-
-  addRefreshToken(request: HttpRequest<any>, token: string | null): HttpRequest<any> {
-    return request.clone({
-      setHeaders: {Authorization: `${token}`}
     })
   }
 

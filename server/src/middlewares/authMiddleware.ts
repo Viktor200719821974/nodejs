@@ -15,11 +15,13 @@ class AuthMiddleware {
                 next(new ErrorHandler('No token', 404));
                 return;
             }
-            // @ts-ignore
-            const { userEmail } = await tokenRepository.verifyToken(token);
-            if (!userEmail) {
+            const tokenVerify = await tokenRepository.verifyToken(token);
+            if (tokenVerify === 'Unauthorized') {
                 next(new ErrorHandler('Unauthorized', 401));
+                return;
             }
+            // @ts-ignore
+            const {userEmail} = tokenVerify;
             await tokenRepository.findByParamsAccess(token);
             const user = await usersService.getUserByEmail(userEmail)
                 .then((data) => data);
@@ -39,15 +41,19 @@ class AuthMiddleware {
             next();
         }
         try {
-            const token = req.headers.authorization;
-            console.log(token);
-            if (!token) {
+            const { refreshToken } = req.body;
+            if (!refreshToken) {
+                next(new ErrorHandler('Unauthorized', 401));
+                return;
+            }
+            const tokenVerify = await tokenRepository.verifyToken(refreshToken, 'refreshToken');
+            if (tokenVerify === 'Unauthorized') {
                 next(new ErrorHandler('Unauthorized', 401));
                 return;
             }
             // @ts-ignore
-            const { userEmail } = await tokenRepository.verifyToken(token, 'refreshToken');
-            await tokenRepository.findByParamsRefresh(token);
+            const { userEmail } = tokenVerify;
+            await tokenRepository.findByParamsRefresh(refreshToken);
             const user = await usersService.getUserByEmail(userEmail).then((data) => data);
             if (user) {
                 req.user = user;

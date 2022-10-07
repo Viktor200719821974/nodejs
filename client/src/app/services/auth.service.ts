@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { urls } from '../configs';
@@ -13,6 +13,9 @@ import { UserService } from './user.service';
 export class AuthService {
   private accessTokenKey = 'access';
   private refreshTokenKey = 'refresh';
+  // private httpOptions = {
+  //   headers: new HttpHeaders({ 'Authorization': `${this.getRefreshToken()}` })
+  // };
 
   constructor(
     private httpClient: HttpClient, 
@@ -25,6 +28,7 @@ export class AuthService {
     .pipe(
       tap((token: IToken) => {
         this.setTokens(token);
+        localStorage.setItem('userId', token.userId + '');
         this.userService.getUserById(token.userId).subscribe(value => {
           this.transferService.currentUserSubject.next(value);
         })
@@ -48,7 +52,8 @@ export class AuthService {
   }
 
   refreshToken(): Observable<IToken> {
-    return this.httpClient.post<IToken>(`${urls.auth}/refresh`, {refresh: this.getRefreshToken()})
+    // return this.httpClient.post<IToken>(`${urls.auth}/refresh`, {}, this.httpOptions)
+    return this.httpClient.post<IToken>(`${urls.auth}/refresh`, {refreshToken: this.getRefreshToken()})
     .pipe(
       tap((tokens: IToken) => {
         this.setTokens(tokens);
@@ -72,7 +77,7 @@ export class AuthService {
     return localStorage.getItem(this.accessTokenKey);
   }
 
-  private getRefreshToken(): string | null {
+  getRefreshToken(): string | null {
     return localStorage.getItem(this.refreshTokenKey);
   }
 

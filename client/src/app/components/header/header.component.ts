@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { IUser } from 'src/app/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataTransferService } from 'src/app/services/data-transfer.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -20,9 +21,16 @@ export class HeaderComponent implements OnInit {
     private transfer: DataTransferService, 
     private authService: AuthService,
     private router: Router,
+    private userService: UserService
     ) { }
 
   ngOnInit(): void {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.userService.getUserById(Number(userId)).subscribe(value => {
+        this.transfer.currentUserSubject.next(value);
+      });
+    }
     this.transfer.currentUserSubject.subscribe(value =>{
       if (value) {
         this.user = value;
