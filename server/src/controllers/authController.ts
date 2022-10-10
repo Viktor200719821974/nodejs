@@ -77,6 +77,7 @@ class AuthController {
             res.json({
                 refreshToken,
                 accessToken,
+                userId: id,
             });
         } catch (e) {
             next(e);

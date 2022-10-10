@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit {
   logOut():void {
     this.authService.logOut();
     this.isLogin = false;
+    this.isAdmin = false;
   }
 
   home() {

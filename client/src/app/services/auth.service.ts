@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { urls } from '../configs';
 
@@ -21,6 +22,7 @@ export class AuthService {
     private httpClient: HttpClient, 
     private transferService: DataTransferService,
     private userService: UserService,
+    private router: Router
     ) {}
 
   login (userLogin: IAuth): Observable<IToken> {
@@ -31,7 +33,7 @@ export class AuthService {
         localStorage.setItem('userId', token.userId + '');
         this.userService.getUserById(token.userId).subscribe(value => {
           this.transferService.currentUserSubject.next(value);
-        })
+        });
       }
     )
   );
@@ -44,7 +46,9 @@ export class AuthService {
   logOut():void {
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
+    localStorage.removeItem('userId');
     this.httpClient.post(`${urls.auth}/logout`, '');
+    this.router.navigate(['']);
   }
 
   activateUser(token: string | null):any {
@@ -57,6 +61,9 @@ export class AuthService {
     .pipe(
       tap((tokens: IToken) => {
         this.setTokens(tokens);
+        this.userService.getUserById(tokens.userId).subscribe(value => {
+          this.transferService.currentUserSubject.next(value);
+        });
       })
     );
   }
