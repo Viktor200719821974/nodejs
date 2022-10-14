@@ -17,8 +17,10 @@ services:
     ports:
       - "3307:3306"
     restart: on-failure
-    env_file:
-      - .env.-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=jhkdkllaakjlhklhkajhkhahiwiwi
+    # env_file:
+    #   - .env.-db
     volumes:
       - ./mysql:/var/lib/mysql
   web:
