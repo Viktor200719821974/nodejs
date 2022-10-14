@@ -4,6 +4,14 @@
       <div class="mb-3 row" >
         <label for="inputEmail" class="col-sm-3 col-form-label">Email:</label>
         <div class="col-sm-10">
+            <span *ngIf="registrationForm.controls['email'].errors">
+                <span *ngIf="registrationForm.controls['email'].errors['email']" class="span_error">
+                    Email must be like this: user@gmail.com 
+                </span> 
+                <span *ngIf="registrationForm.controls['email'].errors['required']" class="span_error">
+                    Email is not must be empty
+                </span> 
+            </span>
             <input 
             type="text" 
             class="form-control" 
@@ -18,6 +26,15 @@
             Password:
         </label>
         <div class="col-sm-10">
+            <div class="col-sm-10">
+                <span *ngIf="registrationForm.controls['password'].errors">
+                    <span *ngIf="registrationForm.controls['password'].errors['minlength']" class="span_error">
+                        Password must be 8, there is {{registrationForm.controls['password'].errors['minlength'].actualLength|json}}
+                    </span> 
+                    <span *ngIf="registrationForm.controls['password'].errors['required']" class="span_error">
+                        Password is not must be empty
+                    </span> 
+                </span>
             <input 
             type="password" 
             class="form-control" 
@@ -25,11 +42,20 @@
             formControlName="password"
             placeholder="password min 8 symbols"
             >
+            </div>
         </div> 
     </div> 
     <div class="mb-3 row" >
         <label for="inputFirstName" class="col-sm-3 col-form-label">First name:</label>
         <div class="col-sm-10">
+            <span *ngIf="registrationForm.controls['firstName'].errors">
+                <span *ngIf="registrationForm.controls['firstName'].errors['minlength']" class="span_error">
+                    First name must be 2, there is {{registrationForm.controls['firstName'].errors['minlength'].actualLength|json}}
+                </span> 
+                <span *ngIf="registrationForm.controls['firstName'].errors['required']" class="span_error">
+                    First name is not must be empty
+                </span> 
+            </span>
             <input 
             type="text" 
             class="form-control" 
@@ -42,6 +68,14 @@
     <div class="mb-3 row">
         <label for="inputLastName" class="col-sm-3 col-form-label">Last name: </label>
         <div class="col-sm-10">
+            <span *ngIf="registrationForm.controls['lastName'].errors">
+                <span *ngIf="registrationForm.controls['lastName'].errors['minlength']" class="span_error">
+                    Last name must be 2, there is {{registrationForm.controls['lastName'].errors['minlength'].actualLength|json}}
+                </span> 
+                <span *ngIf="registrationForm.controls['lastName'].errors['required']" class="span_error">
+                    Last name is not must be empty
+                </span> 
+            </span>
             <input 
             type="text" 
             class="form-control" 
@@ -54,6 +88,14 @@
     <div class="mb-3 row" >
         <label for="inputAge" class="col-sm-3 col-form-label">Age:</label>
         <div class="col-sm-10">
+            <span *ngIf="registrationForm.controls['age'].errors">
+                <span *ngIf="registrationForm.controls['age'].errors['min']" class="span_error">
+                    Age must be {{registrationForm.controls['age'].errors|json}}
+                </span> 
+                <!-- <span *ngIf="registrationForm.controls['age'].errors['required']" class="span_error">
+                    Age is not must be empty
+                </span>  -->
+            </span>
             <input 
             type="number" 
             class="form-control"
@@ -66,17 +108,32 @@
     <div class="mb-3 row">
         <label for="inputPhone" class="col-sm-3 col-form-label">Phone:</label>
         <div class="col-sm-10">
+            <span *ngIf="registrationForm.controls['phone'].errors">
+                <span *ngIf="registrationForm.controls['phone'].errors['maxlength']" class="span_error">
+                    Phone must be like this: +48562365289 or 48562365289 
+                </span> 
+                <span *ngIf="registrationForm.controls['phone'].errors['required']" class="span_error">
+                    Phone is not must be empty
+                </span> 
+            </span>
             <input 
-            type="text" 
-            class="form-control" 
-            id="inputPhone" 
-            formControlName="phone"
-            placeholder="+48256789123"
+                type="text" 
+                class="form-control" 
+                id="inputPhone" 
+                formControlName="phone"
+                placeholder="+48256789123"
             >
         </div> 
     </div> 
     <div class="button_div">
-        <button (click)="registration()" type="button" class="btn btn-primary">Send</button> 
-    </div>
+        <button 
+            (click)="registration()" 
+            type="button" 
+            class="btn btn-primary" 
+            [disabled]="registrationForm.invalid"
+        >
+            Send
+        </button> 
+    </div> 
     </div>
 </form>

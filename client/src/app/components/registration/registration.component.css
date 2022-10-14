@@ -26,3 +26,9 @@ form {
     margin-top: 50px;
     color: #216ecf;
 }
+.span_error {
+    color: red;
+    font-size: 12px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}

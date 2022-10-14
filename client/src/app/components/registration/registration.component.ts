@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -14,15 +14,44 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
+  customValidator(control: AbstractControl): null | object {
+    return control.value.includes('huck') ? {ahtung: 'Error'} : null;
+  }
+  
   ngOnInit(): void {
     this.registrationForm = new FormGroup({
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      age: new FormControl(''),
-      phone: new FormControl(''),
-      email: new FormControl(''),
-      password: new FormControl('')
+      firstName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        this.customValidator
+      ]),
+      lastName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        this.customValidator
+      ]),
+      age: new FormControl('', [
+        Validators.required,
+        Validators.min(18),
+        this.customValidator
+      ]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(12),
+        this.customValidator
+      ]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+        this.customValidator
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        this.customValidator
+      ])
     });
+    console.log(this.registrationForm.controls['age'].errors);
   }
 
   registration() {

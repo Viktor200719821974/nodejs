@@ -27,3 +27,9 @@ form {
 .btn-link {
     text-decoration-line: none;
 }
+.span_error {
+    color: red;
+    font-size: 12px;
+    margin-left: 85px;
+    margin-bottom: 2px;
+}
