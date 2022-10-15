@@ -12,7 +12,10 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm!: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    ) { }
 
   customValidator(control: AbstractControl): null | object {
     return control.value.includes('huck') ? {ahtung: 'Error'} : null;
@@ -30,9 +33,8 @@ export class RegistrationComponent implements OnInit {
         Validators.minLength(2),
         this.customValidator
       ]),
-      age: new FormControl('', [
+      age: new FormControl('18', [
         Validators.required,
-        Validators.min(18),
         this.customValidator
       ]),
       phone: new FormControl('', [
