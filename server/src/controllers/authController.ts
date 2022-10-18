@@ -6,7 +6,7 @@ import { usersRepository } from '../repositories/usersRepository';
 import { IRequestExtended } from '../interfaces';
 import { IUser } from '../entity/user';
 import { constants } from '../constants/constants';
-import { emailService } from '../services/emailService';
+// import { emailService } from '../services/emailService';
 
 class AuthController {
     public async registration(req: Request, res: Response, next: NextFunction) {
@@ -17,14 +17,15 @@ class AuthController {
                 userId: id,
                 userEmail: email,
             });
+            console.log(firstName);
             await tokenRepository.saveTokenActivate(id, token.activateToken);
-            const sendEmail = await emailService.sendMail(email, 'WELCOME', { firstName }, token)
-                // eslint-disable-next-line no-console
-                .catch(console.error);
-            if (!sendEmail) {
-                next(new ErrorHandler('Problems is send email', 404));
-                return;
-            }
+            // const sendEmail = await emailService.sendMail(email, 'WELCOME', { firstName }, token)
+            //     // eslint-disable-next-line no-console
+            //     .catch(console.error);
+            // if (!sendEmail) {
+            //     next(new ErrorHandler('Problems is send email', 404));
+            //     return;
+            // }
             res.json(user);
         } catch (e) {
             next(e);
