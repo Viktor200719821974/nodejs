@@ -4,7 +4,7 @@ export class TokensTable1666107493465 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-        CREATE TABLE IF NOT EXISTS tokens (
+        CREATE TABLE IF NOT EXISTS Tokens (
             id INT PRIMARY KEY AUTO_INCREMENT,
             accessToken VARCHAR(250) NOT NULL,
             refreshToken VARCHAR(250) NOT NULL,
@@ -15,7 +15,7 @@ export class TokensTable1666107493465 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            DROP TABLE IF EXISTS tokens
+            DROP TABLE IF EXISTS Tokens
         `);
     }
 

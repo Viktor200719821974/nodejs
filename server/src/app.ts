@@ -20,20 +20,20 @@ const { PORT } = process.env;
 app.listen(PORT || 5000, async () => {
     try {
         const connection = await createConnection(
-        //     {
-        //     type: 'mysql',
-        //     host: process.env.DB_HOST,
-        //     port: Number(process.env.DB_PORT),
-        //     username: process.env.DB_USER,
-        //     password: process.env.DB_PASSWORD,
-        //     database: process.env.DB_NAME,
-        //     entities: ['src/entity/**/*.ts'],
-        //     subscribers: ['src/subscriber/**/*.ts'],
-        //     migrations: ['src/migration/**/*.ts'],
-        //     cli: {
-        //         migrationsDir: 'src/migration',
-        //     },
-        // }
+            {
+            type: 'mysql',
+            host: process.env.DB_HOST,
+            port: Number(process.env.DB_PORT),
+            username: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+            entities: ['src/entity/**/*.ts'],
+            subscribers: ['src/subscriber/**/*.ts'],
+            migrations: ['src/migration/**/*.ts'],
+            cli: {
+                migrationsDir: 'src/migration',
+            },
+        }
         );
         if (connection) {
             // eslint-disable-next-line no-console

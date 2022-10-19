@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Alert, Button, Card, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import { useDispatch } from 'react-redux';
 
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from '../constans';
 import { login, registration} from '../http/authApi';
-
+import { fetchUser, isLoginUser } from '../redux/actions';
 
 const Auth = observer(() => {
-
+    const dispatch = useDispatch();
     // const auth = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
@@ -45,6 +46,8 @@ const Auth = observer(() => {
             }
             if (data) {
                 // auth.setIsAuth(data.accessToken);
+                dispatch(fetchUser(data.user));
+                dispatch(isLoginUser(true));
                 navigate(HOME_ROUTE);
                 setError('');
             }
