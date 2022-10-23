@@ -29,7 +29,7 @@ body {
 .navBar_title {
     justify-content: center;
     font-size: 26px;
-    width: 70%;
+    width: 80%;
 }
 .navBar_div_title_button {
     display: flex;
@@ -37,5 +37,29 @@ body {
     width: 100%;
 }
 .navBar_nav_button {
+    width: 20%;
+    padding-right: 20px;
+    justify-content: right;
+}
+.div_register{
+    display: flex;
     justify-content: center;
+    align-content: center;
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-top: 170px;
+}
+.div_register_welcome{
+    color: #04fc0a;
+    text-shadow: 1px 0 1px #000,
+    0 1px 1px #000,
+    -1px 0 1px #000,
+    0 -1px 1px #000;
+}
+.div_register_error{
+    color: red;
+    text-shadow: 1px 0 1px #000,
+    0 1px 1px #000,
+    -1px 0 1px #000,
+    0 -1px 1px #000;
 }

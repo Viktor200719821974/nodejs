@@ -19,9 +19,11 @@ class AuthValidate {
     public async login(req: Request, res: Response, next: NextFunction)
         :Promise<void | never> {
         try {
-            const { error } = await validators.login.validate(req.body);
+            const {error} = validators.login.validate(req.body);
+            console.log(error, 'error');
             if (error) {
-                next(new ErrorHandler(error.message, 400));
+                next(new ErrorHandler(error.message));
+                return;
             }
             next();
         } catch (e) {

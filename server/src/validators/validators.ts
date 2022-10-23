@@ -15,7 +15,7 @@ export const validators = {
         is_superuser: Joi.boolean(),
     }),
     login: Joi.object({
-        email: commonValidator.emailValidator.required().error(new Error('Email not valid')),
+        email: commonValidator.emailValidator.required().error(new Error('Email is not valid')),
         password: Joi.string().required().trim().min(8)
             .error(new Error('Password is not valid, no space, min 8')),
     }),

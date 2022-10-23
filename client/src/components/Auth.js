@@ -10,7 +10,6 @@ import { fetchUser, isLoginUser } from '../redux/actions';
 
 const Auth = observer(() => {
     const dispatch = useDispatch();
-    // const auth = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const isLogin = location.pathname === LOGIN_ROUTE;
@@ -29,6 +28,7 @@ const Auth = observer(() => {
             if (isLogin) {
                 data = await login(email, password)
                     .catch(err => {
+                        console.log(err);
                         if (err.response) {
                             setError(err.response.data.message);
                         }
@@ -45,7 +45,6 @@ const Auth = observer(() => {
                }
             }
             if (data) {
-                // auth.setIsAuth(data.accessToken);
                 dispatch(fetchUser(data.user));
                 dispatch(isLoginUser(true));
                 navigate(HOME_ROUTE);

@@ -50,7 +50,7 @@ class EmailService {
         }
         Object.assign(context, {
             frontendUrl: process.env.FRONTEND_URL,
-            activateUrl: `${process.env.FRONTEND_URL}/register/activate/${token}`,
+            activateUrl: `${process.env.FRONTEND_URL}/register/activate/${token?.activateToken}`,
         });
         const html = await this.templateRenderer.render(String(templateName), context);
         const emailTransporter = nodemailer.createTransport({

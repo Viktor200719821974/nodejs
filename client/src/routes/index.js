@@ -1,7 +1,8 @@
-import { HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, ADMIN_ROUTE } from '../constans';
+import { HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, ADMIN_ROUTE, REGISTER_ROUTE } from '../constans';
 import Auth from '../components/Auth';
 import Home from '../components/Home';
 import Admin from '../components/Admin';
+import Register from '../components/Register';
 
 export const authRoutes = [
     {
@@ -22,8 +23,8 @@ export const publicRoutes = [
         path: REGISTRATION_ROUTE,
         Component: Auth
     },
-    // {
-    //     path: REGISTER_ROUTE,
-    //     Component: Register
-    // }
+    {
+        path: REGISTER_ROUTE,
+        Component: Register
+    }
 ]

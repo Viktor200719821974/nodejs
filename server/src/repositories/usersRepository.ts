@@ -86,6 +86,9 @@ class UsersRepository extends Repository<User> implements IUsersRepository {
     async activateUser(activateToken: string): Promise<string> {
         const id = await getManager().getRepository(User).findOne({ activateToken })
             .then((data) => data?.id);
+        if (id === undefined) {
+            return 'User alredy activate';
+        }
         await getManager().getRepository(User).update({ id }, { is_active: true });
         await getManager().getRepository(User).update({ id }, { activateToken: 'activate' });
         return 'Ok';

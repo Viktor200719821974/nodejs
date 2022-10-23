@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { REACT_APP_API_URL } from '../constans';
 
 const $host = axios.create({
@@ -36,9 +37,8 @@ $authHost.interceptors.response.use(
         const refreshToken = localStorage.getItem("refreshToken");
         const originalConfig = err.config;
         if (refreshToken && originalConfig.url !== "/auth/login" && err.response ){
-            if ((err.response.status === 401 || err.response.data?.message === 'jwt expired') && !originalConfig._retry){
+            if ((err.response.status === 401) && !originalConfig._retry){
                 originalConfig._retry = true;
-
                 try{
                     const rs = await $refreshHost.post("/auth/refresh",{
                         refreshToken: localStorage.getItem('refreshToken'),
@@ -47,6 +47,10 @@ $authHost.interceptors.response.use(
                     localStorage.setItem('refreshToken', rs.data.refreshToken);
                     return $authHost(originalConfig);
                 }catch (_error) {
+                    if (_error.response.status === 401) {
+                        localStorage.clear();
+                        window.location.href = "/login";
+                    }
                     return Promise.reject(_error);
                 }
             }

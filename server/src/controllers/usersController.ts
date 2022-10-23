@@ -125,6 +125,7 @@ class UsersController {
             const activateToken = req.params.token;
             if (!activateToken) {
                 next(new ErrorHandler('Bad request'));
+                return;
             }
             const activate = await usersService.activateUser(activateToken);
             if (activate !== 'Ok') {

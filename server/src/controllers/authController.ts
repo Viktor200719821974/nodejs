@@ -17,7 +17,6 @@ class AuthController {
                 userId: id,
                 userEmail: email,
             });
-            // console.log(firstName);
             await tokenRepository.saveTokenActivate(id, token.activateToken);
             const sendEmail = await emailService.sendMail(email, 'WELCOME', { firstName }, token)
                 // eslint-disable-next-line no-console
