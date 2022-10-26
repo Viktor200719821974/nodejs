@@ -124,15 +124,17 @@ class UsersController {
         try {
             const activateToken = req.params.token;
             if (!activateToken) {
-                next(new ErrorHandler('Bad request'));
+                // next(new ErrorHandler('Bad request'));
+                res.status(400).json('Bad request');
                 return;
             }
             const activate = await usersService.activateUser(activateToken);
             if (activate !== 'Ok') {
-                next(new ErrorHandler('Not found', 404));
+                // next(new ErrorHandler('Not found', 404));
+                res.status(404).json('Not found');
                 return;
             }
-            res.json('User activated');
+            return res.json('User activated');
         } catch (e) {
             next(e);
         }

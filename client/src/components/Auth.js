@@ -30,14 +30,14 @@ const Auth = observer(() => {
                     .catch(err => {
                         console.log(err);
                         if (err.response) {
-                            setError(err.response.data.message);
+                            setError(err.response.data);
                         }
                     });
             } else {
                const res = await registration(email, password, firstName, lastName, age, phone)
                    .catch(err => {
                         if (err.response) {
-                            setError(err.response.data.message);
+                            setError(err.response.data);
                         }
                    });
                if (res){

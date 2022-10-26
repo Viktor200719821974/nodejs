@@ -22,7 +22,8 @@ class AuthController {
                 // eslint-disable-next-line no-console
                 .catch(console.error);
             if (!sendEmail) {
-                next(new ErrorHandler('Problems is send email', 404));
+                // next(new ErrorHandler('Problems is send email', 404));
+                res.status(404).json('Problems is send email');
                 return;
             }
             res.json(user);
@@ -36,7 +37,8 @@ class AuthController {
             const { email } = req.body;
             const user = await usersRepository.getUserByEmail(email);
             if (!user) {
-                next(new ErrorHandler('Bad email', 404));
+                // next(new ErrorHandler('Bad email', 404));
+                res.status(404).json('Bad email');
                 return;
             }
             const { id } = user;
