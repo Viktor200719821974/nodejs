@@ -1,10 +1,7 @@
 import 'reflect-metadata';
 import express from 'express';
-import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 import { apiRouter } from './routes/apiRouter';
-
-dotenv.config();
 
 const app = express();
 app.use(express.json());

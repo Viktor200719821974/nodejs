@@ -1,12 +1,9 @@
 import nodemailer, { SentMessageInfo } from 'nodemailer';
 import path from 'path';
-import dotenv from 'dotenv';
 import EmailTemplate from 'email-templates';
 import { google } from 'googleapis';
 import { emailInfo } from '../constants/email.info';
 import { ITokenActivate } from '../interfaces';
-
-dotenv.config();
 
 class EmailService {
     templateRenderer = new EmailTemplate({
