@@ -12,11 +12,11 @@ const User = sequelize.define<IUser>('User', {
     name: { type: DataTypes.STRING },
     surname: { type: DataTypes.STRING },
     age: { type: DataTypes.INTEGER },
-    phone: { type: DataTypes.STRING },
+    phone: { type: DataTypes.STRING, unique: true },
     activateToken: { type: DataTypes.STRING, defaultValue: 'No activate' },
-    is_active: { type: DataTypes.BOOLEAN, defaultValue: 'false' },
-    is_staff: { type: DataTypes.BOOLEAN, defaultValue: 'false' },
-    is_superuser: { type: DataTypes.BOOLEAN, defaultValue: 'false' },
+    is_active: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
+    is_staff: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false},
+    is_superuser: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
 });
 const Token = sequelize.define<IToken>('Token', {
     id: {
@@ -24,11 +24,11 @@ const Token = sequelize.define<IToken>('Token', {
     },
     accessToken: { type: DataTypes.STRING, unique: true, allowNull: false },
     refreshToken: { type: DataTypes.STRING, unique: true, allowNull: false },
-    userId: { type: DataTypes.INTEGER },
+    userId: { type: DataTypes.INTEGER, allowNull: false, references: { model: User, key: 'id' } },
 });
 
-User.hasOne(Token);
-Token.belongsTo(User);
+// User.hasOne(Token);
+Token.belongsTo(User, { foreignKey: 'userId' });
 
 export const model = {
     User,

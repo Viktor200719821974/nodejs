@@ -1,4 +1,5 @@
 import { InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import { Request } from 'express';
 
 export interface IUser extends Model<InferAttributes<IUser>, InferCreationAttributes<IUser>>{
     id: number;
@@ -22,4 +23,19 @@ export interface IToken extends Model<InferAttributes<IToken>, InferCreationAttr
 
 export interface IRequestExtended extends Request{
     user?: IUser;
+}
+
+export interface ITokenActivate {
+    activateToken: string;
+}
+
+export interface IUserPayload {
+    userId: number;
+    userEmail: string;
+}
+
+export interface ITokenPair {
+    accessToken: string;
+    refreshToken: string;
+    userId: number;
 }

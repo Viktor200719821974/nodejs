@@ -1,25 +1,24 @@
 import express from 'express';
-import dotenv from 'dotenv';
 
+import { config } from './config';
 import { sequelize } from './db';
 import { apiRouter } from './routes/apiRouter';
-
-dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use('/api', apiRouter);
 
-const PORT = Number(process.env.PORT);
+const PORT = Number(config.PORT);
 
 const start = async() => {
     try {
         await sequelize.sync();
-        app.listen(PORT || 5000, () => {
+        app.listen(PORT, () => {
             // eslint-disable-next-line no-console
             console.log(`Server has started on port ${ PORT }!!!`);
         });
     } catch(e) {
+        // eslint-disable-next-line no-console
         console.log(e);
     }
 }
