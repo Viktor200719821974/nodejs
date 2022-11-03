@@ -24,7 +24,10 @@ class AuthMiddleware {
                     return;
                 }
             });
-            await tokenService.findByParamsAccess(token);
+            const findToken = await tokenService.findByParamsAccess(token);
+            if (!findToken) {
+                res.status(400).json('No token');
+            }
             const user = await usersService.getUserByEmail(userEmail)
                 .then((data) => data);
             if (user) {
@@ -83,7 +86,10 @@ class AuthMiddleware {
                     return;
                 }
             });
-            await tokenService.findByParamsRefresh(token);
+            const findToken = await tokenService.findByParamsRefresh(token);
+            if (!findToken) {
+                res.status(400).json('No token');
+            }
             const user = await usersService.getUserByEmail(userEmail).then((data) => data);
             if (user) {
                 req.user = user;

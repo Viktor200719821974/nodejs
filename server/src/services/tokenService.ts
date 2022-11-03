@@ -1,11 +1,9 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import dotenv from 'dotenv';
 
 import { IToken, ITokenActivate, ITokenPair, IUserPayload } from '../interfaces';
 import { config } from '../config';
 import { model } from '../models';
 
-dotenv.config();
 
 class TokenService {
     async generateTokenActivate(payload: IUserPayload):Promise<ITokenActivate> {
@@ -46,12 +44,12 @@ class TokenService {
         return jwt.verify(authToken, secretWord);
     }
 
-    async findByParamsAccess(accessToken: string) {
-        return model.Token.findOne({ where: { accessToken } });
+    async findByParamsAccess(accessToken: string): Promise<boolean> {
+        return !!model.Token.findOne({ where: { accessToken } });
     }
 
-    async findByParamsRefresh(refreshToken: string) {
-        return model.Token.findOne({ where: { refreshToken } });
+    async findByParamsRefresh(refreshToken: string | undefined): Promise<boolean> {
+        return !!model.Token.findOne({ where: { refreshToken } });
     }
 
     async deleteTokenPair(userId: number): Promise<void> {

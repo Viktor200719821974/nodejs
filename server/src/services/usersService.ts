@@ -22,7 +22,12 @@ class UsersService {
     }
 
     async getUserByEmail(email: string): Promise<IUser | null> {
-        return model.User.findOne({ where: { email } });
+        return model.User.findOne({
+            attributes: {
+                exclude: ['password', 'createdAt', 'updatedAt', 'activateToken'],
+            }, 
+            where: { email } 
+        });
     }
 }
 
