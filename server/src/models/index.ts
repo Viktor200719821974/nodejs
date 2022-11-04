@@ -7,8 +7,8 @@ const User = sequelize.define<IUser>('User', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true,
     },
-    email: { type: DataTypes.STRING, unique: true },
-    password: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING, unique: true, allowNull: false },
+    password: { type: DataTypes.STRING, allowNull: false },
     name: { type: DataTypes.STRING },
     surname: { type: DataTypes.STRING },
     age: { type: DataTypes.INTEGER },

@@ -29,6 +29,43 @@ class UsersService {
             where: { email } 
         });
     }
+
+    async deleteUser(id:string): Promise<void> {
+        await model.User.destroy({ where: { id } });
+    }
+
+    async userManager(id: number): Promise<IUser | null> {
+        await model.User.update({ is_staff: true }, { where: { id } });
+        return model.User.findByPk(id);
+    }
+
+    async userIsNotManager(id: number): Promise<IUser | null> {
+        await model.User.update({ is_staff: false }, { where: { id } });
+        return model.User.findByPk(id);
+    }
+
+    async userBlocked(id: number): Promise<IUser | null> {
+        await model.User.update({ is_active: false }, { where: { id } });
+        return model.User.findByPk(id);
+    }
+
+    async userUnlocked(id: number): Promise<IUser | null> {
+        await model.User.update({ is_active: true }, { where: { id } });
+        return model.User.findByPk(id);
+    }
+
+    async activateUser(activateToken: string): Promise<void> {
+        const id = await model.User.findOne({ where: { activateToken } })
+            .then((data) => data?.id);
+        await model.User.update(
+            { 
+                is_active: true, 
+                activateToken: 'Activate' 
+            }, 
+            {
+                where: { id } 
+            });
+    }
 }
 
 export const usersService = new UsersService();

@@ -16,7 +16,39 @@ module.exports = {
         type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      age: { 
+        type: Sequelize.INTEGER 
+      },
+      phone: {
+        type: Sequelize.STRING,
+        unique: true
+      },
+      activateToken: {
+        type: Sequelize.STRING,
+        defaultValue: 'No activate'
+      },
+      is_active: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+      },
+      is_staff: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+      },
+      is_superuser: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
