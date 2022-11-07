@@ -27,6 +27,7 @@ class AuthMiddleware {
             const findToken = await tokenService.findByParamsAccess(token);
             if (!findToken) {
                 res.status(400).json('No token');
+                return;
             }
             const user = await usersService.getUserByEmail(userEmail)
                 .then((data) => data);
@@ -34,9 +35,24 @@ class AuthMiddleware {
                 req.user = user;
             } else {
                 res.status(404).json('Not found');
+                return;
             }
             next();
         } catch (e) {
+            next(e);
+        }
+    }
+
+    async findUserByEmail(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { email } = req.body;
+            const userEmail = await usersService.getUserByEmail(email);
+            if (userEmail !== null) {
+                res.status(400).json(`User with email: ${email} already exist`);
+                return;
+            }
+            next();
+        } catch(e) {
             next(e);
         }
     }
@@ -89,12 +105,14 @@ class AuthMiddleware {
             const findToken = await tokenService.findByParamsRefresh(token);
             if (!findToken) {
                 res.status(400).json('No token');
+                return;
             }
             const user = await usersService.getUserByEmail(userEmail).then((data) => data);
             if (user) {
                 req.user = user;
             } else {
                 res.status(404).json('Not found');
+                return;
             }
             next();
         } catch (e: any) {
@@ -107,6 +125,7 @@ class AuthMiddleware {
             const { user } = req;
             if (!user?.is_superuser && !user?.is_staff) {
                 res.status(403).json('Forbidden');
+                return;
             }
             next();
         } catch (e) {

@@ -2,19 +2,22 @@ import { NextFunction, Request, Response } from 'express';
 
 import { IRequestExtended, IUser } from '../interfaces';
 import { authService } from '../services/authService';
+import { emailService } from '../services/emailService';
 import { tokenService } from '../services/tokenService';
 import { usersService } from '../services/usersService';
 
 class AuthController {
     async registration(req: Request, res: Response, next: NextFunction): Promise<IUser | undefined> {
         try {
-            const { email, password } = req.body;
-            const userEmail = await usersService.getUserByEmail(email);
-            if (userEmail !== null) {
-                res.status(400).json(`User with email: ${email} already exist`);
+            const { email, password, name } = req.body;
+            const { activateToken } = await authService.registration(req.body, password, email);
+            const sendEmail = await emailService.sendMail(email, 'WELCOME', { userName: name }, activateToken)
+                .catch(console.error);
+            if (!sendEmail) {
+                res.status(404).json('Problems is send email');
                 return;
-        }
-            const user = await authService.registration(req.body, password, email);
+            }
+            const user = await usersService.getUserByEmail(email);
             res.json(user);
             return;
         } catch(e) {

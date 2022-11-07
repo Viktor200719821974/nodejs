@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
 
 import { config } from '../config';
-import { IUser } from '../interfaces';
+import { ITokenActivate, IUser } from '../interfaces';
 import { model } from '../models';
 import { tokenService } from './tokenService';
 
 class AuthService {
-    async registration(user: IUser, password: string, userEmail: string): Promise<IUser | null> 
+    async registration(user: IUser, password: string, userEmail: string): Promise<ITokenActivate> 
     {
         const hashedPassword = await AuthService._hashPassword(password);
         const id = await model.User.create({...user, password: hashedPassword})
@@ -19,13 +19,7 @@ class AuthService {
             {
                  where: { id }
             });
-        return model.User.findOne(
-            { 
-                attributes: {
-                    exclude: ['password', 'createdAt', 'updatedAt', 'activateToken'],
-                },
-                where: { id } 
-            });
+        return tokenActivate;
     }
 
     async login(userEmail: string, userId: number) {
