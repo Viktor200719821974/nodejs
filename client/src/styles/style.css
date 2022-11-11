@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.navBar_main_div{
+    border: black solid 1px;
+    text-shadow: 2px 0 2px #fff,
+    0 2px 2px #F0E68C,
+    -2px 0 2px #F0E68C,
+    0 -2px 2px #F0E68C;
+    /*position: fixed;*/
+    /*box-sizing: border-box;*/
+    /*width: 100%;*/
+
+}
+.navBar_navLink{
+    display: flex;
+    font-size: 20px;
+    color: gold;
+    text-shadow: 1px 0 1px #000,
+    0 1px 1px #000,
+    -1px 0 1px #000,
+    0 -1px 1px #000;
+    text-decoration-line: none;
+}
+.navBar_navLink:hover{
+    color: white;
+}
+.navBar_title {
+    justify-content: center;
+    font-size: 26px;
+    width: 80%;
+}
+.navBar_div_title_button {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.navBar_nav_button {
+    width: 20%;
+    padding-right: 20px;
+    justify-content: right;
+}
+.div_register{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-top: 170px;
+}
+.div_register_welcome{
+    color: #04fc0a;
+    text-shadow: 1px 0 1px #000,
+    0 1px 1px #000,
+    -1px 0 1px #000,
+    0 -1px 1px #000;
+}
+.div_register_error{
+    color: red;
+    text-shadow: 1px 0 1px #000,
+    0 1px 1px #000,
+    -1px 0 1px #000,
+    0 -1px 1px #000;
+}

@@ -57,7 +57,7 @@ class EmailService {
         }
         Object.assign(context, {
             frontendUrl: config.FRONTEND_URL,
-            activateUrl: `${config.FRONTEND_URL}/api/users/activateUser/${token}`,
+            activateUrl: `${config.FRONTEND_URL}/register/activate/${token}`,
         });
         const html = await this.templateRenderer.render(String(templateName), context);
         const emailTransporter = nodemailer.createTransport({
