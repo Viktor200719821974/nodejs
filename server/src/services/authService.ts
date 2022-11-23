@@ -10,7 +10,7 @@ class AuthService {
     {
         const hashedPassword = await AuthService._hashPassword(password);
         const id = await model.User.create({...user, password: hashedPassword})
-        .then(data => data.id);
+        .then((data:IUser) => data.id);
         const tokenActivate = await tokenService.generateTokenActivate({ userId: id, userEmail });
         await model.User.update(
             {
