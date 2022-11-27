@@ -1,14 +1,8 @@
-// import Admin from "../pages/Admin";
-// import {
-//     ADMIN_ROUTE,
-//     BASKET_ROUTE, DEVICE_CARD_ADMIN_ROUTE,
-//     DEVICE_ROUTE,
-//     LOGIN_ROUTE, REGISTER_ROUTE,
-//     REGISTRATION_ROUTE,
-//     SHOP_ROUTE, USER_BLOCKED_ADMIN_ROUTE
-// } from "../utils/constans";
-
-import MainPage from '../pages/MainPage';
+import { LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE } from '../constants';
+import ShopComponent from '../components/ShopComponent';
+import ReviewComponent from '../components/ReviewComponent';
+import LearnComponent from '../components/LearnComponent';
+import SchoolsComponent from '../components/SchoolsComponent';
 
 
 export const authRoutes = [
@@ -18,26 +12,30 @@ export const authRoutes = [
     // }
 ]
 export const publicRoutes = [
+    // {
+    //     path: MAIN_PAGE,
+    //     Component: MainPage
+    // },
     {
-        path: '/',
-        Component: MainPage
+        path: LEARN_PAGE,
+        Component: LearnComponent
     },
-    // {
-    //     path: LOGIN_ROUTE,
-    //     Component: Auth
-    // },
-    // {
-    //     path: REGISTRATION_ROUTE,
-    //     Component: Auth
-    // },
+    {
+        path: REVIEW_PAGE,
+        Component: ReviewComponent
+    },
+    {
+        path: SHOP_PAGE,
+        Component: ShopComponent
+    },
     // {
     //     path: DEVICE_ROUTE + '/:id',
     //     Component: DevicePage
     // },
-    // {
-    //     path: REGISTER_ROUTE,
-    //     Component: Register
-    // },
+    {
+        path: SCHOOLS_PAGE,
+        Component: SchoolsComponent
+    },
     // {
     //     path: BASKET_ROUTE,
     //     Component: Basket

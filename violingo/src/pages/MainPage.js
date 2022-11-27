@@ -1,8 +1,15 @@
+import NavBar from '../components/NavBar';
+
 const MainPage = () => {
     return (
-        <div>
-            MainPage
-        </div>
+        <>
+        {/* <div className="main_body"> */}
+
+            <span className="main_navBar">
+                <NavBar/> 
+            </span>       
+        {/* </div> */}
+        </>
     );
 }
 

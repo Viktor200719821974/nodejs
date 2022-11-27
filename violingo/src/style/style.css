@@ -1,19 +1,19 @@
 * {
     scroll-behavior: smooth;
 }
-body {
+body::-webkit-scrollbar {
     margin: 0;
     padding: 0;
+    display: none;
 }
 .main_header {
-    /* position: fixed; */
+    position: fixed;
     display: flex;
     width: 100%;
     box-sizing: border-box;
     flex-direction: row;
-    height: 100%;
     border-bottom: solid 2px rgba(0, 0, 0, 0.076);
-    z-index: 100;
+    z-index: 210;
 }
 .div_sign {
     color: greenyellow;
@@ -66,7 +66,71 @@ body {
     right: 42px;
     top: 4px;
 }
-
+.main_body {
+    /* position: relative; */
+    flex-direction: column;
+    /* margin: 120px 0 10px 70px; */
+    /* margin-top: 120px; */
+    display: flex;
+}
+.main_navBar {
+    position: fixed;
+    margin: 120px 0 10px 70px; 
+}
+.main_apiRouter {
+    position: absolute;
+    overflow: hidden;
+    top: 110px;
+    left: 340px;
+    width: 700px;
+}
+.navBar_buttons {
+    /* display: flex; */
+    /* padding-top: 20px; */
+}
+.navBar_button {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: #afafaf;
+    width: 250px;
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 8px;
+    box-sizing: inherit;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.navBar_button_select {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: #afafaf;
+    width: 250px;
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 12px;
+    border: 2px solid #84d8ff;
+    background-color: #ddf4ff;
+    padding: 4px 8px;
+    box-sizing: inherit;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.navBar_button_text:hover {
+    color: #3c3c3c;
+}
+.navBar_button_image {
+    width: 40px;
+    height: 40px;
+    margin: 10px 10px 10px 20px;
+}
 
 
 
@@ -74,5 +138,8 @@ body {
     .div_sign {
         margin: 20px 50px;
         width: 500px;
+    }
+    .main_navBar {
+        margin-left: 20px;
     }
     }
