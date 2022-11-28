@@ -1,8 +1,6 @@
-import { LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE } from '../constants';
-import ShopComponent from '../components/ShopComponent';
-import ReviewComponent from '../components/ReviewComponent';
-import LearnComponent from '../components/LearnComponent';
-import SchoolsComponent from '../components/SchoolsComponent';
+import { HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE } from '../constants';
+import HomePage from '../pages/HomePage';
+import MainPage from '../pages/MainPage';
 
 
 export const authRoutes = [
@@ -12,21 +10,21 @@ export const authRoutes = [
     // }
 ]
 export const publicRoutes = [
-    // {
-    //     path: MAIN_PAGE,
-    //     Component: MainPage
-    // },
+    {
+        path: HOME_PAGE,
+        Component: HomePage
+    },
     {
         path: LEARN_PAGE,
-        Component: LearnComponent
+        Component: MainPage
     },
     {
         path: REVIEW_PAGE,
-        Component: ReviewComponent
+        Component: MainPage
     },
     {
         path: SHOP_PAGE,
-        Component: ShopComponent
+        Component: MainPage
     },
     // {
     //     path: DEVICE_ROUTE + '/:id',
@@ -34,10 +32,6 @@ export const publicRoutes = [
     // },
     {
         path: SCHOOLS_PAGE,
-        Component: SchoolsComponent
+        Component: MainPage
     },
-    // {
-    //     path: BASKET_ROUTE,
-    //     Component: Basket
-    // },
 ]
