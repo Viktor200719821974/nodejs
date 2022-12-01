@@ -6,6 +6,131 @@ body::-webkit-scrollbar {
     padding: 0;
     display: none;
 }
+.homePage_header {
+    background-color: #235390;
+    position: fixed;
+    top: 0;
+    min-height: 70px;
+    width: 100%;
+    padding: 0 200px; 
+}
+.homePage_div_sign {
+    color: white;
+    display: flex;
+    align-items: center;
+    max-width: 1265px;
+    column-gap: 750px;
+}
+.homePage_sign_violingo {
+    text-transform: lowercase;
+    font-weight: 700;
+    font-size: 34px;
+    cursor: pointer;
+}
+.homePage_sign_language {
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.homePage_body {
+    margin-top: 70px;
+    background-color: #235390;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 150px 50px 133px;
+}
+.homePage_image_earth {
+    height: 280px;
+    width: 280px;
+}
+.homePage_div_ringEarth1 {
+    border: solid 20px rgb(215 191 191 / 6%);
+    border-radius: 50%;
+    width: 360px;
+    height: 360px;
+}
+.homePage_div_ringEarth2 {
+    border: solid 20px rgb(215 191 191 / 9%);
+    border-radius: 50%;
+    width: 320px;
+    height: 320px;
+}
+.homePage_div_center_body {
+    display: flex;
+}
+.homePage_div_main_right {
+    margin-left: 59px;
+    width: 750px;
+    text-align: center;
+    line-height: 40px;
+    margin-bottom: 50px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.homePage_span_sign_right {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 50px;   
+}
+.homePage_span_button1 {
+    background-color: #58a700;
+    color: white;
+    width: 320px;
+    height: 50px;
+    letter-spacing: .8px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    border-bottom: solid 4px #478b13;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.homePage_span_button1:hover {
+    background-color: #58cc02;  
+}
+.homePage_span_button2 {
+    border: solid 2px #262a60;
+    border-radius: 16px;
+    color: white;
+    width: 320px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-bottom: solid 4px #262a60;
+}
+.homePage_span_button2:hover {
+    background-color: #262a6039;  
+}
+.homePage_div_choice_language {
+    background-color: #0a4a82;
+    height: 74px;
+    width: 100%;
+    padding-left: 200px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+.homePage_image_choice_language {
+    width: 40px;
+    height: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+.homePage_span_sign_language {
+    color: white;
+    font-weight: 700;
+    margin: 0 880px 0 10px;
+}
 .main_header {
     position: fixed;
     display: flex;
@@ -81,10 +206,9 @@ body::-webkit-scrollbar {
     left: 340px;
     width: 700px;
 }
-.navBar_buttons {
-    /* display: flex; */
-    /* padding-top: 20px; */
-}
+/* .navBar_buttons {
+    
+} */
 .navBar_button {
     font-size: 20px;
     font-weight: 700;
@@ -148,16 +272,6 @@ body::-webkit-scrollbar {
     border: solid 2px rgba(0, 0, 0, 0.076);
     border-radius: 10px; 
 }
-.div_example {
-    width: 100%;
-    height: 30px;
-    border: solid 1px black;
-    background-color: white;
-    color: black;
-}
-.custom-tooltip {
-    background-color: white;
-}
 
 @media (max-width: 1000px) {
     .div_sign {
@@ -166,5 +280,11 @@ body::-webkit-scrollbar {
     }
     .main_navBar {
         margin-left: 20px;
+    }
+    .homePage_div_sign {
+        display: flex;
+        align-items: center;
+        max-width: 800px;
+        column-gap: 600px;
     }
     }
