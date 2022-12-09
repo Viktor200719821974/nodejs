@@ -6,20 +6,70 @@ body::-webkit-scrollbar {
     padding: 0;
     display: none;
 }
+h1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    margin: 0 0 50px;
+    color: #fff;
+}
+h2 {
+    color: #3c3c3c;
+    line-height: 26px;
+    margin: 0 0 25px;
+    font-weight: 700;
+    font-size: 24px;
+}
+h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: #3c3c3c;
+}
+h4 {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0;
+    margin-top: 10px;
+    color: #fff;
+}
+a {
+    cursor: pointer;
+    color: #777;
+}
+a:hover {
+    color: #777;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 2.0;
+    opacity: .5;
+    text-decoration: none;
+    cursor: pointer;
+}
+li:hover {
+    text-decoration: underline;
+}
 .homePage_header {
     background-color: #235390;
     position: fixed;
     top: 0;
     min-height: 70px;
     width: 100%;
-    padding: 0 200px; 
-}
-.homePage_div_sign {
+    padding: 0 300px; 
     color: white;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    max-width: 1265px;
-    column-gap: 750px;
+
 }
 .homePage_sign_violingo {
     text-transform: lowercase;
@@ -30,8 +80,9 @@ body::-webkit-scrollbar {
 .homePage_sign_language {
     text-transform: uppercase;
     cursor: pointer;
+    width: 100%;
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
 }
 .homePage_body {
     margin-top: 70px;
@@ -114,7 +165,7 @@ body::-webkit-scrollbar {
     background-color: #0a4a82;
     height: 74px;
     width: 100%;
-    padding-left: 200px;
+    padding: 0 300px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -129,7 +180,388 @@ body::-webkit-scrollbar {
 .homePage_span_sign_language {
     color: white;
     font-weight: 700;
-    margin: 0 880px 0 10px;
+    width: 100%;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.homePage_main_div_image_sova {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1065px;
+    margin: auto;
+}
+.homePage_image_sova {
+   width: 185px;
+   height: 145px;
+   margin: 30px 30px 30px 0; 
+}
+.homePage_span_sign_about_image_sova {
+    display: flex;
+    flex-direction: column;
+}
+.homePage_span_sign_about_title {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    text-align: left;
+    color: #777;
+}
+.homePage_div_line {
+    display: flex;
+    max-width: 1065px;
+    border-bottom: 2px solid #e5e5e5;
+    margin: 12px auto;
+}
+.homePage_div_main_sign_why_like {
+    display: flex;
+    margin: auto;
+    padding: 40px;
+    flex-direction: column;
+    max-width: 1065px;
+    color: #777;
+    font-size: 14px;
+    line-height: 1.7;
+}
+.homePage_div_main_sign_stamps {
+    display: flex;
+    flex-direction: row;
+}
+.homePage_div_stamp_fire {
+    flex-direction: column;
+    padding: 5px 0 18px 15px;
+    text-align: left;
+    display: flex;
+}
+.homePage_div_one_block_sign_stamps {
+    padding: 48px 0 0 0;
+}
+.homePage_div_two_block_sign_stamps {
+    background-size: 245px;
+    height: 161px;
+    margin: auto 48px;
+    min-width: 245px;
+    width: 245px;
+    display: flex;
+    justify-content: center;
+}
+.homePage_div_main_superSova {
+    display: flex;
+    max-width: 1065px;
+    margin: auto;
+    align-items: center;
+    padding: 40px;
+}
+.homePage_div_all_signs {
+    display: flex;
+    flex-direction: column;
+}
+.homePage_span_learn_more {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: #1cb0f6;
+    cursor: pointer;
+}
+.homePage_span_learn_more:hover {
+    color: #84d8ff;
+}
+.homePage_div_main_download_app {
+    display: flex;
+    max-width: 1065px;
+    margin: auto;
+    align-items: center;
+    padding: 40px;
+}
+.homePage_span_button_download {
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    margin: 40px 20px 0 0;
+    box-shadow: 0 2px 0 #d0cccc;
+    cursor: pointer;
+    width: 192px;
+    height: 69px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.homePage_span_button_download:hover {
+    background-color: #d0cccc;
+}
+.homePage_div_main_image_computer {
+    display: flex;
+    max-width: 1065px;
+    margin: auto;
+    align-items: center;
+    padding: 40px;
+}
+.homePage_div_main_certificate {
+    display: flex;
+    max-width: 1065px;
+    margin: auto;
+    align-items: center;
+    padding: 40px;
+}
+.homePage_div_main_image_sovaStudy {
+    display: flex;
+    max-width: 1065px;
+    margin: auto;
+    align-items: center;
+    padding: 40px;
+}
+.homePage_div_main_produce {
+    background-color: #235390;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 80px;
+}
+.homePage_span_button3 {
+    background-color: #58a700;
+    color: white;
+    width: 150px;
+    height: 46px;
+    letter-spacing: .8px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    border-bottom: solid 4px #478b13;
+    cursor: pointer;
+    margin-bottom: 46px;
+}
+.homePage_span_button3:hover {
+    background-color: #58cc02;  
+}
+.homePage_div_sign_and_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+}
+.homePage_div_main_signs {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: auto;
+    max-width: 1065px;
+    padding: 24px 40px;
+    color: #fff;
+    font-size: 13px;
+    text-align: left;
+}
+.homePage_div_title {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: none;
+}
+.homePage_div_signs_and_title {
+    padding: 0 24px 48px 0;
+    width: 170px;
+}
+.homePage_div_main_languages {
+    border-top: 2px solid hsla(0,0%,100%,.2);
+    color: #fff;
+    font-size: 13px;
+    margin: 0 auto;
+    max-width: 1065px;
+    padding: 24px 40px 48px;
+    text-align: left;
+}
+.homePage_div_title_languages {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 6px 0;
+    text-transform: none;
+}
+.homePage_ul_languages {
+    display: flex;
+    flex-wrap: wrap;
+}
+.homePage_li_languages {
+    margin: 6px 24px 0 0;
+    font-weight: 700;
+    opacity: .5;
+    font-size: 13px;
+}
+.registerPage_header {
+    background-color: #235390;
+    position: fixed;
+    top: 0;
+    min-height: 70px;
+    width: 100%;
+    padding: 0 300px; 
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.registerPage_sign_violingo {
+    text-transform: lowercase;
+    font-weight: 700;
+    font-size: 34px;
+    cursor: pointer;
+}
+.registerPage_sign_language {
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.registerPage_body {
+    background-color: #235390;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.registerPage_div_center_body {
+    margin: 228px auto;
+    padding: 0 40px;
+    text-align: center;
+    width: 1065px;
+}
+.registerPage_main_div_button {
+    display: flex;
+    justify-content: flex-start;
+}
+.registerPage_div_button {
+    border-radius: 16px;
+    border-style: solid;
+    border-width: 2px 2px 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 12px;
+    max-width: 240px;
+    min-height: 217px;
+    min-width: 200px;
+    padding: 12px 12px 24px;
+    text-align: center;
+    background-color: transparent;
+    border-color: hsla(0,0%,100%,.5);
+}
+.registerPage_div_button:hover {
+    background-color: #7f83892e;
+}
+.registerPage_div_sign_amount_student {
+    font-weight: 500;
+    margin-top: 6px;
+    text-transform: none;
+    color: #fff;
+}
+.welcomePage_main_div_top {
+    padding: 24px 0;
+    background: #fff;
+    top: 0;
+    min-height: 80px;
+    height: auto;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 210;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.welcomePage_button_cross {
+    border: none;
+    background-color: transparent;
+}
+.welcomePage_div_around_cross {
+    border-radius: 16px;
+    background-color: #e5e5e5;
+    height: 16px;
+    width: 1086px;
+}
+.welcomePage_div_body {
+    margin: 80px auto 0 auto;
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    max-width: 100%;
+    text-align: center;
+    z-index: 1;
+}
+.welcomePage_div_main_blocks {
+    grid-gap: 10px;
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+}
+.welcomePage_div_one_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    border: 2px solid #e5e5e5;
+    box-shadow: 0 2px 0 #d0cccc;
+    margin: auto;
+    width: 187.5px;
+    height: 182px;
+    cursor: pointer;
+    background-color: #fff;
+}
+.welcomePage_div_one_block:hover {
+    background-color: #e5e5e588;
+}
+.welcomePage_span_sign_in_block {
+    color: #4b4b4b;
+    font-size: 700;
+    font-size: 17px;
+    text-align: center;
+    margin: 0 20px;
+}
+.welcomePage_div_button_next {
+    background-color: #58cc02;
+    color: white;
+    width: 780px;
+    height: 50px;
+    letter-spacing: .8px;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    border-bottom: solid 4px #58a700;
+    text-transform: uppercase;
+    margin-top: 30px;
+}
+.welcomePage_div_button_next:hover {
+    background-color: #5acc02be;  
+}
+.welcomePage_div_button_next_noActive {
+    background-color: #e5e5e5;
+    color: #afafaf;
+    width: 780px;
+    height: 50px;
+    letter-spacing: .8px;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    text-transform: uppercase;
+    margin-top: 30px;
+}
+.welcomePage_div_one_block_select {
+    background-color: #ddf4ff;
+    border: solid 2px #1cb0f6;
+    box-shadow: 0 2px 0 #1899d6;
+    color: #1899d6;
+    margin: auto;
+    width: 187.5px;
+    height: 182px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
 }
 .main_header {
     position: fixed;

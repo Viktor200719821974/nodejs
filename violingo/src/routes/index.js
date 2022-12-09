@@ -1,6 +1,10 @@
-import { HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE } from '../constants';
+import { 
+    HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE,
+} from '../constants';
 import HomePage from '../pages/HomePage';
 import MainPage from '../pages/MainPage';
+import RegisterPage from '../pages/RegisterPage';
+import WelcomePage from '../pages/WelcomePage';
 
 
 export const authRoutes = [
@@ -13,6 +17,14 @@ export const publicRoutes = [
     {
         path: HOME_PAGE,
         Component: HomePage
+    },
+    {
+        path: REGISTER_PAGE,
+        Component: RegisterPage
+    },
+    {
+        path: WELCOME_PAGE,
+        Component: WelcomePage
     },
     {
         path: LEARN_PAGE,

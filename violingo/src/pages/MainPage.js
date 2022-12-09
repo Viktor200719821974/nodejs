@@ -9,8 +9,6 @@ import ReviewComponent from '../components/ReviewComponent';
 import ShopComponent from '../components/ShopComponent';
 import SchoolsComponent from '../components/SchoolsComponent';
 
-// import ApiRouter from '../components/ApiRouter';
-
 const MainPage = () => {
     const location = useLocation();
     const [learnPage, setLearnPage] = useState(false);
@@ -64,7 +62,7 @@ const MainPage = () => {
                     
                 </div>
                 <div className="div_body_agenda">
-                    
+       
                 </div>
             </div>
         </div>
