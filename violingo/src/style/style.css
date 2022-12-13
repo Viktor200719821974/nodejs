@@ -488,7 +488,7 @@ li:hover {
     background-color: #58cc02;
     border-radius: 16px;
     height: 16px;
-    width: 200px;
+    width: 20%;
 }
 .welcomePage_div_body {
     margin: 80px auto 0 auto;
@@ -520,6 +520,7 @@ li:hover {
     height: 182px;
     cursor: pointer;
     background-color: #fff;
+    transition-duration: .4s;
 }
 .welcomePage_div_one_block:hover {
     background-color: #e5e5e588;
@@ -674,6 +675,133 @@ li:hover {
     color: #4b4b4b;
     font-family: din-round,sans-serif;
     font-size: 17px;
+}
+.welcomePage_div_body_welcome4Component {
+    margin: 80px auto 0 auto;
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    width: 650px;
+    text-align: center;
+    z-index: 1;
+    padding: 0 24px 24px;
+}
+.welcomePage_div_image_and_message_welcome4Component {
+    display: flex;
+    color: #4b4b4b;
+}
+.welcomePage_div_image_welcome4Component {
+    display: flex;
+    margin: 72px 0 0;
+    flex-direction: column;
+    width: 450px;
+}
+.welcomePage_div_main_image_block_welcome4Component {
+    display: flex;
+    position: relative;
+    width: 246px;
+    margin: 0 12px;
+}
+.welcomePage_div_image_block_welcome4Component {
+    position: absolute;
+    top: 21px;
+}
+.welcomePage_div_image_message_welcome4Component {
+    display: flex;
+    position: relative;
+    text-align: center;
+    border: 2px solid #e5e5e5;
+    border-radius: 16px;
+    padding: 20px;
+    width: 168px;
+    box-sizing: border-box;
+    margin: 0 12px;
+    font-family: din-round,sans-serif;
+    font-size: 17px;
+}
+.welcomePage_div_image_message_parallelogram_welcome4Component {
+    bottom: 33px;
+    height: 16px;
+    left: 1px;
+    transform: translate(-19px) rotate(-45deg) skew(45deg);
+    width: 32px;
+    background: #fff;
+    border: 2px solid #e5e5e5;
+    border-bottom: 0;
+    border-right: 0;
+    position: absolute;
+    top: 95px;
+}
+.welcomePage_div_main_sign_and_buttons_welcome4Component {
+    background-color: #fff;
+    border: 2px solid #e5e5e5;
+    border-radius: 6.2px;
+    box-shadow: 3px 3px 3px 2px hsl(0deg 0% 90% / 50%);   
+    margin-top: 10px;
+}
+.welcomePage_div_help_sign_and_buttons_welcome4Component {
+    color: #4b4b4b;
+    display: flex;
+    flex-direction: column;
+    font-size: 17px;
+    letter-spacing: normal;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 25px;
+    margin-right: 12px;
+    position: relative;
+    font-size: 20px;
+}
+.welcomePage_button_cross_welcome4Component {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 10px; 
+    right: 10px;
+}
+.welcomePage_div_stamp_bell_and_sign_welcome4Component {
+    display: flex;
+    align-items: center;
+}
+.welcomePage_div_buttons_welcome4Component {
+    align-items: flex-end;
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    height: 71px;
+}
+.welcomePage_button_blocked_welcome4Component {
+    color: #afafaf;
+    padding: 14px 16px;
+    border-color: #e5e5e5;
+    font-size: medium;
+    border-radius: 2.49px;
+    border-style: solid;
+    font-weight: 700;
+    letter-spacing: .8px;
+    font-family: din-round,sans-serif;
+    margin-right: 12px;
+}
+.welcomePage_button_allow_welcome4Component {
+    border-color: #e5e5e5;
+    font-size: medium;
+    background-color: #fff;
+    border-radius: 2.49px;
+    border-style: solid;
+    color: #1cb0f6;
+    font-family: din-round,sans-serif;
+    font-weight: 700;
+    letter-spacing: .8px;
+    padding: 14px 16px;
+}
+.welcomePage_div_image_arrowUp_welcome4Component {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 102px 0 0;
+    cursor: pointer;
 }
 .main_header {
     position: fixed;

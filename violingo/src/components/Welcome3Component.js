@@ -1,8 +1,8 @@
 import { BiArrowBack } from 'react-icons/bi';
 
 const Welcom3Component = ({
-    setNewComponent1, buttonNoActive, easy, setEasy, usual, setUsual, serious, setSerious,
-    intensive, setIntensive, setValue,
+    setNewComponent1, buttonNoActive, easy, usual, serious, intensive, setValue, 
+    setNewComponent2,
     }) => {
 
     const buttonBack = () => {
@@ -18,7 +18,7 @@ const Welcom3Component = ({
                     <BiArrowBack color='#d0cccc' size={'22px'}/>
                 </button> 
                 <div className="welcomePage_div_around_cross">
-                    <div className="welcomePage_div_one_download" style={{width: '400px'}}></div>
+                    <div className="welcomePage_div_one_download" style={{width: '40%'}}></div>
                 </div>
             </div>
             <div className="welcomePage_div_body_welcome3Component">
@@ -88,7 +88,7 @@ const Welcom3Component = ({
                         !buttonNoActive ? "welcomePage_div_button_next"
                          : "welcomePage_div_button_next_noActive"
                     }
-                    onClick={() => setNewComponent1(false)}
+                    onClick={() => setNewComponent2(false)}
                     style={{width: '580px'}}
                     >
                         Продовжити

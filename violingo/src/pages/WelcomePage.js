@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import Welcome1Component from '../components/Welcome1Component';
 import Welcome2Component from '../components/Welcome2Component';
 import Welcom3Component from '../components/Welcome3Component';
+import Welcome4Component from '../components/Welcome4Component';
+import Welcome5Component from '../components/Welcome5Component';
 
 const WelcomePage = () => {
     const [value, setValue] = useState('');
@@ -29,6 +31,8 @@ const WelcomePage = () => {
     const [usual, setUsual] = useState(false);
     const [serious, setSerious] = useState(false);
     const [intensive, setIntensive] = useState(false);
+    const [newComponent2, setNewComponent2] = useState(true);
+    const [newComponent3, setNewComponent3] = useState(true);
     
     useEffect(() => {
         if (value === 'google') {
@@ -141,6 +145,7 @@ const WelcomePage = () => {
         }
         if (value === '') {
             setButtonNoActive(true);
+            setUsual(true);
         }
         if (value === 'culture') {
             setCultureStamp(true);
@@ -299,19 +304,30 @@ const WelcomePage = () => {
                 />
             }
             {
-                !newComponent1 && 
+                (!newComponent1 && newComponent2) &&
                     <Welcom3Component
                         setNewComponent1={setNewComponent1}
                         buttonNoActive={buttonNoActive}
-                        easy={easy} 
-                        setEasy={setEasy} 
-                        usual={usual} 
-                        setUsual={setUsual} 
-                        serious={serious} 
-                        setSerious={setSerious}
+                        easy={easy}                         
+                        usual={usual}                 
+                        serious={serious}                        
                         intensive={intensive} 
-                        setIntensive={setIntensive}
                         setValue={setValue}
+                        setNewComponent2={setNewComponent2}
+                    />
+            }
+            {   (!newComponent2 && newComponent3) && 
+                    <Welcome4Component
+                        setNewComponent2={setNewComponent2}
+                        buttonNoActive={buttonNoActive}
+                        setNewComponent3={setNewComponent3}
+                    />
+            }
+            {
+                !newComponent3 && 
+                    <Welcome5Component
+                        setNewComponent3={setNewComponent3}
+                        buttonNoActive={buttonNoActive}
                     />
             }
         </div>
