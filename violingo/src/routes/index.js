@@ -1,8 +1,12 @@
 import { 
-    HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE,
+    HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE, 
+    LESSON_PAGE,
+    PLACEMENT_PAGE,
 } from '../constants';
 import HomePage from '../pages/HomePage';
+import LessonPage from '../pages/LessonPage';
 import MainPage from '../pages/MainPage';
+import PlacementPage from '../pages/PlacementPage';
 import RegisterPage from '../pages/RegisterPage';
 import WelcomePage from '../pages/WelcomePage';
 
@@ -25,6 +29,14 @@ export const publicRoutes = [
     {
         path: WELCOME_PAGE,
         Component: WelcomePage
+    },
+    {
+        path: LESSON_PAGE,
+        Component: LessonPage
+    },
+    {
+        path: PLACEMENT_PAGE,
+        Component: PlacementPage
     },
     {
         path: LEARN_PAGE,

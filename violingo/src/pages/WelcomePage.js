@@ -5,6 +5,7 @@ import Welcome2Component from '../components/Welcome2Component';
 import Welcom3Component from '../components/Welcome3Component';
 import Welcome4Component from '../components/Welcome4Component';
 import Welcome5Component from '../components/Welcome5Component';
+import Welcome6Component from '../components/Welcome6Component';
 
 const WelcomePage = () => {
     const [value, setValue] = useState('');
@@ -33,6 +34,7 @@ const WelcomePage = () => {
     const [intensive, setIntensive] = useState(false);
     const [newComponent2, setNewComponent2] = useState(true);
     const [newComponent3, setNewComponent3] = useState(true);
+    const [newComponent4, setNewComponent4] = useState(true);
     
     useEffect(() => {
         if (value === 'google') {
@@ -324,10 +326,16 @@ const WelcomePage = () => {
                     />
             }
             {
-                !newComponent3 && 
+                (!newComponent3 && newComponent4) &&
                     <Welcome5Component
                         setNewComponent3={setNewComponent3}
-                        buttonNoActive={buttonNoActive}
+                        setNewComponent4={setNewComponent4}
+                    />
+            }
+            {
+                !newComponent4 && 
+                    <Welcome6Component
+                        setNewComponent4={setNewComponent4}
                     />
             }
         </div>

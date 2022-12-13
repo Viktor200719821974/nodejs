@@ -38,6 +38,11 @@ h4 {
     color: #fff;
     font-family: din-round,sans-serif;
 }
+h5 {
+    color: #777;
+    font-size: 17px;
+    font-family: din-round,sans-serif;
+}
 a {
     cursor: pointer;
     color: #777;
@@ -802,6 +807,105 @@ li:hover {
     justify-content: flex-end;
     margin: 20px 102px 0 0;
     cursor: pointer;
+}
+.welcomePage_div_body_welcome5Component {
+    margin: 260px auto 0 auto;
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    width: 500px;
+    text-align: center;
+    z-index: 1;
+    padding: 0 10px; 
+}
+.welcomePage_div_main_buttons_welcome5Component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.welcomePage_button_facebook_welcome5Component {
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: #3b5998;
+    border-color: #2d4373;
+    color: #fff;
+    border-radius: 16px;
+    height: 50px;
+    border: 0 solid transparent;
+    border-bottom: 4px solid #2d4373;
+    transition: filter .2s;
+    padding: 0 16px;
+    touch-action: manipulation;
+    transform: translateZ(0);
+}
+.welcomePage_button_facebook_welcome5Component:hover {
+    background-color: #3b5898f2;
+}
+.welcomePage_button_google_welcome5Component {
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: #1cb0f6;
+    border-color: #1899d6;
+    color: #fff;
+    border-radius: 16px;
+    height: 50px;
+    border: 0 solid transparent;
+    border-bottom: 4px solid #1899d6;
+    transition: filter .2s;
+    padding: 0 16px;
+    touch-action: manipulation;
+    transform: translateZ(0);
+}
+.welcomePage_button_google_welcome5Component:hover {
+    background-color: #1cb1f6e6;
+}
+.welcomePage_button_not_now_welcome5Component {
+    margin-top: 24px;
+    border: #e5e5e5 2px solid;
+    background: none;
+    border-bottom: 4px solid #e5e5e5;
+    border-radius: 12px;
+    color: #afafaf;
+    height: 50px;
+    padding: 0 16px;
+    transition: filter .2s;
+    text-transform: uppercase;
+}
+.welcomePage_button_not_now_welcome5Component:hover {
+    background-color: #e5e5e5;
+}
+.welcomePage_span_button_sign_welcome5Component {
+    padding: 0 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: din-round,sans-serif;
+    line-height: 1.2;
+    letter-spacing: .8px;
+}
+.welcomePage_div_main_image_and_sign_welcome6Component {
+    display: flex;
+}
+.welcomePage_div_image_and_sign_welcome6Component {
+    background-color: #fff;
+    border: 2px solid #e5e5e5;
+    border-radius: 16px;
+    color: #777;
+    cursor: pointer;
+    font-size: 17px;
+    letter-spacing: normal;
+    margin: 10px;
+    padding: 24px;
+    text-align: center;
+    text-transform: none;
+    width: 250px;
+}
+.welcomePage_div_image_and_sign_welcome6Component:hover {
+    background-color: #e5e5e5;
+    border: solid 2px #d1cdcd;
 }
 .main_header {
     position: fixed;
