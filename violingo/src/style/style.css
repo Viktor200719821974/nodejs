@@ -78,7 +78,6 @@ li:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
-
 }
 .homePage_sign_violingo {
     text-transform: lowercase;
@@ -90,6 +89,10 @@ li:hover {
     text-transform: uppercase;
     cursor: pointer;
     width: 100%;
+    font-size: 15px;
+    letter-spacing: .8px;
+    font-family: din-round,sans-serif;
+    font-weight: 700;
     display: flex;
     justify-content: flex-end;
 }
@@ -906,6 +909,276 @@ li:hover {
 .welcomePage_div_image_and_sign_welcome6Component:hover {
     background-color: #e5e5e5;
     border: solid 2px #d1cdcd;
+}
+.loginPage_div_main {
+    padding: 30px;
+}
+.loginPage_div_main_button {
+    display: flex;
+    position: relative;
+}
+.loginPage_div_button_cross_close {
+    position: absolute;
+    cursor: pointer;
+}
+.loginPage_div_button_registration {
+    position: absolute;
+    right: 30px;
+    padding: 0 16px;
+    border-radius: 12px;
+    color: #1cb0f6;
+    transition: filter .2s;
+    height: 50px;
+    border: 2px solid #e5e5e5;
+    box-shadow: 0 2px 0 #e5e5e5;
+    background-color: #fff;
+    font-family: din-round,sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.loginPage_div_button_registration:hover {
+    background-color: #e5e5e5;
+    border: 2px solid #cec9c9;
+    box-shadow: 0 2px 0 #cec9c9;
+}
+.loginPage_div_main_loginComponent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.loginPage_div_componentLogin {
+    width: 375px;
+    margin-top: 150px;
+}
+.loginPage_h1_componentLogin {
+    color: #3c3c3c;
+    font-size: 26px;
+    margin: 10px 0 15px;
+    text-align: center;
+}
+.loginPage_input_loginComponent {
+    cursor: text;
+    padding: 8px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 27px;
+    border-radius: 16px;
+    background-color: #e5e5e54d;
+    border: 2px solid #e5e5e5;
+    margin-top: 8px;
+}
+::placeholder {
+    color: #cfcbcb;
+    font-size: 16px;
+    font-family: din-round,sans-serif;
+}
+input:focus {
+    outline: none !important;
+    border:2px solid #e5e5e5;
+    /* box-shadow: 0 0 10px #719ECE; */
+}
+.loginPage_div_input_loginComponent {
+    position: relative;
+}
+.loginPage_div_sign_forget_password_loginComponent {
+    position: absolute;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: #afafaf;
+    cursor: pointer;
+    top: 20px;
+    right: 20px;
+}
+.loginPage_div_sign_forget_password_loginComponent:hover {
+    color: #888686;
+}
+.loginPage_button_enter_loginComponent {
+    background-color: #1cb0f6;
+    box-shadow: 0 4px 0 #1899d6;
+    border: #1cb0f6 0 solid;
+    border-radius: 16px;
+    color: #fff;
+    width: 100%;
+    height: 46px;
+    margin-top: 20px;
+    font-family: din-round,sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+}
+.loginPage_button_enter_loginComponent:hover {
+    background-color: #1cb1f6af;
+}
+.loginPage_div_main_line_and_or_loginComponent {
+    display: flex;
+    margin: 20px 0;
+    align-items: center;
+}
+.loginPage_div_line_loginComponent {
+    background: #e5e5e5;
+    flex-grow: 1;
+    height: 2px;
+}
+.loginPage_div_sign_or_loginComponent {
+    text-transform: uppercase;
+    color: #afafaf;
+    flex-grow: 0;
+    padding: 0 8px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    font-family: din-round,sans-serif;
+}
+.loginPage_div_buttons_loginComponent {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.loginPage_button_facebook_google_loginComponent {
+    box-shadow: 0 2px 0 #e5e5e5;
+    border: 2px solid #e5e5e5;
+    width: 180px;
+    height: 48px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+.loginPage_button_facebook_google_loginComponent:hover {
+    background-color: #e5e5e5;
+    box-shadow: 0 2px 0 #c4c1c1;
+    border: 2px solid #c4c1c1;
+}
+.loginPage_span_sign_loginComponent {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    font-family: din-round,sans-serif;
+    text-transform: uppercase;
+    margin-left: 10px;
+}
+.loginPage_div_sign_privacy_policy_loginComponent { 
+    padding: 40px 0 10px 0;
+    text-align: center;
+}
+.loginPage_span_sign_privacy_policy_loginComponent {
+    color: #afafaf;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.forgetPage_header {
+    background-color: #1cb0f6;
+    position: fixed;
+    top: 0;
+    min-height: 70px;
+    width: 100%;
+    padding: 0 73px; 
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.forgetPage_sign_violingo {
+    text-transform: lowercase;
+    font-weight: 700;
+    font-size: 37px;
+    cursor: pointer;
+}
+.forgetPage_sign_language {
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+    font-size: 15px;
+    letter-spacing: .8px;
+    font-family: din-round,sans-serif;
+    font-weight: 700;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 24px 15px;
+}
+.forgetPage_button_enter {
+    background-color: #fff;
+    color: #0b3e71;
+    height: 40px;
+    padding: 0 16px;
+    text-transform: uppercase;
+    transition: filter .2s;
+    border: 0 solid transparent;
+    border-radius: 16px;
+    box-sizing: border-box;
+    font-size: 15px;
+    letter-spacing: .8px;
+    box-shadow: 0 4px 0 #b2def3;
+    font-weight: 500;
+    margin-right: 10px;
+}
+.forgrtPage_button_start {
+    background-color: #58cc02;
+    color: #fff;
+    height: 40px;
+    padding: 0 16px;
+    text-transform: uppercase;
+    transition: filter .2s;
+    border: 0 solid transparent;
+    border-radius: 16px;
+    box-sizing: border-box;
+    font-size: 15px;
+    letter-spacing: .8px;
+    box-shadow: 0 4px 0 #3f7416;
+    font-weight: 500;
+}
+.forgrtPage_button_start:hover {
+    background-color: #70e01a;
+}
+.forgetPage_div_body {
+    margin: 220px auto 0 auto;
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    width: 350px;
+    text-align: center;
+    z-index: 1;
+}
+.forgetPage_input_loginComponent {
+    cursor: text;
+    padding: 8px 16px;
+    width: 350px;
+    box-sizing: border-box;
+    line-height: 27px;
+    border-radius: 16px;
+    background-color: #e5e5e54d;
+    border: 2px solid #e5e5e5;
+    margin-top: 20px;
+}
+.forgetPage_button_send {
+    background-color: #1cb0f6;
+    box-shadow: 0 4px 0 #1899d6;
+    border: #1cb0f6 0 solid;
+    border-radius: 16px;
+    color: #fff;
+    width: 100%;
+    height: 46px;
+    margin-top: 10px;
+    font-family: din-round,sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    box-sizing: border-box;
+    text-transform: uppercase;
 }
 .main_header {
     position: fixed;

@@ -1,10 +1,11 @@
 import { 
     HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE, 
-    LESSON_PAGE,
-    PLACEMENT_PAGE,
+    LESSON_PAGE, PLACEMENT_PAGE, LOGIN_PAGE, FORGET_PASSWORD, 
 } from '../constants';
+import ForgetPasswordPage from '../pages/ForgetPasswordPage';
 import HomePage from '../pages/HomePage';
 import LessonPage from '../pages/LessonPage';
+import LoginPage from '../pages/LoginPage';
 import MainPage from '../pages/MainPage';
 import PlacementPage from '../pages/PlacementPage';
 import RegisterPage from '../pages/RegisterPage';
@@ -29,6 +30,14 @@ export const publicRoutes = [
     {
         path: WELCOME_PAGE,
         Component: WelcomePage
+    },
+    {
+        path: LOGIN_PAGE,
+        Component: LoginPage
+    },
+    {
+        path: FORGET_PASSWORD,
+        Component: ForgetPasswordPage
     },
     {
         path: LESSON_PAGE,

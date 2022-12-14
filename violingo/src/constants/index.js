@@ -7,3 +7,5 @@ export const REGISTER_PAGE = '/register';
 export const WELCOME_PAGE = '/welcome';
 export const LESSON_PAGE = '/lesson';
 export const PLACEMENT_PAGE = '/placement';
+export const LOGIN_PAGE = '/login';
+export const FORGET_PASSWORD = '/forget_password';

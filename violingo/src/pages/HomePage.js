@@ -18,7 +18,7 @@ import sovaTravel from '../icons/sova-travel.svg';
 import computer2 from '../icons/computer2.svg';
 import sovaGift from '../icons/sova-gift.svg';
 import sovaStudy from '../icons/sova-study.svg';
-import { REGISTER_PAGE } from '../constants';
+import { LOGIN_PAGE, REGISTER_PAGE } from '../constants';
 
 const HomePage = () =>  {
   const navigate = useNavigate();
@@ -46,7 +46,10 @@ const HomePage = () =>  {
               <span className="homePage_span_button1" onClick={() => navigate(REGISTER_PAGE)}>
                 РОЗПОЧАТИ
               </span>
-              <span className="homePage_span_button2">
+              <span 
+                className="homePage_span_button2"
+                onClick={() => navigate(LOGIN_PAGE)}
+                >
                 УЖЕ МАЮ ОБЛІКОВИЙ ЗАПИС
               </span>
             </div>
