@@ -1,5 +1,6 @@
 * {
     scroll-behavior: smooth;
+    font-family: din-round,sans-serif;
 }
 body::-webkit-scrollbar {
     margin: 0;
@@ -12,7 +13,6 @@ h1 {
     line-height: 40px;
     margin: 0 0 50px;
     color: #fff;
-    font-family: din-round,sans-serif;
 }
 h2 {
     color: #3c3c3c;
@@ -20,14 +20,12 @@ h2 {
     margin: 0 0 25px;
     font-weight: 700;
     font-size: 24px;
-    font-family: din-round,sans-serif;
 }
 h3 {
     font-size: 19px;
     font-weight: 700;
     margin: 0 0 10px;
     color: #3c3c3c;
-    font-family: din-round,sans-serif;
 }
 h4 {
     font-size: 17px;
@@ -36,12 +34,10 @@ h4 {
     margin-bottom: 0;
     margin-top: 10px;
     color: #fff;
-    font-family: din-round,sans-serif;
 }
 h5 {
     color: #777;
     font-size: 17px;
-    font-family: din-round,sans-serif;
 }
 a {
     cursor: pointer;
@@ -67,8 +63,7 @@ li {
 li:hover {
     text-decoration: underline;
 }
-.homePage_header {
-    background-color: #235390;
+header {
     position: fixed;
     top: 0;
     min-height: 70px;
@@ -79,10 +74,22 @@ li:hover {
     flex-direction: row;
     align-items: center;
 }
+.sign {
+    font-weight: 700;
+    color: white;  
+}
+.display_alien_justify {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.homePage_header {
+    background-color: #235390;
+}
+
 .homePage_sign_violingo {
     text-transform: lowercase;
-    font-weight: 700;
-    font-size: 34px;
+    font-size: 37px;
     cursor: pointer;
 }
 .homePage_sign_language {
@@ -91,8 +98,6 @@ li:hover {
     width: 100%;
     font-size: 15px;
     letter-spacing: .8px;
-    font-family: din-round,sans-serif;
-    font-weight: 700;
     display: flex;
     justify-content: flex-end;
 }
@@ -135,9 +140,7 @@ li:hover {
     flex-direction: column;
 }
 .homePage_span_sign_right {
-    color: white;
     font-size: 32px;
-    font-weight: 700;
     margin-bottom: 50px;   
 }
 .homePage_span_button1 {
@@ -147,9 +150,6 @@ li:hover {
     height: 50px;
     letter-spacing: .8px;
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 16px;
     border-bottom: solid 4px #478b13;
     cursor: pointer;
@@ -164,9 +164,6 @@ li:hover {
     color: white;
     width: 320px;
     height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
     border-bottom: solid 4px #262a60;
 }
@@ -190,16 +187,11 @@ li:hover {
     margin-left: 20px;
 }
 .homePage_span_sign_language {
-    color: white;
-    font-weight: 700;
     width: 100%;
     margin-left: 10px;
     cursor: pointer;
 }
 .homePage_main_div_image_sova {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     max-width: 1065px;
     margin: auto;
 }
@@ -294,9 +286,6 @@ li:hover {
     cursor: pointer;
     width: 192px;
     height: 69px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .homePage_span_button_download:hover {
     background-color: #d0cccc;
@@ -336,9 +325,6 @@ li:hover {
     height: 46px;
     letter-spacing: .8px;
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 16px;
     border-bottom: solid 4px #478b13;
     cursor: pointer;
@@ -348,9 +334,6 @@ li:hover {
     background-color: #58cc02;  
 }
 .homePage_div_sign_and_button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 0 40px;
 }
 .homePage_div_main_signs {
@@ -386,7 +369,6 @@ li:hover {
 }
 .homePage_div_title_languages {
     font-size: 15px;
-    font-weight: 700;
     margin: 6px 0;
     text-transform: none;
 }
@@ -402,21 +384,10 @@ li:hover {
 }
 .registerPage_header {
     background-color: #235390;
-    position: fixed;
-    top: 0;
-    min-height: 70px;
-    width: 100%;
-    padding: 0 300px; 
-    color: white;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
 }
 .registerPage_sign_violingo {
     text-transform: lowercase;
-    font-weight: 700;
-    font-size: 34px;
+    font-size: 37px;
     cursor: pointer;
 }
 .registerPage_sign_language {
@@ -430,9 +401,6 @@ li:hover {
     background-color: #235390;
     width: 100%;
     height: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
 }
 .registerPage_div_center_body {
     margin: 228px auto;
@@ -478,9 +446,6 @@ li:hover {
     position: fixed;
     right: 0;
     z-index: 210;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .welcomePage_button_cross {
     border: none;
@@ -535,7 +500,6 @@ li:hover {
 }
 .welcomePage_span_sign_in_block {
     color: #4b4b4b;
-    font-size: 700;
     font-size: 17px;
     text-align: center;
     margin: 0 20px;
@@ -727,7 +691,6 @@ li:hover {
     width: 168px;
     box-sizing: border-box;
     margin: 0 12px;
-    font-family: din-round,sans-serif;
     font-size: 17px;
 }
 .welcomePage_div_image_message_parallelogram_welcome4Component {
@@ -790,7 +753,6 @@ li:hover {
     border-style: solid;
     font-weight: 700;
     letter-spacing: .8px;
-    font-family: din-round,sans-serif;
     margin-right: 12px;
 }
 .welcomePage_button_allow_welcome4Component {
@@ -800,7 +762,6 @@ li:hover {
     border-radius: 2.49px;
     border-style: solid;
     color: #1cb0f6;
-    font-family: din-round,sans-serif;
     font-weight: 700;
     letter-spacing: .8px;
     padding: 14px 16px;
@@ -884,8 +845,6 @@ li:hover {
     padding: 0 10px;
     font-size: 15px;
     text-transform: uppercase;
-    font-weight: 700;
-    font-family: din-round,sans-serif;
     line-height: 1.2;
     letter-spacing: .8px;
 }
@@ -932,7 +891,6 @@ li:hover {
     border: 2px solid #e5e5e5;
     box-shadow: 0 2px 0 #e5e5e5;
     background-color: #fff;
-    font-family: din-round,sans-serif;
     font-size: 15px;
     text-transform: uppercase;
     letter-spacing: .8px;
@@ -945,9 +903,6 @@ li:hover {
     box-shadow: 0 2px 0 #cec9c9;
 }
 .loginPage_div_main_loginComponent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
 }
 .loginPage_div_componentLogin {
@@ -981,13 +936,23 @@ input:focus {
     border:2px solid #e5e5e5;
     /* box-shadow: 0 0 10px #719ECE; */
 }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 .loginPage_div_input_loginComponent {
     position: relative;
 }
 .loginPage_div_sign_forget_password_loginComponent {
     position: absolute;
     font-size: 15px;
-    font-weight: 700;
     letter-spacing: .8px;
     text-transform: uppercase;
     color: #afafaf;
@@ -1007,7 +972,6 @@ input:focus {
     width: 100%;
     height: 46px;
     margin-top: 20px;
-    font-family: din-round,sans-serif;
     font-size: 15px;
     font-weight: 700;
     letter-spacing: .8px;
@@ -1033,15 +997,10 @@ input:focus {
     flex-grow: 0;
     padding: 0 8px;
     font-size: 15px;
-    font-weight: 700;
     letter-spacing: .8px;
-    font-family: din-round,sans-serif;
 }
 .loginPage_div_buttons_loginComponent {
-    display: flex;
     width: 100%;
-    justify-content: center;
-    align-items: center;
 }
 .loginPage_button_facebook_google_loginComponent {
     box-shadow: 0 2px 0 #e5e5e5;
@@ -1050,9 +1009,6 @@ input:focus {
     height: 48px;
     background: #fff;
     border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     box-sizing: border-box;
 }
 .loginPage_button_facebook_google_loginComponent:hover {
@@ -1061,10 +1017,8 @@ input:focus {
     border: 2px solid #c4c1c1;
 }
 .loginPage_span_sign_loginComponent {
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 14px; 
     letter-spacing: .8px;
-    font-family: din-round,sans-serif;
     text-transform: uppercase;
     margin-left: 10px;
 }
@@ -1077,21 +1031,60 @@ input:focus {
     font-size: 14px;
     box-sizing: border-box;
 }
+.loginPage_div_input_span_registrationComponent {
+    position: relative;
+}
+.loginPage_span_circle_question_registrationComponent {
+    border: 1px solid #e5e5e5;
+    color: #afafaf;
+    border-radius: 100%;
+    font-size: 18px;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    cursor: pointer;
+}
+.loginPage_div_triangle_and_sign_registrationComponent {
+    position: absolute;
+    border: #e5e5e5 solid 1px;
+    border-radius: 16px;
+    width: 300px;
+    padding: 10px 20px;
+    text-align: center;
+    top: 54px;
+    right: -120px;
+    background-color: #fff;
+    font-size: 14px;
+}
+.loginPage_div_triangle_registrationComponent {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    border:  #e5e5e5 solid 1px;
+    position: absolute;
+    background-color: #fff;
+    top: -9px;
+    right: 143px;
+    border-right: none;
+    border-bottom: none;
+}
+.loginPage_a_registrationComponent {
+    text-decoration: none;
+    color: blue;
+    margin-left: 3px;
+}
+.loginPage_a_registrationComponent:hover {
+    color: blue;
+}
 .forgetPage_header {
-    background-color: #1cb0f6;
-    position: fixed;
-    top: 0;
-    min-height: 70px;
-    width: 100%;
+    background-color: #1cb0f6; 
     padding: 0 73px; 
-    color: white;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
 }
 .forgetPage_sign_violingo {
     text-transform: lowercase;
-    font-weight: 700;
     font-size: 37px;
     cursor: pointer;
 }
@@ -1101,8 +1094,6 @@ input:focus {
     width: 100%;
     font-size: 15px;
     letter-spacing: .8px;
-    font-family: din-round,sans-serif;
-    font-weight: 700;
     display: flex;
     justify-content: flex-end;
     padding: 20px 24px 15px;
@@ -1173,9 +1164,7 @@ input:focus {
     width: 100%;
     height: 46px;
     margin-top: 10px;
-    font-family: din-round,sans-serif;
     font-size: 15px;
-    font-weight: 700;
     letter-spacing: .8px;
     box-sizing: border-box;
     text-transform: uppercase;
@@ -1209,20 +1198,12 @@ input:focus {
     margin-right: 60px;
 }
 .header_div_avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background-color: rgb(167, 55, 55);
     color: wheat;
     font-size: 20px;
-}
-.div_image_right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .image_number {
     display: flex;

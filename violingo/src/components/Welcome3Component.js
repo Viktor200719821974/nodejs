@@ -2,15 +2,20 @@ import { BiArrowBack } from 'react-icons/bi';
 
 const Welcom3Component = ({
     setNewComponent1, buttonNoActive, easy, usual, serious, intensive, setValue, 
-    setNewComponent2,
+    setNewComponent2, setEasy, setUsual, setSerious, setIntensive,
     }) => {
 
     const buttonBack = () => {
         setNewComponent1(true);
+        setValue('');
+        setEasy(false);
+        setUsual(false);
+        setSerious(false);
+        setIntensive(false);
     }
     return (
         <div>
-            <div className="welcomePage_main_div_top">
+            <div className="welcomePage_main_div_top display_alien_justify">
                 <button 
                     className="welcomePage_button_cross" 
                     onClick={buttonBack}

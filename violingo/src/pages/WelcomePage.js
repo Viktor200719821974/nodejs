@@ -35,6 +35,7 @@ const WelcomePage = () => {
     const [newComponent2, setNewComponent2] = useState(true);
     const [newComponent3, setNewComponent3] = useState(true);
     const [newComponent4, setNewComponent4] = useState(true);
+    const [newComponent5, setNewComponent5] = useState(false);
     
     useEffect(() => {
         if (value === 'google') {
@@ -251,12 +252,12 @@ const WelcomePage = () => {
         tvStamp, googleStamp, value, facebookStamp, newsStamp, pensilStamp, tiktokStamp, 
         friendsStamp, youtubeStamp, otherStamp, buttonNoActive, cultureStamp, trainingBrainStamp, 
         educationStamp, travelsStamp, careerStamp, familyAndFriendsStamp, other2Stamp, easy,
-        usual, serious, intensive,
+        usual, serious, intensive, newComponent5,
     ]);
     return (
         <div>
             {
-                !newComponent && 
+                (!newComponent && !newComponent5) &&  
                     <Welcome1Component 
                         tvStamp={tvStamp}
                         googleStamp={googleStamp} 
@@ -272,6 +273,8 @@ const WelcomePage = () => {
                         setValue={setValue}
                         setNewComponent={setNewComponent}
                         setButtonNoActive={setButtonNoActive} 
+                        setNewComponent5={setNewComponent5}
+                        setNewComponent4={setNewComponent4}
             />}
             {
                 (newComponent && newComponent1) &&
@@ -316,6 +319,10 @@ const WelcomePage = () => {
                         intensive={intensive} 
                         setValue={setValue}
                         setNewComponent2={setNewComponent2}
+                        setEasy={setEasy}
+                        setUsual={setUsual}
+                        setSerious={setSerious}
+                        setIntensive={setIntensive}
                     />
             }
             {   (!newComponent2 && newComponent3) && 
@@ -336,6 +343,7 @@ const WelcomePage = () => {
                 !newComponent4 && 
                     <Welcome6Component
                         setNewComponent4={setNewComponent4}
+                        newComponent5={newComponent5}
                     />
             }
         </div>

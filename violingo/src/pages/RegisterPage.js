@@ -9,14 +9,14 @@ const RegisterPage = () => {
     return (
         <div>
             <header className="registerPage_header">
-                <span className="registerPage_sign_violingo">
+                <span className="registerPage_sign_violingo sign">
                     violingo
                 </span>
                 <span className="registerPage_sign_language">
                     мова сайту: УКРАЇНСЬКА <MdKeyboardArrowDown size={'30px'}/>
                 </span>
             </header>
-            <div className="registerPage_body">
+            <div className="registerPage_body display_alien_justify">
                 <div className="registerPage_div_center_body">
                     <h1 style={{marginBottom: '50px'}}>Яку мову ви хочете вчити?</h1>
                     <div className="registerPage_main_div_button">

@@ -1,4 +1,5 @@
 import { RxCross1 } from 'react-icons/rx';
+// import { useNavigate } from 'react-router-dom';
 
 import google from '../icons/stamp-google.svg';
 import tv from '../icons/tv.svg';
@@ -9,23 +10,31 @@ import tiktok from '../icons/stamp-tiktok.svg';
 import friends from '../icons/friends.svg';
 import youtube from '../icons/stamp-youtube.svg';
 import other from '../icons/stamp-other.svg';
+// import { LESSON_PAGE } from '../constants';
 
 const Welcome1Component = ({
         tvStamp, googleStamp, setValue, facebookStamp, newsStamp, pensilStamp, tiktokStamp, 
         friendsStamp, youtubeStamp, otherStamp, buttonNoActive, setNewComponent, 
-        setButtonNoActive,
+        setNewComponent5, setNewComponent4,
     }) => {
+    // const navigate = useNavigate();
     return (
         <div>
-           <div className="welcomePage_main_div_top">
-                <button className="welcomePage_button_cross">
+           <div className="welcomePage_main_div_top display_alien_justify">
+                <button 
+                    className="welcomePage_button_cross"
+                    onClick={() => {
+                        setNewComponent5(true);
+                        setNewComponent4(false);
+                    }}
+                    >
                     <RxCross1 color='#d0cccc' size={'22px'}/>
                 </button> 
                 <div className="welcomePage_div_around_cross"></div>
             </div>
             <div className="welcomePage_div_body">
                 <h1 style={{color: '#4b4b4b', margin: '0 24px 24px'}}>
-                    Звідки ви дізналися про Duolingo?
+                    Звідки ви дізналися про Violingo?
                 </h1>
                 <div className="welcomePage_div_main_blocks">
                     <div 
@@ -39,7 +48,7 @@ const Welcome1Component = ({
                             alt="stamp google"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Із пошуку в Google</b>
                         </span>
                     </div>
@@ -54,7 +63,7 @@ const Welcome1Component = ({
                             alt="stamp tv"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>По телебаченню</b>
                         </span>
                     </div>
@@ -69,7 +78,7 @@ const Welcome1Component = ({
                             alt="stamp facebook and instagram"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Із Facebook/Instagram</b>
                         </span>
                     </div>
@@ -84,7 +93,7 @@ const Welcome1Component = ({
                             alt="stamp news"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Із новин/статті/блогу</b>
                         </span>
                     </div>
@@ -99,7 +108,7 @@ const Welcome1Component = ({
                             alt="stamp pensil"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Підсумки 2022 року</b>
                         </span>
                     </div>
@@ -114,7 +123,7 @@ const Welcome1Component = ({
                             alt="stamp tiktok"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>З TikTok</b>
                         </span>
                     </div>
@@ -129,7 +138,7 @@ const Welcome1Component = ({
                             alt="stamp friends"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Від друзів/сім’ї</b>
                         </span>
                     </div>
@@ -144,7 +153,7 @@ const Welcome1Component = ({
                             alt="stamp youtube"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>З YouTube</b>
                         </span>
                     </div>
@@ -159,7 +168,7 @@ const Welcome1Component = ({
                             alt="stamp other"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Інше</b>
                         </span>
                     </div>

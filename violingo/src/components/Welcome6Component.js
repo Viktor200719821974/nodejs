@@ -1,12 +1,13 @@
 import { BiArrowBack } from 'react-icons/bi';
+import { RxCross1 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
 import sovaBaby from '../icons/sova-baby.svg';
 import sovaScientist from '../icons/sova-scientist.svg';
-import { LESSON_PAGE, PLACEMENT_PAGE } from '../constants';
+import { LEARN_PAGE, LESSON_PAGE, PLACEMENT_PAGE } from '../constants';
 
 const Welcome6Component = ({
-    setNewComponent4,
+    setNewComponent4, newComponent5,
     }) => {
     const navigate = useNavigate();
     const buttonBack = () => {
@@ -14,7 +15,8 @@ const Welcome6Component = ({
     }
     return (
         <div>
-            <div className="welcomePage_main_div_top">
+            {!newComponent5 ? 
+                <div className="welcomePage_main_div_top display_alien_justify">
                 <button 
                     className="welcomePage_button_cross" 
                     onClick={buttonBack}
@@ -24,7 +26,20 @@ const Welcome6Component = ({
                 <div className="welcomePage_div_around_cross">
                     <div className="welcomePage_div_one_download" style={{width: '100%'}}></div>
                 </div>
-            </div>
+                </div>
+                :
+                <div 
+                    className="welcomePage_main_div_top"
+                    style={{paddingLeft: '20px'}}
+                    >
+                    <button 
+                        className="welcomePage_button_cross"
+                        onClick={() => navigate(LEARN_PAGE)}
+                        >
+                        <RxCross1 color='#3c3c3c' size={'22px'}/>
+                    </button> 
+                </div>
+            }
             <div className="welcomePage_div_body_welcome5Component">
                 <h1 style={{color: '#4b4b4b', margin: '0 24px 24px'}}>
                     Виберіть шлях

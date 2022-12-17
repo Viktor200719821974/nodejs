@@ -16,7 +16,7 @@ const Welcome4Component = ({
     }
     return (
         <div>
-            <div className="welcomePage_main_div_top">
+            <div className="welcomePage_main_div_top display_alien_justify">
                 <button 
                     className="welcomePage_button_cross" 
                     onClick={buttonBack}
@@ -58,7 +58,7 @@ const Welcome4Component = ({
                                 <ImCross color='#4b4b4b' style={{width: '12px', height: '15px'}}/>
                             </button> 
                             <div style={{marginBottom: '10px'}}>
-                                www.duolingo.com потрібен дозвіл
+                                http://localhost:3000 потрібен дозвіл
                             </div>
                             <div className="welcomePage_div_stamp_bell_and_sign_welcome4Component">
                                 <FaBell style={{width: '19px', height: '20px', marginRight: '15px'}}/>

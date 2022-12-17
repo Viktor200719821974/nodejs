@@ -11,7 +11,7 @@ const Welcome5Component = ({
     }
     return (
         <div>
-            <div className="welcomePage_main_div_top">
+            <div className="welcomePage_main_div_top display_alien_justify">
                 <button 
                     className="welcomePage_button_cross" 
                     onClick={buttonBack}
@@ -29,13 +29,13 @@ const Welcome5Component = ({
                 <div className="welcomePage_div_main_buttons_welcome5Component">
                     <button className="welcomePage_button_facebook_welcome5Component">
                         <img src={stampFacebook} alt="registration by facebook"/>
-                        <span className="welcomePage_span_button_sign_welcome5Component">
+                        <span className="welcomePage_span_button_sign_welcome5Component sign">
                             Продовжити через Facebook
                         </span>
                     </button>
                     <button className="welcomePage_button_google_welcome5Component">
                         <img src={google} alt="registration by google"/>
-                        <span className="welcomePage_span_button_sign_welcome5Component">
+                        <span className="welcomePage_span_button_sign_welcome5Component sign">
                             Продовжити через Google
                         </span>
                     </button>

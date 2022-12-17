@@ -10,7 +10,7 @@ function Header() {
             <div className="div_sign">
                 violingo
             </div>
-            <div className="div_image_right">
+            <div className="display_alien_justify">
                 <img className="image_header_flag" src={america} alt="language"/>
                 <div className="image_number">
                     <img className="image_header_other" src={fire} alt="fire"/>
@@ -20,7 +20,7 @@ function Header() {
                      <img className="image_header_other" src={ruby} alt="ruby"/> 
                      <span className="span_number_ruby">0</span>
                 </div>
-                <div className="header_div_avatar">
+                <div className="header_div_avatar display_alien_justify">
                     V
                 </div>
             </div>

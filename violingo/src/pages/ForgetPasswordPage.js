@@ -2,14 +2,14 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 const ForgetPasswordPage = () => {
     return (
         <div>
-            <div className="forgetPage_header">
-                <div className="forgetPage_sign_violingo">Violingo</div>
-                <span className="forgetPage_sign_language">
+            <header className="forgetPage_header">
+                <div className="forgetPage_sign_violingo sign">Violingo</div>
+                <span className="forgetPage_sign_language sign">
                     мова сайту: УКРАЇНСЬКА <MdKeyboardArrowDown size={'30px'}/>
                 </span>
                 <button className="forgetPage_button_enter">Вхід</button>
                 <button className="forgrtPage_button_start">Розпочати</button>
-            </div>
+            </header>
             <div className="forgetPage_div_body">
                 <h2 style={{color: '#4b4b4b', margin: '0 0 8px'}}>
                     Не пам'ятаю пароль
@@ -25,7 +25,7 @@ const ForgetPasswordPage = () => {
                         className="forgetPage_input_loginComponent"
                         />
                 </div>
-                <button className="forgetPage_button_send">
+                <button className="forgetPage_button_send sign">
                     Надіслати
                 </button>
             </div>

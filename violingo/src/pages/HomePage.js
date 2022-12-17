@@ -18,17 +18,23 @@ import sovaTravel from '../icons/sova-travel.svg';
 import computer2 from '../icons/computer2.svg';
 import sovaGift from '../icons/sova-gift.svg';
 import sovaStudy from '../icons/sova-study.svg';
-import { LOGIN_PAGE, REGISTER_PAGE } from '../constants';
+import { 
+  LOGIN_PAGE, REGISTER_PAGE, VIOLINGO_HOME_PAGE, ENGLISH_PAGE, EFFICACY_PAGE, SUPER_VIOLINGO,
+  DOWNLOAD_APP_STORE, DOWNLOAD_GOOGLE_PLAY, VIOLINGO_FOR_SCHOOL, ENGLISH_TEST,
+} from '../constants';
 
 const HomePage = () =>  {
   const navigate = useNavigate();
     return (
       <div>
         <header className="homePage_header">
-          <span className="homePage_sign_violingo">
+          <span 
+            className="homePage_sign_violingo sign"
+            onClick={() => navigate(VIOLINGO_HOME_PAGE)}
+            >
             violingo
           </span>
-          <span className="homePage_sign_language">
+          <span className="homePage_sign_language sign">
             мова сайту: УКРАЇНСЬКА <MdKeyboardArrowDown size={'30px'}/>
           </span>
         </header>
@@ -40,14 +46,17 @@ const HomePage = () =>  {
               </div>
             </div>
             <div className="homePage_div_main_right">
-              <span className="homePage_span_sign_right">
+              <span className="homePage_span_sign_right sign">
                   Безкоштовний, веселий та ефективний спосіб вивчення мови!
               </span>
-              <span className="homePage_span_button1" onClick={() => navigate(REGISTER_PAGE)}>
+              <span 
+                className="homePage_span_button1 display_alien_justify" 
+                onClick={() => navigate(REGISTER_PAGE)}
+                >
                 РОЗПОЧАТИ
               </span>
               <span 
-                className="homePage_span_button2"
+                className="homePage_span_button2 display_alien_justify"
                 onClick={() => navigate(LOGIN_PAGE)}
                 >
                 УЖЕ МАЮ ОБЛІКОВИЙ ЗАПИС
@@ -55,22 +64,25 @@ const HomePage = () =>  {
             </div>
           </div>
         </div>
-        <div className="homePage_div_choice_language">
+        <div 
+          className="homePage_div_choice_language"
+          onClick={() => navigate(ENGLISH_PAGE)}
+          >
           <MdOutlineKeyboardArrowLeft size={'40px'} color={'#c5b9b9'} style={{cursor: "pointer"}}/>
           <img src={americaflag} alt="america flag" className="homePage_image_choice_language"/>
-          <span className="homePage_span_sign_language">
+          <span className="homePage_span_sign_language sign">
             АНГЛІЙСЬКА
           </span>
           <MdOutlineKeyboardArrowRight size={'40px'} color={'#c5b9b9'} style={{cursor: "pointer"}}/>
         </div> 
-        <div className="homePage_main_div_image_sova">
+        <div className="homePage_main_div_image_sova display_alien_justify">
           <img src={sova} alt="sova" className="homePage_image_sova"/>
           <span className="homePage_span_sign_about_image_sova">
             <h2>
               Найкращий спосіб вивчити мову
             </h2>
             <span className="homePage_span_sign_about_title">
-              Навчатися в Duolingo цікаво й <a href="http://localhost:3000"><b><u>ефективно</u></b></a>! 
+              Навчатися в Violingo цікаво й <a href={EFFICACY_PAGE}><b><u>ефективно</u></b></a>! 
               Заробляйте бали за короткі уроки та вчіться спілкуватися іноземною мовою.
             </span>
           </span>
@@ -78,7 +90,7 @@ const HomePage = () =>  {
         <div className="homePage_div_line"></div>
         <div className="homePage_div_main_sign_why_like">
           <h2 style={{display: "flex", justifyContent: "center"}}>
-          Чому вам сподобається навчатися в Duolingo
+          Чому вам сподобається навчатися в Violingo
           </h2>
           <div className="homePage_div_main_sign_stamps">
             <div className="homePage_div_one_block_sign_stamps">
@@ -88,8 +100,13 @@ const HomePage = () =>  {
                   <h3>Ефективно й дієво</h3>
                   <span>
                     Наші курси ефективно й дієво розвивають навички читання, 
-                    слухання та говоріння. Ознайомтеся з 
-                    <b style={{color: "#1cb0f6", cursor: "pointer"}}> найновішим дослідженням</b>.
+                    слухання та говоріння. Ознайомтеся з  
+                    <b 
+                      style={{color: "#1cb0f6", cursor: "pointer", marginLeft: '3px'}}
+                      onClick={() => navigate(EFFICACY_PAGE)}
+                      > 
+                        найновішим дослідженням
+                    </b>.
                   </span>
                 </div>
               </div>
@@ -138,13 +155,16 @@ const HomePage = () =>  {
             alt="super violingo" 
             style={{width: "185px", height: "180px", marginRight: "48px"}}/>
           <div className="homePage_div_all_signs">
-            <h2>Навчайтесь ефективніше із Super Duolingo</h2>
+            <h2>Навчайтесь ефективніше із Super Violingo</h2>
             <span className="homePage_span_sign_about_title">
-            Вивчення мови в Duolingo абсолютно безкоштовне, але ви можете підписатися на Super, 
+            Вивчення мови в Violingo абсолютно безкоштовне, але ви можете підписатися на Super, 
             щоб видалити рекламу та підтримати безкоштовну освіту. Перші 2 тижні безкоштовно!
             </span>
-            <span className="homePage_span_learn_more">
-              ДОКЛАДНІШЕ ПРО SUPER DUOLINGO
+            <span 
+              className="homePage_span_learn_more"
+              onClick={() => navigate(SUPER_VIOLINGO)}
+              >
+              ДОКЛАДНІШЕ ПРО SUPER VIOLINGO
             </span>
           </div>
         </div>
@@ -157,14 +177,20 @@ const HomePage = () =>  {
               Завантажте їх і дізнайтеся, чому Apple та Google відзначили нас найвищими нагородами.
             </span>
             <div style={{display: "flex"}}>
-              <span className="homePage_span_button_download">
+              <span 
+                className="homePage_span_button_download display_alien_justify"
+                onClick={() => navigate(DOWNLOAD_APP_STORE)}
+                >
               <BsApple size={"34px"} style={{marginRight: "10px"}}/>
               <span style={{display: "flex", flexDirection: "column"}}>
                 <span>Завантажити з</span>
                 <b style={{fontSize: "16px"}}>App Store</b>  
               </span> 
             </span>
-            <span className="homePage_span_button_download">
+            <span 
+              className="homePage_span_button_download display_alien_justify"
+              onClick={() => navigate(DOWNLOAD_GOOGLE_PLAY)}
+              >
               <FaGooglePlay size={"34px"} style={{marginRight: "10px"}}/>
               <span style={{display: "flex", flexDirection: "column"}}>
                 <span>Встановити з</span>
@@ -182,28 +208,34 @@ const HomePage = () =>  {
             alt="super violingo" 
             style={{width: "185px", height: "180px", marginRight: "48px"}}/>
           <div className="homePage_div_all_signs">
-            <h2>Duolingo for Schools</h2>
+            <h2>Violingo for Schools</h2>
             <span className="homePage_span_sign_about_title">
             Безкоштовні інструменти для вчителів, щоб допомогти учням вивчати мови за допомогою 
-            Duolingo у класі та за його межами.
+            Violingo у класі та за його межами.
             </span>
-            <span className="homePage_span_learn_more">
-              ВИКОРИСТОВУЙТЕ DUOLINGO ЗІ СВОЇМ КЛАСОМ
+            <span 
+              className="homePage_span_learn_more"
+              onClick={() => navigate(VIOLINGO_FOR_SCHOOL)}
+              >
+              ВИКОРИСТОВУЙТЕ VIOLINGO ЗІ СВОЇМ КЛАСОМ
             </span>
           </div>
         </div>
         <div className="homePage_div_line"></div>
         <div className="homePage_div_main_certificate">
           <div className="homePage_div_all_signs">
-            <h2>Duolingo English Test</h2>
+            <h2>Violingo English Test</h2>
             <span className="homePage_span_sign_about_title">
             Представляємо вам зручний, короткий і доступний тест англійської мови, 
             що приймається закладами в усьому світі. Завдяки найновішим досягненням 
             у галузях оцінювання знань та штучного інтелекту ми даємо можливість пройти тест
             у найзручніший для вас час.
             </span>
-            <span className="homePage_span_learn_more">
-            ОТРИМАТИ СЕРТИФІКАТ ПРО ВОЛОДІННЯ АНГЛІЙСЬКОЮ
+            <span 
+              className="homePage_span_learn_more"
+              onClick={() => navigate(ENGLISH_TEST)}
+              >
+              ОТРИМАТИ СЕРТИФІКАТ ПРО ВОЛОДІННЯ АНГЛІЙСЬКОЮ
             </span>
           </div>
           <img 
@@ -223,15 +255,21 @@ const HomePage = () =>  {
               Наші курси ефективно й дієво розвивають навички читання, слухання та говоріння. 
               Ознайомтеся з нашим найновішим дослідженням.
             </span>
-            <span className="homePage_span_learn_more">
+            <span 
+              className="homePage_span_learn_more"
+              onClick={() => navigate(EFFICACY_PAGE)}
+              >
               ДОКЛАДНІШЕ ПРО ДОСЛІДЖЕННЯ
             </span>
           </div>
         </div>
         <div className="homePage_div_main_produce">
-          <div className="homePage_div_sign_and_button">
-            <h1 style={{marginRight: '48px'}}>Вивчайте англійську з Duolingo.</h1>
-            <span className="homePage_span_button3">
+          <div className="homePage_div_sign_and_button display_alien_justify">
+            <h1 style={{marginRight: '48px'}}>Вивчайте англійську з Violingo.</h1>
+            <span 
+              className="homePage_span_button3 display_alien_justify"
+              onClick={() => navigate(REGISTER_PAGE)}
+              >
                 РОЗПОЧАТИ
             </span>
           </div>
@@ -239,93 +277,93 @@ const HomePage = () =>  {
             <div className="homePage_div_signs_and_title">
               <div className="homePage_div_title">Про нас</div>
               <ul>
-                <li>Курси</li>
-                <li>Місія</li>
-                <li>Підхід</li>
-                <li>Ефективність</li>
-                <li>Команда</li>
-                <li>Дослідження</li>
-                <li>Інкубатор</li>
-                <li>Вакансії</li>
-                <li>Правила бренду</li>
-                <li>Магазин</li>
-                <li>Преса</li>
-                <li>Інвестори</li>
-                <li>Зв’язатися з нами</li>
+                <li onClick={() => navigate()}>Курси</li>
+                <li onClick={() => navigate()}>Місія</li>
+                <li onClick={() => navigate()}>Підхід</li>
+                <li onClick={() => navigate()}>Ефективність</li>
+                <li onClick={() => navigate()}>Команда</li>
+                <li onClick={() => navigate()}>Дослідження</li>
+                <li onClick={() => navigate()}>Інкубатор</li>
+                <li onClick={() => navigate()}>Вакансії</li>
+                <li onClick={() => navigate()}>Правила бренду</li>
+                <li onClick={() => navigate()}>Магазин</li>
+                <li onClick={() => navigate()}>Преса</li>
+                <li onClick={() => navigate()}>Інвестори</li>
+                <li onClick={() => navigate()}>Зв’язатися з нами</li>
               </ul> 
             </div>
             <div className="homePage_div_signs_and_title">
               <div className="homePage_div_title">Продукти</div>
                 <ul>
-                  <li> Duolingo</li>
-                  <li>Duolingo for Schools</li>
-                  <li>Duolingo English Test</li>
-                  <li>Подкаст</li>
-                  <li>Історії</li>
-                  <li>Duolingo for Business</li>
+                  <li onClick={() => navigate()}> Violingo</li>
+                  <li onClick={() => navigate()}>Violingo for Schools</li>
+                  <li onClick={() => navigate()}>Violingo English Test</li>
+                  <li onClick={() => navigate()}>Подкаст</li>
+                  <li onClick={() => navigate()}>Історії</li>
+                  <li onClick={() => navigate()}>Violingo for Business</li>
                 </ul>
             </div>
             <div className="homePage_div_signs_and_title">
               <div className="homePage_div_title">Додатки</div>
               <ul>
-                <li>Duolingo для Android</li>
-                <li>Duolingo для iOS</li>
+                <li onClick={() => navigate()}>Violingo для Android</li>
+                <li onClick={() => navigate()}>Violingo для iOS</li>
               </ul>
             </div>
             <div className="homePage_div_signs_and_title">
               <div className="homePage_div_title">Довідка та підтримка</div>
               <ul>
-                <li>Часті питання Duolingo</li>
-                <li>Schools: питання</li>
-                <li>Duolingo English Test: часті питання</li>
-                <li>Статус</li>
+                <li onClick={() => navigate()}>Часті питання Violingo</li>
+                <li onClick={() => navigate()}>Schools: питання</li>
+                <li onClick={() => navigate()}>Violingo English Test: часті питання</li>
+                <li onClick={() => navigate()}>Статус</li>
               </ul>
             </div>
             <div className="homePage_div_signs_and_title">
               <div className="homePage_div_title">Умови та конфіденційність</div>
               <ul>
-                <li>Правила спільноти</li>
-                <li>Умови</li>
-                <li>Конфіденційність</li>
+                <li onClick={() => navigate()}>Правила спільноти</li>
+                <li onClick={() => navigate()}>Умови</li>
+                <li onClick={() => navigate()}>Конфіденційність</li>
               </ul>
               <div className="homePage_div_title">Соцмережі</div>
               <ul>
-                <li>Блог</li>
-                <li>Instagram</li>
-                <li>Facebook</li>
-                <li>Twitter</li>
-                <li>YouTube</li>
+                <li onClick={() => navigate()}>Блог</li>
+                <li onClick={() => navigate()}>Instagram</li>
+                <li onClick={() => navigate()}>Facebook</li>
+                <li onClick={() => navigate()}>Twitter</li>
+                <li onClick={() => navigate()}>YouTube</li>
               </ul>
             </div>
           </div>
           <div className="homePage_div_main_languages">
-            <div className="homePage_div_title_languages">Мова сайту:</div>
+            <div className="homePage_div_title_languages sign">Мова сайту:</div>
             <ul className="homePage_ul_languages">
-              <li className="homePage_li_languages">العربية</li>
-              <li className="homePage_li_languages">বাংলা</li>
-              <li className="homePage_li_languages">Čeština</li>
-              <li className="homePage_li_languages">Deutsch</li>
-              <li className="homePage_li_languages">Ελληνικά</li>
-              <li className="homePage_li_languages">English</li>
-              <li className="homePage_li_languages">Español</li>
-              <li className="homePage_li_languages">Français</li>
-              <li className="homePage_li_languages">हिंदी</li>
-              <li className="homePage_li_languages">MagyarBahasa</li>
-              <li className="homePage_li_languages">Indonesia</li>
-              <li className="homePage_li_languages">Italiano</li>
-              <li className="homePage_li_languages">日本語한국어</li>
-              <li className="homePage_li_languages">Nederlands</li>
-              <li className="homePage_li_languages">Polski</li>
-              <li className="homePage_li_languages">Português</li>
-              <li className="homePage_li_languages">Română</li>
-              <li className="homePage_li_languages">Русский</li>
-              <li className="homePage_li_languages">ภาษาไทย</li>
-              <li className="homePage_li_languages">Tagalog</li>
-              <li className="homePage_li_languages">Türkçe</li>
-              <li className="homePage_li_languages">Українською</li>
-              <li className="homePage_li_languages">Tiếng</li>
-              <li className="homePage_li_languages">Việt</li>
-              <li className="homePage_li_languages">中文</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>العربية</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>বাংলা</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Čeština</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Deutsch</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Ελληνικά</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>English</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Español</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Français</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>हिंदी</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>MagyarBahasa</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Indonesia</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Italiano</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>日本語한국어</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Nederlands</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Polski</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Português</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Română</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Русский</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>ภาษาไทย</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Tagalog</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Türkçe</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Українською</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Tiếng</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>Việt</li>
+              <li className="homePage_li_languages" onClick={() => navigate()}>中文</li>
             </ul>
           </div>
         </div>

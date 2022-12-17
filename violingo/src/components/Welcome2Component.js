@@ -41,7 +41,7 @@ const Welcome2Component = ({
 
     return (
         <div>
-            <div className="welcomePage_main_div_top">
+            <div className="welcomePage_main_div_top display_alien_justify">
                 <button 
                     className="welcomePage_button_cross" 
                     onClick={buttonBack}
@@ -68,7 +68,7 @@ const Welcome2Component = ({
                             alt="stamp culture"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Культура</b>
                         </span>
                     </div>
@@ -83,7 +83,7 @@ const Welcome2Component = ({
                             alt="stamp training brain"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Тренування мозку</b>
                         </span>
                     </div>
@@ -98,7 +98,7 @@ const Welcome2Component = ({
                             alt="stamp education"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Освіта</b>
                         </span>
                     </div>
@@ -113,7 +113,7 @@ const Welcome2Component = ({
                             alt="stamp travels"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Подорожі</b>
                         </span>
                     </div>
@@ -128,7 +128,7 @@ const Welcome2Component = ({
                             alt="stamp career"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Кар’єрні можливості</b>
                         </span>
                     </div>
@@ -143,7 +143,7 @@ const Welcome2Component = ({
                             alt="stamp family and friends"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Родина та друзі</b>
                         </span>
                     </div>
@@ -158,7 +158,7 @@ const Welcome2Component = ({
                             alt="stamp other"
                             style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
                         />
-                        <span className="welcomePage_span_sign_in_block">
+                        <span className="welcomePage_span_sign_in_block sign">
                             <b>Інше</b>
                         </span>
                     </div>
@@ -168,7 +168,10 @@ const Welcome2Component = ({
                         !buttonNoActive ? "welcomePage_div_button_next"
                          : "welcomePage_div_button_next_noActive"
                     }
-                    onClick={() => setNewComponent1(false)}
+                    onClick={() => {
+                        setNewComponent1(false);
+                        setValue('');
+                    }}
                     >
                         Продовжити
                 </button>
