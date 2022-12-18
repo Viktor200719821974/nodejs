@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { FaGooglePlay } from 'react-icons/fa';
 import { BsApple } from 'react-icons/bs';
 import { 
@@ -22,9 +23,12 @@ import {
   LOGIN_PAGE, REGISTER_PAGE, VIOLINGO_HOME_PAGE, ENGLISH_PAGE, EFFICACY_PAGE, SUPER_VIOLINGO,
   DOWNLOAD_APP_STORE, DOWNLOAD_GOOGLE_PLAY, VIOLINGO_FOR_SCHOOL, ENGLISH_TEST,
 } from '../constants';
+import LanguageComponent from '../components/LanguageComponent';
 
 const HomePage = () =>  {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [isBool, setIsBool] = useState(false);
+    const [value, setValue] = useState('УКРАЇНСЬКА');
     return (
       <div>
         <header className="homePage_header">
@@ -34,9 +38,20 @@ const HomePage = () =>  {
             >
             violingo
           </span>
-          <span className="homePage_sign_language sign">
-            мова сайту: УКРАЇНСЬКА <MdKeyboardArrowDown size={'30px'}/>
+          <span 
+            className="homePage_sign_language sign"
+            onMouseEnter={() => setIsBool(true)}
+            onMouseLeave={() => setIsBool(false)}
+            >
+            мова сайту: <span style={{marginLeft: '10px'}}>{value}</span> 
+              <MdKeyboardArrowDown size={'30px'}/>
           </span>
+          {isBool && 
+            <LanguageComponent
+              setValue={setValue}
+              setIsBool={setIsBool}
+            />
+          }
         </header>
         <div className="homePage_body">
           <div className="homePage_div_center_body">

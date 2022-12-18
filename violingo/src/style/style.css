@@ -1169,6 +1169,55 @@ input[type=number] {
     box-sizing: border-box;
     text-transform: uppercase;
 }
+.languageComponent_main_div {
+    position: absolute;
+    right: 315px;
+    top: 53px;
+}
+.languageComponent_ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 450px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    border: 2px solid #e5e5e5;
+}
+.languageComponent_li {
+    width: 44%;
+    color: black;
+    height: 40px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    background-color: #fff;
+}
+.languageComponent_img {
+    width: 17px;
+    height: 20px;
+    margin-right: 20px;
+}
+.languageComponent_li:hover {
+    background: #ded7d7;
+    text-decoration: none;
+}
+.languageComponent_div_triangle {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    border:  #e5e5e5 solid 2px;
+    position: absolute;
+    background-color: #fff;
+    top: -8px;
+    right: 50px;
+    border-right: none;
+    border-bottom: none;
+}
 .main_header {
     position: fixed;
     display: flex;

@@ -1,20 +1,38 @@
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import americaFlag from '../icons/united-states.png';
-import { WELCOME_PAGE } from '../constants';
+import { WELCOME_PAGE, HOME_PAGE } from '../constants';
+import LanguageComponent from '../components/LanguageComponent';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
+    const [isBool, setIsBool] = useState(false);
+    const [value, setValue] = useState('УКРАЇНСЬКА');
     return (
         <div>
             <header className="registerPage_header">
-                <span className="registerPage_sign_violingo sign">
+                <span 
+                    className="registerPage_sign_violingo sign"
+                    onClick={() => navigate(HOME_PAGE)}
+                    >
                     violingo
                 </span>
-                <span className="registerPage_sign_language">
-                    мова сайту: УКРАЇНСЬКА <MdKeyboardArrowDown size={'30px'}/>
+                <span 
+                    className="registerPage_sign_language sign"
+                    onMouseEnter={() => setIsBool(true)}
+                    onMouseLeave={() => setIsBool(false)}
+                    >
+                    мова сайту: <span style={{marginLeft: '10px'}}>{value}</span>
+                     <MdKeyboardArrowDown size={'30px'}/>
                 </span>
+                {isBool && 
+                    <LanguageComponent
+                        setValue={setValue}
+                        setIsBool={setIsBool}
+                    />
+                }
             </header>
             <div className="registerPage_body display_alien_justify">
                 <div className="registerPage_div_center_body">
