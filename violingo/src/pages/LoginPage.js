@@ -1,20 +1,78 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import crossClose from '../icons/cross-close.svg';
-import { HOME_PAGE, CONDITIONS, PRIVACY_POLICY } from '../constants';
+import { 
+    HOME_PAGE, CONDITIONS, PRIVACY_POLICY, LOGIN_PAGE, REGISTRATION_PAGE, REGISTER_PAGE, 
+} from '../constants';
 import LoginComponent from '../components/LoginComponent';
 import RegistrationComponent from '../components/RegistrationComponent';
 import facebook from '../icons/facebook.svg';
 import google from '../icons/stamp-google.svg';
+import { login, registration } from '../http/authApi';
+import { isLoginUser } from '../redux/actions';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch = useDispatch();
+
     const [isLogin, setIsLogin] = useState(false);
-
+    const [isBool, setIsBool] = useState(false);
+    const [age, setAge] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    
+    const click = async(e) => {
+        e.preventDefault();
+        try {
+            let data;
+            if (!isLogin) {
+                data = await login(email, password)
+                    .catch(err => {
+                        if (err.response.data) {
+                            setError(true);
+                            setErrorMessage(err.response.data);
+                        }
+                    });
+            } else {
+                data = await registration(email, password, name, age)
+                    .catch(err => {
+                        if (err.response.data) {
+                            setError(true);
+                            setErrorMessage(err.response.data);
+                        }                       
+                    });                
+            }
+            if (isLogin && data) {
+                console.log(data);
+                navigate(LOGIN_PAGE);
+                setError(false);
+                setErrorMessage('');
+            }
+            if (!isLogin && data) {
+                console.log(data);
+                navigate(REGISTER_PAGE);
+                setError(false);
+                setErrorMessage('');
+                dispatch(isLoginUser(true));
+            } 
+        } catch(e) {
+            console.log(e);
+        }
+    }
     useEffect(() => {
-
-    }, [isLogin]);
+        if (location.pathname === '/login') {
+            setIsLogin(false);
+        }
+        if (location.pathname === '/registration') {
+            setIsLogin(true);
+        } 
+    }, [isLogin, location.pathname]);
     return (
         <div className="loginPage_div_main">
             <div className="loginPage_div_main_button">
@@ -28,14 +86,22 @@ const LoginPage = () => {
                     !isLogin ? 
                         <button 
                             className="loginPage_div_button_registration"
-                            onClick={() => setIsLogin(true)}
+                            onClick={() => {
+                                navigate(REGISTRATION_PAGE);
+                                setError(false);
+                                setErrorMessage('');
+                            }}
                         >
                             Зареєструватися
                         </button>
                     :
                         <button 
                             className="loginPage_div_button_registration"
-                            onClick={() => setIsLogin(false)}
+                            onClick={() => {
+                                navigate(LOGIN_PAGE);
+                                setError(false);
+                                setErrorMessage('');
+                            }}
                         >
                             Вхід
                         </button>
@@ -46,15 +112,38 @@ const LoginPage = () => {
                     { 
                         !isLogin && 
                             <LoginComponent 
-                        
+                                email={email}
+                                setEmail={setEmail}
+                                password={password}
+                                setPassword={setPassword}
+                                click={click}
                             />
                     }
                     { 
                         isLogin && 
                             <RegistrationComponent 
-                            
+                                isBool={isBool}
+                                setIsBool={setIsBool}
+                                age={age}
+                                setAge={setAge}
+                                name={name}
+                                setName={setName}
+                                email={email}
+                                setEmail={setEmail}
+                                password={password}
+                                setPassword={setPassword}
+                                click={click}
                             />
                     }
+                   {
+                        error &&
+                            <div className="loginPage_div_error display_alien_justify">                                
+                                <span className="loginPage_span_errorMessage display_alien_justify">
+                                    <div className="loginPage_div_error_triangle"></div>
+                                    {errorMessage}
+                                </span> 
+                            </div>
+                    }        
                     <div className="loginPage_div_main_line_and_or_loginComponent">
                     <div className="loginPage_div_line_loginComponent"></div>
                     <div className="loginPage_div_sign_or_loginComponent sign">або</div>

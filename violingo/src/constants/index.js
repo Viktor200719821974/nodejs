@@ -1,9 +1,11 @@
+export const REACT_APP_API_URL = 'http://localhost:5500/api';
 export const HOME_PAGE = '/';
 export const LEARN_PAGE = '/learn';
 export const REVIEW_PAGE = '/review';
 export const SHOP_PAGE = '/shop';
 export const SCHOOLS_PAGE = '/schools';
 export const REGISTER_PAGE = '/register';
+export const REGISTRATION_PAGE = '/registration';
 export const WELCOME_PAGE = '/welcome';
 export const LESSON_PAGE = '/lesson';
 export const PLACEMENT_PAGE = '/placement';

@@ -12,12 +12,10 @@ export default (sequelize, DataTypes) => {
     }
   }
   User.init({
-    name:{ type: DataTypes.STRING },
-    surname: { type: DataTypes.STRING },
+    name:{ type: DataTypes.STRING, defaultValue: 'noName' },
     email: { type: DataTypes.STRING, unique: true, allowNull: false },
     password: { type: DataTypes.STRING, allowNull: false },
     age: { type: DataTypes.INTEGER },
-    phone: { type: DataTypes.STRING, unique: true },
     activateToken: { type: DataTypes.STRING, defaultValue: 'No activate' },
     is_active: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     is_staff: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false},

@@ -908,6 +908,7 @@ header {
 .loginPage_div_componentLogin {
     width: 375px;
     margin-top: 150px;
+    position: relative;
 }
 .loginPage_h1_componentLogin {
     color: #3c3c3c;
@@ -1078,6 +1079,38 @@ input[type=number] {
 }
 .loginPage_a_registrationComponent:hover {
     color: blue;
+}
+.loginPage_div_error {
+    position: absolute;
+    top: 72px;
+    right: -210px;
+    width: 200px;
+}
+.loginPage_div_error_triangle {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    border:  #e5e5e5 solid 1px;
+    position: absolute;
+    background-color: #fff;
+    top: 15px;
+    right: 191px;
+    border-right: none;
+    border-top: none;
+}
+.loginPage_span_errorMessage {
+    border: #e5e5e5 solid 1px;
+    border-radius: 16px;
+    font-size: 15px;
+    color: rgb(246, 148, 148);
+    box-sizing: border-box;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    background-color: #fff;
+    position: relative;
 }
 .forgetPage_header {
     background-color: #1cb0f6; 
@@ -1357,10 +1390,13 @@ input[type=number] {
     .main_navBar {
         margin-left: 20px;
     }
-    .homePage_div_sign {
+    header {
+        padding: 0 50px;
+    }
+    /* .homePage_div_sign {
         display: flex;
         align-items: center;
         max-width: 800px;
         column-gap: 600px;
-    }
+    } */
     }

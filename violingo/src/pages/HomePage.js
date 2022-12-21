@@ -21,7 +21,8 @@ import sovaGift from '../icons/sova-gift.svg';
 import sovaStudy from '../icons/sova-study.svg';
 import { 
   LOGIN_PAGE, REGISTER_PAGE, VIOLINGO_HOME_PAGE, ENGLISH_PAGE, EFFICACY_PAGE, SUPER_VIOLINGO,
-  DOWNLOAD_APP_STORE, DOWNLOAD_GOOGLE_PLAY, VIOLINGO_FOR_SCHOOL, ENGLISH_TEST,
+  DOWNLOAD_APP_STORE, DOWNLOAD_GOOGLE_PLAY, VIOLINGO_FOR_SCHOOL, ENGLISH_TEST, 
+  REGISTRATION_PAGE,
 } from '../constants';
 import LanguageComponent from '../components/LanguageComponent';
 
@@ -66,7 +67,7 @@ const HomePage = () =>  {
               </span>
               <span 
                 className="homePage_span_button1 display_alien_justify" 
-                onClick={() => navigate(REGISTER_PAGE)}
+                onClick={() => navigate(REGISTRATION_PAGE)}
                 >
                 РОЗПОЧАТИ
               </span>

@@ -2,24 +2,26 @@ import { NextFunction, Request, Response } from 'express';
 
 import { IRequestExtended, IUser } from '../interfaces';
 import { authService } from '../services/authService';
-import { emailService } from '../services/emailService';
+// import { emailService } from '../services/emailService';
 import { tokenService } from '../services/tokenService';
 import { usersService } from '../services/usersService';
 
 class AuthController {
-    async registration(req: Request, res: Response, next: NextFunction): Promise<IUser | undefined> {
+    async registration(req: Request, res: Response, next: NextFunction) {
         try {
             const { email, password, name } = req.body;
+            console.log(req.body);
             const { activateToken } = await authService.registration(req.body, password, email);
-            const sendEmail = await emailService.sendMail(email, 'WELCOME', { userName: name }, activateToken)
-                .catch(console.error);
-            if (!sendEmail) {
-                res.status(404).json('Problems is send email');
-                return;
-            }
+            // const sendEmail = await emailService.sendMail(email, 'WELCOME', { userName: name }, activateToken)
+            //     .catch(console.error);
+            // if (!sendEmail) {
+            //     res.status(404).json('Problems is send email');
+            //     return;
+            // }
+            console.log(name, 'name');
+            console.log(activateToken, 'activateToken');
             const user = await usersService.getUserByEmail(email);
-            res.json(user);
-            return;
+            res.status(200).json(user);
         } catch(e) {
             next(e);
         }
@@ -35,9 +37,8 @@ class AuthController {
                 res.status(400).json('Bad email or password');
                 return;
             }
-            const tokenPair = await authService.login(email, id);
-            res.json(tokenPair);
-            return;
+            const {accessToken, refreshToken} = await authService.login(email, id);
+            res.json({accessToken, refreshToken});
         } catch(e) {
             next(e);
         }

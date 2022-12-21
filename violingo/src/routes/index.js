@@ -1,6 +1,6 @@
 import { 
     HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE, 
-    LESSON_PAGE, PLACEMENT_PAGE, LOGIN_PAGE, FORGET_PASSWORD, 
+    LESSON_PAGE, PLACEMENT_PAGE, LOGIN_PAGE, FORGET_PASSWORD, REGISTRATION_PAGE, 
 } from '../constants';
 import ForgetPasswordPage from '../pages/ForgetPasswordPage';
 import HomePage from '../pages/HomePage';
@@ -13,31 +13,13 @@ import WelcomePage from '../pages/WelcomePage';
 
 
 export const authRoutes = [
-    // {
-    //     path: ADMIN_ROUTE,
-    //     Component: Admin
-    // }
-]
-export const publicRoutes = [
-    {
-        path: HOME_PAGE,
-        Component: HomePage
-    },
     {
         path: REGISTER_PAGE,
         Component: RegisterPage
     },
-    {
+     {
         path: WELCOME_PAGE,
         Component: WelcomePage
-    },
-    {
-        path: LOGIN_PAGE,
-        Component: LoginPage
-    },
-    {
-        path: FORGET_PASSWORD,
-        Component: ForgetPasswordPage
     },
     {
         path: LESSON_PAGE,
@@ -59,12 +41,30 @@ export const publicRoutes = [
         path: SHOP_PAGE,
         Component: MainPage
     },
-    // {
-    //     path: DEVICE_ROUTE + '/:id',
-    //     Component: DevicePage
-    // },
     {
         path: SCHOOLS_PAGE,
         Component: MainPage
     },
+]
+export const publicRoutes = [
+    {
+        path: HOME_PAGE,
+        Component: HomePage
+    },
+    {
+        path: LOGIN_PAGE,
+        Component: LoginPage
+    },
+    {
+        path: REGISTRATION_PAGE,
+        Component: LoginPage
+    },
+    {
+        path: FORGET_PASSWORD,
+        Component: ForgetPasswordPage
+    },
+    // {
+    //     path: DEVICE_ROUTE + '/:id',
+    //     Component: DevicePage
+    // },
 ]

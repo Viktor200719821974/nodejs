@@ -6,8 +6,6 @@ export interface IUser extends Model<InferAttributes<IUser>, InferCreationAttrib
     email: string;
     password: string;
     name: string;
-    surname: string;
-    phone: string;
     age: number;
     activateToken: string;
     is_active: boolean;

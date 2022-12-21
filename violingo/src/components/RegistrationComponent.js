@@ -1,8 +1,24 @@
-import { useState } from 'react';
 import { PRIVACY_POLICY } from '../constants';
+// import { registration } from '../http/authApi';
 
-const RegistrationComponent = () => {
-    const [isBool, setIsBool] = useState(false);
+const RegistrationComponent = ({
+    isBool, setIsBool, age, setAge, name, setName, email, setEmail, password, setPassword, 
+    click,
+}) => {
+    
+    // const registrationApi = async() => {
+    //     try {
+    //         const res = await registration(age, name, email, password)
+    //             .catch(err => {
+    //                 console.log(err);
+    //             });
+    //             if (res) {
+    //                 console.log(res);
+    //             }
+    //     } catch(e) {
+    //         console.log(e.message);
+    //     }
+    // }
     return (
         <div>
             <form>
@@ -13,11 +29,13 @@ const RegistrationComponent = () => {
                         name="age" 
                         placeholder="Вік"
                         className="loginPage_input_loginComponent"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
                     />
                     <span 
                         className="loginPage_span_circle_question_registrationComponent display_alien_justify"
-                        onMouseEnter={(e) => setIsBool(true)}
-                        onMouseLeave={(e) => setIsBool(false)}
+                        onMouseEnter={() => setIsBool(true)}
+                        onMouseLeave={() => setIsBool(false)}
                         >
                             ?
                     </span> 
@@ -47,6 +65,8 @@ const RegistrationComponent = () => {
                         name="name" 
                         placeholder="Ім’я (необов’язково)"
                         className="loginPage_input_loginComponent"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </div>
                 <div>
@@ -55,6 +75,8 @@ const RegistrationComponent = () => {
                         name="email" 
                         placeholder="Електронна пошта"
                         className="loginPage_input_loginComponent"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
                 <div className="loginPage_div_input_loginComponent">
@@ -63,9 +85,14 @@ const RegistrationComponent = () => {
                         name="password" 
                         placeholder="Пароль"
                         className="loginPage_input_loginComponent"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button className="loginPage_button_enter_loginComponent">
+                <button 
+                    className="loginPage_button_enter_loginComponent"
+                    onClick={click}
+                    >
                     Створити обліковий запис
                 </button>
             </form>
