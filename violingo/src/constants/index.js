@@ -27,3 +27,8 @@ export const ENGLISH_TEST = 'https://localhost:3000';
 
 export const PRIVACY_POLICY = 'https://localhost:3000/privacy_policy';
 export const CONDITIONS = 'https://localhost:3000/conditions';
+
+//PATH TO IMAGES
+
+export const IMAGES_FLAGS_PATH = '/images/flags/';
+export const IMAGES_WELCOME_PATH = '/images/welcome/';

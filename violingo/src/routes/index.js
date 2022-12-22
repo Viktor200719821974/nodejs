@@ -17,10 +17,7 @@ export const authRoutes = [
         path: REGISTER_PAGE,
         Component: RegisterPage
     },
-     {
-        path: WELCOME_PAGE,
-        Component: WelcomePage
-    },
+     
     {
         path: LESSON_PAGE,
         Component: LessonPage
@@ -47,6 +44,10 @@ export const authRoutes = [
     },
 ]
 export const publicRoutes = [
+    {
+        path: WELCOME_PAGE,
+        Component: WelcomePage
+    },
     {
         path: HOME_PAGE,
         Component: HomePage

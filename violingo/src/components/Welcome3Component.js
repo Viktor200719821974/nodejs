@@ -1,17 +1,16 @@
 import { BiArrowBack } from 'react-icons/bi';
+import { arrayWelcome3 } from '../constants/arrays';
+import Welcome3UnderComponent from './Welcome3UnderComponent';
 
-const Welcom3Component = ({
-    setNewComponent1, buttonNoActive, easy, usual, serious, intensive, setValue, 
-    setNewComponent2, setEasy, setUsual, setSerious, setIntensive,
+const Welcome3Component = ({
+    setNewComponent1, setNewComponent2, setIdElement, idElement, 
+    setTimeToExeciseValue, setButtonNoActive,
     }) => {
 
     const buttonBack = () => {
         setNewComponent1(true);
-        setValue('');
-        setEasy(false);
-        setUsual(false);
-        setSerious(false);
-        setIntensive(false);
+        setButtonNoActive(false);
+        setIdElement(0);
     }
     return (
         <div>
@@ -31,76 +30,31 @@ const Welcom3Component = ({
                     Чудово! Тепер виберіть щоденну ціль
                 </h1>
                 <div className="welcomePage_div_main_table_welcome3Component">
-                    <div 
-                        className={
-                            !easy ? "welcomePage_div_table_row_top_welcome3Component" 
-                                : "welcomePage_div_table_row_top_welcome3Component_select"
-                            }
-                        onClick={() => setValue('easy')}
-                        >
-                        <span className="welcomePage_div_table_column_left_welcome3Component">
-                            <b>Проста</b>
-                        </span>
-                        <span className="welcomePage_div_table_column_right_welcome3Component">
-                            5 хв/день
-                        </span>
-                    </div>
-                    <div 
-                        className={ 
-                            !usual ? "welcomePage_div_table_row_center_welcome3Component"
-                                : "welcomePage_div_table_row_center_welcome3Component_select"
-                            }
-                        onClick={() => setValue('usual')}
-                        >
-                        <span className="welcomePage_div_table_column_left_welcome3Component">
-                            <b>Звичайна</b>
-                        </span>
-                        <span className="welcomePage_div_table_column_right_welcome3Component">
-                            10 хв/день
-                        </span>
-                    </div>
-                    <div 
-                        className={ 
-                            !serious ? "welcomePage_div_table_row_center_welcome3Component"
-                                : "welcomePage_div_table_row_center_welcome3Component_select"
-                            }
-                        onClick={() => setValue('serious')}
-                        >
-                        <span className="welcomePage_div_table_column_left_welcome3Component">
-                            <b>Серйозна</b>
-                        </span>
-                        <span className="welcomePage_div_table_column_right_welcome3Component">
-                            15 хв/день
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !intensive ? "welcomePage_div_table_row_down_welcome3Component"
-                                : "welcomePage_div_table_row_down_welcome3Component_select"
-                            }
-                        onClick={() => setValue('intensive')}
-                        >
-                        <span className="welcomePage_div_table_column_left_welcome3Component">
-                            <b>Інтенсив</b>
-                        </span>
-                        <span className="welcomePage_div_table_column_right_welcome3Component">
-                            20 хв/день
-                        </span>
-                    </div>
+                   {
+                    arrayWelcome3.map(c => 
+                        <Welcome3UnderComponent
+                            key={c.id}
+                            id={c.id}
+                            name={c.name}
+                            time={c.time}
+                            title={c.title}
+                            setIdElement={setIdElement}
+                            idElement={idElement}
+                            setTimeToExeciseValue={setTimeToExeciseValue}
+                        />
+                    )
+                   }
                 </div>
-                <button 
-                    className={
-                        !buttonNoActive ? "welcomePage_div_button_next"
-                         : "welcomePage_div_button_next_noActive"
-                    }
+                <div 
+                    className="welcomePage_div_button_next display_alien_justify"
                     onClick={() => setNewComponent2(false)}
                     style={{width: '580px'}}
                     >
                         Продовжити
-                </button>
+                </div>
             </div>
         </div>
     );
 };
 
-export default Welcom3Component;
+export default Welcome3Component;

@@ -26,6 +26,7 @@ function App() {
       console.log(err);
     }
     setLoading(false);
+    // eslint-disable-next-line
   }, []);
   if (loading){
     return <Spinner animation={"grow"}/>

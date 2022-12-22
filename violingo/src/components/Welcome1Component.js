@@ -1,23 +1,12 @@
 import { RxCross1 } from 'react-icons/rx';
-// import { useNavigate } from 'react-router-dom';
 
-import google from '../icons/stamp-google.svg';
-import tv from '../icons/tv.svg';
-import facebookInstagram from '../icons/facebook-instagram.svg';
-import news from '../icons/news.svg';
-import pensil from '../icons/pensil.svg';
-import tiktok from '../icons/stamp-tiktok.svg';
-import friends from '../icons/friends.svg';
-import youtube from '../icons/stamp-youtube.svg';
-import other from '../icons/stamp-other.svg';
-// import { LESSON_PAGE } from '../constants';
+import { arrayWelcome1 } from '../constants/arrays';
+import WelcomeUnderComponent from './WelcomeUnderComponent';
 
 const Welcome1Component = ({
-        tvStamp, googleStamp, setValue, facebookStamp, newsStamp, pensilStamp, tiktokStamp, 
-        friendsStamp, youtubeStamp, otherStamp, buttonNoActive, setNewComponent, 
-        setNewComponent5, setNewComponent4,
+        buttonNoActive, setNewComponent, setNewComponent5, setNewComponent4,
+        setFromKnewValue, setIdElement, idElement, setButtonNoActive, newComponent,
     }) => {
-    // const navigate = useNavigate();
     return (
         <div>
            <div className="welcomePage_main_div_top display_alien_justify">
@@ -37,154 +26,36 @@ const Welcome1Component = ({
                     Звідки ви дізналися про Violingo?
                 </h1>
                 <div className="welcomePage_div_main_blocks">
-                    <div 
-                        className={
-                            !googleStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('google')}
-                        >
-                        <img 
-                            src={google} 
-                            alt="stamp google"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>Із пошуку в Google</b>
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !tvStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('tv')}
-                        >
-                        <img 
-                            src={tv} 
-                            alt="stamp tv"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>По телебаченню</b>
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !facebookStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('facebook')}
-                        >
-                        <img 
-                            src={facebookInstagram} 
-                            alt="stamp facebook and instagram"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>Із Facebook/Instagram</b>
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !newsStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('news')}
-                        >
-                        <img 
-                            src={news} 
-                            alt="stamp news"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>Із новин/статті/блогу</b>
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !pensilStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('pensil')}
-                        >
-                        <img 
-                            src={pensil} 
-                            alt="stamp pensil"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>Підсумки 2022 року</b>
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !tiktokStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('tiktok')}
-                        >
-                        <img 
-                            src={tiktok} 
-                            alt="stamp tiktok"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>З TikTok</b>
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !friendsStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('friends')}
-                        >
-                        <img 
-                            src={friends} 
-                            alt="stamp friends"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>Від друзів/сім’ї</b>
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !youtubeStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('youtube')}
-                        >
-                        <img 
-                            src={youtube} 
-                            alt="stamp youtube"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>З YouTube</b>
-                        </span>
-                    </div>
-                    <div 
-                        className={
-                            !otherStamp ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
-                        }
-                        onClick={() => setValue('other')}
-                        >
-                        <img 
-                            src={other} 
-                            alt="stamp other"
-                            style={{width: '108px', height: '80px', margin: '20px 13px 10px'}}
-                        />
-                        <span className="welcomePage_span_sign_in_block sign">
-                            <b>Інше</b>
-                        </span>
-                    </div>
+                    { !newComponent &&
+                        arrayWelcome1.map(c => 
+                            <WelcomeUnderComponent
+                                key={c.id}
+                                name={c.name}
+                                src={c.src}
+                                alt={c.alt}
+                                sign={c.sign}
+                                id={c.id}
+                                setFromKnewValue={setFromKnewValue}
+                                setIdElement={setIdElement}
+                                idElement={idElement}
+                                setButtonNoActive={setButtonNoActive}
+                            />)
+                    }
                 </div>
-                <button 
+                <div 
                     className={
-                        !buttonNoActive ? "welcomePage_div_button_next"
-                         : "welcomePage_div_button_next_noActive"
+                        buttonNoActive ? "welcomePage_div_button_next display_alien_justify"
+                         : "welcomePage_div_button_next_noActive display_alien_justify"
                     }
                     onClick={() => {
+                        buttonNoActive &&
                         setNewComponent(true);
-                        setValue('');
+                        setIdElement(0);
+                        setButtonNoActive(false);
                     }}
                     >
                         Продовжити
-                </button>
+                </div>
             </div> 
         </div>
     );
