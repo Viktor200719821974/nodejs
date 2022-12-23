@@ -10,5 +10,7 @@ router.post('/registration', authMiddleware.findUserByEmail, registrationValidat
 router.post('/login', authMiddleware.findUser, authController.login);
 router.post('/logout', authMiddleware.checkAccessToken, authController.logout);
 router.post('/refresh', authMiddleware.checkRefreshToken, authController.refresh);
+router.post('/forget_password', authMiddleware.findUserByEmail, authController.forgetPassword);
+router.post('/change_password/:token', authController.changePassword);
 
 export const authRouter = router;

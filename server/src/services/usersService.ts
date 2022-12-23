@@ -54,17 +54,16 @@ class UsersService {
         return model.User.findByPk(id);
     }
 
-    async activateUser(activateToken: string): Promise<void> {
-        const id = await model.User.findOne({ where: { activateToken } })
-            .then((data) => data?.id);
+    async activateUser(id: number): Promise<void> {
         await model.User.update(
             { 
                 is_active: true, 
-                activateToken: 'Activate' 
+                activateToken: 'Activate', 
             }, 
             {
                 where: { id } 
-            });
+            }
+        ); 
     }
 }
 

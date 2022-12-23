@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import { config } from '../config';
-import { ITokenActivate, ITokenPair, IUser } from '../interfaces';
+import { ITokenActivate, ITokenActivateAndName, ITokenPair, IUser } from '../interfaces';
 import { model } from '../models';
 import { tokenService } from './tokenService';
 
@@ -36,12 +36,28 @@ class AuthService {
         return { accessToken, refreshToken, userId };
     }
 
-    async logout() {
-
+    async forgetPassword (userEmail: string): Promise<ITokenActivateAndName> {
+        const user = await model.User.findOne({ where: { email: userEmail } });
+        const userId = user?.id;
+        const userName = user?.name;
+        // @ts-ignore 
+        const { activateToken } = tokenService.generateTokenActivate({ userId, userEmail });
+        await model.User.update({ activateToken }, { where: { id: userId } });
+        return {
+            activateToken,
+            userName,
+        };
     }
 
-    async refresh() {
-        
+    async changePassword(password: string, id: number) {
+        const hashedPassword = await AuthService._hashPassword(password);
+        await model.User.update(
+            { 
+                password: hashedPassword, activateToken: 'Activate' 
+            }, 
+            { 
+                where: { id } 
+            });
     }
 
     private static async _hashPassword(password: string): Promise<string> {

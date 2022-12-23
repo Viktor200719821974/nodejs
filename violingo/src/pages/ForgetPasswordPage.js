@@ -1,14 +1,41 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 import LanguageComponent from '../components/LanguageComponent';
-import { REGISTER_PAGE, LOGIN_PAGE, HOME_PAGE } from '../constants';
+import { 
+    REGISTRATION_PAGE, LOGIN_PAGE, HOME_PAGE, CHANGE_PASSWORD, 
+} from '../constants';
+import ForgetPasswordComponent from '../components/ForgetPasswordComponent';
+import ChangePasswordComponent from '../components/ChangePasswordComponent';
+import { changePassword, forgetPassword } from '../http/authApi';
 
 const ForgetPasswordPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [isBool, setIsBool] = useState(false);
     const [value, setValue] = useState('УКРАЇНСЬКА');
+    const [isChange, setIsChange] = useState(false);
+    const [password, setPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
+    const [email, setEmail] = useState('');
+    
+    const send = () => {
+        if (!isChange) {
+            forgetPassword(email)
+                .then(data => console.log(data))
+                .catch(err => console.log(err));
+        } else {
+            changePassword(password)
+                .then(data => console.log(data))
+                .catch(err => console.log(err));
+        } 
+    }
+    useEffect(() => {
+        if (location.pathname === CHANGE_PASSWORD) {
+            setIsChange(true);
+        }
+    }, [isChange, location.pathname]);
     return (
         <div>
             <header className="forgetPage_header">
@@ -34,33 +61,36 @@ const ForgetPasswordPage = () => {
                 }
                 <button 
                     className="forgetPage_button_enter"
-                    onClick={() => navigate(REGISTER_PAGE)}
+                    onClick={() => navigate(LOGIN_PAGE)}
                     >
                         Вхід
                 </button>
                 <button 
                     className="forgrtPage_button_start"
-                    onClick={() => navigate(LOGIN_PAGE)}
+                    onClick={() => navigate(REGISTRATION_PAGE)}
                     >
                         Розпочати
                 </button>
             </header>
             <div className="forgetPage_div_body">
-                <h2 style={{color: '#4b4b4b', margin: '0 0 8px'}}>
-                    Не пам'ятаю пароль
-                </h2>
-                <h5 style={{color:'#3c3c3c'}}>
-                    Ми надішлемо вам інструкцію для скидання пароля електронною поштою.
-                </h5>
-                <div>
-                    <input 
-                        type="text" 
-                        name="email" 
-                        placeholder="Електронна пошта"
-                        className="forgetPage_input_loginComponent"
-                        />
-                </div>
-                <button className="forgetPage_button_send sign">
+               { !isChange && 
+                    <ForgetPasswordComponent
+                        email={email}
+                        setEmail={setEmail}
+                    />
+                }
+               { isChange && 
+                    <ChangePasswordComponent
+                        password={password}
+                        setPassword={setPassword}
+                        repeatPassword={repeatPassword}
+                        setRepeatPassword={setRepeatPassword}
+                    />
+               }
+                <button 
+                    className="forgetPage_button_send sign"
+                    onClick={send}
+                    >
                     Надіслати
                 </button>
             </div>

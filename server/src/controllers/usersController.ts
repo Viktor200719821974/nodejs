@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { IRequestExtended } from '../interfaces';
 import { emailService } from '../services/emailService';
+import { tokenService } from '../services/tokenService';
 import { usersService } from '../services/usersService';
 
 class UsersController {
@@ -96,17 +97,20 @@ class UsersController {
             if (!activateToken) {
                 res.status(400).json('Bad request');
             }
-            await usersService.activateUser(activateToken).catch(err => {
-                if (err) {
-                    console.log(err);
-                }
-            });
+            // @ts-ignore
+            const { userId } = await tokenService.verifyToken(activateToken, 'activateToken')
+                .catch(err => {
+                    if (err) {
+                        res.status(404).json('Bad token');
+                        return;
+                    }
+                });
+            await usersService.activateUser(userId);
             res.json('User activated');
         } catch (e) {
             next(e);
         }
     }
-
 }
 
 export const usersController = new UsersController();

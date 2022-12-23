@@ -37,3 +37,7 @@ export interface ITokenPair {
     refreshToken: string;
     userId: number;
 }
+export interface ITokenActivateAndName {
+    activateToken: string;
+    userName?: string;
+}

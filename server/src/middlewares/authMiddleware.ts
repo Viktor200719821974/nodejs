@@ -24,9 +24,9 @@ class AuthMiddleware {
                     return;
                 }
             });
-            const findToken = await tokenService.findByParamsAccess(token);
+            const findToken = await tokenService.findByParamsToken(token);
             if (!findToken) {
-                res.status(400).json('No token');
+                res.status(404).json('No token');
                 return;
             }
             const user = await usersService.getUserByEmail(userEmail)
@@ -53,6 +53,23 @@ class AuthMiddleware {
             }
             next();
         } catch(e) {
+            next(e);
+        }
+    }
+
+    async findActivateToken(req: Request, res: Response, next: NextFunction) {
+        try {
+            const activateToken = req.params.token;
+            if (!activateToken) {
+                res.status(400).json('Bad request');
+            }
+            const token = await tokenService.findByParamsActivateToken(activateToken);
+            if (!token) {
+                res.status(400).json('Token was already used');
+                return;
+            }
+            next();
+        } catch (e) {
             next(e);
         }
     }
@@ -102,7 +119,7 @@ class AuthMiddleware {
                     return;
                 }
             });
-            const findToken = await tokenService.findByParamsRefresh(token);
+            const findToken = await tokenService.findByParamsToken(token);
             if (!findToken) {
                 res.status(400).json('No token');
                 return;

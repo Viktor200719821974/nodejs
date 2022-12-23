@@ -39,17 +39,22 @@ class TokenService {
             secretWord = config.SECRET_REFRESH_KEY;
         }
         if (tokenType === 'activateToken') {
-            secretWord = config.SECRET_REFRESH_KEY;
+            secretWord = config.SECRET_ACTIVATE_KEY;
         }
         return jwt.verify(authToken, secretWord);
     }
 
-    async findByParamsAccess(accessToken: string): Promise<boolean> {
-        return !!model.Token.findOne({ where: { accessToken } });
+    async findByParamsToken(token: string): Promise<boolean> {
+        return !!model.Token.findOne({ where: { accessToken: token } });
     }
 
-    async findByParamsRefresh(refreshToken: string | undefined): Promise<boolean> {
-        return !!model.Token.findOne({ where: { refreshToken } });
+    async findByParamsActivateToken(activateToken: string | undefined): Promise<boolean> {
+        const token = await model.User.findOne({ where: { activateToken } })
+            .then(data => data?.activateToken);
+            if (token === undefined) {
+                return false;
+            }
+        return true;
     }
 
     async deleteTokenPair(userId: number): Promise<void> {

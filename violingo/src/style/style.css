@@ -1252,6 +1252,25 @@ input[type=number] {
     border-right: none;
     border-bottom: none;
 }
+.activatePage_div_register {
+    font-size: 40px;
+    text-transform: uppercase;
+    margin-top: 170px;
+}
+.activatePage_div_register_welcome {
+    color: #04fc0a;
+    text-shadow: 1px 0 1px #000,
+    0 1px 1px #000,
+    -1px 0 1px #000,
+    0 -1px 1px #000;
+}
+.activatePage_div_register_error {
+    color: red;
+    text-shadow: 1px 0 1px #000,
+    0 1px 1px #000,
+    -1px 0 1px #000,
+    0 -1px 1px #000;
+}
 .main_header {
     position: fixed;
     display: flex;

@@ -43,6 +43,10 @@ class EmailService {
             subject = emailInfo.WELCOME.subject;
             templateName = emailInfo.WELCOME.templateName;
         }
+        if (template === 'FORGET_PASSWORD') {
+            subject = emailInfo.FORGET_PASSWORD.subject;
+            templateName = emailInfo.FORGET_PASSWORD.templateName;
+        }
         if (template === 'ACCOUNT_BLOCKED') {
             subject = emailInfo.ACCOUNT_BLOCKED.subject;
             templateName = emailInfo.ACCOUNT_BLOCKED.templateName;
@@ -57,7 +61,8 @@ class EmailService {
         }
         Object.assign(context, {
             frontendUrl: config.FRONTEND_URL,
-            activateUrl: `${config.FRONTEND_URL}/api/users/activateUser/${token}`,
+            activateUrl: `${config.FRONTEND_URL}/register/activate/${token}`,
+            forgetPasswordUrl: `${config.FRONTEND_URL}/forget_password/${token}`,
         });
         const html = await this.templateRenderer.render(String(templateName), context);
         const emailTransporter = nodemailer.createTransport({
