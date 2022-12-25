@@ -32,7 +32,7 @@ const ActivatePage = () => {
                 </div>
                 : 
                 <div className={'activatePage_div_register_error'}>
-                    Ваша адреса вже підтверджена!!!!
+                    Ваша адреса підтверджена!!!!
                 </div> 
             }
         </div>

@@ -58,12 +58,12 @@ class UsersService {
         await model.User.update(
             { 
                 is_active: true, 
-                activateToken: 'Activate', 
+                activateToken: '',
             }, 
             {
                 where: { id } 
             }
-        ); 
+        );
     }
 }
 

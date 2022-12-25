@@ -19,7 +19,7 @@ class TokenService {
         const accessToken = jwt.sign(
             payload,
             config.SECRET_ACCESS_KEY!,
-            { expiresIn: '1m' },
+            { expiresIn: '10m' },
         );
         const refreshToken = jwt.sign(
             payload,
@@ -48,13 +48,8 @@ class TokenService {
         return !!model.Token.findOne({ where: { accessToken: token } });
     }
 
-    async findByParamsActivateToken(activateToken: string | undefined): Promise<boolean> {
-        const token = await model.User.findOne({ where: { activateToken } })
-            .then(data => data?.activateToken);
-            if (token === undefined) {
-                return false;
-            }
-        return true;
+    async findByParamsActivateToken(activateToken: string | undefined): Promise<boolean> {    
+        return !!model.User.findOne({ where: { activateToken } });
     }
 
     async deleteTokenPair(userId: number): Promise<void> {

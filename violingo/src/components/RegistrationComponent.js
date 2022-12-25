@@ -1,24 +1,9 @@
 import { PRIVACY_POLICY } from '../constants';
-// import { registration } from '../http/authApi';
 
 const RegistrationComponent = ({
     isBool, setIsBool, age, setAge, name, setName, email, setEmail, password, setPassword, 
     click,
 }) => {
-    
-    // const registrationApi = async() => {
-    //     try {
-    //         const res = await registration(age, name, email, password)
-    //             .catch(err => {
-    //                 console.log(err);
-    //             });
-    //             if (res) {
-    //                 console.log(res);
-    //             }
-    //     } catch(e) {
-    //         console.log(e.message);
-    //     }
-    // }
     return (
         <div>
             <form>

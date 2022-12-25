@@ -49,13 +49,11 @@ const LoginPage = () => {
                     });                
             }
             if (isLogin && data) {
-                console.log(data);
                 navigate(LOGIN_PAGE);
                 setError(false);
                 setErrorMessage('');
             }
             if (!isLogin && data) {
-                console.log(data);
                 navigate(REGISTER_PAGE);
                 setError(false);
                 setErrorMessage('');

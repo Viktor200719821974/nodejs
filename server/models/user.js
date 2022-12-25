@@ -16,7 +16,7 @@ export default (sequelize, DataTypes) => {
     email: { type: DataTypes.STRING, unique: true, allowNull: false },
     password: { type: DataTypes.STRING, allowNull: false },
     age: { type: DataTypes.INTEGER },
-    activateToken: { type: DataTypes.STRING, defaultValue: 'No activate' },
+    activateToken: { type: DataTypes.STRING, allowNull: true },
     is_active: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     is_staff: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false},
     is_superuser: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },

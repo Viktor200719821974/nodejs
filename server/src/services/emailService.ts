@@ -37,6 +37,9 @@ class EmailService {
         myOAuth2Client.setCredentials({
             refresh_token: config.REFRESH_TOKEN_EMAIL,
         });
+        const myAccessToken = await myOAuth2Client.getAccessToken().then(data => {
+            return data.res?.data.access_token;
+        });
         let subject;
         let templateName;
         if (template === 'WELCOME') {
@@ -62,7 +65,7 @@ class EmailService {
         Object.assign(context, {
             frontendUrl: config.FRONTEND_URL,
             activateUrl: `${config.FRONTEND_URL}/register/activate/${token}`,
-            forgetPasswordUrl: `${config.FRONTEND_URL}/forget_password/${token}`,
+            forgetPasswordUrl: `${config.FRONTEND_URL}/change/password/${token}`,
         });
         const html = await this.templateRenderer.render(String(templateName), context);
         const emailTransporter = nodemailer.createTransport({
@@ -73,7 +76,7 @@ class EmailService {
                 clientId: config.CLIENT_ID_EMAIL,
                 clientSecret: config.CLIENT_SECRET_KEY_EMAIL,
                 refreshToken: config.REFRESH_TOKEN_EMAIL,
-                // accessToken: config.ACCESS_TOKEN_EMAIL,
+                accessToken: myAccessToken,
             },
         });
         return emailTransporter.sendMail({

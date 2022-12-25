@@ -57,14 +57,38 @@ class AuthMiddleware {
         }
     }
 
-    async findActivateToken(req: Request, res: Response, next: NextFunction) {
+    async findUserByEmailExist(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { email } = req.body;
+            const user = await usersService.getUserByEmail(email);
+            if (user === null) {
+                res.status(400).json(`User with email: ${email} not exist`);
+                return;
+            }
+            next();  
+        } catch (e) {
+            next(e);
+        }
+    }
+    async findActivateToken(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const activateToken = req.params.token;
             if (!activateToken) {
                 res.status(400).json('Bad request');
             }
-            const token = await tokenService.findByParamsActivateToken(activateToken);
-            if (!token) {
+            // @ts-ignore
+            const { userId } = await tokenService.verifyToken(activateToken, 'activateToken')
+                .catch(err => {
+                    if (err) {
+                        res.status(404).json('Bad token');
+                        return;
+                    }
+                });
+            const user = await model.User.findOne({ where: { id: userId }}).catch(err => console.log(err));
+            if (user) {
+                req.user = user;
+            }
+            if (user?.is_active) {
                 res.status(400).json('Token was already used');
                 return;
             }

@@ -17,8 +17,6 @@ class AuthController {
                 res.status(404).json('Problems is send email');
                 return;
             }
-            // console.log(name, 'name');
-            // console.log(activateToken, 'activateToken');
             const user = await usersService.getUserByEmail(email);
             res.status(200).json(user);
         } catch(e) {
@@ -65,6 +63,7 @@ class AuthController {
                 res.status(404).json('Problems is send email');
                 return;
             }
+            res.status(200).json('Ok');
         } catch (e) {
             next(e);
         }
@@ -73,7 +72,11 @@ class AuthController {
     async changePassword(req: Request, res: Response, next: NextFunction) {
         try {
             const { token } = req.params;
-            const { password } = req.body;
+            const { password, repeatPassword } = req.body;
+            if (password !== repeatPassword) {
+                res.status(400).json('Passwords do not match');
+                return;
+            }
             // @ts-ignore
             const { userId } = await tokenService.verifyToken(token, 'activateToken')
                 .catch(err => {

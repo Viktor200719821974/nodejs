@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
 import LanguageComponent from '../components/LanguageComponent';
 import { 
-    REGISTRATION_PAGE, LOGIN_PAGE, HOME_PAGE, CHANGE_PASSWORD, 
+    REGISTRATION_PAGE, LOGIN_PAGE, HOME_PAGE, 
 } from '../constants';
 import ForgetPasswordComponent from '../components/ForgetPasswordComponent';
 import ChangePasswordComponent from '../components/ChangePasswordComponent';
 import { changePassword, forgetPassword } from '../http/authApi';
+import SendForgetPasswordComponent from '../components/SendForgetPasswordComponent';
+import { arrayForgetPageLinks } from '../constants/arrays';
+import ForgetPasswordLinksComponent from '../components/ForgetPasswordLinksComponent';
 
 const ForgetPasswordPage = () => {
+    let params = useParams();
+    let token = params.token;
     const navigate = useNavigate();
     const location = useLocation();
     const [isBool, setIsBool] = useState(false);
@@ -19,23 +24,48 @@ const ForgetPasswordPage = () => {
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [ifSend, setIfSend] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     
     const send = () => {
         if (!isChange) {
             forgetPassword(email)
-                .then(data => console.log(data))
-                .catch(err => console.log(err));
+                .then(data => {
+                    if (data.status === 200) {
+                        setIfSend(true);
+                        setError(false);
+                        setErrorMessage('');
+                    }
+                })
+                .catch(err => {
+                    if (err.response.data) {
+                        setError(true);
+                        setErrorMessage(err.response.data);
+                    } 
+                });
         } else {
-            changePassword(password)
-                .then(data => console.log(data))
-                .catch(err => console.log(err));
+            changePassword(password, token, repeatPassword)
+                .then(data => {
+                    if (data.status === 200) {
+                        setError(false);
+                        setErrorMessage('');
+                        navigate(LOGIN_PAGE);
+                    }
+                })
+                .catch(err => {
+                    if (err.response.data) {
+                        setError(true);
+                        setErrorMessage(err.response.data);
+                    }
+                });
         } 
     }
     useEffect(() => {
-        if (location.pathname === CHANGE_PASSWORD) {
+        if (location.pathname === `/change/password/${token}`) {
             setIsChange(true);
         }
-    }, [isChange, location.pathname]);
+    }, [isChange, location.pathname, token, error, errorMessage]);
     return (
         <div>
             <header className="forgetPage_header">
@@ -73,13 +103,13 @@ const ForgetPasswordPage = () => {
                 </button>
             </header>
             <div className="forgetPage_div_body">
-               { !isChange && 
+               { (!isChange && !ifSend) && 
                     <ForgetPasswordComponent
                         email={email}
                         setEmail={setEmail}
                     />
                 }
-               { isChange && 
+               { (isChange && !ifSend) &&
                     <ChangePasswordComponent
                         password={password}
                         setPassword={setPassword}
@@ -87,12 +117,44 @@ const ForgetPasswordPage = () => {
                         setRepeatPassword={setRepeatPassword}
                     />
                }
-                <button 
-                    className="forgetPage_button_send sign"
-                    onClick={send}
-                    >
-                    Надіслати
-                </button>
+               {
+                    error &&
+                        <div 
+                            className={
+                                isChange 
+                                    ? "forgetPage_div_error display_alien_justify" 
+                                    : "forgetPage_div_error_forgetPasswordComponent display_alien_justify"
+                                }
+                            >                                
+                            <span className="forgetPage_span_errorMessage display_alien_justify">
+                                <div className="forgetPage_div_error_triangle"></div>
+                                {errorMessage}
+                            </span> 
+                        </div>
+                }   
+               { ifSend && 
+                    <SendForgetPasswordComponent
+                    />
+               }
+                { !ifSend && 
+                    <button 
+                        className="forgetPage_button_send sign"
+                        onClick={send}
+                        >
+                        Надіслати
+                    </button>
+                }
+                <div className="forgetPage_div_line display_alien_justify">
+                <ul className="forgetPage_ul">
+                    { arrayForgetPageLinks.map((c) =>  
+                        <ForgetPasswordLinksComponent
+                            key={c.id}
+                            name={c.name}
+                            id={c.id}
+                        />
+                    )}
+                </ul>
+            </div>
             </div>
         </div>
     );

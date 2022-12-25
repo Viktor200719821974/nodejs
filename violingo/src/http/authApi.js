@@ -13,9 +13,9 @@ export const login = async (email, password) => {
 export const logOutUser = async () => {
     return await $authHost.post('/auth/logout');
 }
-export const forgetPassword = async (email) => {
-    return await $host.post('/auth/forget_password', {email});
+export const forgetPassword = async (email) => {   
+    return await $host.post('/auth/forgetPassword', {email});
 }
-export const changePassword = async (password, token) => {
-    return await $host.post('/auth/change_password/' + token, {password});
+export const changePassword = async (password, token, repeatPassword) => {
+    return await $host.post('/auth/changePassword/' + token, {password, repeatPassword});
 }

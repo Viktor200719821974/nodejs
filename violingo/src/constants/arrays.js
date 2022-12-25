@@ -51,3 +51,26 @@ export const arrayWelcome3 = [
     {id: 3, name: 'serious', time: '15 хв/день', title: 'Серйозна'},
     {id: 4, name: 'intensive', time: '20 хв/день', title: 'Інтенсив'},
 ];
+export const arrayForgetPageLinks = [
+    {id: 1, name: 'ОПИС'},
+    {id: 2, name: 'VIOLINGO FOR SCHOOLS'},
+    {id: 3, name: 'ДОДАТКИ'},
+    {id: 4, name: 'МАГАЗИН'},
+    {id: 5, name: 'ЕФЕКТИВНІСТЬ'},
+    {id: 6, name: 'ДОВІДКА'},
+    {id: 7, name: 'ПРАВИЛА'},
+    {id: 8, name: 'ВАКАНСІЇ'},
+    {id: 9, name: 'ІНВЕСТОРИ'},
+    {id: 10, name: 'УМОВИ'},
+    {id: 11, name: 'КОНФІДЕНЦІЙНІСТЬ'},
+];
+
+
+
+
+
+
+
+
+
+

@@ -1084,8 +1084,8 @@ input[type=number] {
 .loginPage_div_error {
     position: absolute;
     top: 72px;
-    right: -210px;
-    width: 200px;
+    right: -262px;
+    width: 250px;
 }
 .loginPage_div_error_triangle {
     transform: rotateY(0deg) rotate(45deg);
@@ -1096,7 +1096,7 @@ input[type=number] {
     position: absolute;
     background-color: #fff;
     top: 15px;
-    right: 191px;
+    right: 242px;
     border-right: none;
     border-top: none;
 }
@@ -1177,6 +1177,7 @@ input[type=number] {
     width: 350px;
     text-align: center;
     z-index: 1;
+    position: relative;
 }
 .forgetPage_input_loginComponent {
     cursor: text;
@@ -1202,6 +1203,73 @@ input[type=number] {
     letter-spacing: .8px;
     box-sizing: border-box;
     text-transform: uppercase;
+    margin-bottom: 150px;
+}
+.forgetPage_image_sendForgetPasswordComponent {
+    width: 160px;
+    height: 160px;
+    margin: 0 0 12px;
+}
+.forgetPage_div_line {
+    width: 868px;
+    height: 160px;
+    border-top: 2px solid #e5e5e5;
+    /* margin: 12px auto; */
+}
+.forgetPage_ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 48px 12px 28px;
+}
+.forgetPage_li {
+    color: #afafaf;
+    display: flex;
+    justify-content: center;
+    margin: 0 12px 20px;
+    letter-spacing: .8px;
+}
+.forgetPage_li:hover {
+    text-decoration: none;
+    color: #1cb0f6;
+}
+.forgetPage_div_error {
+    position: absolute;
+    top: 53px;
+    right: -260px;
+    width: 250px;
+}
+.forgetPage_div_error_forgetPasswordComponent {
+    position: absolute;
+    top: 101px;
+    right: -260px;
+    width: 250px;
+}
+.forgetPage_span_errorMessage {
+    border: #e5e5e5 solid 1px;
+    border-radius: 16px;
+    font-size: 15px;
+    color: rgb(246, 148, 148);
+    box-sizing: border-box;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    background-color: #fff;
+    position: relative;
+}
+.forgetPage_div_error_triangle {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    border:  #e5e5e5 solid 1px;
+    position: absolute;
+    background-color: #fff;
+    top: 15px;
+    right: 242px;
+    border-right: none;
+    border-top: none;
 }
 .languageComponent_main_div {
     position: absolute;

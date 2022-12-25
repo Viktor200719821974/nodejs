@@ -11,7 +11,7 @@ export const LESSON_PAGE = '/lesson';
 export const PLACEMENT_PAGE = '/placement';
 export const LOGIN_PAGE = '/login';
 export const FORGET_PASSWORD = '/forget_password';
-export const CHANGE_PASSWORD = '/forget_password/:token';
+export const CHANGE_PASSWORD = '/change/password/:token';
 export const ACTIVATE_USER = '/register/activate/:token';
 
 // LINK ON HOME PAGE
