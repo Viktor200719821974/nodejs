@@ -8,7 +8,7 @@ import ForgetPasswordPage from '../pages/ForgetPasswordPage';
 import HomePage from '../pages/HomePage';
 import LessonPage from '../pages/LessonPage';
 import LoginPage from '../pages/LoginPage';
-import MainPage from '../pages/MainPage';
+import MainLearnPage from '../pages/MainLearnPage';
 import PlacementPage from '../pages/PlacementPage';
 import RegisterPage from '../pages/RegisterPage';
 import WelcomePage from '../pages/WelcomePage';
@@ -29,27 +29,27 @@ export const authRoutes = [
         Component: PlacementPage
     },
     {
-        path: LEARN_PAGE,
-        Component: MainPage
-    },
-    {
-        path: REVIEW_PAGE,
-        Component: MainPage
-    },
-    {
-        path: SHOP_PAGE,
-        Component: MainPage
-    },
-    {
-        path: SCHOOLS_PAGE,
-        Component: MainPage
-    },
-    {
         path: WELCOME_PAGE,
         Component: WelcomePage
     },
 ]
-export const publicRoutes = [   
+export const publicRoutes = [ 
+    {
+        path: LEARN_PAGE,
+        Component: MainLearnPage
+    },
+    {
+        path: REVIEW_PAGE,
+        Component: MainLearnPage
+    },
+    {
+        path: SHOP_PAGE,
+        Component: MainLearnPage
+    },
+    {
+        path: SCHOOLS_PAGE,
+        Component: MainLearnPage
+    },  
     {
         path: HOME_PAGE,
         Component: HomePage

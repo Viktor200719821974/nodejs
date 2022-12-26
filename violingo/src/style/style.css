@@ -944,7 +944,6 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
@@ -1339,58 +1338,234 @@ input[type=number] {
     -1px 0 1px #000,
     0 -1px 1px #000;
 }
-.main_header {
-    position: fixed;
-    display: flex;
-    width: 100%;
+.mainLearnPage_main_headerComponent {
     box-sizing: border-box;
-    flex-direction: row;
     border-bottom: solid 2px rgba(0, 0, 0, 0.076);
-    z-index: 210;
     background-color: white;
+    padding: 0 100px;
 }
-.div_sign {
-    color: greenyellow;
-    font-size: 34px;
-    font-weight: 800;
-    margin: 20px 100px;
-    width: 900px;
+.mainLearnPage_div_sign_headerComponent {
+    color: rgb(72, 218, 24);
+    font-weight: bolder;
+    text-transform: lowercase;
+    font-size: 30px;
+    cursor: pointer;
+    width: 30%;
+    text-align: start;
 }
-.image_header_flag {
-    width: 40px;
-    height: 50px;
-    margin-right: 50px;
-    border-radius: 20px;
+.mainLearnPage_main_div_right_headerComponent {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 70%;
 }
-.image_header_other {
+.mainLearnPage_image_header_flag_headerComponent {
+    width: 82px;
+    height: 42px;
+    padding: 0 18px;
+    box-sizing: border-box;
+}
+.mainLearnPage_image_header_other_headerComponent {
     width: 30px;
     height: 30px;
-    margin-right: 60px;
+    padding-right: 6px;
 }
-.header_div_avatar {
-    width: 40px;
-    height: 40px;
+.mainLearnPage_image_avatar_headerComponent {
     border-radius: 50%;
-    background-color: rgb(167, 55, 55);
-    color: wheat;
-    font-size: 20px;
+    height: 36px;
+    width: 36px;
 }
-.image_number {
+.mainLearnPage_image_number_headerComponent {
     display: flex;
+    align-items: center;
     font-size: 20px;
-    position: relative;
+    padding: 0 18px;
 }
-.span_number_ruby {
-    color: red;
-    position: absolute;
-    right: 42px;
-    top: 4px;
+.mainLearnPage_span_number_headerComponent {
+    color: #e5e5e5;
+    font-size: 17px;
 }
-.span_number_fire {
-    color: rgb(255, 106, 0);
+.mainLearnPage_main_div_windowFlagComponent {
     position: absolute;
-    right: 42px;
-    top: 4px;
+    right: 200px;
+    top: 61px;
+}
+.mainLearnPage_div_flag_windowFlagComponent {
+    width: 250px;
+    background: #fff;
+    border-radius: 16px;
+    border: 2px solid #e5e5e5;
+}
+.mainLearnPage_span_flag_windowFlagComponent {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 15px;
+    cursor: pointer;
+}
+.mainLearnPage_span_image_flag_windowFlagComponent {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 15px;
+    border-bottom: 2px solid #e5e5e5;
+    background-color: #ddf4ff;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    cursor: pointer;
+}
+.mainLearnPage_span_image_flag_windowFlagComponent:hover {
+    background-color: #e5e5e588;
+}
+.mainLearnPage_image_flag_windowFlagComponent {
+    width: 30px;
+    margin-right: 20px;
+}
+.mainLearnPage_div_triangle_windowFlagComponent {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    border:  #e5e5e5 solid 2px;
+    position: absolute;
+    top: -8px;
+    right: 120px;
+    border-right: none;
+    border-bottom: none;
+    background: linear-gradient(135deg, #fff 50%, transparent 50%);
+}
+.mainLearnPage_main_div_windowFireComponent {
+    position: absolute;
+    right: 90px;
+    top: 58px;
+}
+.mainLearnPage_div_triangle_windowFireComponent {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    border:  #e5e5e5 solid 2px;
+    position: absolute;
+    top: -8px;
+    right: 160px;
+    border-right: none;
+    border-bottom: none;
+    background-color: #fff;
+}
+.mainLearnPage_div_windowFireComponent {
+    width: 400px;
+    background: #fff;
+    border-radius: 16px;
+    border: 2px solid #e5e5e5;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.mainLearnPage_span_sign_windowFireComponent {
+    color: #777;
+    padding: 10px;
+}
+.mainLearnPage_span_title_windowFireComponent {
+    color: #3c3c3c;
+    font-weight: 700;
+    font-size: 26px;
+}
+.mainLearnPage_div_main_calendar_windowFireComponent {
+    width: 360px;
+    border: solid 2px #e5e5e5;
+    border-radius: 16px;
+    margin-top: 10px;
+}
+.mainLearnPage_main_div_windowRubyComponent {
+    position: absolute;
+    right: 90px;
+    top: 58px;
+}
+.mainLearnPage_div_triangle_windowRubyComponent {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    border:  #e5e5e5 solid 2px;
+    position: absolute;
+    top: -8px;
+    right: 80px;
+    border-right: none;
+    border-bottom: none;
+    background-color: #fff;
+}
+.mainLearnPage_div_windowRubyComponent {
+    width: 350px;
+    background: #fff;
+    border-radius: 16px;
+    border: 2px solid #e5e5e5;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.mainLearnPage_image_windowRubyComponent {
+    width: 100px;
+    margin-right: 20px;
+}
+.mainLearnPage_signs_windowRubyComponent {
+    display: flex;
+    flex-direction: column;
+}
+.mainLeanerPage_span_link_windowRubyComponent {
+    text-transform: uppercase;
+    color: #1cb0f6;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.mainLearnPage_main_div_windowAvatarComponent {
+    position: absolute;
+    right: 61px;
+    top: 63px;
+}
+.mainLearnPage_div_triangle_windowAvatarComponent {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    border:  #e5e5e5 solid 2px;
+    position: absolute;
+    top: -8px;
+    right: 50px;
+    border-right: none;
+    border-bottom: none;
+    background-color: #fff;
+}
+.mainLearnPage_div_windowAvatarComponent {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    background: #fff;
+    border-radius: 16px;
+    border: 2px solid #e5e5e5;
+}
+.mainLearnPage_span_title_windowAvatarComponent {
+    color: #3c3c3c;
+    font-weight: 700;
+    font-size: 24px;
+    padding: 10px 0 10px 20px;
+}
+.mainLearnPage_span_windowAvatarComponent {
+    color: #1cb0f6;
+    padding: 10px 0 10px 20px;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: .8px;
+    cursor: pointer;
+}
+.mainLearnPage_span_windowAvatarComponent:hover {
+    background-color: #e5e5e568;
+}
+.mainLearnPage_div_line_windowAvatarComponent {
+    border-bottom: 2px solid #e5e5e5;
 }
 .main_body {
     display: flex;

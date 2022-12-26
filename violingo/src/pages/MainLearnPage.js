@@ -3,18 +3,23 @@ import { useLocation } from 'react-router-dom';
 
 import { LEARN_PAGE, REVIEW_PAGE, SHOP_PAGE, SCHOOLS_PAGE } from '../constants';
 import NavBar from '../components/NavBar';
-import Header from '../components/Header';
+import HeaderComponent from '../components/HeaderComponent';
 import LearnComponent from '../components/LearnComponent';
 import ReviewComponent from '../components/ReviewComponent';
 import ShopComponent from '../components/ShopComponent';
 import SchoolsComponent from '../components/SchoolsComponent';
 
-const MainPage = () => {
+const MainLearnPage = () => {
     const location = useLocation();
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
     const [shopPage, setShopPage] = useState(false);
     const [schoolPage, setSchoolPage] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [mouseOnFlag, setMouseOnFlag] = useState(false);
+    const [mouseOnFire, setMouseOnFire] = useState(false);
+    const [mouseOnRuby, setMouseOnRuby] = useState(false);
+    const [mouseOnAvatar, setMouseOnAvatar] = useState(false);
 
     useEffect(() => {
         if (location.pathname === LEARN_PAGE) {
@@ -41,12 +46,23 @@ const MainPage = () => {
             setReviewPage(false);
             setLearnPage(false);
         }
-    }, [learnPage, shopPage, reviewPage, location.pathname, schoolPage]);
+    }, [
+        learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
+        mouseOnFire, mouseOnFlag, mouseOnRuby,
+    ]);
     return (
         <>
-        <div className="main_header">
-          <Header/>
-        </div>
+        <HeaderComponent
+            isActive={isActive}
+            mouseOnFlag={mouseOnFlag} 
+            setMouseOnFlag={setMouseOnFlag}
+            mouseOnFire={mouseOnFire}
+            setMouseOnFire={setMouseOnFire}
+            mouseOnRuby={mouseOnRuby} 
+            setMouseOnRuby={setMouseOnRuby}
+            mouseOnAvatar={mouseOnAvatar} 
+            setMouseOnAvatar={setMouseOnAvatar}
+        />
         <div className="main_body">
             <span className="main_navBar">
                 <NavBar/> 
@@ -70,4 +86,4 @@ const MainPage = () => {
     );
 }
 
-export default MainPage;
+export default MainLearnPage;
