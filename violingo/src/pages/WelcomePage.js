@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import Welcome1Component from '../components/Welcome1Component';
-import Welcome2Component from '../components/Welcome2Component';
-import Welcome3Component from '../components/Welcome3Component';
-import Welcome4Component from '../components/Welcome4Component';
-import Welcome5Component from '../components/Welcome5Component';
-import Welcome6Component from '../components/Welcome6Component';
+import Welcome1Component from '../components/welcome/Welcome1Component';
+import Welcome2Component from '../components/welcome/Welcome2Component';
+import Welcome3Component from '../components/welcome/Welcome3Component';
+import Welcome4Component from '../components/welcome/Welcome4Component';
+import Welcome5Component from '../components/welcome/Welcome5Component';
+import Welcome6Component from '../components/welcome/Welcome6Component';
 
 const WelcomePage = () => {
     const [buttonNoActive, setButtonNoActive] = useState(false);
@@ -21,10 +21,6 @@ const WelcomePage = () => {
     const [timeToExeciseValue, setTimeToExeciseValue] = useState('');
     
     useEffect(() => {
-        // if (value === '') {
-        //     setButtonNoActive(true);
-        //     setUsual(true);
-        // }
     }, [
         buttonNoActive, newComponent5, idElement, fromKnewValue, whyStudyValue, 
         newComponent, timeToExeciseValue,

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import americaFlag from '../icons/united-states.png';
 import { WELCOME_PAGE, HOME_PAGE } from '../constants';
-import LanguageComponent from '../components/LanguageComponent';
+import LanguageComponent from '../components/choiseLanguageComponents/LanguageComponent';
 
 const RegisterPage = () => {
     const navigate = useNavigate();

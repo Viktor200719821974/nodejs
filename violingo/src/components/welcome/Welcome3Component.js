@@ -1,5 +1,5 @@
 import { BiArrowBack } from 'react-icons/bi';
-import { arrayWelcome3 } from '../constants/arrays';
+import { arrayWelcome3 } from '../../constants/arrays';
 import Welcome3UnderComponent from './Welcome3UnderComponent';
 
 const Welcome3Component = ({

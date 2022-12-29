@@ -1,4 +1,4 @@
-import { IMAGES_WELCOME_PATH } from '../constants';
+import { IMAGES_WELCOME_PATH } from '../../constants';
 
 const WelcomeUnderComponent = ({
     name, src, alt, sign, id, setFromKnewValue, setIdElement, idElement, setButtonNoActive,

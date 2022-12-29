@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-
-import { FORGET_PASSWORD } from '../constants';
+import { FORGET_PASSWORD } from '../../constants';
 
 const LoginComponent = ({
     email, setEmail, password, setPassword, click,

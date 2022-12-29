@@ -64,6 +64,15 @@ export const arrayForgetPageLinks = [
     {id: 10, name: 'УМОВИ'},
     {id: 11, name: 'КОНФІДЕНЦІЙНІСТЬ'},
 ];
+export const arrayWeekday = [
+    {id: 1, name: 'ПН'},
+    {id: 2, name: 'ВТ'},
+    {id: 3, name: 'СР'},
+    {id: 4, name: 'ЧТ'},
+    {id: 5, name: 'ПТ'},
+    {id: 6, name: 'СБ'},
+    {id: 7, name: 'НД'},
+];
 
 
 

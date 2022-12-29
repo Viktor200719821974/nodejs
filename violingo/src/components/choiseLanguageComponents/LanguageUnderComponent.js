@@ -1,4 +1,4 @@
-import { IMAGES_FLAGS_PATH } from '../constants';
+import { IMAGES_FLAGS_PATH } from '../../constants';
 
 const LanguageUnderComponent = ({name, src, alt, setValue}) => {
     return (

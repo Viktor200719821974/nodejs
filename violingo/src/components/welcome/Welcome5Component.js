@@ -1,7 +1,7 @@
 import { BiArrowBack } from 'react-icons/bi';
 
-import stampFacebook from '../icons/stamp-facebook.svg';
-import google from '../icons/google.svg';
+import stampFacebook from '../../icons/stamp-facebook.svg';
+import google from '../../icons/google.svg';
 
 const Welcome5Component = ({
     setNewComponent3, setNewComponent4,

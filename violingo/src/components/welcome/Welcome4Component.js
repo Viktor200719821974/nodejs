@@ -2,8 +2,8 @@ import { BiArrowBack } from 'react-icons/bi';
 import { FaBell } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
 
-import sovaAllow from '../icons/sova-allow.svg';
-import arrowUp from '../icons/arrow-up.svg';
+import sovaAllow from '../../icons/sova-allow.svg';
+import arrowUp from '../../icons/arrow-up.svg';
 
 const Welcome4Component = ({
     setNewComponent2, buttonNoActive, setNewComponent3,

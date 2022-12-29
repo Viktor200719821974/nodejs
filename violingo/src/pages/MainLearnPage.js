@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { LEARN_PAGE, REVIEW_PAGE, SHOP_PAGE, SCHOOLS_PAGE } from '../constants';
-import NavBar from '../components/NavBar';
-import HeaderComponent from '../components/HeaderComponent';
-import LearnComponent from '../components/LearnComponent';
-import ReviewComponent from '../components/ReviewComponent';
-import ShopComponent from '../components/ShopComponent';
-import SchoolsComponent from '../components/SchoolsComponent';
+import NavBarComponent from '../components/mainLearnPage/NavBarComponent';
+import HeaderComponent from '../components/mainLearnPage/HeaderComponent';
+import LearnComponent from '../components/mainLearnPage/LearnComponent';
+import ReviewComponent from '../components/mainLearnPage/ReviewComponent';
+import ShopComponent from '../components/mainLearnPage/ShopComponent';
+import SchoolsComponent from '../components/mainLearnPage/SchoolsComponent';
 
 const MainLearnPage = () => {
     const location = useLocation();
@@ -65,7 +65,7 @@ const MainLearnPage = () => {
         />
         <div className="main_body">
             <span className="main_navBar">
-                <NavBar/> 
+                <NavBarComponent/> 
             </span>  
             <span className="span_body_component">
                 { learnPage && <LearnComponent/> }
@@ -77,8 +77,7 @@ const MainLearnPage = () => {
                 <div className="div_body_legia">
                     
                 </div>
-                <div className="div_body_agenda">
-       
+                <div className="div_body_agenda">       
                 </div>
             </div>
         </div>

@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
-import LanguageComponent from '../components/LanguageComponent';
+import LanguageComponent from '../components/choiseLanguageComponents/LanguageComponent';
 import { 
     REGISTRATION_PAGE, LOGIN_PAGE, HOME_PAGE, 
 } from '../constants';
-import ForgetPasswordComponent from '../components/ForgetPasswordComponent';
-import ChangePasswordComponent from '../components/ChangePasswordComponent';
+import ForgetPasswordComponent from '../components/forgetPassword/ForgetPasswordComponent';
+import ChangePasswordComponent from '../components/forgetPassword/ChangePasswordComponent';
 import { changePassword, forgetPassword } from '../http/authApi';
-import SendForgetPasswordComponent from '../components/SendForgetPasswordComponent';
+import SendForgetPasswordComponent from '../components/forgetPassword/SendForgetPasswordComponent';
 import { arrayForgetPageLinks } from '../constants/arrays';
-import ForgetPasswordLinksComponent from '../components/ForgetPasswordLinksComponent';
+import ForgetPasswordLinksComponent from '../components/forgetPassword/ForgetPasswordLinksComponent';
 
 const ForgetPasswordPage = () => {
     let params = useParams();

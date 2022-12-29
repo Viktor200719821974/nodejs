@@ -1,4 +1,4 @@
-import { PRIVACY_POLICY } from '../constants';
+import { PRIVACY_POLICY } from '../../constants';
 
 const RegistrationComponent = ({
     isBool, setIsBool, age, setAge, name, setName, email, setEmail, password, setPassword, 

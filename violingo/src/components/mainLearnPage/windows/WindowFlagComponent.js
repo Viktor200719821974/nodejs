@@ -1,6 +1,6 @@
 import { RiFolderAddLine } from 'react-icons/ri';
 
-import flag from '../../icons/united-states.png';
+import flag from '../../../icons/united-states.png';
 
 const WindowFlagComponent = ({
     setMouseOnFlag,

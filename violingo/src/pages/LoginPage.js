@@ -6,8 +6,8 @@ import crossClose from '../icons/cross-close.svg';
 import { 
     HOME_PAGE, CONDITIONS, PRIVACY_POLICY, LOGIN_PAGE, REGISTRATION_PAGE, REGISTER_PAGE, 
 } from '../constants';
-import LoginComponent from '../components/LoginComponent';
-import RegistrationComponent from '../components/RegistrationComponent';
+import LoginComponent from '../components/auth/LoginComponent';
+import RegistrationComponent from '../components/auth/RegistrationComponent';
 import facebook from '../icons/facebook.svg';
 import google from '../icons/stamp-google.svg';
 import { login, registration } from '../http/authApi';

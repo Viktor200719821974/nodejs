@@ -24,7 +24,7 @@ import {
   DOWNLOAD_APP_STORE, DOWNLOAD_GOOGLE_PLAY, VIOLINGO_FOR_SCHOOL, ENGLISH_TEST, 
   REGISTRATION_PAGE,
 } from '../constants';
-import LanguageComponent from '../components/LanguageComponent';
+import LanguageComponent from '../components/choiseLanguageComponents/LanguageComponent';
 
 const HomePage = () =>  {
     const navigate = useNavigate();

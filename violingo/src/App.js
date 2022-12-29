@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import {Spinner} from 'react-bootstrap';
 
+import './style/style.css';
 import { fetchUser, isLoginUser } from './redux/actions';
 import ApiRouter from './components/ApiRouter';
 import { getUserById } from './http/userApi';

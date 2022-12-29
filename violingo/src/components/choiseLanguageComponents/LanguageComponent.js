@@ -1,4 +1,4 @@
-import { arrayLanguages } from '../constants/arrays';
+import { arrayLanguages } from '../../constants/arrays';
 import LanguageUnderComponent from './LanguageUnderComponent';
 
 const LanguageComponent = ({

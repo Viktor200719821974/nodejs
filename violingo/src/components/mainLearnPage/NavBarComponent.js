@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import home from '../icons/home.png';
-import heart from '../icons/heart.png';
-import shop from '../icons/shop.png';
-import school from '../icons/school.png';
-import { LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE } from '../constants';
+import home from '../../icons/home.png';
+import heart from '../../icons/heart.png';
+import shop from '../../icons/shop.png';
+import school from '../../icons/school.png';
+import { LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE } from '../../constants';
 
-const NavBar = () => {
+const NavBarComponent = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [learnPage, setLearnPage] = useState(false);
@@ -76,4 +76,4 @@ const NavBar = () => {
     );
 }
 
-export default NavBar;
+export default NavBarComponent;

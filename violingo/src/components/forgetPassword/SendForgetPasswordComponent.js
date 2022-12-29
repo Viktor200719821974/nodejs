@@ -1,4 +1,4 @@
-import sova from '../icons/forget-password-sova.svg';
+import sova from '../../icons/forget-password-sova.svg';
 const SendForgetPasswordComponent = () => {
     return (
         <div>

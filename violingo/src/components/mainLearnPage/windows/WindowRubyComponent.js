@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import { SHOP_PAGE } from '../../constants';
-import boxRuby from '../../icons/box-ruby.svg';
+import { SHOP_PAGE } from '../../../constants';
+import boxRuby from '../../../icons/box-ruby.svg';
 
 const WindowRubyComponent = ({
     setMouseOnRuby,

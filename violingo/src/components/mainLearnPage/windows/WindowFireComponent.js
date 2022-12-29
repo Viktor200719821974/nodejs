@@ -1,3 +1,6 @@
+import CalendarComponent from './CalendarComponent';
+import 'react-calendar/dist/Calendar.css';
+
 const WindowFireComponent = ({
     setMouseOnFire,
 }) => {
@@ -9,16 +12,16 @@ const WindowFireComponent = ({
             >
             <div className="mainLearnPage_div_triangle_windowFireComponent"></div>
             <div className="mainLearnPage_div_windowFireComponent">
-               <span className="mainLearnPage_span_title_windowFireComponent">
+                <span className="mainLearnPage_span_title_windowFireComponent">
                     Відрізок
                 </span> 
-               <span className="mainLearnPage_span_sign_windowFireComponent">
+                <span className="mainLearnPage_span_sign_windowFireComponent">
                     Навчаючись щодня, ви продовжуєте свій відрізок. 
                     Але якщо пропустите день - втратите його!
-               </span>
-               <div className="mainLearnPage_div_main_calendar_windowFireComponent">
-
-               </div>
+                </span>
+                <div className="mainLearnPage_div_main_calendar_windowFireComponent">
+                    <CalendarComponent/>
+                </div>
             </div>
         </div>
     );

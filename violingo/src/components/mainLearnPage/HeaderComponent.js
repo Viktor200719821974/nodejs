@@ -1,10 +1,9 @@
-import '../style/style.css';
-import america from '../icons/united-states.png';
-import fire from '../icons/fire.png';
-import ruby from '../icons/ruby.png';
-import fireNoActive from '../icons/fire-stamp-noActive.svg';
-import rubyNoActive from '../icons/ruby-noActive.svg';
-import avatar from '../icons/avatar.jpeg';
+import america from '../../icons/united-states.png';
+import fire from '../../icons/fire.png';
+import ruby from '../../icons/ruby.png';
+import fireNoActive from '../../icons/fire-stamp-noActive.svg';
+import rubyNoActive from '../../icons/ruby-noActive.svg';
+import avatar from '../../icons/avatar.jpeg';
 import WindowFlagComponent from './windows/WindowFlagComponent';
 import WindowAvatarComponent from './windows/WindowAvatarComponent';
 import WindowRubyComponent from './windows/WindowRubyComponent';
