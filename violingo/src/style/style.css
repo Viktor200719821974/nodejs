@@ -1608,10 +1608,25 @@ input[type=number] {
 .calendarComponent_li_days {
     color: #777;
     width: 14%;
-    font-size: 15px;
+    font-size: 17px;
     text-align: center;
 }
+.calendarComponent_li_days_now {
+    border-radius: 50%;
+    background-color: #cec8c8;
+    color: rgb(77, 72, 72);
+    width: 38px;
+    height: 38px;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 4px;
+}
 .calendarComponent_li_days:hover {
+    text-decoration: none;
+}
+.calendarComponent_li_days_now:hover {
     text-decoration: none;
 }
 .calendarComponent_ul_days {

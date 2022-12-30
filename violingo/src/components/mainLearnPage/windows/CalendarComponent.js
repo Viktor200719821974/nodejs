@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { arrayWeekday } from '../../../constants/arrays';
 // import Calendar from 'react-calendar';
@@ -7,36 +7,99 @@ import { arrayWeekday } from '../../../constants/arrays';
 const CalendarComponent = () => {
     const date = new Date();
     const monthNow = date.toLocaleString('ukr', { month: 'long' });
-    const [value, setValue] = useState(date);
+    // const [value, setValue] = useState(date);
     const [monthValue, setMonthValue] = useState(monthNow);
     const [currentMonth, setCurrentMonth] = useState(date.getMonth() + 1);
-    
+    const [yearValue, setYearValue] = useState(date.getFullYear());
+    const [daysInCurrentMonth, setDaysInCurrentMonth] = useState();
+    const [dayWeek, setDayWeek] = useState('');
+    const [day, setDay] = useState([]);
+    const [dayNow] = useState(date.getDate());
+    const [monthNowBool, setMonthNowBool] = useState(true);
+    // console.log(currentMonth, 'currentMonth');
+    // console.log(monthValue, 'monthValue');
     const getDaysInMonth = (year, month) => {
+        // console.log(month, 'month');
         return new Date(year, month, 0).getDate();
     }
+    const getDayName = (dateStr, locale) => {
+    let date = new Date(dateStr);
+    return date.toLocaleDateString(locale, { weekday: 'short' });        
+    }
+    const getMonthName = (dateStr, locale) => {
+        let date = new Date(dateStr);
+        console.log(dateStr);
+        return date.toLocaleDateString(locale, { month: 'long'});
+    }
+    const getArrayDay = (daysInCurrentMonth, days) => {
+        for (let i=1; i < daysInCurrentMonth + 1; i++) {
+            days.push(i); 
+        }
+        return days; 
+    }
+    let locale = 'ukr';
+    let dateStr = `${currentMonth}/01/${yearValue}`;
     const previousMonth = () => {
-        setCurrentMonth((date.getMonth() + 1) - 1);
-        // setMonthValue(date.setMonth(currentMonth).toLocaleString('ukr', { month: 'long' }));
+        setCurrentMonth(currentMonth - 1); 
+        console.log(dateStr, 'dateStr');
+        setMonthValue(getMonthName(dateStr, locale)); 
+        setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
     }
-    const currentYear = date.getFullYear();
-    const month = date.setMonth(date.getDate() + 1);
-    console.log(currentYear, 'currentYear');
-    // const currentMonth = date.getMonth() + 1;
-    console.log(currentMonth, 'currentMonth');
-    const daysInCurrentMonth = getDaysInMonth(currentYear, currentMonth);
-    console.log(daysInCurrentMonth);
-    // const month = date.toLocaleString('ukr', { month: 'long' });
-    console.log(month);
-    // const weekday = date.toLocaleDateString('ukr', { weekday: 'short' });
-    // console.log(weekday);
-    const day = [];
-    for (let i=1; i < daysInCurrentMonth + 1; i++) {
-        day.push(i);
-    }
-    // console.log(day);
-    // var prvDateMonth = new Date(date.getFullYear(),date.getMonth()-1,date.getMonth());
-    // console.log(prvDateMonth.toLocaleString('ukr', { month: 'long' }));
-    // console.log(previousMonth);
+    const nextMonth = () => {
+        setCurrentMonth(currentMonth + 1); 
+        console.log(dateStr, 'dateStr next month');
+        setMonthValue(getMonthName(dateStr, locale)); 
+        setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
+    }    
+    useEffect(() => {
+        if (dayWeek !== '') {
+            let days = [];
+            if (dayWeek === 'пн') {
+                setDay(getArrayDay(daysInCurrentMonth, days));
+            }
+            if (dayWeek === 'вт') {
+                days = ['',];
+                setDay(getArrayDay(daysInCurrentMonth, days));
+            } 
+            if (dayWeek === 'ср') {
+                days = ['', '',];
+                setDay(getArrayDay(daysInCurrentMonth, days));
+            }
+            if (dayWeek === 'чт') {
+                days = ['', '', '',];
+                setDay(getArrayDay(daysInCurrentMonth, days));
+            }
+            if (dayWeek === 'пт') {
+                days = ['', '', '', '',];
+                setDay(getArrayDay(daysInCurrentMonth, days));
+            }
+            if (dayWeek === 'сб') {
+                days = ['', '', '', '', ''];
+                setDay(getArrayDay(daysInCurrentMonth, days)); 
+            }
+            if (dayWeek === 'нд') {
+                days = ['', '', '', '', '', '',]; 
+                setDay(getArrayDay(daysInCurrentMonth, days));
+            }            
+        }
+        if (monthValue !== monthNow) {
+            setMonthNowBool(false);
+        }
+        if (currentMonth === -1) {
+            setCurrentMonth(12);
+            setYearValue(yearValue - 1);
+        }
+        if (currentMonth === 13) {
+            setCurrentMonth(0);
+            setYearValue(yearValue + 1);
+        }
+        setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
+        setDayWeek(getDayName(dateStr, locale));
+        // setMonthValue(getMonthName(dateStr, locale));
+    }, [
+        currentMonth, monthValue, daysInCurrentMonth, dayWeek, dayNow, dateStr, locale, 
+        yearValue, monthNowBool, monthNow,
+    ]);
     return (
         <div>
             <div className="calendarComponent_div_month_buttons">
@@ -47,10 +110,13 @@ const CalendarComponent = () => {
                     <IoIosArrowBack color='#afafaf'/>
                 </button>
                 <span className="calendarComponent_title_month_year">
-                    {monthValue} {currentYear}
+                    {monthValue} {yearValue}
                 </span>
-                <button className="calendarComponent_button">
-                    <IoIosArrowForward color='#afafaf'/>
+                <button 
+                    className="calendarComponent_button"
+                    onClick={nextMonth}
+                    >
+                        <IoIosArrowForward color='#afafaf'/>
                 </button>
                 <ul className="calendarComponent_ul_weekdays">
                     {
@@ -66,10 +132,14 @@ const CalendarComponent = () => {
                 </ul>
                 <ul className="calendarComponent_ul_days">
                     {
-                        day.map((c, index) => 
+                        day && day.map((c, index) => 
                             <li 
                                 key={index}
-                                className="calendarComponent_li_days"
+                                className={
+                                    monthNowBool && (dayNow === c) 
+                                        ? "calendarComponent_li_days_now" 
+                                        : "calendarComponent_li_days"
+                                }
                                 >
                                     {c}
                             </li>
