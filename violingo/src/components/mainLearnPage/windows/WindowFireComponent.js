@@ -1,5 +1,4 @@
 import CalendarComponent from './CalendarComponent';
-import 'react-calendar/dist/Calendar.css';
 
 const WindowFireComponent = ({
     setMouseOnFire,

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { arrayWeekday } from '../../../constants/arrays';
-// import Calendar from 'react-calendar';
-// import Calendar from 'moedim';
 
 const CalendarComponent = () => {
     const date = new Date();
     const monthNow = date.toLocaleString('ukr', { month: 'long' });
-    // const [value, setValue] = useState(date);
+    const yearNow = date.toLocaleString('ukr', { year: 'numeric'});
+   
     const [monthValue, setMonthValue] = useState(monthNow);
     const [currentMonth, setCurrentMonth] = useState(date.getMonth() + 1);
     const [yearValue, setYearValue] = useState(date.getFullYear());
@@ -16,19 +15,18 @@ const CalendarComponent = () => {
     const [day, setDay] = useState([]);
     const [dayNow] = useState(date.getDate());
     const [monthNowBool, setMonthNowBool] = useState(true);
-    // console.log(currentMonth, 'currentMonth');
-    // console.log(monthValue, 'monthValue');
+    
+    let locale = 'ukr';
+    let dateStr = `${currentMonth}/1/${yearValue}`;
     const getDaysInMonth = (year, month) => {
-        // console.log(month, 'month');
         return new Date(year, month, 0).getDate();
     }
-    const getDayName = (dateStr, locale) => {
-    let date = new Date(dateStr);
+    const getDayName = (dateString, locale) => {
+    let date = new Date(dateString);
     return date.toLocaleDateString(locale, { weekday: 'short' });        
     }
-    const getMonthName = (dateStr, locale) => {
-        let date = new Date(dateStr);
-        console.log(dateStr);
+    const getMonthName = (dateString, locale) => {
+        let date = new Date(dateString);
         return date.toLocaleDateString(locale, { month: 'long'});
     }
     const getArrayDay = (daysInCurrentMonth, days) => {
@@ -37,19 +35,33 @@ const CalendarComponent = () => {
         }
         return days; 
     }
-    let locale = 'ukr';
-    let dateStr = `${currentMonth}/01/${yearValue}`;
+    const dateNow = (currentMonth, yearValue, locale) => {
+        let dateStr = `${currentMonth}/1/${yearValue}`;
+        if (currentMonth === 0) {
+            setCurrentMonth(12);
+            setYearValue(yearValue - 1);
+            dateStr = `12/1/${yearValue - 1}`;
+            setMonthValue(getMonthName(dateStr, locale)); 
+            setDaysInCurrentMonth(getDaysInMonth(yearValue - 1, 12));
+        }
+        if (currentMonth === 13) {
+            setCurrentMonth(1);
+            setYearValue(yearValue + 1);
+            dateStr = `1/1/${yearValue + 1}`;
+            setMonthValue(getMonthName(dateStr, locale)); 
+            setDaysInCurrentMonth(getDaysInMonth(yearValue + 1, 1));
+        }else {
+            setMonthValue(getMonthName(dateStr, locale)); 
+            setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
+        } 
+    } 
     const previousMonth = () => {
         setCurrentMonth(currentMonth - 1); 
-        console.log(dateStr, 'dateStr');
-        setMonthValue(getMonthName(dateStr, locale)); 
-        setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
+        dateNow(currentMonth - 1, yearValue, locale);
     }
     const nextMonth = () => {
-        setCurrentMonth(currentMonth + 1); 
-        console.log(dateStr, 'dateStr next month');
-        setMonthValue(getMonthName(dateStr, locale)); 
-        setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
+        setCurrentMonth(currentMonth + 1);
+        dateNow(currentMonth + 1, yearValue, locale); 
     }    
     useEffect(() => {
         if (dayWeek !== '') {
@@ -85,20 +97,14 @@ const CalendarComponent = () => {
         if (monthValue !== monthNow) {
             setMonthNowBool(false);
         }
-        if (currentMonth === -1) {
-            setCurrentMonth(12);
-            setYearValue(yearValue - 1);
-        }
-        if (currentMonth === 13) {
-            setCurrentMonth(0);
-            setYearValue(yearValue + 1);
-        }
+        if ((monthNow === monthValue) && (yearValue === Number(yearNow))) {
+            setMonthNowBool(true);
+        } 
         setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
         setDayWeek(getDayName(dateStr, locale));
-        // setMonthValue(getMonthName(dateStr, locale));
     }, [
-        currentMonth, monthValue, daysInCurrentMonth, dayWeek, dayNow, dateStr, locale, 
-        yearValue, monthNowBool, monthNow,
+        currentMonth, monthValue, daysInCurrentMonth, dayWeek, dayNow, dateStr, locale,
+        yearValue, monthNowBool, monthNow, yearNow,
     ]);
     return (
         <div>
@@ -146,12 +152,6 @@ const CalendarComponent = () => {
                         )
                     }
                 </ul>
-                {/* <Calendar 
-                    onChange={setValue} 
-                    value={value} 
-                    locale={'us'} 
-                /> */}
-                {/* <Calendar value={value} onChange={(d) => setValue(d)} locale={'ukr'}/> */}
             </div>
         </div>
     );
