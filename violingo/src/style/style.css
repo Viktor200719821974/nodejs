@@ -68,7 +68,7 @@ header {
     top: 0;
     min-height: 70px;
     width: 100%;
-    padding: 0 300px; 
+    padding: 0 200px; 
     color: white;
     display: flex;
     flex-direction: row;
@@ -100,6 +100,12 @@ header {
     letter-spacing: .8px;
     display: flex;
     justify-content: flex-end;
+    position: relative;
+}
+.homePage_languageComponent {
+    position: absolute;
+    top: 53px;
+    right: 157px;
 }
 .homePage_body {
     margin-top: 70px;
@@ -396,6 +402,12 @@ header {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    position: relative;
+}
+.registerPage_languageComponent {
+    position: absolute;
+    top: 33px;
+    right: -42px;
 }
 .registerPage_body {
     background-color: #235390;
@@ -1130,6 +1142,13 @@ input[type=number] {
     display: flex;
     justify-content: flex-end;
     padding: 20px 24px 15px;
+    position: relative;
+}
+.forgetPasswordPage_languageComponent {
+    position: absolute;
+    top: 53px;
+    right: -18px;
+    z-index: 2;
 }
 .forgetPage_button_enter {
     background-color: #fff;
@@ -1175,9 +1194,13 @@ input[type=number] {
     height: 100%;
     width: 350px;
     text-align: center;
-    z-index: 1;
-    position: relative;
+    /* z-index: 1; */
+    /* position: relative; */
 }
+/* .forgetPage_div_body_forComponents {
+    position: relative;
+    display: flex;
+} */
 .forgetPage_input_loginComponent {
     cursor: text;
     padding: 8px 16px;
@@ -1213,7 +1236,7 @@ input[type=number] {
     width: 868px;
     height: 160px;
     border-top: 2px solid #e5e5e5;
-    /* margin: 12px auto; */
+    z-index: -1;
 }
 .forgetPage_ul {
     display: flex;
@@ -1234,15 +1257,17 @@ input[type=number] {
 }
 .forgetPage_div_error {
     position: absolute;
-    top: 53px;
-    right: -260px;
+    top: 274px;
+    right: 236px;
     width: 250px;
+    z-index: -1;
 }
 .forgetPage_div_error_forgetPasswordComponent {
     position: absolute;
-    top: 101px;
-    right: -260px;
+    top: 321px;
+    right: 236px;
     width: 250px;
+    z-index: -1;
 }
 .forgetPage_span_errorMessage {
     border: #e5e5e5 solid 1px;
@@ -1270,16 +1295,16 @@ input[type=number] {
     border-right: none;
     border-top: none;
 }
-.languageComponent_main_div {
+/* .languageComponent_main_div {
     position: absolute;
-    right: 315px;
+    right: 0;
     top: 53px;
-}
+} */
 .languageComponent_ul {
     display: flex;
     flex-wrap: wrap;
     width: 450px;
-    background: #fff;
+    background-color: #fff;
     border-radius: 16px;
     padding: 30px;
     border: 2px solid #e5e5e5;
@@ -1636,45 +1661,46 @@ input[type=number] {
     text-align: center;
     padding: 0 12px;
 }
-.main_body {
+.mainLearnPage_main_body {
     display: flex;
 }
-.main_navBar {
+.mainLearnPage_main_navBar {
     position: fixed;
     margin: 120px 0 10px 70px; 
 }
-.main_apiRouter {
+/* .main_apiRouter {
     position: absolute;
     overflow: hidden;
     top: 110px;
     left: 340px;
     width: 700px;
-}
-.navBar_button {
-    font-size: 20px;
+} */
+.mainLearnPage_navBar_button_navBarComponent {
+    font-size: 15px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .8px;
     color: #afafaf;
-    width: 250px;
-    height: 64px;
+    width: 224px;
+    height: 56px;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 4px 8px;
     box-sizing: inherit;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
-.navBar_button_select {
-    font-size: 20px;
+.mainLearnPage_navBar_button_select_navBarComponent {
+    font-size: 15px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .8px;
-    color: #afafaf;
-    width: 250px;
-    height: 64px;
+    color: #53c6fb;
+    width: 224px;
+    height: 56px;
     display: flex;
+    text-align: center;
     flex-direction: row;
     align-items: center;
     border-radius: 12px;
@@ -1683,37 +1709,88 @@ input[type=number] {
     padding: 4px 8px;
     box-sizing: inherit;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
-.navBar_button_text:hover {
+.mainLearnPage_navBar_button_navBarComponent:hover {
     color: #3c3c3c;
+    background-color: #ddd9d93c;
+    border-radius: 12px;
 }
-.navBar_button_image {
-    width: 40px;
-    height: 40px;
-    margin: 10px 10px 10px 20px;
+.mainLearnPage_navBar_button_image_navBarComponent {
+    width: 36px;
+    height: 36px;
+    margin: 0 8px;
 }
-.span_body_component {
+.mainLearnPage_span_body_component {
     width: 700px;
     margin: 110px 0 0 340px;
 }
-.div_body_right {
-    margin: 110px 20px 0 50px; 
+.mainLearnPage_div_body_right {
+    margin: 110px 20px 0 50px;
+    /* min-width: 400px; */
+    /* padding: 10px; */
+    box-sizing: border-box; 
 }
-.div_body_legia {
-    width: 400px;
+.mainLearnPage_div_body_legia {
     height: 500px;
     border: solid 2px rgba(0, 0, 0, 0.076);
     border-radius: 10px;
     margin-bottom: 30px;
+    padding: 24px;
 }
-.div_body_agenda {
-    width: 400px;
-    height: 500px;
+.mainLearnPage_div_body_agenda {
+    /* height: 500px; */
+    width: 380px;
     border: solid 2px rgba(0, 0, 0, 0.076);
     border-radius: 10px; 
+    padding: 24px;
 }
-
+.mainLearnPage_div_main_sign_agendaComponent {
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+.mainLearnPage_h2_agendaComponent {
+    color: #4b4b4b;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    width: 211px;
+}
+.mainLearnPage_span_sign_agendaComponent {
+    color: #1cb0f6;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: .8px;
+    font-weight: 700;
+}
+.mainLearnPage_div_image_purpose_agendaComponent {
+    display: flex;
+    align-items: center;
+}
+.mainLearnPage_div_main_purpose_line_success_agendaComponent {
+    width: 100%;
+}
+.mainLearn_image_agendaComponet {
+    margin-right: 14px;
+}
+.mainLearnPage_div_main_line_success_agendaComponent {
+    display: flex;
+    align-items: center;
+}
+.mainLearnPage_div_line_success_agendaComponent {
+    background-color: #ffc800;
+    height: 14px;
+    border-radius: 14px;
+    width: 58%;
+    margin-right: 12px;
+}
+.mainLearnPage_h5_success_agendaComponent {
+    white-space: nowrap;
+    width: 95px;
+    color: #afafaf;
+    text-align: right;
+}
 @media (max-width: 1000px) {
     .div_sign {
         margin: 20px 50px;

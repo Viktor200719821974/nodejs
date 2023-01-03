@@ -73,6 +73,12 @@ export const arrayWeekday = [
     {id: 6, name: 'СБ'},
     {id: 7, name: 'НД'},
 ];
+export const arrayNavBarComponent = [
+    {id: 1, src: 'home.png', alt: 'home', title: 'Навчання', navigate: '/learn'},
+    {id: 2, src: 'heart.png', alt: 'wrong', title: 'Помилки', navigate: '/review'},
+    {id: 3, src: 'shop.png', alt: 'shop', title: 'Магазин', navigate: '/shop'},
+    {id: 4, src: 'school.png', alt: 'school', title: ' Schools', navigate: '/schools'},
+];
 
 
 

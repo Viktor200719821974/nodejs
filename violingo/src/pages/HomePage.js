@@ -41,18 +41,27 @@ const HomePage = () =>  {
           </span>
           <span 
             className="homePage_sign_language sign"
-            onMouseEnter={() => setIsBool(true)}
-            onMouseLeave={() => setIsBool(false)}
             >
-            мова сайту: <span style={{marginLeft: '10px'}}>{value}</span> 
-              <MdKeyboardArrowDown size={'30px'}/>
-          </span>
-          {isBool && 
-            <LanguageComponent
-              setValue={setValue}
-              setIsBool={setIsBool}
-            />
-          }
+            мова сайту: 
+            <span 
+              style={{marginLeft: '10px'}}
+              >
+                {value}
+              </span> 
+              <MdKeyboardArrowDown 
+                size={'30px'}
+                onMouseEnter={() => setIsBool(true)}
+                onMouseLeave={() => setIsBool(false)}
+                />
+            </span>
+            <span className="homePage_languageComponent">
+              {isBool && 
+                <LanguageComponent
+                  setValue={setValue}
+                  setIsBool={setIsBool}
+                />
+              }
+            </span>
         </header>
         <div className="homePage_body">
           <div className="homePage_div_center_body">

@@ -18,8 +18,7 @@ export const authRoutes = [
     {
         path: REGISTER_PAGE,
         Component: RegisterPage
-    },
-     
+    },     
     {
         path: LESSON_PAGE,
         Component: LessonPage

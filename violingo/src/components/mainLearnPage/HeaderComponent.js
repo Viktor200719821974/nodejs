@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import america from '../../icons/united-states.png';
 import fire from '../../icons/fire.png';
 import ruby from '../../icons/ruby.png';
@@ -8,15 +10,20 @@ import WindowFlagComponent from './windows/WindowFlagComponent';
 import WindowAvatarComponent from './windows/WindowAvatarComponent';
 import WindowRubyComponent from './windows/WindowRubyComponent';
 import WindowFireComponent from './windows/WindowFireComponent';
+import { HOME_PAGE } from '../../constants';
 
 function HeaderComponent({
     isActive, mouseOnFlag, setMouseOnFlag, mouseOnFire, setMouseOnFire, mouseOnRuby, 
     setMouseOnRuby, mouseOnAvatar, setMouseOnAvatar,
 }) {
+    const navigate = useNavigate();
     return (
-        <header className="mainLearnPage_main_headerComponent" onClick={() => window.scroll(0, 0)}>
+        <header 
+            className="mainLearnPage_main_headerComponent" 
+            onClick={() => window.scroll(0, 0)}
+            >
             <div className="mainLearnPage_div_sign_headerComponent">
-                violingo
+                <span onClick={() => navigate(HOME_PAGE)}>violingo</span>
             </div>
             <div className="mainLearnPage_main_div_right_headerComponent">
                 <img 

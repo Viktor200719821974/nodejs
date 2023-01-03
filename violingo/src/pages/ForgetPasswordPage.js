@@ -77,18 +77,27 @@ const ForgetPasswordPage = () => {
                 </div>
                 <span 
                     className="forgetPage_sign_language sign"
-                    onMouseEnter={() => setIsBool(true)}
-                    onMouseLeave={() => setIsBool(false)}
                     >
-                    мова сайту: <span style={{marginLeft: '10px'}}>{value}</span>
-                     <MdKeyboardArrowDown size={'30px'}/>
-                </span>
-                {isBool && 
-                    <LanguageComponent
-                        setValue={setValue}
-                        setIsBool={setIsBool}
-                    />
-                }
+                    мова сайту: 
+                    <span 
+                        style={{marginLeft: '10px'}}
+                        >
+                            {value}
+                    </span>
+                     <MdKeyboardArrowDown 
+                        size={'30px'}
+                        onMouseEnter={() => setIsBool(true)}
+                        onMouseLeave={() => setIsBool(false)}
+                        />
+                    <span className="forgetPasswordPage_languageComponent">
+                        {isBool && 
+                            <LanguageComponent
+                                setValue={setValue}
+                                setIsBool={setIsBool}
+                            />
+                        }
+                    </span>
+                </span>                
                 <button 
                     className="forgetPage_button_enter"
                     onClick={() => navigate(LOGIN_PAGE)}
@@ -103,35 +112,38 @@ const ForgetPasswordPage = () => {
                 </button>
             </header>
             <div className="forgetPage_div_body">
-               { (!isChange && !ifSend) && 
-                    <ForgetPasswordComponent
-                        email={email}
-                        setEmail={setEmail}
-                    />
-                }
-               { (isChange && !ifSend) &&
-                    <ChangePasswordComponent
-                        password={password}
-                        setPassword={setPassword}
-                        repeatPassword={repeatPassword}
-                        setRepeatPassword={setRepeatPassword}
-                    />
-               }
-               {
-                    error &&
-                        <div 
-                            className={
-                                isChange 
-                                    ? "forgetPage_div_error display_alien_justify" 
-                                    : "forgetPage_div_error_forgetPasswordComponent display_alien_justify"
-                                }
-                            >                                
-                            <span className="forgetPage_span_errorMessage display_alien_justify">
-                                <div className="forgetPage_div_error_triangle"></div>
-                                {errorMessage}
-                            </span> 
-                        </div>
-                }   
+                <div className="forgetPage_div_body_forComponents">
+                    { (!isChange && !ifSend) && 
+                        <ForgetPasswordComponent
+                            email={email}
+                            setEmail={setEmail}
+                        />
+                    }
+                    { (isChange && !ifSend) &&
+                        <ChangePasswordComponent
+                            password={password}
+                            setPassword={setPassword}
+                            repeatPassword={repeatPassword}
+                            setRepeatPassword={setRepeatPassword}
+                        />
+                    }
+                    {
+                        error &&
+                            <div 
+                                className={
+                                    isChange 
+                                        ? "forgetPage_div_error display_alien_justify" 
+                                        : "forgetPage_div_error_forgetPasswordComponent display_alien_justify"
+                                    }
+                                >                                
+                                <span className="forgetPage_span_errorMessage display_alien_justify">
+                                    <div className="forgetPage_div_error_triangle"></div>
+                                    {errorMessage}
+                                </span> 
+                            </div>
+                        }
+                </div>               
+                  
                { ifSend && 
                     <SendForgetPasswordComponent
                     />

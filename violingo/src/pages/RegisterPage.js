@@ -21,18 +21,22 @@ const RegisterPage = () => {
                 </span>
                 <span 
                     className="registerPage_sign_language sign"
-                    onMouseEnter={() => setIsBool(true)}
-                    onMouseLeave={() => setIsBool(false)}
                     >
                     мова сайту: <span style={{marginLeft: '10px'}}>{value}</span>
-                     <MdKeyboardArrowDown size={'30px'}/>
+                    <MdKeyboardArrowDown 
+                        size={'30px'}
+                        onMouseEnter={() => setIsBool(true)}
+                        onMouseLeave={() => setIsBool(false)}
+                        />
+                    <span className="registerPage_languageComponent">
+                        {isBool && 
+                            <LanguageComponent
+                                setValue={setValue}
+                                setIsBool={setIsBool}
+                            />
+                        }
+                    </span>
                 </span>
-                {isBool && 
-                    <LanguageComponent
-                        setValue={setValue}
-                        setIsBool={setIsBool}
-                    />
-                }
             </header>
             <div className="registerPage_body display_alien_justify">
                 <div className="registerPage_div_center_body">

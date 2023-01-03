@@ -1,6 +1,6 @@
 const ForgetPasswordComponent = ({ email, setEmail, }) => {
     return (
-        <>
+        <div>
             <h2 style={{color: '#4b4b4b', margin: '0 0 8px'}}>
                 Не пам'ятаю пароль
             </h2>
@@ -17,7 +17,7 @@ const ForgetPasswordComponent = ({ email, setEmail, }) => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
-        </>
+        </div>
         
     );
 };

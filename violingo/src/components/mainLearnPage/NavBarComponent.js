@@ -1,77 +1,39 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import home from '../../icons/home.png';
-import heart from '../../icons/heart.png';
-import shop from '../../icons/shop.png';
-import school from '../../icons/school.png';
-import { LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE } from '../../constants';
+import { IMGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT } from '../../constants';
+import { arrayNavBarComponent } from '../../constants/arrays';
 
-const NavBarComponent = () => {
+const NavBarComponent = ({
+    idElement, setIdElement,
+}) => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const [learnPage, setLearnPage] = useState(false);
-    const [reviewPage, setReviewPage] = useState(false);
-    const [shopPage, setShopPage] = useState(false);
-    const [schoolPage, setSchoolPage] = useState(false);
-    
-    useEffect(() => {
-        if (location.pathname === LEARN_PAGE) {
-            setLearnPage(true);
-            setReviewPage(false);
-            setSchoolPage(false);
-            setShopPage(false);
-        }
-        if (location.pathname === REVIEW_PAGE) {
-            setReviewPage(true);
-            setLearnPage(false);
-            setSchoolPage(false);
-            setShopPage(false);
-        }
-        if (location.pathname === SHOP_PAGE) {
-            setShopPage(true);
-            setReviewPage(false);
-            setLearnPage(false);
-            setSchoolPage(false);
-        } 
-        if (location.pathname === SCHOOLS_PAGE) {
-            setSchoolPage(true);
-            setShopPage(false);
-            setReviewPage(false);
-            setLearnPage(false);
-        }
-    }, [learnPage, shopPage, reviewPage, location.pathname, schoolPage]);
     return (
-        <div className="navBar_buttons">
-            <div 
-                className={ learnPage ? "navBar_button_select" : "navBar_button" } 
-                onClick={ () => navigate(LEARN_PAGE) }
-            >
-                <img className="navBar_button_image" src={home} alt="home"/>
-                <div className="navBar_button_text" >Навчання</div>
-            </div>
-            <div 
-                className={ reviewPage ? "navBar_button_select" : "navBar_button" }
-                onClick={ () => navigate(REVIEW_PAGE) }
-                >
-
-                <img className="navBar_button_image" src={heart} alt="wrong"/>
-                <div className="navBar_button_text">Помилки</div>
-            </div>
-            <div 
-                className={ shopPage ? "navBar_button_select" : "navBar_button" }
-                onClick={ () => navigate(SHOP_PAGE) }
-                >
-                <img className="navBar_button_image" src={shop} alt="shop"/>
-                <div className="navBar_button_text">Магазин</div>
-            </div>
-            <div
-                className={ schoolPage ? "navBar_button_select" : "navBar_button" }
-                onClick={ () => navigate(SCHOOLS_PAGE) }
-                >
-                <img className="navBar_button_image" src={school} alt="school"/>
-               <div className="navBar_button_text">Schools</div> 
-            </div>
+        <div className="mainLearnPage_navBar_buttons_navBarComponent">
+            {
+                arrayNavBarComponent.map(c => 
+                    <div 
+                        className={
+                            idElement === c.id 
+                                ? "mainLearnPage_navBar_button_select_navBarComponent"
+                                : "mainLearnPage_navBar_button_navBarComponent"
+                        }
+                        key={c.id}
+                        onClick={() => {
+                            navigate(c.navigate);
+                            setIdElement(c.id);
+                        }}
+                        >
+                        <img 
+                            className="mainLearnPage_navBar_button_image_navBarComponent" 
+                            src={IMGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT + c.src} 
+                            alt={c.alt}
+                        /> 
+                         <div className="mainLearnPage_navBar_button_text_navBarComponent">
+                            {c.title}
+                        </div>   
+                    </div>
+                )
+            }
         </div>
     );
 }
