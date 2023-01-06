@@ -11,7 +11,7 @@ const ChangePasswordComponent = ({
                     type="password" 
                     name="password" 
                     placeholder="Введіть новий пароль"
-                    className="forgetPage_input_loginComponent"
+                    className="forgetPasswordPage_input_loginComponent"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -19,7 +19,7 @@ const ChangePasswordComponent = ({
                     type="password" 
                     name="repeatPassword" 
                     placeholder="Повторіть новий пароль"
-                    className="forgetPage_input_loginComponent"
+                    className="forgetPasswordPage_input_loginComponent"
                     value={repeatPassword}
                     onChange={(e) => setRepeatPassword(e.target.value)}
                 />

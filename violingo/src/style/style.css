@@ -1124,16 +1124,16 @@ input[type=number] {
     background-color: #fff;
     position: relative;
 }
-.forgetPage_header {
+.forgetPasswordPage_header {
     background-color: #1cb0f6; 
     padding: 0 73px; 
 }
-.forgetPage_sign_violingo {
+.forgetPasswordPage_sign_violingo {
     text-transform: lowercase;
     font-size: 37px;
     cursor: pointer;
 }
-.forgetPage_sign_language {
+.forgetPasswordPage_sign_language {
     text-transform: uppercase;
     cursor: pointer;
     width: 100%;
@@ -1142,15 +1142,14 @@ input[type=number] {
     display: flex;
     justify-content: flex-end;
     padding: 20px 24px 15px;
-    position: relative;
 }
 .forgetPasswordPage_languageComponent {
     position: absolute;
-    top: 53px;
-    right: -18px;
-    z-index: 2;
+    top: 54px;
+    right: 263px;
+    z-index: 1;
 }
-.forgetPage_button_enter {
+.forgetPasswordPage_button_enter {
     background-color: #fff;
     color: #0b3e71;
     height: 40px;
@@ -1166,7 +1165,7 @@ input[type=number] {
     font-weight: 500;
     margin-right: 10px;
 }
-.forgrtPage_button_start {
+.forgetPasswordPage_button_start {
     background-color: #58cc02;
     color: #fff;
     height: 40px;
@@ -1181,10 +1180,10 @@ input[type=number] {
     box-shadow: 0 4px 0 #3f7416;
     font-weight: 500;
 }
-.forgrtPage_button_start:hover {
+.forgetPasswordPage_button_start:hover {
     background-color: #70e01a;
 }
-.forgetPage_div_body {
+.forgetPasswordPage_div_body {
     margin: 220px auto 0 auto;
     align-items: center;
     color: #fff;
@@ -1197,11 +1196,7 @@ input[type=number] {
     /* z-index: 1; */
     /* position: relative; */
 }
-/* .forgetPage_div_body_forComponents {
-    position: relative;
-    display: flex;
-} */
-.forgetPage_input_loginComponent {
+.forgetPasswordPage_input_loginComponent {
     cursor: text;
     padding: 8px 16px;
     width: 350px;
@@ -1212,7 +1207,7 @@ input[type=number] {
     border: 2px solid #e5e5e5;
     margin-top: 20px;
 }
-.forgetPage_button_send {
+.forgetPasswordPage_button_send {
     background-color: #1cb0f6;
     box-shadow: 0 4px 0 #1899d6;
     border: #1cb0f6 0 solid;
@@ -1227,49 +1222,51 @@ input[type=number] {
     text-transform: uppercase;
     margin-bottom: 150px;
 }
-.forgetPage_image_sendForgetPasswordComponent {
+.forgetPasswordPage_image_sendForgetPasswordComponent {
     width: 160px;
     height: 160px;
     margin: 0 0 12px;
 }
-.forgetPage_div_line {
+.forgetPasswordPage_div_line {
     width: 868px;
     height: 160px;
     border-top: 2px solid #e5e5e5;
-    z-index: -1;
+    z-index: 0;
 }
-.forgetPage_ul {
+.forgetPasswordPage_ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 48px 12px 28px;
 }
-.forgetPage_li {
+.menuDownLinksComponent_li {
     color: #afafaf;
     display: flex;
     justify-content: center;
     margin: 0 12px 20px;
     letter-spacing: .8px;
+    cursor: pointer;
+    opacity: 2;
 }
-.forgetPage_li:hover {
+.menuDownLinksComponent_li:hover {
     text-decoration: none;
     color: #1cb0f6;
 }
-.forgetPage_div_error {
+.forgetPasswordPage_div_error {
     position: absolute;
     top: 274px;
     right: 236px;
     width: 250px;
     z-index: -1;
 }
-.forgetPage_div_error_forgetPasswordComponent {
+.forgetPasswordPage_div_error_forgetPasswordComponent {
     position: absolute;
     top: 321px;
     right: 236px;
     width: 250px;
     z-index: -1;
 }
-.forgetPage_span_errorMessage {
+.forgetPasswordPage_span_errorMessage {
     border: #e5e5e5 solid 1px;
     border-radius: 16px;
     font-size: 15px;
@@ -1282,7 +1279,7 @@ input[type=number] {
     background-color: #fff;
     position: relative;
 }
-.forgetPage_div_error_triangle {
+.forgetPasswordPage_div_error_triangle {
     transform: rotateY(0deg) rotate(45deg);
     transition: transform 2s;
     width: 15px;
@@ -1295,11 +1292,6 @@ input[type=number] {
     border-right: none;
     border-top: none;
 }
-/* .languageComponent_main_div {
-    position: absolute;
-    right: 0;
-    top: 53px;
-} */
 .languageComponent_ul {
     display: flex;
     flex-wrap: wrap;
@@ -1367,7 +1359,7 @@ input[type=number] {
     box-sizing: border-box;
     border-bottom: solid 2px rgba(0, 0, 0, 0.076);
     background-color: white;
-    padding: 0 100px;
+    padding: 0 170px;
 }
 .mainLearnPage_div_sign_headerComponent {
     color: rgb(72, 218, 24);
@@ -1663,10 +1655,11 @@ input[type=number] {
 }
 .mainLearnPage_main_body {
     display: flex;
+    padding: 100px 150px 0;
 }
 .mainLearnPage_main_navBar {
     position: fixed;
-    margin: 120px 0 10px 70px; 
+    margin-bottom: 10px; 
 }
 /* .main_apiRouter {
     position: absolute;
@@ -1721,25 +1714,31 @@ input[type=number] {
     height: 36px;
     margin: 0 8px;
 }
-.mainLearnPage_span_body_component {
-    width: 700px;
-    margin: 110px 0 0 340px;
+.mainLearnPage_div_body_component {
+    width: 50%;
+    margin-left: 270px;
+}
+.mainLearnPage_div_line {
+    border-top: 2px solid #e5e5e5;
+    z-index: 0;
+}
+.mainLearnPage_ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 48px 12px 28px;
 }
 .mainLearnPage_div_body_right {
-    margin: 110px 20px 0 50px;
-    /* min-width: 400px; */
-    /* padding: 10px; */
+    margin: 0 20px 0 50px;
     box-sizing: border-box; 
 }
 .mainLearnPage_div_body_legia {
-    height: 500px;
     border: solid 2px rgba(0, 0, 0, 0.076);
     border-radius: 10px;
     margin-bottom: 30px;
     padding: 24px;
 }
 .mainLearnPage_div_body_agenda {
-    /* height: 500px; */
     width: 380px;
     border: solid 2px rgba(0, 0, 0, 0.076);
     border-radius: 10px; 
@@ -1779,7 +1778,7 @@ input[type=number] {
     align-items: center;
 }
 .mainLearnPage_div_line_success_agendaComponent {
-    background-color: #ffc800;
+    background-color: #e5e5e5;
     height: 14px;
     border-radius: 14px;
     width: 58%;
@@ -1790,22 +1789,54 @@ input[type=number] {
     width: 95px;
     color: #afafaf;
     text-align: right;
+    margin: 0;
 }
-@media (max-width: 1000px) {
-    .div_sign {
-        margin: 20px 50px;
-        width: 500px;
+.mainLearnPage_main_div_settingsCoachComponent {
+    
+}
+.mainLearnPage_main_div_image_table_settingsCoachComponent {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 48px;
+}
+.mainLearnPage_image_coach_settingsCoachComponent {
+    width: 180px;
+    height: 180px;
+    display: inline-block;
+    transform: scale(1.2);
+    transform-origin: 0 0;
+    background-size: 180px 180px;
+}
+.mainLearnPage_main_div_choose_purpose_settingsCoachComponent {
+    border: solid 2px #e5e5e5;
+    width: 55%;
+    border-radius: 16px;
+    margin-left: auto; 
+}
+.mainLearnPage_main_span_choose_purpose_settingsCoachComponent {
+    display: flex;
+    box-sizing: border-box;
+    height: 48px;
+    padding: 14px;
+    border-bottom: 2px solid #e5e5e5;
+    cursor: pointer;
+
+}
+@media (max-width: 1360px) {
+    .mainLearnPage_main_navBar {
+        margin-left: 24px;
+        width: 224px;
     }
-    .main_navBar {
-        margin-left: 20px;
-    }
-    header {
+    .mainLearnPage_main_headerComponent {
         padding: 0 50px;
     }
-    /* .homePage_div_sign {
-        display: flex;
-        align-items: center;
-        max-width: 800px;
-        column-gap: 600px;
-    } */
+    .mainLearnPage_main_body {
+        padding: 100px 24px 0;
     }
+}
+@media (max-width: 1160px) {
+    .mainLearnPage_main_navBar {
+        margin-left: 24px;
+        width: 40px;
+    }
+}

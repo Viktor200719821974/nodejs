@@ -12,7 +12,7 @@ const ForgetPasswordComponent = ({ email, setEmail, }) => {
                     type="text" 
                     name="email" 
                     placeholder="Електронна пошта"
-                    className="forgetPage_input_loginComponent"
+                    className="forgetPasswordPage_input_loginComponent"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />

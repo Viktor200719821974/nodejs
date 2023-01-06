@@ -51,18 +51,18 @@ export const arrayWelcome3 = [
     {id: 3, name: 'serious', time: '15 хв/день', title: 'Серйозна'},
     {id: 4, name: 'intensive', time: '20 хв/день', title: 'Інтенсив'},
 ];
-export const arrayForgetPageLinks = [
-    {id: 1, name: 'ОПИС'},
-    {id: 2, name: 'VIOLINGO FOR SCHOOLS'},
-    {id: 3, name: 'ДОДАТКИ'},
-    {id: 4, name: 'МАГАЗИН'},
-    {id: 5, name: 'ЕФЕКТИВНІСТЬ'},
-    {id: 6, name: 'ДОВІДКА'},
-    {id: 7, name: 'ПРАВИЛА'},
-    {id: 8, name: 'ВАКАНСІЇ'},
-    {id: 9, name: 'ІНВЕСТОРИ'},
-    {id: 10, name: 'УМОВИ'},
-    {id: 11, name: 'КОНФІДЕНЦІЙНІСТЬ'},
+export const arrayMenuDownLinks = [
+    {id: 1, name: 'ОПИС', navigate: ''},
+    {id: 2, name: 'VIOLINGO FOR SCHOOLS', navigate: ''},
+    {id: 3, name: 'ДОДАТКИ', navigate: ''},
+    {id: 4, name: 'МАГАЗИН', navigate: ''},
+    {id: 5, name: 'ЕФЕКТИВНІСТЬ', navigate: ''},
+    {id: 6, name: 'ДОВІДКА', navigate: ''},
+    {id: 7, name: 'ПРАВИЛА', navigate: ''},
+    {id: 8, name: 'ВАКАНСІЇ', navigate: ''},
+    {id: 9, name: 'ІНВЕСТОРИ', navigate: ''},
+    {id: 10, name: 'УМОВИ', navigate: ''},
+    {id: 11, name: 'КОНФІДЕНЦІЙНІСТЬ', navigate: ''},
 ];
 export const arrayWeekday = [
     {id: 1, name: 'ПН'},
@@ -78,6 +78,34 @@ export const arrayNavBarComponent = [
     {id: 2, src: 'heart.png', alt: 'wrong', title: 'Помилки', navigate: '/review'},
     {id: 3, src: 'shop.png', alt: 'shop', title: 'Магазин', navigate: '/shop'},
     {id: 4, src: 'school.png', alt: 'school', title: ' Schools', navigate: '/schools'},
+];
+export const arraySchedule = [
+    {id: 1, x: '0', y: '45', content: '80', dY: '40'},
+    {id: 2, x: '0', y: '85', content: '60', dY: '80'},
+    {id: 3, x: '0', y: '125', content: '40', dY: '120'},
+    {id: 4, x: '0', y: '165', content: '20', dY: '160'},
+    {id: 5, x: '10', y: '205', content: '0', dY: '200'},
+    {id: 6, x: '30', y: '220', content: 'Пн', dY: ''},
+    {id: 7, x: '73', y: '220', content: 'Вт', dY: ''},
+    {id: 8, x: '116', y: '220', content: 'Ср', dY: ''},
+    {id: 9, x: '159', y: '220', content: 'Чт', dY: ''},
+    {id: 10, x: '202', y: '220', content: 'Пт', dY: ''},
+    {id: 11, x: '245', y: '220', content: 'Сб', dY: ''},
+    {id: 12, x: '288', y: '220', content: 'Нд', dY: ''},
+];
+export const arrayScheduleLine = [
+    {id: 1, y: '40'},
+    {id: 2, y: '80'},
+    {id: 3, y: '120'},
+    {id: 4, y: '160'},
+    {id: 5, y: '200'},
+];
+export const arrayPurposeSettingsCoachComponent = [
+    {id: 1, name: 'essentials', point: '1 бал за день', title: 'Основи'},
+    {id: 2, name: 'easy', point: '10 балів за день', title: 'Проста'},
+    {id: 3, name: 'usual', point: '20 балів за день', title: 'Звичайна'},
+    {id: 4, name: 'serious', point: '30 балів за день', title: 'Серйозна'},
+    {id: 5, name: 'intensive', point: '50 балів за день', title: 'Інтенсив'},
 ];
 
 

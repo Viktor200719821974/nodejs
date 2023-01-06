@@ -1,3 +1,5 @@
+// ROUTER LINK
+
 export const REACT_APP_API_URL = 'http://localhost:5500/api';
 export const HOME_PAGE = '/';
 export const LEARN_PAGE = '/learn';
@@ -13,6 +15,8 @@ export const LOGIN_PAGE = '/login';
 export const FORGET_PASSWORD = '/forget_password';
 export const CHANGE_PASSWORD = '/change/password/:token';
 export const ACTIVATE_USER = '/register/activate/:token';
+export const SETTINGS_COACH = '/settings/coach';
+export const SETTINGS_SOUND = '/settings/sound';
 
 // LINK ON HOME PAGE
 

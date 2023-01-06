@@ -10,8 +10,8 @@ import ForgetPasswordComponent from '../components/forgetPassword/ForgetPassword
 import ChangePasswordComponent from '../components/forgetPassword/ChangePasswordComponent';
 import { changePassword, forgetPassword } from '../http/authApi';
 import SendForgetPasswordComponent from '../components/forgetPassword/SendForgetPasswordComponent';
-import { arrayForgetPageLinks } from '../constants/arrays';
-import ForgetPasswordLinksComponent from '../components/forgetPassword/ForgetPasswordLinksComponent';
+import { arrayMenuDownLinks } from '../constants/arrays';
+import MenuDownLinksComponent from '../components/MenuDownLinksComponent';
 
 const ForgetPasswordPage = () => {
     let params = useParams();
@@ -68,15 +68,15 @@ const ForgetPasswordPage = () => {
     }, [isChange, location.pathname, token, error, errorMessage]);
     return (
         <div>
-            <header className="forgetPage_header">
+            <header className="forgetPasswordPage_header">
                 <div 
-                    className="forgetPage_sign_violingo sign"
+                    className="forgetPasswordPage_sign_violingo sign"
                     onClick={() => navigate(HOME_PAGE)}
                     >
                         Violingo
                 </div>
                 <span 
-                    className="forgetPage_sign_language sign"
+                    className="forgetPasswordPage_sign_language sign"
                     >
                     мова сайту: 
                     <span 
@@ -89,7 +89,22 @@ const ForgetPasswordPage = () => {
                         onMouseEnter={() => setIsBool(true)}
                         onMouseLeave={() => setIsBool(false)}
                         />
-                    <span className="forgetPasswordPage_languageComponent">
+                </span>                
+                <button 
+                    className="forgetPasswordPage_button_enter"
+                    onClick={() => navigate(LOGIN_PAGE)}
+                    >
+                        Вхід
+                </button>
+                <button 
+                    className="forgetPasswordPage_button_start"
+                    onClick={() => navigate(REGISTRATION_PAGE)}
+                    >
+                        Розпочати
+                </button>
+            </header>
+            <div className="forgetPasswordPage_div_body">
+            <span className="forgetPasswordPage_languageComponent">
                         {isBool && 
                             <LanguageComponent
                                 setValue={setValue}
@@ -97,22 +112,7 @@ const ForgetPasswordPage = () => {
                             />
                         }
                     </span>
-                </span>                
-                <button 
-                    className="forgetPage_button_enter"
-                    onClick={() => navigate(LOGIN_PAGE)}
-                    >
-                        Вхід
-                </button>
-                <button 
-                    className="forgrtPage_button_start"
-                    onClick={() => navigate(REGISTRATION_PAGE)}
-                    >
-                        Розпочати
-                </button>
-            </header>
-            <div className="forgetPage_div_body">
-                <div className="forgetPage_div_body_forComponents">
+                <div className="forgetPasswordPage_div_body_forComponents">
                     { (!isChange && !ifSend) && 
                         <ForgetPasswordComponent
                             email={email}
@@ -132,41 +132,41 @@ const ForgetPasswordPage = () => {
                             <div 
                                 className={
                                     isChange 
-                                        ? "forgetPage_div_error display_alien_justify" 
-                                        : "forgetPage_div_error_forgetPasswordComponent display_alien_justify"
+                                        ? "forgetPasswordPage_div_error display_alien_justify" 
+                                        : "forgetPasswordPage_div_error_forgetPasswordComponent display_alien_justify"
                                     }
                                 >                                
-                                <span className="forgetPage_span_errorMessage display_alien_justify">
-                                    <div className="forgetPage_div_error_triangle"></div>
+                                <span className="forgetPasswordPage_span_errorMessage display_alien_justify">
+                                    <div className="forgetPasswordPage_div_error_triangle"></div>
                                     {errorMessage}
                                 </span> 
                             </div>
                         }
-                </div>               
-                  
-               { ifSend && 
+                </div>                                
+                { ifSend && 
                     <SendForgetPasswordComponent
                     />
-               }
+                }
                 { !ifSend && 
                     <button 
-                        className="forgetPage_button_send sign"
+                        className="forgetPasswordPage_button_send sign"
                         onClick={send}
                         >
                         Надіслати
                     </button>
                 }
-                <div className="forgetPage_div_line display_alien_justify">
-                <ul className="forgetPage_ul">
-                    { arrayForgetPageLinks.map((c) =>  
-                        <ForgetPasswordLinksComponent
-                            key={c.id}
-                            name={c.name}
-                            id={c.id}
-                        />
-                    )}
-                </ul>
-            </div>
+                <div className="forgetPasswordPage_div_line display_alien_justify">
+                    <ul className="forgetPasswordPage_ul">
+                        { arrayMenuDownLinks.map((c) =>  
+                            <MenuDownLinksComponent
+                                key={c.id}
+                                name={c.name}
+                                id={c.id}
+                                nav={c.navigate}
+                            />
+                        )}
+                    </ul>
+                </div>
             </div>
         </div>
     );
