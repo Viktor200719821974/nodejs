@@ -101,11 +101,11 @@ export const arrayScheduleLine = [
     {id: 5, y: '200'},
 ];
 export const arrayPurposeSettingsCoachComponent = [
-    {id: 1, name: 'essentials', point: '1 бал за день', title: 'Основи'},
-    {id: 2, name: 'easy', point: '10 балів за день', title: 'Проста'},
-    {id: 3, name: 'usual', point: '20 балів за день', title: 'Звичайна'},
-    {id: 4, name: 'serious', point: '30 балів за день', title: 'Серйозна'},
-    {id: 5, name: 'intensive', point: '50 балів за день', title: 'Інтенсив'},
+    {id: 11, name: 'essentials', point: '1 бал за день', title: 'Основи'},
+    {id: 12, name: 'easy', point: '10 балів за день', title: 'Проста'},
+    {id: 13, name: 'usual', point: '20 балів за день', title: 'Звичайна'},
+    {id: 14, name: 'serious', point: '30 балів за день', title: 'Серйозна'},
+    {id: 15, name: 'intensive', point: '50 балів за день', title: 'Інтенсив'},
 ];
 
 

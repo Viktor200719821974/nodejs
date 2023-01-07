@@ -1,17 +1,21 @@
-import { SETTINGS_COACH } from '../../constants';
-import { arraySchedule, arrayScheduleLine } from '../../constants/arrays';
-import boxClose from '../../icons/box-close.svg';
+import { SETTINGS_COACH } from '../../../constants';
+import { arraySchedule, arrayScheduleLine } from '../../../constants/arrays';
+import boxClose from '../../../icons/box-close.svg';
 
 const AgendaComponent = ({
-    points, purposeDay, navigate,
+    points, purposeDay, navigate, setIdElement,
 }) => {
+    const click = () => {
+        navigate(SETTINGS_COACH);
+        setIdElement(10);
+    }
     return (
         <div>
             <div className="mainLearnPage_div_main_sign_agendaComponent display_alien_justify">
                 <h2 className="mainLearnPage_h2_agendaComponent">Накопичення балів</h2>
                 <span 
                     className="mainLearnPage_span_sign_agendaComponent display_alien_justify"
-                    onClick={() => navigate(SETTINGS_COACH)}
+                    onClick={click}
                     >
                     Змінити ціль
                 </span>
@@ -42,12 +46,14 @@ const AgendaComponent = ({
             </div>
             <div>
                 <svg height='225px' width='340px' direction="ltr">
-                    {arraySchedule.map(c => <text x={c.x} y={c.y} fill="#afafaf" fontSize="17px">
+                    {arraySchedule.map(c => 
+                        <text x={c.x} y={c.y} fill="#afafaf" fontSize="17px" key={c.id}>
                         {c.content}
                     </text>
                     )}
                     <g fill="none">
-                        {arrayScheduleLine.map(c => <path stroke="#afafaf" d={`M40 ${c.y} l260 0`} />
+                        {arrayScheduleLine.map(c => 
+                            <path stroke="#afafaf" d={`M40 ${c.y} l260 0`} key={c.id} />
                         )}
                     </g>
                 </svg>

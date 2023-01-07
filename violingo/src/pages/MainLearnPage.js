@@ -10,11 +10,11 @@ import LearnComponent from '../components/mainLearnPage/LearnComponent';
 import ReviewComponent from '../components/mainLearnPage/ReviewComponent';
 import ShopComponent from '../components/mainLearnPage/ShopComponent';
 import SchoolsComponent from '../components/mainLearnPage/SchoolsComponent';
-import AgendaComponent from '../components/mainLearnPage/AgendaComponent';
 import MenuDownLinksComponent from '../components/MenuDownLinksComponent';
 import { arrayMenuDownLinks } from '../constants/arrays';
 import SettingsCoachComponent from '../components/mainLearnPage/SettingsCoachComponent';
 import SettingsSoundComponent from '../components/mainLearnPage/SettingsSoundComponent';
+import MainLearnBodyRightComponent from '../components/mainLearnPage/mainLearnPageBodyRight/MainLearnBodyRightComponent';
 
 const MainLearnPage = () => {
     const location = useLocation();
@@ -33,7 +33,13 @@ const MainLearnPage = () => {
     const [idElement, setIdElement] = useState(1);
     const [points, setPoints] = useState(0);
     const [purposeDay, setPurposeDay] = useState(50);
-
+    const [choosePurposeDay, setChoosePurposeDay] = useState('');
+    const [changeBodyRight, setChangeBodyRight] = useState(false);
+    const [offSoundEffects, setOffSoundEffects] = useState(true);
+    const [offExeciseToSpeak, setOffExeciseToSpeak] = useState(true);
+    const [offExeciseToAudio, setOffExeciseToAudio] = useState(true);
+    const [activeButton, setActiveButton] = useState(false);
+    
     useEffect(() => {
         if (location.pathname === LEARN_PAGE) {
             setLearnPage(true);
@@ -42,6 +48,9 @@ const MainLearnPage = () => {
             setShopPage(false);
             setIdElement(1);
             setSettingsCoach(false);
+            setSettingsSound(false);
+            setChangeBodyRight(false);
+            setActiveButton(false);
         }
         if (location.pathname === REVIEW_PAGE) {
             setReviewPage(true);
@@ -50,6 +59,9 @@ const MainLearnPage = () => {
             setShopPage(false);
             setIdElement(2);
             setSettingsCoach(false);
+            setSettingsSound(false);
+            setChangeBodyRight(false);
+            setActiveButton(false);
         }
         if (location.pathname === SHOP_PAGE) {
             setShopPage(true);
@@ -58,6 +70,9 @@ const MainLearnPage = () => {
             setSchoolPage(false);
             setIdElement(3);
             setSettingsCoach(false);
+            setSettingsSound(false);
+            setChangeBodyRight(false);
+            setActiveButton(false);
         } 
         if (location.pathname === SCHOOLS_PAGE) {
             setSchoolPage(true);
@@ -66,6 +81,9 @@ const MainLearnPage = () => {
             setLearnPage(false);
             setIdElement(4);
             setSettingsCoach(false);
+            setSettingsSound(false);
+            setChangeBodyRight(false);
+            setActiveButton(false);
         }
         if (location.pathname === SETTINGS_COACH) {
             setSettingsCoach(true);
@@ -73,7 +91,7 @@ const MainLearnPage = () => {
             setReviewPage(false);
             setSchoolPage(false);
             setShopPage(false);
-            setIdElement(0);
+            setChangeBodyRight(true);
         }
         if (location.pathname === SETTINGS_SOUND) {
             setSettingsCoach(false);
@@ -82,12 +100,19 @@ const MainLearnPage = () => {
             setReviewPage(false);
             setSchoolPage(false);
             setShopPage(false);
-            setIdElement(0);
+            setChangeBodyRight(true);
+        }
+        if (idElement > 10 || !offSoundEffects || !offExeciseToSpeak || !offExeciseToAudio) {
+            setActiveButton(true);
+        }
+        if (offSoundEffects && offExeciseToSpeak && offExeciseToAudio && idElement <= 10) {
+            setActiveButton(false);
         }
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, purposeDay, settingsCoach,
-        settingsSound,
+        settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExeciseToSpeak,
+        offExeciseToAudio, activeButton,
     ]);
     return (
         <>
@@ -114,8 +139,22 @@ const MainLearnPage = () => {
                 { reviewPage && <ReviewComponent/> }
                 { shopPage && <ShopComponent/> }
                 { schoolPage && <SchoolsComponent/> }
-                { settingsCoach && <SettingsCoachComponent navigate={navigate}/> }
-                { settingsSound && <SettingsSoundComponent/> }
+                { settingsCoach && <SettingsCoachComponent 
+                                        navigate={navigate}
+                                        idElement={idElement}
+                                        setChoosePurposeDay={setChoosePurposeDay}
+                                        setIdElement={setIdElement}
+                                        /> 
+                }
+                { settingsSound && <SettingsSoundComponent
+                                        offSoundEffects={offSoundEffects}
+                                        setOffSoundEffects={setOffSoundEffects}
+                                        offExeciseToSpeak={offExeciseToSpeak}
+                                        setOffExeciseToSpeak={setOffExeciseToSpeak}
+                                        offExeciseToAudio={offExeciseToAudio}
+                                        setOffExeciseToAudio={setOffExeciseToAudio}
+                                    /> 
+                }
                 <div className="mainLearnPage_div_line display_alien_justify">
                     <ul className="mainLearnPage_ul">
                         { arrayMenuDownLinks.map((c) =>  
@@ -130,17 +169,18 @@ const MainLearnPage = () => {
                 </div>
             </div>           
             <div className="mainLearnPage_div_body_right">
-                <div className="mainLearnPage_div_body_legia">
-                    
-                </div>
-                <div className="mainLearnPage_div_body_agenda"> 
-                    <AgendaComponent
-                        points={points}
-                        purposeDay={purposeDay}
-                        setSettingsCoach={setSettingsCoach}
-                        navigate={navigate}
-                    />      
-                </div>
+                <MainLearnBodyRightComponent
+                    points={points}
+                    purposeDay={purposeDay}
+                    navigate={navigate}
+                    setSettingsCoach={setSettingsCoach}
+                    setIdElement={setIdElement}
+                    setSettingsSound={setSettingsSound}
+                    settingsCoach={settingsCoach}
+                    settingsSound={settingsSound}
+                    changeBodyRight={changeBodyRight}
+                    activeButton={activeButton}
+                />
             </div>
         </div>
         </>

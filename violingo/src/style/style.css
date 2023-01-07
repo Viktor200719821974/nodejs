@@ -649,7 +649,7 @@ header {
     align-items: center;
     width: 50%;
     color: #4b4b4b;
-    font-family: din-round,sans-serif;
+    /* font-family: din-round,sans-serif; */
     font-size: 17px;
 }
 .welcomePage_div_table_column_right_welcome3Component {
@@ -658,7 +658,7 @@ header {
     align-items: center;
     width: 50%;
     color: #4b4b4b;
-    font-family: din-round,sans-serif;
+    /* font-family: din-round,sans-serif; */
     font-size: 17px;
 }
 .welcomePage_div_body_welcome4Component {
@@ -1721,6 +1721,7 @@ input[type=number] {
 .mainLearnPage_div_line {
     border-top: 2px solid #e5e5e5;
     z-index: 0;
+    margin-top: 48px;
 }
 .mainLearnPage_ul {
     display: flex;
@@ -1791,9 +1792,6 @@ input[type=number] {
     text-align: right;
     margin: 0;
 }
-.mainLearnPage_main_div_settingsCoachComponent {
-    
-}
 .mainLearnPage_main_div_image_table_settingsCoachComponent {
     display: flex;
     flex-direction: row;
@@ -1808,19 +1806,225 @@ input[type=number] {
     background-size: 180px 180px;
 }
 .mainLearnPage_main_div_choose_purpose_settingsCoachComponent {
-    border: solid 2px #e5e5e5;
     width: 55%;
-    border-radius: 16px;
-    margin-left: auto; 
-}
-.mainLearnPage_main_span_choose_purpose_settingsCoachComponent {
-    display: flex;
+    margin-left: auto;
     box-sizing: border-box;
-    height: 48px;
+}
+.mainLearnPage_main_span_choose_purpose_top_settingsCoachComponent {
+    display: flex;    
     padding: 14px;
-    border-bottom: 2px solid #e5e5e5;
+    border: 2px solid #e5e5e5;
     cursor: pointer;
-
+    border-bottom: 0;
+    border-top-right-radius: 16px;
+    border-top-left-radius: 16px;
+}
+.mainLearnPage_div_table_column_left_settingsCoachComponent {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+    color: #4b4b4b;
+    font-size: 17px;
+}
+.mainLearnPage_div_table_column_right_settingsCoachComponent {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+    color: #4b4b4b;
+    font-size: 17px;
+}
+.mainLearnPage_main_span_choose_purpose_center_settingsCoachComponent {
+    display: flex;
+    width: 100%;
+    border: solid 2px #e5e5e5;
+    padding: 14px;
+    border-bottom: 0;
+    cursor: pointer;
+}
+.mainLearnPage_main_span_choose_purpose_down_settingsCoachComponent {
+    display: flex;
+    width: 100%;
+    border: solid 2px #e5e5e5;
+    padding: 14px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 55px;
+}
+.mainLearnPage_main_span_choose_purpose_top_select_settingsCoachComponent {
+    background-color: #ddf4ff;
+    border: 1px solid #84d8ff;
+    display: flex;
+    width: 100%;
+    padding: 14px;
+    border-top-right-radius: 16px;
+    border-top-left-radius: 16px;
+    cursor: pointer;
+}
+.mainLearnPage_main_span_choose_purpose_center_select_settingsCoachComponent {
+    display: flex;
+    width: 100%;
+    padding: 14px;
+    background-color: #ddf4ff;
+    border: 1px solid #84d8ff;
+    cursor: pointer;
+}
+.mainLearnPage_main_span_choose_purpose_down_select_settingsCoachComponent {
+    display: flex;
+    padding: 14px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    background-color: #ddf4ff;
+    border: 1px solid #84d8ff;
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 55px;
+}
+.mainLearnPage_main_div_settingsCoachSoundComponent {
+    width: 380px;
+}
+.mainLearnPage_div_button_settingsCoachSoundComponent {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.mainLearnPage_button_settingsCoachSoundComponent {
+    background-color: #58cc02;
+    border: 0 solid #58a700;
+    color: #fff;
+    height: 46px;
+    border-radius: 16px;
+    padding: 16px;
+    transition: filter .2s;
+    box-shadow: 0 4px 0 #58a700;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+.mainLearnPage_button_noActive_settingsCoachSoundComponent {
+    background-color: #dadada;
+    color: #afafaf;
+    border: none;
+    height: 46px;
+    border-radius: 16px;
+    padding: 16px;
+    transition: filter .2s;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+.mainLearnPage_div_choose_settings_settingsCoachSoundComponent {
+    border: solid 2px rgba(0, 0, 0, 0.076);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 24px;
+}
+.mainLearnPage_span_button_settingsCoachSoundComponent {
+    color: #3c3c3c;
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    overflow: hidden;
+    padding: 15px 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 2px;
+    height: 50px;
+    cursor: pointer;
+}
+.mainLearnPage_span_button_select_settingsCoachSoundComponent {
+    color: #3c3c3c;
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    overflow: hidden;
+    padding: 15px 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 2px;
+    height: 50px;
+    cursor: pointer;
+    background: #dadada;
+    border-radius: 16px;
+}
+.mainLearnPage_span_button_settingsCoachSoundComponent:hover {
+    background: #dadada;
+    border-radius: 16px;
+}
+.mainLearnPage_div_sign_and_button_settingsSoundComponent {
+    display: flex;
+    align-items: center;
+    padding: 24px 24px 0 0;
+    height: 66px;
+}
+.mainLearnPage_span_sign_settingsSoundComponent {
+    font-size: 15px;
+    color: #4b4b4b;
+    text-align: right;
+    width: 180px;
+    font-weight: 700;
+    padding-right: 24px;
+}
+.mainLearnPage_div_ellipse_and_quadrate_settingsSoundComponent {
+    display: flex;
+    align-items: center;
+    margin-left: 20px ;
+    position: relative;
+}
+.mainLearnPage_span_ellipse_on_settingSoundComponent {
+    background: #1cb0f6;
+    border-radius: 12px;
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 24px;
+    position: relative;
+    transition: background .1s;
+    width: 57px;
+    align-items: center;
+}
+.mainLearnPage_span_ellipse_off_settingSoundComponent {
+    background: #e5e5e5;
+    border-radius: 12px;
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 24px;
+    position: relative;
+    transition: background .1s;
+    width: 57px;
+    align-items: center;
+}
+.mainLearnPage_span_quadrate_on_settingsSoundComponent {
+    background: #fff;
+    border: solid #1cb0f6;
+    border-radius: 10px;
+    border-width: 2px 2px 4px;
+    box-sizing: border-box;
+    content: "";
+    height: 34px;
+    right: 0;
+    position: absolute;
+    transition: left .2s;
+    width: 32px;
+}
+.mainLearnPage_span_quadrate_off_settingsSoundComponent {
+    background: #fff;
+    border: solid #e5e5e5;
+    border-radius: 10px;
+    border-width: 2px 2px 4px;
+    box-sizing: border-box;
+    content: "";
+    height: 34px;
+    left: 0;
+    position: absolute;
+    transition: left .2s;
+    width: 32px;
 }
 @media (max-width: 1360px) {
     .mainLearnPage_main_navBar {
