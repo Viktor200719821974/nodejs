@@ -108,6 +108,11 @@ const MainLearnPage = () => {
         if (offSoundEffects && offExeciseToSpeak && offExeciseToAudio && idElement <= 10) {
             setActiveButton(false);
         }
+        if (mouseOnFlag || mouseOnFire || mouseOnRuby || mouseOnAvatar) {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
+        }
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, purposeDay, settingsCoach,
@@ -126,15 +131,23 @@ const MainLearnPage = () => {
             setMouseOnRuby={setMouseOnRuby}
             mouseOnAvatar={mouseOnAvatar} 
             setMouseOnAvatar={setMouseOnAvatar}
-        />
-        <div className="mainLearnPage_main_body">
-            <span className="mainLearnPage_main_navBar">
+        /> 
+        <div 
+            className={isActive ? "mainLearnPage_box_for_body" : undefined}
+            >
+            <div className={
+                !isActive 
+                    ? "mainLearnPage_main_body" 
+                    : "mainLearnPage_main_body_isActive"
+                }
+                >
+                <span className="mainLearnPage_main_navBar">
                 <NavBarComponent
                     idElement={idElement}
                     setIdElement={setIdElement}
                 /> 
-            </span>  
-            <div className="mainLearnPage_div_body_component">
+                </span>  
+                <div className="mainLearnPage_div_body_component">
                 { learnPage && <LearnComponent/> }
                 { reviewPage && <ReviewComponent/> }
                 { shopPage && <ShopComponent/> }
@@ -144,6 +157,8 @@ const MainLearnPage = () => {
                                         idElement={idElement}
                                         setChoosePurposeDay={setChoosePurposeDay}
                                         setIdElement={setIdElement}
+                                        setPoints={setPoints}
+                                        setPurposeDay={setPurposeDay}
                                         /> 
                 }
                 { settingsSound && <SettingsSoundComponent
@@ -167,22 +182,23 @@ const MainLearnPage = () => {
                         )}
                     </ul>
                 </div>
-            </div>           
-            <div className="mainLearnPage_div_body_right">
-                <MainLearnBodyRightComponent
-                    points={points}
-                    purposeDay={purposeDay}
-                    navigate={navigate}
-                    setSettingsCoach={setSettingsCoach}
-                    setIdElement={setIdElement}
-                    setSettingsSound={setSettingsSound}
-                    settingsCoach={settingsCoach}
-                    settingsSound={settingsSound}
-                    changeBodyRight={changeBodyRight}
-                    activeButton={activeButton}
-                />
-            </div>
-        </div>
+                </div>           
+                <div className="mainLearnPage_div_body_right">
+                    <MainLearnBodyRightComponent
+                        points={points}
+                        purposeDay={purposeDay}
+                        navigate={navigate}
+                        setSettingsCoach={setSettingsCoach}
+                        setIdElement={setIdElement}
+                        setSettingsSound={setSettingsSound}
+                        settingsCoach={settingsCoach}
+                        settingsSound={settingsSound}
+                        changeBodyRight={changeBodyRight}
+                        activeButton={activeButton}
+                    />
+                </div>
+            </div> 
+        </div>       
         </>
     );
 }

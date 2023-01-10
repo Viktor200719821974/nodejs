@@ -69,30 +69,32 @@ function HeaderComponent({
                     onMouseLeave={() => setMouseOnAvatar(false)}
                 />               
             </div>
-            {
-                mouseOnFlag && 
-                    <WindowFlagComponent
-                        setMouseOnFlag={setMouseOnFlag}
-                    />
-            }  
-            {
-                mouseOnFire && 
-                    <WindowFireComponent
-                        setMouseOnFire={setMouseOnFire}
-                    />
-            }
-            {
-                mouseOnRuby && 
-                    <WindowRubyComponent
-                        setMouseOnRuby={setMouseOnRuby}
-                    />
-            }
-            {
-                mouseOnAvatar && 
-                    <WindowAvatarComponent
-                        setMouseOnAvatar={setMouseOnAvatar}
-                    />
-            }        
+            <div className="mainLearnPage_main_div_windows">
+                {
+                    mouseOnFlag && 
+                        <WindowFlagComponent
+                            setMouseOnFlag={setMouseOnFlag}
+                        />
+                }  
+                {
+                    mouseOnFire && 
+                        <WindowFireComponent
+                            setMouseOnFire={setMouseOnFire}
+                        />
+                }
+                {
+                    mouseOnRuby && 
+                        <WindowRubyComponent
+                            setMouseOnRuby={setMouseOnRuby}
+                        />
+                }
+                {
+                    mouseOnAvatar && 
+                        <WindowAvatarComponent
+                            setMouseOnAvatar={setMouseOnAvatar}
+                        />
+                }        
+            </div>
         </header>
     );
 }
