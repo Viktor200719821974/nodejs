@@ -27,13 +27,12 @@ export const authRoutes = [
         path: PLACEMENT_PAGE,
         Component: PlacementPage
     },
-    
-]
-export const publicRoutes = [ 
     {
         path: WELCOME_PAGE,
         Component: WelcomePage
     },
+]
+export const publicRoutes = [ 
     {
         path: LEARN_PAGE,
         Component: MainLearnPage

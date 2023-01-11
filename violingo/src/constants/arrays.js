@@ -107,7 +107,44 @@ export const arrayPurposeSettingsCoachComponent = [
     {id: 14, name: 'serious', point: '30 балів за день', title: 'Серйозна'},
     {id: 15, name: 'intensive', point: '50 балів за день', title: 'Інтенсив'},
 ];
-
+export const arrayButtonsImagesLearnComponent = [
+    {
+        id: 1, 
+        chapter: 1, 
+        background: '#58cc02', 
+        title: 'Обговоріть прості теми, вжийте базові фрази', 
+        image1: '', 
+        alt1: '',
+        image2: 'girl.svg', 
+        alt2: 'girl picture',
+        part1: [
+            {id: 1, src: 'lock.svg', alt: 'lock picture', width: ''},
+            {id: 2, src: 'lock.svg', alt: 'lock picture', width: '30%'},
+        ], 
+        part2: [
+            {id: 1, src: 'image-book.svg', alt: 'book picture', width: '40%'}, 
+            {id: 2, src: 'cup.svg', alt: 'cup picture', width: '30%'},
+        ],
+    },
+    {
+        id: 2, 
+        chapter: 2, 
+        background: 'pink', 
+        title: 'Обговоріть прості теми, вжийте базові фрази', 
+        image1: '', 
+        alt1: '', 
+        image2: 'girl.svg', 
+        alt2: 'girl picture',
+        part1: [
+            {id: 1, src: 'lock.svg', alt: 'lock picture', width: '30%'},
+            {id: 2, src: 'lock.svg', alt: 'lock picture', width: '40%'},
+        ], 
+        part2: [
+            {id: 1, src: 'image-book.svg', alt: 'book picture', width: '40%'}, 
+            {id: 2, src: 'cup.svg', alt: 'cup picture', width: '30%'},
+        ],
+    },
+];
 
 
 

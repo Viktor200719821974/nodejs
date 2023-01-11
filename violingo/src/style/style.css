@@ -73,6 +73,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
+    z-index: 20;
 }
 .sign {
     font-weight: 700;
@@ -2038,7 +2039,7 @@ input[type=number] {
 }
 .mainLearnPage_div_main_header_learnComponent {
     width: 100%;
-    background-color: #58cc02;
+    /* background-color: #58cc02; */
     border-radius: 13px;
     display: flex;
     padding: 22px 16px;

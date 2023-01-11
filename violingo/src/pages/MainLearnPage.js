@@ -6,7 +6,7 @@ import {
 } from '../constants';
 import NavBarComponent from '../components/mainLearnPage/NavBarComponent';
 import HeaderComponent from '../components/mainLearnPage/HeaderComponent';
-import LearnComponent from '../components/mainLearnPage/LearnComponent';
+import LearnComponent from '../components/mainLearnPage/learnComponent/LearnComponent';
 import ReviewComponent from '../components/mainLearnPage/ReviewComponent';
 import ShopComponent from '../components/mainLearnPage/ShopComponent';
 import SchoolsComponent from '../components/mainLearnPage/SchoolsComponent';
