@@ -15,6 +15,7 @@ import { arrayMenuDownLinks } from '../constants/arrays';
 import SettingsCoachComponent from '../components/mainLearnPage/SettingsCoachComponent';
 import SettingsSoundComponent from '../components/mainLearnPage/SettingsSoundComponent';
 import MainLearnBodyRightComponent from '../components/mainLearnPage/mainLearnPageBodyRight/MainLearnBodyRightComponent';
+import arrow from '../icons/arrow-up-blue.svg';
 
 const MainLearnPage = () => {
     const location = useLocation();
@@ -39,6 +40,13 @@ const MainLearnPage = () => {
     const [offExeciseToSpeak, setOffExeciseToSpeak] = useState(true);
     const [offExeciseToAudio, setOffExeciseToAudio] = useState(true);
     const [activeButton, setActiveButton] = useState(false);
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [scrollBool, setScrollBool] = useState(false);
+
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
     
     useEffect(() => {
         if (location.pathname === LEARN_PAGE) {
@@ -113,11 +121,17 @@ const MainLearnPage = () => {
         } else {
             setIsActive(false);
         }
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        if (scrollPosition >= 250) {
+            setScrollBool(true);
+        } else {
+            setScrollBool(false);
+        }
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, purposeDay, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExeciseToSpeak,
-        offExeciseToAudio, activeButton,
+        offExeciseToAudio, activeButton, scrollBool, scrollPosition,
     ]);
     return (
         <>
@@ -148,40 +162,50 @@ const MainLearnPage = () => {
                 /> 
                 </span>  
                 <div className="mainLearnPage_div_body_component">
-                { learnPage && <LearnComponent/> }
-                { reviewPage && <ReviewComponent/> }
-                { shopPage && <ShopComponent/> }
-                { schoolPage && <SchoolsComponent/> }
-                { settingsCoach && <SettingsCoachComponent 
-                                        navigate={navigate}
-                                        idElement={idElement}
-                                        setChoosePurposeDay={setChoosePurposeDay}
-                                        setIdElement={setIdElement}
-                                        setPoints={setPoints}
-                                        setPurposeDay={setPurposeDay}
+                    { learnPage && <LearnComponent/> }
+                    { reviewPage && <ReviewComponent/> }
+                    { shopPage && <ShopComponent/> }
+                    { schoolPage && <SchoolsComponent/> }
+                    { settingsCoach && <SettingsCoachComponent 
+                                            navigate={navigate}
+                                            idElement={idElement}
+                                            etChoosePurposeDay={setChoosePurposeDay}
+                                            setIdElement={setIdElement}
+                                            setPoints={setPoints}
+                                            setPurposeDay={setPurposeDay}
                                         /> 
-                }
-                { settingsSound && <SettingsSoundComponent
-                                        offSoundEffects={offSoundEffects}
-                                        setOffSoundEffects={setOffSoundEffects}
-                                        offExeciseToSpeak={offExeciseToSpeak}
-                                        setOffExeciseToSpeak={setOffExeciseToSpeak}
-                                        offExeciseToAudio={offExeciseToAudio}
-                                        setOffExeciseToAudio={setOffExeciseToAudio}
-                                    /> 
-                }
-                <div className="mainLearnPage_div_line display_alien_justify">
-                    <ul className="mainLearnPage_ul">
-                        { arrayMenuDownLinks.map((c) =>  
-                            <MenuDownLinksComponent
-                                key={c.id}
-                                name={c.name}
-                                id={c.id}
-                                nav={c.navigate}
-                            />
-                        )}
-                    </ul>
-                </div>
+                    }
+                    { settingsSound && <SettingsSoundComponent
+                                            offSoundEffects={offSoundEffects}
+                                            setOffSoundEffects={setOffSoundEffects}
+                                            offExeciseToSpeak={offExeciseToSpeak}
+                                            setOffExeciseToSpeak={setOffExeciseToSpeak}
+                                            offExeciseToAudio={offExeciseToAudio}
+                                            setOffExeciseToAudio={setOffExeciseToAudio}
+                                        /> 
+                    }
+                    {scrollBool && 
+                        <div className="mainLearnPage_div_button_scroll_up">
+                            <button
+                                className="mainLearnPage_button_scroll_up"
+                                onClick={() => window.scroll(0, 0)}
+                                >
+                                <img src={arrow} alt="arrow stamp"/>
+                            </button>
+                        </div>
+                    }
+                    <div className="mainLearnPage_div_line display_alien_justify">
+                        <ul className="mainLearnPage_ul">
+                            { arrayMenuDownLinks.map((c) =>  
+                                <MenuDownLinksComponent
+                                    key={c.id}
+                                    name={c.name}
+                                    id={c.id}
+                                    nav={c.navigate}
+                                />
+                            )}
+                        </ul>
+                    </div>
                 </div>           
                 <div className="mainLearnPage_div_body_right">
                     <MainLearnBodyRightComponent

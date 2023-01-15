@@ -103,6 +103,45 @@ header {
     justify-content: flex-end;
     position: relative;
 }
+.homePage_div_main_buttons_start_and_enter {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+.homePage_button_enter {
+    background-color: #fff;
+    color: #0b3e71;
+    height: 40px;
+    padding: 0 20px;
+    text-transform: uppercase;
+    transition: filter .2s;
+    border: 0 solid transparent;
+    border-radius: 16px;
+    box-sizing: border-box;
+    font-size: 15px;
+    letter-spacing: .8px;
+    box-shadow: 0 4px 0 #b2def3;
+    font-weight: 700;
+}
+.homePage_button_start {
+    background-color: #58cc02;
+    color: #fff;
+    height: 40px;
+    padding: 0 20px;
+    text-transform: uppercase;
+    transition: filter .2s;
+    border: 0 solid transparent;
+    border-radius: 16px;
+    box-sizing: border-box;
+    font-size: 15px;
+    letter-spacing: .8px;
+    box-shadow: 0 4px 0 #3f7416;
+    font-weight: 700;
+    margin: 0 10px;
+}
+.homePage_button_start:hover {
+    background-color: #70e01a;
+}
 .homePage_languageComponent {
     position: absolute;
     top: 53px;
@@ -1670,10 +1709,30 @@ input[type=number] {
 .mainLearnPage_main_body {
     display: flex;
     padding: 100px 150px 0;
+    position: relative;
 }
 .mainLearnPage_main_body_isActive {
     padding: 30px 150px 0;
     display: flex;
+}
+.mainLearnPage_div_button_scroll_up {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    position: -webkit-sticky;
+    bottom: 24px;
+}
+.mainLearnPage_button_scroll_up {
+    z-index: 1;
+    width: 52px;
+    height: 52px;
+    border: solid #e5e5e5;
+    border-radius: 12px;
+    background-color: #fff;
+    border-width: 2px 2px 4px;
+    
 }
 .mainLearnPage_main_navBar {
     position: fixed;
@@ -2039,17 +2098,15 @@ input[type=number] {
 }
 .mainLearnPage_div_main_header_learnComponent {
     width: 100%;
-    /* background-color: #58cc02; */
     border-radius: 13px;
     display: flex;
     padding: 22px 16px;
     align-items: center;
-    /* margin-bottom: 50px; */
 }
 .mainLearnPage_div_main_signs_learnComponent {
     display: flex;
     flex-direction: column;
-    /* width: 70%; */
+    width: 70%;
 }
 .mainLearnPage_span_sign_chapter_learnComponent {
     font-size: 25px;
@@ -2093,44 +2150,59 @@ input[type=number] {
 .mainLearnPage_div_main_button_and_images_learnComponent {
     padding: 0 16px 20px;
     position: relative;
-    /* display: flex;
-    align-items: center; */
 }
-.mainLearnPage_div_big_image_learnComponent {
-    /* left: calc(50% + -19px);
-    top: 611.208px; */
-    position: relative;
+.mainLearnPage_div_big_image1_learnComponent {
+    position: absolute;
+    top: 180px;
+    left: 0;  
+}
+.mainLearnPage_div_big_image2_learnComponent {
+    position: absolute;
+    top: 560px;
+    right: 0;  
+}
+.mainLearnPage_div_big_image2_ifOneImage_learnComponent {
+    position: absolute;
+    top: 180px;
+    right: 0;  
+}
+.mainLearnPage_div_big_image2_left_learnComponent {
+    position: absolute;
+    top: 560px;
+    left: 0; 
 }
 .mainLearnPage_big_image_learnComponent {
     height: 260.765px;
     transform: translateY(-50%);
-    width: calc(50% + 3px);
-    position: absolute;
-    top: 180px;
-    right: 0;
+    width: 272px;
 }
 .mainLearnPage_div_main_buttons_with_image_learnComponent {
     display: flex;
     align-items: center;
     flex-direction: column;
     margin-top: 30px;
-    /* position: relative; */
+    width: 100%;
+    position: relative;
 }
-.mainLearn_div_button_learnComponent {
+.mainLearnPage_div_button_learnComponent {
     display: flex;
     align-items: center;
-    /* position: absolute; */
+    justify-content: left;
+    cursor: pointer;
+}
+.mainLearnPage_div_button_right_learnComponent {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    cursor: pointer;
 }
 .mainLearnPage_button_with_image_learnComponent {
     height: 57px;
-    /* position: absolute; */
     width: 70px;
     border-radius: 50%;
     border: none;
     box-shadow: 0 8px 0 rgba(0,0,0,.2);
     margin: 10px;
-    /* right: 100px;
-    top: 20px; */
 }
 
 @media (max-width: 1360px) {

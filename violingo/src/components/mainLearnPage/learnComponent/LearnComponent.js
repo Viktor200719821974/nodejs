@@ -1,15 +1,13 @@
 import book from '../../../icons/book.svg';
-import coffer from '../../../icons/coffer.svg';
 import { arrayButtonsImagesLearnComponent } from '../../../constants/arrays';
 import { IMAGES_LEARN_COMPONENT } from '../../../constants';
-import Part1LearnComponent from './Part1LearnComponent';
-import Part2LearnComponent from './Part2LearnComponent';
+import PartLearnComponent from './PartLearnComponent';
 
 const LearnComponent = () => {
     return (
         <div>
             {arrayButtonsImagesLearnComponent.map(c => 
-                <section>
+                <section key={c.id}>
                     <div 
                         className="mainLearnPage_div_main_header_learnComponent"
                         style={{background: `${c.background}`}}
@@ -34,22 +32,52 @@ const LearnComponent = () => {
                         </span>    
                     </div>
                     <div className="mainLearnPage_div_main_button_and_images_learnComponent">
-                        <div className="mainLearnPage_div_big_image_learnComponent">
-                            <img 
-                                src={IMAGES_LEARN_COMPONENT + c.image2} 
-                                alt={c.alt2}
-                                className="mainLearnPage_big_image_learnComponent"
-                            />
-                        </div>
                         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
-                            <Part1LearnComponent part1={c.part1} key={c.id}/>
-                            <div 
-                                className="mainLearn_div_button_learnComponent"
-                                style={{width: '40%'}}
-                                >
-                                <img src={coffer} alt={""}/>
-                            </div>
-                            <Part2LearnComponent part2={c.part2} key={c.id}/>                       
+                            {c.image1 !== null && 
+                                <div className={
+                                    c.chapter % 2 === 0 
+                                        ? "mainLearnPage_div_big_image1_learnComponent"
+                                        : "mainLearnPage_div_big_image2_ifOneImage_learnComponent"
+                                    }
+                                    >
+                                    <img 
+                                        src={IMAGES_LEARN_COMPONENT + c.image1} 
+                                        alt={c.alt1}
+                                        className="mainLearnPage_big_image_learnComponent"
+                                    />
+                                </div>
+                            } 
+                            {(c.part1.length === 0 && c.chapter === 1) &&
+                                <div className={"mainLearnPage_div_big_image2_ifOneImage_learnComponent"}>
+                                    <img 
+                                        src={IMAGES_LEARN_COMPONENT + c.image2} 
+                                        alt={c.alt2}
+                                        className="mainLearnPage_big_image_learnComponent"
+                                    />
+                                </div>
+                            }
+                            {(c.part1.length > 0 || c.part2.length > 0) && 
+                                <div className={
+                                    c.chapter % 2 === 0
+                                        ? "mainLearnPage_div_big_image2_learnComponent"
+                                        : "mainLearnPage_div_big_image2_left_learnComponent"
+                                    }
+                                    >
+                                    <img 
+                                        src={IMAGES_LEARN_COMPONENT + c.image2} 
+                                        alt={c.alt2}
+                                        className="mainLearnPage_big_image_learnComponent"
+                                    />
+                                </div>
+                            }
+                            <PartLearnComponent 
+                                part1={c.part1} 
+                                part2={c.part2}
+                                part3={c.part3}
+                                part4={c.part4}
+                                chapter={c.chapter}
+                                key={c.id}
+                            />
                         </div>  
                     </div>              
                 </section>

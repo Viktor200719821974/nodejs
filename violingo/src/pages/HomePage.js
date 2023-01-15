@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaGooglePlay } from 'react-icons/fa';
 import { BsApple } from 'react-icons/bs';
 import { 
@@ -30,6 +30,22 @@ const HomePage = () =>  {
     const navigate = useNavigate();
     const [isBool, setIsBool] = useState(false);
     const [value, setValue] = useState('УКРАЇНСЬКА');
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [scrollBool, setScrollBool] = useState(false);
+    
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+
+    useEffect(() => {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+        if (scrollPosition >= 780) {
+            setScrollBool(true);
+        } else {
+            setScrollBool(false);
+        }
+    }, [scrollBool, scrollPosition,]);
     return (
       <div>
         <header className="homePage_header">
@@ -62,6 +78,21 @@ const HomePage = () =>  {
                 />
               }
             </span>
+            {scrollBool && 
+              <span className="homePage_div_main_buttons_start_and_enter">
+                <button 
+                  className="homePage_button_start"
+                  onClick={() => navigate(REGISTRATION_PAGE)}
+                  >
+                    Розпочати
+                </button>
+                <button 
+                  className="homePage_button_enter"
+                  onClick={() => navigate(LOGIN_PAGE)}
+                  >
+                    Вхід
+                </button>              
+              </span>}
         </header>
         <div className="homePage_body">
           <div className="homePage_div_center_body">
