@@ -550,6 +550,11 @@ header {
 .welcomePage_div_one_block:hover {
     background-color: #e5e5e588;
 }
+.welcomePage_image {
+    width: 108px;
+    height: 80px; 
+    margin: 20px 13px 10px;
+}
 .welcomePage_span_sign_in_block {
     color: #4b4b4b;
     font-size: 17px;

@@ -18,13 +18,15 @@ function App() {
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {
         getUserById(accessToken).then(data => {
-          dispatch(fetchUser(data));
-          dispatch(isLoginUser(true));
-          console.log(data);
+          if (data) {
+            dispatch(fetchUser(data));
+            dispatch(isLoginUser(true));
+            console.log(data); 
+          }         
         });
       }
     } catch(err) {
-      console.log(err);
+        console.log(err);
     }
     setLoading(false);
     // eslint-disable-next-line

@@ -65,6 +65,10 @@ class UsersService {
             }
         );
     }
+
+    async updateStatisticUser(id: number) {
+        return model.User.update({ statistic: true }, { where: { id } });
+    }
 }
 
 export const usersService = new UsersService();

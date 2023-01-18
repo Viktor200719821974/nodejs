@@ -1,16 +1,26 @@
 import { BiArrowBack } from 'react-icons/bi';
 import { arrayWelcome3 } from '../../constants/arrays';
-import Welcome3UnderComponent from './Welcome3UnderComponent';
+import { postStatistic } from '../../http/statisticApi';
 
 const Welcome3Component = ({
     setNewComponent1, setNewComponent2, setIdElement, idElement, 
-    setTimeToExeciseValue, setButtonNoActive,
+    setEveryDayTarget, howDidYouKnow, whatAreYouStuding, everyDayTarget, setButtonNoActive,
     }) => {
-
     const buttonBack = () => {
         setNewComponent1(true);
-        setButtonNoActive(false);
-        setIdElement(0);
+    }
+    const click = () => {
+        try {
+            setButtonNoActive(false);
+            setNewComponent2(false);
+            postStatistic(howDidYouKnow, whatAreYouStuding, everyDayTarget).then(data => {
+                console.log(data);
+            }).catch(e => {
+                console.log(e);
+            });
+        } catch (e) {
+            console.log(e);
+        }        
     }
     return (
         <div>
@@ -32,22 +42,74 @@ const Welcome3Component = ({
                 <div className="welcomePage_div_main_table_welcome3Component">
                    {
                     arrayWelcome3.map(c => 
-                        <Welcome3UnderComponent
-                            key={c.id}
-                            id={c.id}
-                            name={c.name}
-                            time={c.time}
-                            title={c.title}
-                            setIdElement={setIdElement}
-                            idElement={idElement}
-                            setTimeToExeciseValue={setTimeToExeciseValue}
-                        />
+                        <div key={c.id}>
+                            {(c.id === 1) && 
+                                <div 
+                                    className={
+                                        (idElement !== c.id) 
+                                            ? "welcomePage_div_table_row_top_welcome3Component" 
+                                            : "welcomePage_div_table_row_top_welcome3Component_select"
+                                    }
+                                    onClick={() => {
+                                        setEveryDayTarget(c.name);
+                                        setIdElement(c.id); 
+                                    }}
+                                     >
+                                    <span className="welcomePage_div_table_column_left_welcome3Component">
+                                        <b>{c.title}</b>
+                                    </span>
+                                    <span className="welcomePage_div_table_column_right_welcome3Component">
+                                        {c.time} 
+                                    </span>
+                                </div>
+                            }
+                            {((c.id !== 1) && (c.id !== 4)) && 
+                                <div 
+                                    className={
+                                        (idElement !== c.id) 
+                                            ? "welcomePage_div_table_row_center_welcome3Component" 
+                                            : "welcomePage_div_table_row_center_welcome3Component_select"
+                                    }
+                                    onClick={() => {
+                                        setEveryDayTarget(c.name);
+                                        setIdElement(c.id); 
+                                    }}
+                                    >
+                                    <span className="welcomePage_div_table_column_left_welcome3Component">
+                                        <b>{c.title}</b>
+                                    </span>
+                                    <span className="welcomePage_div_table_column_right_welcome3Component">
+                                        {c.time} 
+                                    </span>
+                                </div>
+                            }
+                            {(c.id === 4) && 
+                                <div 
+                                    className={
+                                        (idElement !== c.id) 
+                                            ? "welcomePage_div_table_row_down_welcome3Component" 
+                                            : "welcomePage_div_table_row_down_welcome3Component_select"
+                                    }
+                                    onClick={() => {
+                                        setEveryDayTarget(c.name);
+                                        setIdElement(c.id); 
+                                    }}
+                                    >
+                                    <span className="welcomePage_div_table_column_left_welcome3Component">
+                                        <b>{c.title}</b>
+                                    </span>
+                                    <span className="welcomePage_div_table_column_right_welcome3Component">
+                                        {c.time} 
+                                    </span>
+                                </div>
+                            }    
+                        </div>
                     )
                    }
                 </div>
                 <div 
                     className="welcomePage_div_button_next display_alien_justify"
-                    onClick={() => setNewComponent2(false)}
+                    onClick={click}
                     style={{width: '580px'}}
                     >
                         Продовжити

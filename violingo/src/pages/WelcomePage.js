@@ -16,14 +16,14 @@ const WelcomePage = () => {
     const [newComponent4, setNewComponent4] = useState(true);
     const [newComponent5, setNewComponent5] = useState(false);
     const [idElement, setIdElement] = useState(0);
-    const [fromKnewValue, setFromKnewValue] = useState('');
-    const [whyStudyValue, setWhyStudyValue] = useState('');
-    const [timeToExeciseValue, setTimeToExeciseValue] = useState('');
+    const [howDidYouKnow, setHowDidYouKnow] = useState('');
+    const [whatAreYouStuding, setWhatAreYouStuding] = useState('');
+    const [everyDayTarget, setEveryDayTarget] = useState('');
     
     useEffect(() => {
     }, [
-        buttonNoActive, newComponent5, idElement, fromKnewValue, whyStudyValue, 
-        newComponent, timeToExeciseValue,
+        buttonNoActive, newComponent5, idElement, howDidYouKnow, whatAreYouStuding, 
+        newComponent, everyDayTarget,
     ]);
     return (
         <div>
@@ -34,11 +34,12 @@ const WelcomePage = () => {
                         setNewComponent={setNewComponent}
                         setNewComponent5={setNewComponent5}
                         setNewComponent4={setNewComponent4}
-                        setFromKnewValue={setFromKnewValue}
+                        setHowDidYouKnow={setHowDidYouKnow}
                         setIdElement={setIdElement}
                         idElement={idElement}
                         setButtonNoActive={setButtonNoActive}
                         newComponent={newComponent}
+                        whatAreYouStuding={whatAreYouStuding}
             />}
             {
                 (newComponent && newComponent1) &&
@@ -50,8 +51,11 @@ const WelcomePage = () => {
                         setIdElement={setIdElement}
                         idElement={idElement}
                         setButtonNoActive={setButtonNoActive}
-                        setWhyStudy={setWhyStudyValue}
-                        setFromKnewValue={setFromKnewValue}
+                        setWhatAreYouStuding={setWhatAreYouStuding}
+                        setHowDidYouKnow={setHowDidYouKnow}
+                        howDidYouKnow={howDidYouKnow}
+                        everyDayTarget={everyDayTarget}
+                        setEveryDayTarget={setEveryDayTarget}
                 />
             }
             {
@@ -61,9 +65,12 @@ const WelcomePage = () => {
                         buttonNoActive={buttonNoActive}
                         idElement={idElement}
                         setIdElement={setIdElement}
-                        setTimeToExeciseValue={setTimeToExeciseValue}
+                        setEveryDayTarget={setEveryDayTarget}
                         setNewComponent2={setNewComponent2}
                         setButtonNoActive={setButtonNoActive}
+                        everyDayTarget={everyDayTarget}
+                        howDidYouKnow={howDidYouKnow}
+                        whatAreYouStuding={whatAreYouStuding}
                     />
             }
             {   (!newComponent2 && newComponent3) && 

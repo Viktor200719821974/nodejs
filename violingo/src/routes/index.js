@@ -27,36 +27,12 @@ export const authRoutes = [
         path: PLACEMENT_PAGE,
         Component: PlacementPage
     },
-    {
+     {
         path: WELCOME_PAGE,
         Component: WelcomePage
     },
-]
-export const publicRoutes = [ 
-    {
-        path: LEARN_PAGE,
-        Component: MainLearnPage
-    },
-    {
-        path: REVIEW_PAGE,
-        Component: MainLearnPage
-    },
-    {
-        path: SHOP_PAGE,
-        Component: MainLearnPage
-    },
-    {
-        path: SCHOOLS_PAGE,
-        Component: MainLearnPage
-    },  
-    {
-        path: SETTINGS_COACH,
-        Component: MainLearnPage
-    },
-    {
-        path: SETTINGS_SOUND,
-        Component: MainLearnPage
-    },
+];
+export const publicRoutes = [    
     {
         path: HOME_PAGE,
         Component: HomePage
@@ -85,4 +61,30 @@ export const publicRoutes = [
     //     path: DEVICE_ROUTE + '/:id',
     //     Component: DevicePage
     // },
-]
+];
+export const statisticRoutes = [
+    {
+        path: LEARN_PAGE,
+        Component: MainLearnPage
+    },
+    {
+        path: REVIEW_PAGE,
+        Component: MainLearnPage
+    },
+    {
+        path: SHOP_PAGE,
+        Component: MainLearnPage
+    },
+    {
+        path: SCHOOLS_PAGE,
+        Component: MainLearnPage
+    },  
+    {
+        path: SETTINGS_COACH,
+        Component: MainLearnPage
+    },
+    {
+        path: SETTINGS_SOUND,
+        Component: MainLearnPage
+    },
+];

@@ -1,12 +1,22 @@
 import { RxCross1 } from 'react-icons/rx';
 
-import { arrayWelcome1 } from '../../constants/arrays';
-import WelcomeUnderComponent from './WelcomeUnderComponent';
+import { arrayWelcome1, arrayWelcome2 } from '../../constants/arrays';
+import { IMAGES_WELCOME_PATH } from '../../constants';
 
 const Welcome1Component = ({
         buttonNoActive, setNewComponent, setNewComponent5, setNewComponent4,
-        setFromKnewValue, setIdElement, idElement, setButtonNoActive, newComponent,
+        setHowDidYouKnow, setIdElement, idElement, setButtonNoActive, newComponent, 
+        whatAreYouStuding,
     }) => {
+    const click = () => {
+        setNewComponent(true);
+        (whatAreYouStuding === '') && setIdElement(0);
+        (whatAreYouStuding !== '') && 
+            setIdElement(arrayWelcome2.filter(c => c.name === whatAreYouStuding)
+                .map(c => c.id)[0]);
+        (whatAreYouStuding === '') && setButtonNoActive(false);
+        (whatAreYouStuding !== '') && setButtonNoActive(true);
+    }
     return (
         <div>
            <div className="welcomePage_main_div_top display_alien_justify">
@@ -28,18 +38,27 @@ const Welcome1Component = ({
                 <div className="welcomePage_div_main_blocks">
                     { !newComponent &&
                         arrayWelcome1.map(c => 
-                            <WelcomeUnderComponent
+                            <div 
                                 key={c.id}
-                                name={c.name}
-                                src={c.src}
-                                alt={c.alt}
-                                sign={c.sign}
-                                id={c.id}
-                                setFromKnewValue={setFromKnewValue}
-                                setIdElement={setIdElement}
-                                idElement={idElement}
-                                setButtonNoActive={setButtonNoActive}
-                            />)
+                                className={
+                                    (c.id !== idElement) ? "welcomePage_div_one_block" : "welcomePage_div_one_block_select"
+                                }
+                                onClick={() => {
+                                    setIdElement(c.id);
+                                    setHowDidYouKnow(c.name);
+                                    setButtonNoActive(true);
+                                }}
+                                >
+                                    <img
+                                        className="welcomePage_image" 
+                                        src={IMAGES_WELCOME_PATH + c.src} 
+                                        alt={c.alt}
+                                    />
+                                <span className="welcomePage_span_sign_in_block sign">
+                                    <b>{c.sign}</b>
+                                </span>
+                            </div>
+                        )
                     }
                 </div>
                 <div 
@@ -47,12 +66,7 @@ const Welcome1Component = ({
                         buttonNoActive ? "welcomePage_div_button_next display_alien_justify"
                          : "welcomePage_div_button_next_noActive display_alien_justify"
                     }
-                    onClick={() => {
-                        buttonNoActive &&
-                        setNewComponent(true);
-                        setIdElement(0);
-                        setButtonNoActive(false);
-                    }}
+                    onClick={click}
                     >
                         Продовжити
                 </div>

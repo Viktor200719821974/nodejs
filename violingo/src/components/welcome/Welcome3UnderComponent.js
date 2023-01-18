@@ -1,16 +1,15 @@
 import { useEffect } from "react";
 
 const Welcome3UnderComponent = ({
-    name, title, time, idElement, setIdElement, id, setTimeToExeciseValue, 
+    name, title, time, idElement, setIdElement, id, setEveryDayTarget, 
 }) => {
     const click = () => {
-        setTimeToExeciseValue(name);
+        setEveryDayTarget(name);
         setIdElement(id); 
     }
     useEffect(() => {
         setIdElement(2);
     }, [setIdElement]);
-    
     return (  
         <>
             {(id === 1) && 
