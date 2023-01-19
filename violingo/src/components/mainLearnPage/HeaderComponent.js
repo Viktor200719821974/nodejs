@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
 
 import america from '../../icons/united-states.png';
 import fire from '../../icons/fire.png';
@@ -17,6 +18,7 @@ function HeaderComponent({
     setMouseOnRuby, mouseOnAvatar, setMouseOnAvatar,
 }) {
     const navigate = useNavigate();
+    // const { user } = useSelector(state => state.userReducer);
     return (
         <header 
             className="mainLearnPage_main_headerComponent" 
@@ -61,13 +63,18 @@ function HeaderComponent({
                         0
                     </span>
                 </div>
-                <img 
-                    src={avatar} 
-                    alt="avatar"
-                    className="mainLearnPage_image_avatar_headerComponent"
-                    onMouseEnter={() => setMouseOnAvatar(true)}
-                    onMouseLeave={() => setMouseOnAvatar(false)}
-                />               
+                <div className="mainLearnPage_main_div_avatar_headerComponent">
+                    <img 
+                        src={avatar} 
+                        alt="avatar"
+                        className="mainLearnPage_image_avatar_headerComponent"
+                        onMouseEnter={() => setMouseOnAvatar(true)}
+                        onMouseLeave={() => setMouseOnAvatar(false)}
+                    /> 
+                    {/* <span className="mainLearnPage_span_user_name_headerComponent">
+                        {user.name}
+                    </span>    */}
+                </div>                         
             </div>
             <div className="mainLearnPage_main_div_windows">
                 {

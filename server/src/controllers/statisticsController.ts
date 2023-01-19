@@ -22,6 +22,31 @@ class StatisticsController {
             next(e);
         }
     }
+
+    async getStatisticByUserId(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            // @ts-ignore
+            const { id } = req.user;
+            const statistic = await statisticsService.getStatisticByUserId(id);
+            res.status(200).json(statistic);
+        } catch(e) {
+            next(e);
+        }
+    }
+
+    async updateEveryDayTarget(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            const { everyDayTarget } = req.body;
+            console.log(everyDayTarget);
+            // @ts-ignore
+            const { id } = req.user;
+            const statistic = await statisticsService.updateEveryDayTarget(id, everyDayTarget);
+            console.log(statistic);
+            res.status(200).json(statistic);
+        } catch(e) {
+            next(e);
+        }
+    }
 }
 
 export const statisticsController = new StatisticsController();

@@ -41,12 +41,12 @@ class AuthController {
         }
     }
 
-    async logout(req: Request, res: Response, next: NextFunction) {
+    async logout(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             // @ts-ignore
             const { id } = req.user;
             await tokenService.deleteTokenPair(Number(id));
-            res.json('Ok');
+            res.status(200).json('Ok');
         } catch (e) {
             next(e);
         }

@@ -11,15 +11,18 @@ import ReviewComponent from '../components/mainLearnPage/ReviewComponent';
 import ShopComponent from '../components/mainLearnPage/ShopComponent';
 import SchoolsComponent from '../components/mainLearnPage/SchoolsComponent';
 import MenuDownLinksComponent from '../components/MenuDownLinksComponent';
-import { arrayMenuDownLinks } from '../constants/arrays';
+import { arrayMenuDownLinks, arrayPurposeSettingsCoachComponent } from '../constants/arrays';
 import SettingsCoachComponent from '../components/mainLearnPage/SettingsCoachComponent';
 import SettingsSoundComponent from '../components/mainLearnPage/SettingsSoundComponent';
 import MainLearnBodyRightComponent from '../components/mainLearnPage/mainLearnPageBodyRight/MainLearnBodyRightComponent';
 import arrow from '../icons/arrow-up-blue.svg';
+import { getStatistic } from '../http/statisticApi';
 
 const MainLearnPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
     const [shopPage, setShopPage] = useState(false);
@@ -33,7 +36,6 @@ const MainLearnPage = () => {
     const [mouseOnAvatar, setMouseOnAvatar] = useState(false);
     const [idElement, setIdElement] = useState(1);
     const [points, setPoints] = useState(0);
-    const [purposeDay, setPurposeDay] = useState(50);
     const [choosePurposeDay, setChoosePurposeDay] = useState('');
     const [changeBodyRight, setChangeBodyRight] = useState(false);
     const [offSoundEffects, setOffSoundEffects] = useState(true);
@@ -47,8 +49,17 @@ const MainLearnPage = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
     };
-    
+    const idPurpose = everyDayTarget && arrayPurposeSettingsCoachComponent
+            .filter(c => c.name === everyDayTarget)
+            .map(c => c.id)[0];
+    console.log(everyDayTarget);
     useEffect(() => {
+        getStatistic().then(data => {
+            if (data.status === 200) {
+                console.log(data.data);
+                setEveryDayTarget(data.data.everyDayTarget);
+            }
+        }).catch (e => console.log(e));
         if (location.pathname === LEARN_PAGE) {
             setLearnPage(true);
             setReviewPage(false);
@@ -116,6 +127,9 @@ const MainLearnPage = () => {
         if (offSoundEffects && offExeciseToSpeak && offExeciseToAudio && idElement <= 10) {
             setActiveButton(false);
         }
+        if (idElement === idPurpose) {
+            setActiveButton(false);
+        }
         if (mouseOnFlag || mouseOnFire || mouseOnRuby || mouseOnAvatar) {
             setIsActive(true);
         } else {
@@ -129,9 +143,9 @@ const MainLearnPage = () => {
         }
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
-        mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, purposeDay, settingsCoach,
+        mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExeciseToSpeak,
-        offExeciseToAudio, activeButton, scrollBool, scrollPosition,
+        offExeciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget, idPurpose,
     ]);
     return (
         <>
@@ -169,10 +183,10 @@ const MainLearnPage = () => {
                     { settingsCoach && <SettingsCoachComponent 
                                             navigate={navigate}
                                             idElement={idElement}
-                                            etChoosePurposeDay={setChoosePurposeDay}
+                                            setChoosePurposeDay={setChoosePurposeDay}
                                             setIdElement={setIdElement}
                                             setPoints={setPoints}
-                                            setPurposeDay={setPurposeDay}
+                                            idPurpose={idPurpose}
                                         /> 
                     }
                     { settingsSound && <SettingsSoundComponent
@@ -210,7 +224,7 @@ const MainLearnPage = () => {
                 <div className="mainLearnPage_div_body_right">
                     <MainLearnBodyRightComponent
                         points={points}
-                        purposeDay={purposeDay}
+                        choosePurposeDay={choosePurposeDay}
                         navigate={navigate}
                         setSettingsCoach={setSettingsCoach}
                         setIdElement={setIdElement}
@@ -219,6 +233,7 @@ const MainLearnPage = () => {
                         settingsSound={settingsSound}
                         changeBodyRight={changeBodyRight}
                         activeButton={activeButton}
+                        everyDayTarget={everyDayTarget}
                     />
                 </div>
             </div> 

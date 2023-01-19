@@ -12,6 +12,15 @@ class StatisticsService {
             return model.Statistic.create({ howDidYouKnow, whatAreYouStuding, everyDayTarget, userId });
     }
 
+    async getStatisticByUserId(userId: number): Promise<IStatistic | null> {
+        return model.Statistic.findOne({ where: {userId } });
+    }
+
+    async updateEveryDayTarget(userId: number, everyDayTarget: string): Promise<IStatistic | null> {
+        await model.Statistic.update({ everyDayTarget }, { where: { userId } });
+        return model.Statistic.findOne({ where: { userId } });
+    }
+    
     async findStatisticUser(userId: number): Promise<boolean> {
         return !!model.Statistic.findOne({ where: { userId } }); 
     }

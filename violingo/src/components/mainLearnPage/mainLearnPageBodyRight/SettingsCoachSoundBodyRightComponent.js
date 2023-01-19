@@ -1,12 +1,25 @@
 import { SETTINGS_COACH, SETTINGS_SOUND } from '../../../constants';
+import { updateEveryDayTarget } from '../../../http/statisticApi';
 
 const SettingsCoachSoundBodyRightComponent = ({
     navigate, settingsSound, settingsCoach, setSettingsSound, setSettingsCoach, activeButton,
+    choosePurposeDay,
 }) => {
+    console.log(choosePurposeDay);
+    const click = () => {
+        try {
+            updateEveryDayTarget(choosePurposeDay).then(data => {
+                console.log(data);
+            }).catch(e => console.log(e));
+        } catch(e) {
+            console.log(e);
+        }
+    }
     return (
         <div className="mainLearnPage_main_div_settingsCoachSoundComponent">
             <div className="mainLearnPage_div_button_settingsCoachSoundComponent">
                 <button 
+                    onClick={click}
                     className={
                         activeButton
                             ? "mainLearnPage_button_settingsCoachSoundComponent display_alien_justify"

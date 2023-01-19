@@ -1432,6 +1432,18 @@ input[type=number] {
     height: 30px;
     padding-right: 6px;
 }
+.mainLearnPage_main_div_avatar_headerComponent {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.mainLearnPage_span_user_name_headerComponent {
+    color: #afafaf;
+    position: absolute;
+    top: 29px;
+    right: 7px;
+    font-size: 15px;
+}
 .mainLearnPage_image_avatar_headerComponent {
     border-radius: 50%;
     height: 36px;

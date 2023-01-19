@@ -1,9 +1,16 @@
+import { useEffect } from 'react';
+
 import { arrayPurposeSettingsCoachComponent } from '../../constants/arrays';
 import coach from '../../icons/coach.svg';
 
 const SettingsCoachComponent = ({
-    idElement, setChoosePurposeDay, setIdElement,
+    idElement, setChoosePurposeDay, setIdElement, idPurpose, 
 }) => {
+    
+    useEffect(() => {
+        setIdElement(idPurpose);
+        // eslint-disable-next-line  
+    }, []);
     return (
         <div>
             <div>
@@ -34,8 +41,8 @@ const SettingsCoachComponent = ({
                                                     : "mainLearnPage_main_span_choose_purpose_top_select_settingsCoachComponent"
                                             }
                                             onClick={() => {
-                                                setChoosePurposeDay(c.title); 
-                                                setIdElement(c.id)
+                                                setChoosePurposeDay(c.name); 
+                                                setIdElement(c.id);
                                             }}
                                             >
                                             <span
@@ -56,8 +63,8 @@ const SettingsCoachComponent = ({
                                                     : "mainLearnPage_main_span_choose_purpose_center_select_settingsCoachComponent"
                                             }
                                             onClick={() => {
-                                                setChoosePurposeDay(c.title); 
-                                                setIdElement(c.id)
+                                                setChoosePurposeDay(c.name); 
+                                                setIdElement(c.id);
                                             }}
                                             >
                                             <span
@@ -78,8 +85,8 @@ const SettingsCoachComponent = ({
                                                     : "mainLearnPage_main_span_choose_purpose_down_select_settingsCoachComponent"
                                             }
                                             onClick={() => {
-                                                setChoosePurposeDay(c.title); 
-                                                setIdElement(c.id)
+                                                setChoosePurposeDay(c.name); 
+                                                setIdElement(c.id);
                                             }}
                                             >
                                             <span

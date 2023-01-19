@@ -1,10 +1,14 @@
 import AgendaComponent from './AgendaComponent';
 import SettingsCoachSoundBodyRightComponent from './SettingsCoachSoundBodyRightComponent';
+import { arrayPurposeSettingsCoachComponent } from '../../../constants/arrays';
 
 const MainLearnBodyRightComponent = ({
-    points, purposeDay, setSettingsCoach, setIdElement, settingsCoach, settingsSound, navigate,
-    setSettingsSound, changeBodyRight, activeButton,
+    points, setSettingsCoach, setIdElement, settingsCoach, settingsSound, navigate,
+    setSettingsSound, changeBodyRight, activeButton, choosePurposeDay, everyDayTarget,
 }) => {
+    const purposeDay = everyDayTarget && arrayPurposeSettingsCoachComponent
+        .filter(c => c.name === everyDayTarget) 
+        .map(c => c.point)[0].slice(0,3);
     return (
         <>
             {changeBodyRight &&
@@ -15,8 +19,8 @@ const MainLearnBodyRightComponent = ({
                     setSettingsCoach={setSettingsCoach}
                     setSettingsSound={setSettingsSound}
                     activeButton={activeButton}
-                />
-                
+                    choosePurposeDay={choosePurposeDay}
+                />             
             }
             {!changeBodyRight &&
                 <div>

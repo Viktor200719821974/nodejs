@@ -3,8 +3,9 @@ import { arraySchedule, arrayScheduleLine } from '../../../constants/arrays';
 import boxClose from '../../../icons/box-close.svg';
 
 const AgendaComponent = ({
-    points, purposeDay, navigate, setIdElement,
+    points, navigate, setIdElement, purposeDay, 
 }) => {
+    
     const click = () => {
         navigate(SETTINGS_COACH);
         setIdElement(10);
