@@ -52,11 +52,10 @@ const MainLearnPage = () => {
     const idPurpose = everyDayTarget && arrayPurposeSettingsCoachComponent
             .filter(c => c.name === everyDayTarget)
             .map(c => c.id)[0];
-    console.log(everyDayTarget);
+    
     useEffect(() => {
         getStatistic().then(data => {
             if (data.status === 200) {
-                console.log(data.data);
                 setEveryDayTarget(data.data.everyDayTarget);
             }
         }).catch (e => console.log(e));

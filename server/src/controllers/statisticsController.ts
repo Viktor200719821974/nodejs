@@ -8,15 +8,15 @@ class StatisticsController {
     async createStatistic(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const { howDidYouKnow, whatAreYouStuding, everyDayTarget } = req.body;
-            // @ts-ignore
+            //@ts-ignore
             const { id } = req.user;
-            const exist = await statisticsService.findStatisticUser(id);
+            const exist = await statisticsService.findStatisticUser(+id);
             if (exist) {
-                await statisticsService.deleteStatistic(id);
+                await statisticsService.deleteStatistic(+id);
             }
             const data = await statisticsService
-                .createStatistic(howDidYouKnow, whatAreYouStuding, everyDayTarget, id);
-            await usersService.updateStatisticUser(id);
+                .createStatistic(howDidYouKnow, whatAreYouStuding, everyDayTarget, +id);
+            await usersService.updateStatisticUser(+id);
             res.status(201).json(data);
         } catch (e) {
             next(e);
@@ -25,9 +25,9 @@ class StatisticsController {
 
     async getStatisticByUserId(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
-            // @ts-ignore
+            //@ts-ignore
             const { id } = req.user;
-            const statistic = await statisticsService.getStatisticByUserId(id);
+            const statistic = await statisticsService.getStatisticByUserId(+id);
             res.status(200).json(statistic);
         } catch(e) {
             next(e);
@@ -37,11 +37,9 @@ class StatisticsController {
     async updateEveryDayTarget(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const { everyDayTarget } = req.body;
-            console.log(everyDayTarget);
-            // @ts-ignore
+            //@ts-ignore
             const { id } = req.user;
-            const statistic = await statisticsService.updateEveryDayTarget(id, everyDayTarget);
-            console.log(statistic);
+            const statistic = await statisticsService.updateEveryDayTarget(+id, everyDayTarget);
             res.status(200).json(statistic);
         } catch(e) {
             next(e);

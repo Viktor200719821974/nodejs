@@ -19,12 +19,12 @@ class TokenService {
         const accessToken = jwt.sign(
             payload,
             config.SECRET_ACCESS_KEY!,
-            { expiresIn: '10m' },
+            { expiresIn: '1m' },
         );
         const refreshToken = jwt.sign(
             payload,
             config.SECRET_REFRESH_KEY!,
-            { expiresIn: '24h' },
+            { expiresIn: '2m' },
         )
         return { accessToken, refreshToken, userId: payload.userId};
     }

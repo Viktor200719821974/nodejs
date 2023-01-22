@@ -113,6 +113,10 @@ class AuthController {
             );
             //@ts-ignore
             await tokenService.saveToken({ accessToken, refreshToken, userId });
+            console.log('___________________________');
+            console.log(refreshToken);
+            console.log(accessToken);
+            console.log('____________________________________')
             res.json({
                 refreshToken,
                 accessToken,

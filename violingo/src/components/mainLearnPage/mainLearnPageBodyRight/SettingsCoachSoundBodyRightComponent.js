@@ -1,15 +1,17 @@
-import { SETTINGS_COACH, SETTINGS_SOUND } from '../../../constants';
+import { LEARN_PAGE, SETTINGS_COACH, SETTINGS_SOUND } from '../../../constants';
 import { updateEveryDayTarget } from '../../../http/statisticApi';
 
 const SettingsCoachSoundBodyRightComponent = ({
     navigate, settingsSound, settingsCoach, setSettingsSound, setSettingsCoach, activeButton,
     choosePurposeDay,
 }) => {
-    console.log(choosePurposeDay);
+    
     const click = () => {
         try {
             updateEveryDayTarget(choosePurposeDay).then(data => {
-                console.log(data);
+                if (data.status === 200) {
+                    navigate(LEARN_PAGE);
+                }
             }).catch(e => console.log(e));
         } catch(e) {
             console.log(e);

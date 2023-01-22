@@ -17,6 +17,7 @@ export const CHANGE_PASSWORD = '/change/password/:token';
 export const ACTIVATE_USER = '/register/activate/:token';
 export const SETTINGS_COACH = '/settings/coach';
 export const SETTINGS_SOUND = '/settings/sound';
+export const ERROR_404_PAGE = '/errors/404.html';
 
 // LINK ON HOME PAGE
 

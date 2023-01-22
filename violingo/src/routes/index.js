@@ -1,9 +1,10 @@
 import { 
     HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE, 
     LESSON_PAGE, PLACEMENT_PAGE, LOGIN_PAGE, FORGET_PASSWORD, REGISTRATION_PAGE, CHANGE_PASSWORD, 
-    ACTIVATE_USER, SETTINGS_COACH, SETTINGS_SOUND,
+    ACTIVATE_USER, SETTINGS_COACH, SETTINGS_SOUND, ERROR_404_PAGE,
 } from '../constants';
 import ActivatePage from '../pages/ActivatePage';
+import Error404Page from '../pages/Error404Page';
 import ForgetPasswordPage from '../pages/ForgetPasswordPage';
 import HomePage from '../pages/HomePage';
 import LessonPage from '../pages/LessonPage';
@@ -19,10 +20,6 @@ export const authRoutes = [
         path: REGISTER_PAGE,
         Component: RegisterPage
     },     
-    {
-        path: LESSON_PAGE,
-        Component: LessonPage
-    },
     {
         path: PLACEMENT_PAGE,
         Component: PlacementPage
@@ -64,6 +61,10 @@ export const publicRoutes = [
 ];
 export const statisticRoutes = [
     {
+        path: LESSON_PAGE,
+        Component: LessonPage
+    },
+    {
         path: LEARN_PAGE,
         Component: MainLearnPage
     },
@@ -86,5 +87,9 @@ export const statisticRoutes = [
     {
         path: SETTINGS_SOUND,
         Component: MainLearnPage
+    },
+    {
+        path: ERROR_404_PAGE,
+        Component: Error404Page
     },
 ];

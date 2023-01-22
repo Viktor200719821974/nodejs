@@ -19,7 +19,7 @@ class UsersController {
         try {
             const { id } = req.params;
             const user = await usersService.getUserById(+id);
-            res.json(user);
+            res.status(200).json(user);
         } catch(e) {
             next(e);
         }
