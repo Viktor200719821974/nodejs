@@ -1,4 +1,4 @@
-import { FETCH_USER, ISLOGIN_USER, NO_USER, STATISTIC_USER } from './index';
+import { FETCH_USER, ISLOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, } from './index';
 
 export const fetchUser = (data) => {
     return { type: FETCH_USER, payload: data };
@@ -11,4 +11,7 @@ export const isLoginUser = (data) => {
 }
 export const statisticUser = (data) => {
     return { type: STATISTIC_USER, payload: data };
+}
+export const isStatisticUser = (data) => {
+    return { type: IS_STATISTIC_USER , payload: data };
 }

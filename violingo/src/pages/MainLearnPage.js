@@ -21,7 +21,7 @@ import { getStatistic } from '../http/statisticApi';
 const MainLearnPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-
+    
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
@@ -144,7 +144,8 @@ const MainLearnPage = () => {
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExeciseToSpeak,
-        offExeciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget, idPurpose,
+        offExeciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget, 
+        idPurpose,
     ]);
     return (
         <>

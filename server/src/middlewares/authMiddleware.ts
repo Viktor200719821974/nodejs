@@ -139,12 +139,10 @@ class AuthMiddleware {
             const { userEmail } = await tokenService.verifyToken(token, 'refreshToken')
             .catch(err => {
                 if (err) {
-                    console.log(err, 'errrrrrrrrrrrrrrrrrrr');
                     res.status(401).json('Unauthorized');
                     return;
                 }
             });
-            console.log(userEmail, 'jghkkkkkl;k');
             const findToken = await tokenService.findByParamsToken(token);
             if (!findToken) {
                 res.status(400).json('No token');

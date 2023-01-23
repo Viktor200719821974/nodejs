@@ -34,8 +34,9 @@ class AuthController {
                 res.status(400).json('Bad email or password');
                 return;
             }
+            const user = await usersService.getUserById(id);
             const {accessToken, refreshToken} = await authService.login(email, id);
-            res.status(200).json({accessToken, refreshToken});
+            res.status(200).json({accessToken, refreshToken, user});
         } catch(e) {
             next(e);
         }
@@ -113,10 +114,6 @@ class AuthController {
             );
             //@ts-ignore
             await tokenService.saveToken({ accessToken, refreshToken, userId });
-            console.log('___________________________');
-            console.log(refreshToken);
-            console.log(accessToken);
-            console.log('____________________________________')
             res.json({
                 refreshToken,
                 accessToken,

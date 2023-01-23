@@ -1,15 +1,20 @@
-import { Response, NextFunction } from 'express';
+import { Response, NextFunction, Request } from 'express';
 
 import { IRequestExtended } from '../interfaces';
 import { statisticsService } from '../services/statisticsService';
 import { usersService } from '../services/usersService';
 
 class StatisticsController {
-    async createStatistic(req: IRequestExtended, res: Response, next: NextFunction) {
+    async createStatistic(req: Request, res: Response, next: NextFunction) {
         try {
-            const { howDidYouKnow, whatAreYouStuding, everyDayTarget } = req.body;
+            const { howDidYouKnow, whatAreYouStuding, everyDayTarget, email } = req.body;
+            const user = await usersService.getUserByEmail(email);
+            if (!user) {
+                res.status(404).json('No user');
+                return;
+            }
             //@ts-ignore
-            const { id } = req.user;
+            const id = user.id;
             const exist = await statisticsService.findStatisticUser(+id);
             if (exist) {
                 await statisticsService.deleteStatistic(+id);

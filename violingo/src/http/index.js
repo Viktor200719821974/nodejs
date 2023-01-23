@@ -37,14 +37,19 @@ $authHost.interceptors.response.use(
         const refreshToken = localStorage.getItem("refreshToken");
         const originalConfig = err.config;
         if (refreshToken && originalConfig.url !== "/auth/login" && err.response ){
-            if ((err.response.status === 401) && !originalConfig._retry){
+            if ((err.response.status === 401 || 500) && !originalConfig._retry){
                 originalConfig._retry = true;
                 try{
-                    const rs = await $refreshHost.post("/auth/refresh",{
+                    await $refreshHost.post("/auth/refresh",{
                         refreshToken: localStorage.getItem('refreshToken'),
-                    });
-                    localStorage.setItem('accessToken', rs.data.accessToken);
-                    localStorage.setItem('refreshToken', rs.data.refreshToken);
+                    })
+                        .then(data => {
+                            if (data.status === 200) {
+                                localStorage.setItem('accessToken', data.data.accessToken);
+                                localStorage.setItem('refreshToken', data.data.refreshToken);
+                            }    
+                        }
+                    );                   
                     return $authHost(originalConfig);
                 }catch (_error) {
                     if (_error.response.status === 401) {

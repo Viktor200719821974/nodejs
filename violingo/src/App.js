@@ -5,17 +5,16 @@ import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import './style/style.css';
-import { fetchUser, isLoginUser, statisticUser } from './redux/actions';
-import ApiRouterPublic from './components/apiRouter/ApiRouterPublic';
+import { fetchUser, isLoginUser, isStatisticUser } from './redux/actions';
+import ApiRouter from './components/ApiRouter';
 import { getUserById } from './http/userApi';
-// import ApiRouterAuth from './components/apiRouter/ApiRouterAuth';
-// import ApiRouterStatistic from './components/apiRouter/ApiRouterStatistic';
+// import { getStatistic } from './http/statisticApi';
 
 function App() {
+
   const [loading, setLoading] = useState(true);
-  // const [statistic, setStatistic] = useState(false);
   const dispatch = useDispatch();
-  
+ 
   useEffect(() => {
     try{
       const accessToken = localStorage.getItem('accessToken');
@@ -24,9 +23,14 @@ function App() {
           if (data) {
             dispatch(fetchUser(data));
             dispatch(isLoginUser(true));
-            dispatch(statisticUser(data.statistic));
+            dispatch(isStatisticUser(data.statistic));
           }         
         });
+        // getStatistic().then(data => {
+        //   if (data.status === 200) {
+        //     dispatch(statisticUser(data.data));
+        //   }
+        // });
       }
     } catch(err) {
         console.log(err);
@@ -39,9 +43,7 @@ function App() {
   }
   return (
     <BrowserRouter>
-       <ApiRouterPublic/>
-      {/* {(statistic) && <ApiRouterAuth/>} */}
-      {/* {(isLogin && statistic) && <ApiRouterStatistic/>} */}
+       <ApiRouter/>
     </BrowserRouter>
   );
 }

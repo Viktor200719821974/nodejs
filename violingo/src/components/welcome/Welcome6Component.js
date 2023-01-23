@@ -8,7 +8,7 @@ import { LEARN_PAGE, LESSON_PAGE, PLACEMENT_PAGE } from '../../constants';
 
 const Welcome6Component = ({
     setNewComponent4, newComponent5,
-    }) => {
+}) => {
     const navigate = useNavigate();
     const buttonBack = () => {
         setNewComponent4(true);
@@ -17,15 +17,15 @@ const Welcome6Component = ({
         <div>
             {!newComponent5 ? 
                 <div className="welcomePage_main_div_top display_alien_justify">
-                <button 
-                    className="welcomePage_button_cross" 
-                    onClick={buttonBack}
-                    >
-                    <BiArrowBack color='#d0cccc' size={'22px'}/>
-                </button> 
-                <div className="welcomePage_div_around_cross">
-                    <div className="welcomePage_div_one_download" style={{width: '100%'}}></div>
-                </div>
+                    <button 
+                        className="welcomePage_button_cross" 
+                        onClick={buttonBack}
+                        >
+                        <BiArrowBack color='#d0cccc' size={'22px'}/>
+                    </button> 
+                    <div className="welcomePage_div_around_cross">
+                        <div className="welcomePage_div_one_download" style={{width: '100%'}}></div>
+                    </div>
                 </div>
                 :
                 <div 

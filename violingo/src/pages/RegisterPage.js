@@ -1,5 +1,5 @@
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import americaFlag from '../icons/united-states.png';
@@ -10,6 +10,8 @@ const RegisterPage = () => {
     const navigate = useNavigate();
     const [isBool, setIsBool] = useState(false);
     const [value, setValue] = useState('УКРАЇНСЬКА');
+    const location = useLocation();
+
     return (
         <div>
             <header className="registerPage_header">
@@ -44,7 +46,7 @@ const RegisterPage = () => {
                     <div className="registerPage_main_div_button">
                         <div 
                             className="registerPage_div_button" 
-                            onClick={() => navigate(WELCOME_PAGE)}
+                            onClick={() => navigate(WELCOME_PAGE, { state: location.state })}
                         >
                             <img 
                                 src={americaFlag} 

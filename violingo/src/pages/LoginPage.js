@@ -4,21 +4,22 @@ import { useDispatch } from 'react-redux';
 
 import crossClose from '../icons/cross-close.svg';
 import { 
-    HOME_PAGE, CONDITIONS, PRIVACY_POLICY, LOGIN_PAGE, REGISTRATION_PAGE, REGISTER_PAGE, 
+    HOME_PAGE, CONDITIONS, PRIVACY_POLICY, LOGIN_PAGE, REGISTRATION_PAGE, LEARN_PAGE,
+    REGISTER_PAGE, 
 } from '../constants';
 import LoginComponent from '../components/auth/LoginComponent';
 import RegistrationComponent from '../components/auth/RegistrationComponent';
 import facebook from '../icons/facebook.svg';
 import google from '../icons/stamp-google.svg';
 import { login, registration } from '../http/authApi';
-import { isLoginUser } from '../redux/actions';
+import { fetchUser, isLoginUser, statisticUser } from '../redux/actions';
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLoginState, setIsLoginState] = useState(false);
     const [isBool, setIsBool] = useState(false);
     const [age, setAge] = useState('');
     const [name, setName] = useState('');
@@ -30,9 +31,22 @@ const LoginPage = () => {
     const click = async(e) => {
         e.preventDefault();
         try {
-            let data;
-            if (!isLogin) {
-                data = await login(email, password)
+            if (!isLoginState) {
+                await login(email, password)
+                    .then(data => {
+                        if (data) {
+                            navigate(
+                                data.user.statistic 
+                                    ? LEARN_PAGE : REGISTER_PAGE, 
+                                    { state: data.user.email }
+                            );
+                            setError(false);
+                            setErrorMessage('');
+                            dispatch(isLoginUser(true));
+                            dispatch(fetchUser(data.user));
+                            dispatch(statisticUser(data.user.statistic));
+                        } 
+                    })
                     .catch(err => {
                         if (err.response.data) {
                             setError(true);
@@ -40,7 +54,14 @@ const LoginPage = () => {
                         }
                     });
             } else {
-                data = await registration(email, password, name, age)
+                await registration(email, password, name, age)
+                    .then(data => {
+                        if (data) {
+                            navigate(REGISTER_PAGE, { state: email });
+                            setError(false);
+                            setErrorMessage('');
+                        }
+                    })
                     .catch(err => {
                         if (err.response.data) {
                             setError(true);
@@ -48,29 +69,18 @@ const LoginPage = () => {
                         }                       
                     });                
             }
-            if (isLogin && data) {
-                navigate(LOGIN_PAGE);
-                setError(false);
-                setErrorMessage('');
-            }
-            if (!isLogin && data) {
-                navigate(REGISTER_PAGE);
-                setError(false);
-                setErrorMessage('');
-                dispatch(isLoginUser(true));
-            } 
         } catch(e) {
             console.log(e);
         }
     }
     useEffect(() => {
         if (location.pathname === '/login') {
-            setIsLogin(false);
+            setIsLoginState(false);
         }
         if (location.pathname === '/registration') {
-            setIsLogin(true);
+            setIsLoginState(true);
         } 
-    }, [isLogin, location.pathname]);
+    }, [isLoginState, location.pathname]);
     return (
         <div className="loginPage_div_main">
             <div className="loginPage_div_main_button">
@@ -81,7 +91,7 @@ const LoginPage = () => {
                     <img src={crossClose} alt="button close page"/>
                 </div>
                 {
-                    !isLogin ? 
+                    !isLoginState ? 
                         <button 
                             className="loginPage_div_button_registration"
                             onClick={() => {
@@ -108,7 +118,7 @@ const LoginPage = () => {
             <div className="loginPage_div_main_loginComponent display_alien_justify">
                 <div className="loginPage_div_componentLogin">
                     { 
-                        !isLogin && 
+                        !isLoginState && 
                             <LoginComponent 
                                 email={email}
                                 setEmail={setEmail}
@@ -118,7 +128,7 @@ const LoginPage = () => {
                             />
                     }
                     { 
-                        isLogin && 
+                        isLoginState && 
                             <RegistrationComponent 
                                 isBool={isBool}
                                 setIsBool={setIsBool}

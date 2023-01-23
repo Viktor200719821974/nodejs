@@ -1,13 +1,14 @@
 import { RxCross1 } from 'react-icons/rx';
+import { useNavigate } from 'react-router-dom';
 
 import { arrayWelcome1, arrayWelcome2 } from '../../constants/arrays';
-import { IMAGES_WELCOME_PATH } from '../../constants';
+import { IMAGES_WELCOME_PATH, LOGIN_PAGE } from '../../constants';
 
 const Welcome1Component = ({
-        buttonNoActive, setNewComponent, setNewComponent5, setNewComponent4,
-        setHowDidYouKnow, setIdElement, idElement, setButtonNoActive, newComponent, 
-        whatAreYouStuding,
-    }) => {
+        buttonNoActive, setNewComponent, setHowDidYouKnow, setIdElement, idElement, 
+        setButtonNoActive, newComponent, whatAreYouStuding,
+}) => {
+    const navigate = useNavigate();
     const click = () => {
         setNewComponent(true);
         (whatAreYouStuding === '') && setIdElement(0);
@@ -23,8 +24,7 @@ const Welcome1Component = ({
                 <button 
                     className="welcomePage_button_cross"
                     onClick={() => {
-                        setNewComponent5(true);
-                        setNewComponent4(false);
+                        navigate(LOGIN_PAGE);
                     }}
                     >
                     <RxCross1 color='#d0cccc' size={'22px'}/>

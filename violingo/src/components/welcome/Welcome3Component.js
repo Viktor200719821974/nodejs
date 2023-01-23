@@ -1,23 +1,42 @@
 import { BiArrowBack } from 'react-icons/bi';
-import { arrayWelcome3 } from '../../constants/arrays';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { LOGIN_PAGE, LEARN_PAGE } from '../../constants';
+import { arrayWelcome3, arrayWelcome2 } from '../../constants/arrays';
 import { postStatistic } from '../../http/statisticApi';
+import { isStatisticUser, statisticUser } from '../../redux/actions';
 
 const Welcome3Component = ({
     setNewComponent1, setNewComponent2, setIdElement, idElement, 
     setEveryDayTarget, howDidYouKnow, whatAreYouStuding, everyDayTarget, setButtonNoActive,
-    }) => {
+    email,
+}) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { isLogin } = useSelector(state => state.isLoginUserReducer);
+    
     const buttonBack = () => {
         setNewComponent1(true);
+        setIdElement(arrayWelcome2.filter(c => c.name === whatAreYouStuding).map(c => c.id)[0]);
+        (whatAreYouStuding === '') && setButtonNoActive(false);
+        (whatAreYouStuding !== '') && setButtonNoActive(true);
     }
-    const click = () => {
+    const click = async () => {
         try {
             setButtonNoActive(false);
             setNewComponent2(false);
-            postStatistic(howDidYouKnow, whatAreYouStuding, everyDayTarget).then(data => {
-                console.log(data);
-            }).catch(e => {
-                console.log(e);
-            });
+            await postStatistic(howDidYouKnow, whatAreYouStuding, everyDayTarget, email)
+                .then(data => {
+                    if (data.status === 201) {
+                        dispatch(statisticUser(data.data));
+                        dispatch(isStatisticUser(true));
+                        navigate(isLogin ? LEARN_PAGE : LOGIN_PAGE);
+                    }
+                })
+                .catch(e => {
+                    console.log(e);
+                });
         } catch (e) {
             console.log(e);
         }        

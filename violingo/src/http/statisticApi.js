@@ -1,7 +1,10 @@
-import { $authHost } from './index';
+import { $authHost, $host } from './index';
 
-export const postStatistic = async(howDidYouKnow, whatAreYouStuding, everyDayTarget) => {
-    return await $authHost.post('/statistic/', { howDidYouKnow, whatAreYouStuding, everyDayTarget });    
+export const postStatistic = async(howDidYouKnow, whatAreYouStuding, everyDayTarget, email) => {
+    console.log(email);
+    return await $host.post('/statistic/', { 
+        howDidYouKnow, whatAreYouStuding, everyDayTarget, email,
+    });    
 }
 export const getStatistic = async () => {
     return await $authHost.get('/statistic/');

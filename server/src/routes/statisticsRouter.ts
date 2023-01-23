@@ -4,7 +4,7 @@ import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-router.post('/', authMiddleware.checkAccessToken, statisticsController.createStatistic);
+router.post('/', statisticsController.createStatistic);
 router.get('/', authMiddleware.checkAccessToken, statisticsController.getStatisticByUserId);
 router.patch('/', authMiddleware.checkAccessToken, statisticsController.updateEveryDayTarget);
 

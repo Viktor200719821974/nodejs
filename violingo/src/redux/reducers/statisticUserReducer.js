@@ -1,9 +1,9 @@
 import { STATISTIC_USER } from '../actions';
 
-export const statisticUserReducer = (state = { isStatistic: false }, action) => {
+export const statisticUserReducer = (state = { statistic: {} }, action) => {
   switch(action.type) {
     case STATISTIC_USER:
-      return { ...state, isStatistic: action.payload };
+      return { ...state, statistic:{ ...action.payload } };
     default:
       return state;
   }
