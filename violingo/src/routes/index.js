@@ -54,16 +54,17 @@ export const publicRoutes = [
         path: ACTIVATE_USER,
         Component: ActivatePage
     },
+    {
+        path: LESSON_PAGE,
+        Component: LessonPage
+    },
     // {
     //     path: DEVICE_ROUTE + '/:id',
     //     Component: DevicePage
     // },
 ];
 export const statisticRoutes = [
-    {
-        path: LESSON_PAGE,
-        Component: LessonPage
-    },
+    
     {
         path: LEARN_PAGE,
         Component: MainLearnPage

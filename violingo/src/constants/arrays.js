@@ -235,6 +235,20 @@ export const arrayButtonsImagesLearnComponent = [
         ],
     },
 ];
+export const arrayLessonPageChooseImage = [
+    {
+        id: 1,
+        exercise: 1,
+        question: 'Хлопчик',
+        task: [
+            {id: 1, src: 'manImage.svg', alt: 'man', name: 'man'},
+            {id: 2, src: 'boyImage.svg', alt: 'boy', name: 'boy'},
+            {id: 3, src: 'girlImage.svg', alt: 'girl', name: 'girl'},
+        ],
+        answer: 'boy',
+        chooseImage: true,
+    },    
+];
 
 
 
