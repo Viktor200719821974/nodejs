@@ -5,14 +5,23 @@ import { ImCross } from 'react-icons/im';
 import ChooseImageComponent from '../components/lessonPage/ChooseImageComponent';
 import { arrayLessonPageChooseImage } from '../constants/arrays';
 import flagMore from '../icons/flag_more.svg';
+import SayAboutWrongModalComponent from '../components/lessonPage/SayAboutWrongModalComponent';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
     const [changedElement, setChangedElement] = useState(false);
     const [name, setName] = useState('');
     const [wrong, setWrong] = useState(false);
-
+    const [chooseWrong, setChooseWrong] = useState(true);
+    const [modalShow, setModalShow] = useState(false);
+    const [chooseSendWrong, setChooseSendWrong] = useState(false);
+    const [whichWrongs, setWhichWrongs] = useState([]);
+    console.log(whichWrongs);
     const answer = arrayLessonPageChooseImage.map(c => c.answer)[0];
+    const clickNext = () => {
+        setWrong(true);
+        setChooseWrong(false);
+    }
     const click = () => {
 
     }
@@ -23,7 +32,15 @@ const LessonPage = () => {
         if (name === answer) {
             setWrong(true);
         }
-    }, [idElement, changedElement, name, wrong, answer,]);
+        if (whichWrongs.length > 0) {
+            setChooseSendWrong(true);
+        } else {
+            setChooseSendWrong(false);
+        }
+    }, [
+        idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
+        whichWrongs,
+    ]);
     return (
         <div>
             <div className="lessonPage_main_div_top display_alien_justify">
@@ -41,6 +58,13 @@ const LessonPage = () => {
                 </div>
                 </div>
             </div>
+            <SayAboutWrongModalComponent
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                chooseSendWrong={chooseSendWrong}
+                setWhichWrongs={setWhichWrongs}
+                whichWrongs={whichWrongs}
+            />
             <div className="lessonPage_main_div_body">
                 {
                     arrayLessonPageChooseImage.map(c => 
@@ -51,6 +75,7 @@ const LessonPage = () => {
                             setIdElement={setIdElement}
                             idElement={idElement}
                             setName={setName}
+                            chooseWrong={chooseWrong}
                         />
                     )
                 }
@@ -66,7 +91,7 @@ const LessonPage = () => {
                                     >
                                     <span 
                                         className="lessonPage_span_button_next"
-                                        onClick={() => setWrong(true)}
+                                        onClick={clickNext}
                                         >
                                         Далі
                                     </span> 
@@ -111,8 +136,11 @@ const LessonPage = () => {
                                         alt="more about wrong"
                                         className="lessonPage_image_flag_more_wrong"
                                         /> 
-                                    <span className="lessonPage_span_say_about_wrong">
-                                        Продовжити
+                                    <span 
+                                        className="lessonPage_span_say_about_wrong"
+                                        onClick={() => setModalShow(true)}
+                                        >
+                                        Повідомити
                                     </span>
                                 </div>
                             </div>  

@@ -2,7 +2,7 @@
 import { IMAGES_CHOOSE_IMAGE_COMPONENT } from '../../constants';
 
 const ChooseImageComponent = ({
-    question, task, setIdElement, idElement, setName, 
+    question, task, setIdElement, idElement, setName, chooseWrong,
 }) => {
     // const inputElement = useRef();
     return (
@@ -23,8 +23,8 @@ const ChooseImageComponent = ({
                             }
                             // ref={inputElement}
                             onClick={() => {
-                                setIdElement(c.id);
-                                setName(c.name);
+                                chooseWrong && setIdElement(c.id);
+                                chooseWrong && setName(c.name);
                                 // console.log(inputElement.current.className);
                             }}
                             >  

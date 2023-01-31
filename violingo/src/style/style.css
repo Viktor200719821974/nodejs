@@ -2495,6 +2495,98 @@ input[type=number] {
     height: 30px;
     font-weight: 700;
 }
+.lessonPage_main_div_label_sayAboutWrongModalComponent {
+    display: flex;
+    flex-direction: column;
+    margin: 24px;
+}
+.modal-content {
+    border-radius: 16px;
+}
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid #e5e5e5;
+    border-radius: 5px;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+}
+input[type=checkbox]:checked {
+    border-color: #1caff6;
+}
+input[type=checkbox]:checked:after {
+    border-bottom: 3px solid #1caff6;
+    border-left: 3px solid #1caff6;
+    content: "";
+    height: 35%;
+    left: 25%;
+    position: absolute;
+    top: 31%;
+    transform: rotate(-45deg);
+    width: 55%;
+}
+.lessonPage_div_image_cross_sayAboutWrongModalComponent {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: solid 2px #e5e5e5;
+    position: absolute;
+    top: -17px;
+    right: -17px;
+    background-color: #fff;
+}
+.lessonPage_div_image_cross_sayAboutWrongModalComponent:hover {
+    background-color: #e5e5e5;
+}
+.lessonPage_label_sayAboutWrongModalComponent {
+    display: flex;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.lessonPage_span_sayAboutWrongModalComponent {
+    color: #3c3c3c;
+    font-weight: 500;
+    font-size: 17px;
+    margin-left: 10px;
+}
+.lessonPage_button_sayAboutWrongModalComponent {
+    color: #afafaf;
+    margin-top: 10px;
+    border-radius: 16px;
+    height: 46px;
+    width: 127px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    white-space: nowrap;
+}
+.lessonPage_button_selected_sayAboutWrongModalComponent {
+    color: #fff;
+    margin-top: 10px;
+    border-radius: 16px;
+    height: 46px;
+    width: 127px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    white-space: nowrap;
+    background-color: #1cb0f6;
+    box-shadow: 0 4px 0 #1899d6;
+}
+.lessonPage_button_selected_sayAboutWrongModalComponent:hover {
+    background-color: #40bffa;
+}
+.lessonPage_button_sayAboutWrongModalComponent::before {
+    background-color: #04fc0a;
+}
 
 @media (max-width: 1360px) {
     .mainLearnPage_main_navBar {
