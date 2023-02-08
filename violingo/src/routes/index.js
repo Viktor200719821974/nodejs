@@ -29,7 +29,7 @@ export const authRoutes = [
         Component: WelcomePage
     },
 ];
-export const publicRoutes = [    
+export const publicRoutes = [  
     {
         path: HOME_PAGE,
         Component: HomePage
@@ -64,11 +64,10 @@ export const publicRoutes = [
     // },
 ];
 export const statisticRoutes = [
-    
     {
         path: LEARN_PAGE,
         Component: MainLearnPage
-    },
+    },    
     {
         path: REVIEW_PAGE,
         Component: MainLearnPage

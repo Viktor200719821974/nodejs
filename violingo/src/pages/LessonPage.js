@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { RxCross1 } from 'react-icons/rx';
-import { ImCross } from 'react-icons/im';
 
 import ChooseImageComponent from '../components/lessonPage/ChooseImageComponent';
 import { arrayLessonPageChooseImage } from '../constants/arrays';
-import flagMore from '../icons/flag_more.svg';
 import SayAboutWrongModalComponent from '../components/lessonPage/SayAboutWrongModalComponent';
+import FooterMenuFirstPositionComponent from '../components/lessonPage/FooterMenuFirstPositionComponent';
+import FooterMenuWrongAnswerComponent from '../components/lessonPage/FooterMenuWrongAnswerComponent';
+import FooterMenuPositiveAnswerComponent from '../components/lessonPage/FooterMenuPositiveAnswerComponent';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -16,7 +17,9 @@ const LessonPage = () => {
     const [modalShow, setModalShow] = useState(false);
     const [chooseSendWrong, setChooseSendWrong] = useState(false);
     const [whichWrongs, setWhichWrongs] = useState([]);
-    console.log(whichWrongs);
+    const [positiveAnswer, setPositiveAnswer] = useState(false);
+    // const [answer, setAnswer] = useState('');
+    
     const answer = arrayLessonPageChooseImage.map(c => c.answer)[0];
     const clickNext = () => {
         setWrong(true);
@@ -25,12 +28,20 @@ const LessonPage = () => {
     const click = () => {
 
     }
+    const verify = () => {
+        if (name === answer) {
+            setWrong(false);
+            setPositiveAnswer(true);
+            setChooseWrong(false);
+        } else {
+            setWrong(true);
+            setPositiveAnswer(false);
+            setChooseWrong(false);
+        }
+    }
     useEffect(() => {
         if (idElement > 0) {
             setChangedElement(true);
-        }
-        if (name === answer) {
-            setWrong(true);
         }
         if (whichWrongs.length > 0) {
             setChooseSendWrong(true);
@@ -39,7 +50,7 @@ const LessonPage = () => {
         }
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
-        whichWrongs,
+        whichWrongs, positiveAnswer,
     ]);
     return (
         <div>
@@ -64,6 +75,7 @@ const LessonPage = () => {
                 chooseSendWrong={chooseSendWrong}
                 setWhichWrongs={setWhichWrongs}
                 whichWrongs={whichWrongs}
+                setChooseSendWrong={setChooseSendWrong}
             />
             <div className="lessonPage_main_div_body">
                 {
@@ -82,82 +94,27 @@ const LessonPage = () => {
                 
             </div>
             {
-                !wrong 
-                    ? 
-                        <div className="lessonPage_main_div_down_block">
-                            <div className="lessonPage_main_div_button_left">
-                                <button 
-                                    className="lessonPage_button_next_left display_alien_justify"
-                                    >
-                                    <span 
-                                        className="lessonPage_span_button_next"
-                                        onClick={clickNext}
-                                        >
-                                        Далі
-                                    </span> 
-                                </button>
-                            </div>
-                            <div className="lessonPage_main_div_button_right">
-                                <button 
-                                    className={
-                                        !changedElement 
-                                            ? "lessonPage_button_next_right display_alien_justify"
-                                            : "lessonPage_button_next_right_select display_alien_justify"
-                                        }
-                                    >
-                                    <span 
-                                        className={
-                                            !changedElement 
-                                                ? "lessonPage_span_button_next"
-                                                : "lessonPage_span_button_next_select"
-                                            }
-                                        >
-                                        Перевірити
-                                    </span>
-                                </button>
-                            </div>               
-                        </div>
-                    :
-                    <div className="lessonPage_main_div_down_block_wrong">
-                        <div className="lessonPage_main_div_left_signs_wrong">
-                            <div className="lessonPage_div_circle_wrong display_alien_justify">
-                                <ImCross color='#ea2b2b' size={'30px'}/>
-                            </div>
-                            <div>
-                                <div>
-                                    <h2 className="lessonPage_h2_wrong">
-                                        Правильна відповідь:
-                                    </h2>
-                                </div>
-                                <div className="lessonPage_div_answer">{answer}</div>
-                                <div className="lessonPage_main_div_say_about_wrong">
-                                    <img 
-                                        src={flagMore} 
-                                        alt="more about wrong"
-                                        className="lessonPage_image_flag_more_wrong"
-                                        /> 
-                                    <span 
-                                        className="lessonPage_span_say_about_wrong"
-                                        onClick={() => setModalShow(true)}
-                                        >
-                                        Повідомити
-                                    </span>
-                                </div>
-                            </div>  
-                        </div>
-                        <div className="lessonPage_main_div_button_right_wrong">
-                            <button 
-                                className="lessonPage_button_next_right_wrong display_alien_justify"
-                                >
-                                <span 
-                                    className="lessonPage_span_button_next_wrong"
-                                    >
-                                    Продовжити
-                                </span>
-                            </button>
-                        </div>               
-                    </div>
-            }
+                (!wrong && !positiveAnswer) &&                    
+                    <FooterMenuFirstPositionComponent
+                        clickNext={clickNext}
+                        verify={verify}
+                        changedElement={changedElement}
+                    />                       
+            }  
+            {
+                wrong && 
+                    <FooterMenuWrongAnswerComponent
+                        setModalShow={setModalShow}
+                        answer={answer}
+                    />
+            }  
+            {
+                positiveAnswer && 
+                    <FooterMenuPositiveAnswerComponent
+                        setModalShow={setModalShow}
+                    />
+            }               
+                        
         </div>
     );
 };

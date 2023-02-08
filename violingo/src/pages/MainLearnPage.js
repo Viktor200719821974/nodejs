@@ -149,20 +149,17 @@ const MainLearnPage = () => {
     ]);
     return (
         <>
-        <HeaderComponent
-            isActive={isActive}
-            mouseOnFlag={mouseOnFlag} 
-            setMouseOnFlag={setMouseOnFlag}
-            mouseOnFire={mouseOnFire}
-            setMouseOnFire={setMouseOnFire}
-            mouseOnRuby={mouseOnRuby} 
-            setMouseOnRuby={setMouseOnRuby}
-            mouseOnAvatar={mouseOnAvatar} 
-            setMouseOnAvatar={setMouseOnAvatar}
-        /> 
-        <div 
-            className={isActive ? "mainLearnPage_box_for_body" : undefined}
-            >
+            <HeaderComponent
+                isActive={isActive}
+                mouseOnFlag={mouseOnFlag} 
+                setMouseOnFlag={setMouseOnFlag}
+                mouseOnFire={mouseOnFire}
+                setMouseOnFire={setMouseOnFire}
+                mouseOnRuby={mouseOnRuby} 
+                setMouseOnRuby={setMouseOnRuby}
+                mouseOnAvatar={mouseOnAvatar} 
+                setMouseOnAvatar={setMouseOnAvatar}
+            /> 
             <div className={
                 !isActive 
                     ? "mainLearnPage_main_body" 
@@ -237,7 +234,6 @@ const MainLearnPage = () => {
                     />
                 </div>
             </div> 
-        </div>       
         </>
     );
 }

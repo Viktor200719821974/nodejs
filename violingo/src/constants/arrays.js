@@ -22,7 +22,7 @@ export const arrayLanguages = [
     {name: 'ภาษาไทย', alt: 'Thailand', src: 'thailand.svg'},
     {name: 'Tagalog', alt: 'Tagalog', src: 'tl.svg'},
     {name: 'Türkçe', alt: 'Turkey', src: 'turkey.svg'},
-    {name: 'Українською', alt: 'Ukraine', src: 'ukraine.svg'},
+    {name: 'Українська', alt: 'Ukraine', src: 'ukraine.svg'},
     {name: 'Tiếng Việt', alt: 'Vietnam', src: 'vn.svg'},
 ];
 export const arrayWelcome1 = [
