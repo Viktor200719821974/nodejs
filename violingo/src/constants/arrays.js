@@ -248,6 +248,34 @@ export const arrayLessonPageChooseImage = [
         answer: 'boy',
         chooseImage: true,
     },    
+    {
+        id: 2,
+        exercise: 2,
+        question: 'Boy',
+        src: 'boyImage.svg',
+        alt: 'grandmother image',
+        task: [
+            {id: 1, name: 'чоловік'},
+            {id: 2, name: 'дівчинка'},
+            {id: 3, name: 'хлопчик'},
+            {id: 4, name: 'я'},
+            {id: 5, name: 'він'},
+        ],
+        answer: 'хлопчик',
+        choosePositiveAnswer: true,
+    },   
+    {
+        id: 3,
+        exercise: 3,
+        question: 'Хлопчик',
+        task: [
+            {id: 1, name: 'man'},
+            {id: 2, name: 'boy'},
+            {id: 3, name: 'woman'},
+        ],
+        answer: 'boy',
+        chooseAnswer: true,
+    },   
 ];
 
 

@@ -7,6 +7,8 @@ import SayAboutWrongModalComponent from '../components/lessonPage/SayAboutWrongM
 import FooterMenuFirstPositionComponent from '../components/lessonPage/FooterMenuFirstPositionComponent';
 import FooterMenuWrongAnswerComponent from '../components/lessonPage/FooterMenuWrongAnswerComponent';
 import FooterMenuPositiveAnswerComponent from '../components/lessonPage/FooterMenuPositiveAnswerComponent';
+import ChoosePositiveAnswerComponent from '../components/lessonPage/ChoosePositiveAnswerComponent';
+import ChooseAnswerComponent from '../components/lessonPage/ChooseAnswerComponent';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -18,9 +20,12 @@ const LessonPage = () => {
     const [chooseSendWrong, setChooseSendWrong] = useState(false);
     const [whichWrongs, setWhichWrongs] = useState([]);
     const [positiveAnswer, setPositiveAnswer] = useState(false);
+    const [widthValue, setWidthValue] = useState(0);
+    const [exerciseNumber, setExerciseNumber] = useState(1);
     // const [answer, setAnswer] = useState('');
-    
-    const answer = arrayLessonPageChooseImage.map(c => c.answer)[0];
+
+    const answer = arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
+        .map(c => c.answer)[0];
     const clickNext = () => {
         setWrong(true);
         setChooseWrong(false);
@@ -29,15 +34,19 @@ const LessonPage = () => {
 
     }
     const verify = () => {
-        if (name === answer) {
-            setWrong(false);
-            setPositiveAnswer(true);
-            setChooseWrong(false);
-        } else {
-            setWrong(true);
-            setPositiveAnswer(false);
-            setChooseWrong(false);
+        if (idElement > 0) {
+            if (name === answer) {
+                setWrong(false);
+                setPositiveAnswer(true);
+                setWidthValue(widthValue + 10);
+                setChooseWrong(false);
+            } else {
+                setWrong(true);
+                setPositiveAnswer(false);
+                setChooseWrong(false);
+            }
         }
+        
     }
     useEffect(() => {
         if (idElement > 0) {
@@ -50,8 +59,9 @@ const LessonPage = () => {
         }
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
-        whichWrongs, positiveAnswer,
+        whichWrongs, positiveAnswer, widthValue, exerciseNumber,
     ]);
+
     return (
         <div>
             <div className="lessonPage_main_div_top display_alien_justify">
@@ -64,7 +74,7 @@ const LessonPage = () => {
                 <div className="lessonPage_div_around_cross">
                     <div 
                     className="lessonPage_div_one_download"
-                    style={{width: '0'}}
+                    style={{ width: `${widthValue}%` }}
                     >                  
                 </div>
                 </div>
@@ -77,19 +87,49 @@ const LessonPage = () => {
                 whichWrongs={whichWrongs}
                 setChooseSendWrong={setChooseSendWrong}
             />
-            <div className="lessonPage_main_div_body">
+            <div>
                 {
-                    arrayLessonPageChooseImage.map(c => 
-                        <ChooseImageComponent
-                            key={c.id}
-                            question={c.question}
-                            task={c.task}
-                            setIdElement={setIdElement}
-                            idElement={idElement}
-                            setName={setName}
-                            chooseWrong={chooseWrong}
-                        />
-                    )
+                    arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
+                        .map(c => 
+                            <div key={c.id} className="lessonPage_main_div_body">
+                                {
+                                    c.chooseImage &&
+                                        <ChooseImageComponent
+                                            question={c.question}
+                                            task={c.task}
+                                            setIdElement={setIdElement}
+                                            idElement={idElement}
+                                            setName={setName}
+                                            chooseWrong={chooseWrong}
+                                        />
+                                }
+                                {
+                                    c.choosePositiveAnswer && 
+                                        <ChoosePositiveAnswerComponent
+                                            question={c.question}
+                                            task={c.task}
+                                            setIdElement={setIdElement}
+                                            idElement={idElement}
+                                            setName={setName}
+                                            chooseWrong={chooseWrong}
+                                            wrong={wrong}
+                                            src={c.src}
+                                            alt={c.alt}
+                                        />
+                                }
+                                {
+                                    c.chooseAnswer &&
+                                        <ChooseAnswerComponent
+                                            question={c.question}
+                                            task={c.task}
+                                            setIdElement={setIdElement}
+                                            idElement={idElement}
+                                            setName={setName}
+                                            chooseWrong={chooseWrong}
+                                        />
+                                }
+                            </div>
+                        )
                 }
                 
             </div>
@@ -106,12 +146,26 @@ const LessonPage = () => {
                     <FooterMenuWrongAnswerComponent
                         setModalShow={setModalShow}
                         answer={answer}
+                        exerciseNumber={exerciseNumber}
+                        setExerciseNumber={setExerciseNumber}
+                        setChooseWrong={setChooseWrong}
+                        setPositiveAnswer={setPositiveAnswer}
+                        setWrong={setWrong}
+                        setIdElement={setIdElement}
+                        setChangedElement={setChangedElement}
                     />
             }  
             {
                 positiveAnswer && 
                     <FooterMenuPositiveAnswerComponent
                         setModalShow={setModalShow}
+                        exerciseNumber={exerciseNumber}
+                        setExerciseNumber={setExerciseNumber}
+                        setChooseWrong={setChooseWrong}
+                        setPositiveAnswer={setPositiveAnswer}
+                        setWrong={setWrong}
+                        setIdElement={setIdElement}
+                        setChangedElement={setChangedElement}
                     />
             }               
                         

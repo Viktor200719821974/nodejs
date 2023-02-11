@@ -2,7 +2,18 @@ import { ImCheckmark } from 'react-icons/im';
 
 import flagPositive from '../../icons/flag_positive.svg';
 
-const FooterMenuPositiveAnswerComponent = ({setModalShow,}) => {
+const FooterMenuPositiveAnswerComponent = ({
+    setModalShow, exerciseNumber, setExerciseNumber, setChooseWrong, setPositiveAnswer, 
+    setWrong, setIdElement, setChangedElement,
+}) => {
+    const continueExercise = () => {
+        setExerciseNumber(exerciseNumber + 1);
+        setChooseWrong(true);
+        setPositiveAnswer(false);
+        setWrong(false);
+        setIdElement(0);
+        setChangedElement(false);
+    }
     return (
         <div className="lessonPage_main_div_down_block_footerMenuPositiveAnswerComponent">
             <div className="lessonPage_main_div_left_signs_footerMenuPositiveAnswerComponent">
@@ -33,6 +44,7 @@ const FooterMenuPositiveAnswerComponent = ({setModalShow,}) => {
             </div>
             <button 
                 className="lessonPage_button_next_right_footerMenuPositiveAnswerComponent display_alien_justify"
+                onClick={continueExercise}
                 >
                 <span 
                     className="lessonPage_span_button_next_footerMenuPositiveAnswerComponent"

@@ -2,7 +2,18 @@ import { ImCross } from 'react-icons/im';
 
 import flagMore from '../../icons/flag_more.svg';
 
-const FooterMenuWrongAnswerComponent = ({answer, setModalShow}) => {
+const FooterMenuWrongAnswerComponent = ({
+    answer, setModalShow, setExerciseNumber, exerciseNumber, setChooseWrong, setPositiveAnswer, 
+    setWrong, setIdElement, setChangedElement, 
+}) => {
+    const continueExercise = () => {
+        setExerciseNumber(exerciseNumber + 1);
+        setChooseWrong(true);
+        setPositiveAnswer(false);
+        setWrong(false);
+        setIdElement(0);
+        setChangedElement(false);      
+    }
     return (
         <div className="lessonPage_main_div_down_block_wrong">
             <div className="lessonPage_main_div_left_signs_wrong">
@@ -34,6 +45,7 @@ const FooterMenuWrongAnswerComponent = ({answer, setModalShow}) => {
             <div className="lessonPage_main_div_button_right_wrong">
                 <button 
                     className="lessonPage_button_next_right_wrong display_alien_justify"
+                    onClick={continueExercise}
                     >
                     <span 
                         className="lessonPage_span_button_next_wrong"
