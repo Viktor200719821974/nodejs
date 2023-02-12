@@ -22,6 +22,10 @@ const LessonPage = () => {
     const [positiveAnswer, setPositiveAnswer] = useState(false);
     const [widthValue, setWidthValue] = useState(0);
     const [exerciseNumber, setExerciseNumber] = useState(1);
+    const [showBlockTranslate, setShowBlockTranslate] = useState(false);
+    const [array, setArray] = useState([]);
+    const [arrayId, setArrayId] = useState([]);
+    const [idExist, setIdExist] = useState(false);
     // const [answer, setAnswer] = useState('');
 
     const answer = arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
@@ -57,9 +61,16 @@ const LessonPage = () => {
         } else {
             setChooseSendWrong(false);
         }
+        // if (array.length === 0) {
+        //     setIdElement(0);
+        // }
+        if (arrayId.filter(c => c === idElement)) {
+            setIdExist(true);
+        }
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
-        whichWrongs, positiveAnswer, widthValue, exerciseNumber,
+        whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, array,
+        array.length, arrayId, idExist,
     ]);
 
     return (
@@ -111,10 +122,20 @@ const LessonPage = () => {
                                             setIdElement={setIdElement}
                                             idElement={idElement}
                                             setName={setName}
+                                            name={name}
                                             chooseWrong={chooseWrong}
                                             wrong={wrong}
                                             src={c.src}
                                             alt={c.alt}
+                                            translate={c.translate}
+                                            showBlockTranslate={showBlockTranslate}
+                                            setShowBlockTranslate={setShowBlockTranslate}
+                                            array={array}
+                                            setArray={setArray}
+                                            arrayId={arrayId}
+                                            setArrayId={setArrayId}
+                                            idExist={idExist}
+                                            setIdExist={setIdExist}
                                         />
                                 }
                                 {

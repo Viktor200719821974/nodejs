@@ -34,7 +34,7 @@ const ChooseAnswerComponent = ({
                             </span>
                         </div>
                     )
-                }           
+                }          
             </div>
         </div>
     );
