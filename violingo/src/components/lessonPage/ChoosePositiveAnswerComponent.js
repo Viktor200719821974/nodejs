@@ -17,7 +17,7 @@ const ChoosePositiveAnswerComponent = ({
         setName(nameValue);
         const filter = arrayId.filter(c => c === id)[0];
         console.log(filter);
-        console.log(!!arrayId.filter(c => c !== id));
+        console.log(!!arrayId.filter(c => c === id));
     }
     const deleteItem = (index) => {
         array.splice(index, 1);
@@ -94,7 +94,7 @@ const ChoosePositiveAnswerComponent = ({
                     task.map(c => 
                         <span 
                             className={
-                                !!arrayId.filter(value => value !== c.id)
+                                !!arrayId.filter(value => value === c.id)
                                     ? "lessonPage_span_option_answer_choosePositiveAnswerComponent"
                                     : "lessonPage_span_option_answer_empty_place_choosePositiveAnswerComponent"
                             } 

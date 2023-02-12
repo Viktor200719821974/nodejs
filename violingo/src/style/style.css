@@ -2654,7 +2654,6 @@ input[type=checkbox]:checked:after {
 }
 .lessonPage_main_div_chooseAnswerComponent {
     width: 600px;
-
 }
 .lessonPage_span_question_chooseAnswerComponent {
     font-size: 32px;
@@ -2739,14 +2738,15 @@ input[type=checkbox]:checked:after {
     position: relative;
 }
 .lessonPage_image_choosePositiveAnswerComponent {
-    width: 114px;
     height: 169px;
+    width: 135px;
+    object-fit: contain;
+    object-position: 10% 100%;
 }
 .lessonPage_div_message_choosePositiveAnswerComponent {
     position: absolute;
-    top: 58px;
-    left: 126px;
-    /* width: 250px; */
+    top: 77px;
+    left: 136px;
 }
 .lessonPage_div_triangle_choosePositiveAnswerComponent {
     transform: rotateY(0deg) rotate(45deg);
