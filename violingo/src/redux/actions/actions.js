@@ -1,4 +1,7 @@
-import { FETCH_USER, ISLOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, } from './index';
+import { 
+    FETCH_USER, ISLOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, 
+    ARRAY_CHOOSE_POSITIVE_ANSWER, ARRAY_ID_CHOOSE_POSITIVE_ANSWER,
+} from './index';
 
 export const fetchUser = (data) => {
     return { type: FETCH_USER, payload: data };
@@ -14,4 +17,10 @@ export const statisticUser = (data) => {
 }
 export const isStatisticUser = (data) => {
     return { type: IS_STATISTIC_USER , payload: data };
+}
+export const arrayChoosePositiveAnswer = (data) => {
+    return { type: ARRAY_CHOOSE_POSITIVE_ANSWER , payload: data };
+}
+export const arrayIdChoosePositiveAnswer = (data) => {
+    return { type: ARRAY_ID_CHOOSE_POSITIVE_ANSWER , payload: data };
 }

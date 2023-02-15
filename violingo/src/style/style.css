@@ -1,6 +1,7 @@
 * {
     scroll-behavior: smooth;
     font-family: din-round,sans-serif;
+    user-select: none;
 }
 body::-webkit-scrollbar {
     margin: 0;
@@ -46,6 +47,9 @@ a {
 a:hover {
     color: #777;
 }
+img {
+    -webkit-user-drag: none;
+}
 ul {
     list-style: none;
     margin: 0;
@@ -87,7 +91,6 @@ header {
 .homePage_header {
     background-color: #235390;
 }
-
 .homePage_sign_violingo {
     text-transform: lowercase;
     font-size: 37px;
@@ -2306,11 +2309,13 @@ input[type=number] {
     width: 50%;
     display: flex;
     justify-content: flex-start;
+    position: relative;
 }
 .lessonPage_main_div_button_right {
     width: 50%;
     display: flex;
     justify-content: flex-end;
+    position: relative;
 }
 .lessonPage_button_next_left {
     border-radius: 16px;
@@ -2319,11 +2324,18 @@ input[type=number] {
     box-shadow: 0 2px 0 #e5e5e5;
     min-width: 150px;
     min-height: 46px;
+    position: absolute;
+    top: -24px;
+    left: 0;
+}
+.lessonPage_button_next_left:active {
+    box-shadow: none;
+    position: absolute;
+    top: -22px;
+    left: 0;
 }
 .lessonPage_button_next_left:hover {
-    background-color: #e5e5e5;
-    border: solid 2px #cdc9c9;
-    box-shadow: 0 2px 0 #cdc9c9;
+    background-color: #f8f5f5;
 }
 .lessonPage_button_next_right {
     border-radius: 16px;
@@ -2339,6 +2351,15 @@ input[type=number] {
     min-height: 46px;
     background-color: #58cc02;
     box-shadow: 0 4px 0 #58a700;
+    position: absolute;
+    top: -24px;
+    right: 0;
+}
+.lessonPage_button_next_right_select:active {
+    box-shadow: none;
+    position: absolute;
+    top: -22px;
+    right: 0;
 }
 .lessonPage_button_next_right_select:hover {
     background-color: #6ce80c;
@@ -2408,6 +2429,9 @@ input[type=number] {
     margin-left: 5px;
     cursor: pointer;
 }
+.lessonPage_main_div_button_right_wrong {
+    position: relative;
+}
 .lessonPage_button_next_right_wrong {
     border-radius: 16px;
     background-color: #ff4b4b;
@@ -2415,6 +2439,15 @@ input[type=number] {
     border: solid 1px #ea2b2b;
     min-width: 150px;
     min-height: 46px;
+    position: absolute;
+    top: -24px;
+    right: 0;
+}
+.lessonPage_button_next_right_wrong:active {
+    position: absolute;
+    top: -22px;
+    right: 0;
+    box-shadow: none;
 }
 .lessonPage_span_button_next_wrong {
     color: #fff;
@@ -2475,6 +2508,15 @@ input[type=number] {
     border: none;
     min-width: 150px;
     min-height: 46px;
+    position: absolute;
+    top: -24px;
+    right: 0;
+}
+.lessonPage_button_next_right_footerMenuPositiveAnswerComponent:active {
+    position: absolute;
+    top: -22px;
+    right: 0;
+    box-shadow: none;
 }
 .lessonPage_span_button_next_footerMenuPositiveAnswerComponent {
     color: #fff;
@@ -2488,10 +2530,12 @@ input[type=number] {
 }
 .lessonPage_main_div_chooseImageComponent {
     width: 600px;
-    margin: auto;
+    /* margin: auto; */
 }
 .lessonPage_main_div_image_chooseImageComponent {
     padding: 50px 0;
+    display: flex;
+    position: relative;
 }
 .lessonPage_div_image_and_sign_chooseImageComponent {
     border: solid 2px #e5e5e5;
@@ -2500,9 +2544,10 @@ input[type=number] {
     display: flex;
     flex-direction: column;
     padding: 24px;
-    margin-left: 8px;
     cursor: pointer;
     background-color: #fff;
+    position: absolute;
+    top: 44px;
 }
 .lessonPage_div_image_and_sign_select_chooseImageComponent {
     border: solid 2px #84d8ff;
@@ -2511,12 +2556,27 @@ input[type=number] {
     display: flex;
     flex-direction: column;
     padding: 24px;
-    margin-left: 8px;
     cursor: pointer;
     background-color: #ddf4ff;
+    position: absolute;
+    top: 44px;
+}
+.lessonPage_div_image_and_sign_chooseImageComponent:active {
+    box-shadow: none;
+    border: solid 2px #84d8ff;
+    background-color: #ddf4ff;
+    position: absolute;
+    top: 46px;
+}
+.lessonPage_div_image_and_sign_select_chooseImageComponent:active {
+    box-shadow: none;
+    border: solid 2px #84d8ff;
+    background-color: #ddf4ff;
+    position: absolute;
+    top: 46px;
 }
 .lessonPage_div_image_and_sign_chooseImageComponent:hover {
-    background-color: #f5f3f3;
+    background-color: #f6f6f6;
 }
 .lessonPage_image_chooseImageComponent {
     height: 160px;
@@ -2559,6 +2619,10 @@ input[type=number] {
     width: 30px;
     height: 30px;
     font-weight: 700;
+}
+.lessonPage_span_sign_index_chooseImageComponent:active {
+    color: #1899d6;
+    border: 2px solid #84d8ff;
 }
 .lessonPage_main_div_label_sayAboutWrongModalComponent {
     display: flex;

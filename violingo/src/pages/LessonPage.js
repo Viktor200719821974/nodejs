@@ -23,11 +23,11 @@ const LessonPage = () => {
     const [widthValue, setWidthValue] = useState(0);
     const [exerciseNumber, setExerciseNumber] = useState(1);
     const [showBlockTranslate, setShowBlockTranslate] = useState(false);
-    const [array, setArray] = useState([]);
-    const [arrayId, setArrayId] = useState([]);
-    const [idExist, setIdExist] = useState(false);
+    const [arrayChange, setArrayChange] = useState([]);
+    // const [arrayId, setArrayId] = useState([]);
+    // const [idExist, setIdExist] = useState(false);
     // const [answer, setAnswer] = useState('');
-
+    
     const answer = arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
         .map(c => c.answer)[0];
     const clickNext = () => {
@@ -49,8 +49,7 @@ const LessonPage = () => {
                 setPositiveAnswer(false);
                 setChooseWrong(false);
             }
-        }
-        
+        }       
     }
     useEffect(() => {
         if (idElement > 0) {
@@ -61,18 +60,19 @@ const LessonPage = () => {
         } else {
             setChooseSendWrong(false);
         }
-        // if (array.length === 0) {
-        //     setIdElement(0);
-        // }
-        if (arrayId.filter(c => c === idElement)) {
-            setIdExist(true);
+        const keyDownHandler = (e) => {
+            if (e.key > 0 && e.key <= 3) {
+               setIdElement(Number(e.key));
+            } else {
+                setIdElement(idElement);
+            } 
         }
+        document.addEventListener('keydown', keyDownHandler);
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
-        whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, array,
-        array.length, arrayId, idExist,
+        whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, arrayChange,
     ]);
-
+    
     return (
         <div>
             <div className="lessonPage_main_div_top display_alien_justify">
@@ -130,12 +130,8 @@ const LessonPage = () => {
                                             translate={c.translate}
                                             showBlockTranslate={showBlockTranslate}
                                             setShowBlockTranslate={setShowBlockTranslate}
-                                            array={array}
-                                            setArray={setArray}
-                                            arrayId={arrayId}
-                                            setArrayId={setArrayId}
-                                            idExist={idExist}
-                                            setIdExist={setIdExist}
+                                            arrayChange={arrayChange}
+                                            setArrayChange={setArrayChange}
                                         />
                                 }
                                 {

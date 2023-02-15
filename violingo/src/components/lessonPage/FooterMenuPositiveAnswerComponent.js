@@ -21,12 +21,9 @@ const FooterMenuPositiveAnswerComponent = ({
                     <ImCheckmark color='#58a700' size={'40px'}/>
                 </div>
                 <div>
-                    {/* <div> */}
-                        <h2 className="lessonPage_h2_footerMenuPositiveAnswerComponent">
-                            Гарна робота!
-                        </h2>
-                    {/* </div> */}
-                    {/* <div className="lessonPage_div_answer">{answer}</div> */}
+                    <h2 className="lessonPage_h2_footerMenuPositiveAnswerComponent">
+                        Гарна робота!
+                    </h2>
                     <div className="lessonPage_main_div_say_about_footerMenuPositiveAnswerComponent">
                         <img 
                             src={flagPositive} 
@@ -42,16 +39,18 @@ const FooterMenuPositiveAnswerComponent = ({
                     </div>
                 </div>  
             </div>
-            <button 
-                className="lessonPage_button_next_right_footerMenuPositiveAnswerComponent display_alien_justify"
-                onClick={continueExercise}
-                >
-                <span 
-                    className="lessonPage_span_button_next_footerMenuPositiveAnswerComponent"
+            <div style={{position: 'relative'}}>
+                <button 
+                    className="lessonPage_button_next_right_footerMenuPositiveAnswerComponent display_alien_justify"
+                    onClick={continueExercise}
                     >
-                    Продовжити
-                </span>
-            </button>
+                    <span 
+                        className="lessonPage_span_button_next_footerMenuPositiveAnswerComponent"
+                        >
+                        Продовжити
+                    </span>
+                </button> 
+            </div>          
         </div>
     );
 };

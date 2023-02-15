@@ -1,31 +1,28 @@
-// import { useRef } from 'react';
 import { IMAGES_CHOOSE_IMAGE_COMPONENT } from '../../constants';
 
 const ChooseImageComponent = ({
     question, task, setIdElement, idElement, setName, chooseWrong,
 }) => {
-    // const inputElement = useRef();
     return (
         <div className="lessonPage_main_div_chooseImageComponent">
             <h1 style={{color: '#3c3c3c', marginBottom: '24px'}}>
                 Виберіть зображення для слова «{question}»
             </h1>
             <div 
-                className="lessonPage_main_div_image_chooseImageComponent display_alien_justify"            >
+                className="lessonPage_main_div_image_chooseImageComponent"            >
                 {
-                    task.map((c, index) =>
+                    task.map((c, index) =>   
                         <div 
                             key={c.id} 
+                            style={{left: `${index * 203}px`}}
                             className={
                                 idElement !== c.id 
                                     ? "lessonPage_div_image_and_sign_chooseImageComponent"
                                     : "lessonPage_div_image_and_sign_select_chooseImageComponent"
                             }
-                            // ref={inputElement}
                             onClick={() => {
                                 chooseWrong && setIdElement(c.id);
                                 chooseWrong && setName(c.name);
-                                // console.log(inputElement.current.className);
                             }}
                             >  
                             <img 
@@ -53,7 +50,7 @@ const ChooseImageComponent = ({
                                         {index + 1}
                                 </span>
                             </div>
-                        </div>
+                        </div>                      
                     )
                 }
             </div>
