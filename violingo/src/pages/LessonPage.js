@@ -24,8 +24,8 @@ const LessonPage = () => {
     const [exerciseNumber, setExerciseNumber] = useState(1);
     const [showBlockTranslate, setShowBlockTranslate] = useState(false);
     const [arrayChange, setArrayChange] = useState([]);
-    // const [arrayId, setArrayId] = useState([]);
-    // const [idExist, setIdExist] = useState(false);
+    const [nameTranslate, setNameTranslate] = useState('');
+    const [moreInfo, setMoreInfo] = useState(false);
     // const [answer, setAnswer] = useState('');
     
     const answer = arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
@@ -42,7 +42,7 @@ const LessonPage = () => {
             if (name === answer) {
                 setWrong(false);
                 setPositiveAnswer(true);
-                setWidthValue(widthValue + 10);
+                setWidthValue(widthValue + 5);
                 setChooseWrong(false);
             } else {
                 setWrong(true);
@@ -71,6 +71,7 @@ const LessonPage = () => {
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
         whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, arrayChange,
+        nameTranslate, moreInfo,
     ]);
     
     return (
@@ -104,7 +105,7 @@ const LessonPage = () => {
                         .map(c => 
                             <div key={c.id} className="lessonPage_main_div_body">
                                 {
-                                    c.chooseImage &&
+                                    c.chooseImage && 
                                         <ChooseImageComponent
                                             question={c.question}
                                             task={c.task}
@@ -127,11 +128,14 @@ const LessonPage = () => {
                                             wrong={wrong}
                                             src={c.src}
                                             alt={c.alt}
-                                            translate={c.translate}
                                             showBlockTranslate={showBlockTranslate}
                                             setShowBlockTranslate={setShowBlockTranslate}
                                             arrayChange={arrayChange}
                                             setArrayChange={setArrayChange}
+                                            nameTranslate={nameTranslate}
+                                            setNameTranslate={setNameTranslate}
+                                            moreInfo={moreInfo}
+                                            setMoreInfo={setMoreInfo}
                                         />
                                 }
                                 {

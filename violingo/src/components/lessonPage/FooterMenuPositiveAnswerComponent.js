@@ -1,11 +1,17 @@
 import { ImCheckmark } from 'react-icons/im';
+import { useDispatch } from 'react-redux';
 
 import flagPositive from '../../icons/flag_positive.svg';
+import { 
+    arrayChoosePositiveAnswerEmpty, arrayIdChoosePositiveAnswerEmpty 
+} from '../../redux/actions';
 
 const FooterMenuPositiveAnswerComponent = ({
     setModalShow, exerciseNumber, setExerciseNumber, setChooseWrong, setPositiveAnswer, 
     setWrong, setIdElement, setChangedElement,
 }) => {
+    const dispatch = useDispatch();
+
     const continueExercise = () => {
         setExerciseNumber(exerciseNumber + 1);
         setChooseWrong(true);
@@ -13,6 +19,8 @@ const FooterMenuPositiveAnswerComponent = ({
         setWrong(false);
         setIdElement(0);
         setChangedElement(false);
+        dispatch(arrayChoosePositiveAnswerEmpty());
+        dispatch(arrayIdChoosePositiveAnswerEmpty());
     }
     return (
         <div className="lessonPage_main_div_down_block_footerMenuPositiveAnswerComponent">

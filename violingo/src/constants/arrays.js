@@ -251,30 +251,29 @@ export const arrayLessonPageChooseImage = [
     {
         id: 2,
         exercise: 2,
-        question: 'Boy',
+        question: [
+            {
+                id: 1, 
+                word: 'Boy', 
+                title: [], 
+                translate: [
+                    {id: 1, name: 'хлопчик'},
+                    {id: 2, name: 'хлопчику'},
+                    {id: 3, name: 'хлопчиком'}, 
+                ],
+                translateMore: []
+            },
+        ],
         src: 'boyImage.svg',
-        alt: 'grandmother image',
+        alt: 'woman image',
         task: [
             {id: 1, name: 'чоловік'},
             {id: 2, name: 'дівчинка'},
             {id: 3, name: 'хлопчик'},
             {id: 4, name: 'я'},
             {id: 5, name: 'він'},
-            // {id: 6, name: 'чоловік'},
-            // {id: 7, name: 'дівчинка'},
-            // {id: 8, name: 'хлопчик'},
-            // {id: 9, name: 'я'},
-            // {id: 10, name: 'він'},
         ],
         answer: 'хлопчик',
-        translate: [
-            {id: 1, name: 'хлопчик'},
-            {id: 2, name: 'хлопчику'},
-            {id: 3, name: 'хлопчиком'},
-            // {id: 4, name: 'хлопчик'},
-            // {id: 5, name: 'хлопчику'},
-            // {id: 6, name: 'хлопчиком'},
-        ],
         choosePositiveAnswer: true,
     },   
     {
@@ -288,7 +287,207 @@ export const arrayLessonPageChooseImage = [
         ],
         answer: 'boy',
         chooseAnswer: true,
+    },
+    {
+        id: 4,
+        exercise: 4,
+        question: 'Жінка',
+        task: [
+            {id: 1, src: 'manImage.svg', alt: 'man', name: 'man'},
+            {id: 2, src: 'womanImage.svg', alt: 'woman', name: 'woman'},
+            {id: 3, src: 'boyImage.svg', alt: 'boy', name: 'boy'},
+        ],
+        answer: 'woman',
+        chooseImage: true,
+    },
+    {
+        id: 5,
+        exercise: 5,
+        question: 'жінка',
+        task: [
+            {id: 1, name: 'woman'},
+            {id: 2, name: 'man'},
+            {id: 3, name: 'boy'},    
+        ],
+        answer: 'woman',
+        chooseAnswer: true,
+    },     
+    {
+        id: 6,
+        exercise: 6,
+        question: [
+            {
+                id: 1, 
+                word: 'Woman', 
+                title: [], 
+                translate: [
+                    {id: 1, name: 'жінка'},
+                    {id: 2, name: 'жінку'},
+                    {id: 3, name: 'жінкою'},
+                ],
+                translateMore: []
+            }, 
+        ],
+        src: 'womanImage.svg',
+        alt: 'woman image',
+        task: [
+            {id: 1, name: 'чоловік'},
+            {id: 2, name: 'Том'},
+            {id: 3, name: 'яблуко'},
+            {id: 4, name: 'дівчинка'},
+            {id: 5, name: 'жінка'},
+        ],
+        answer: 'жінка',
+        choosePositiveAnswer: true,
     },   
+    {
+        id: 7,
+        exercise: 7,
+        question: 'Чоловік',
+        task: [
+            {id: 1, src: 'boyImage.svg', alt: 'boy', name: 'boy'},
+            {id: 2, src: 'manImage.svg', alt: 'man', name: 'man'},
+            {id: 3, src: 'womanImage.svg', alt: 'woman', name: 'woman'},
+        ],
+        answer: 'man',
+        chooseImage: true,
+    },  
+    {
+        id: 8,
+        exercise: 8,
+        question: 'жінка',
+        task: [
+            {id: 1, name: 'boy'},
+            {id: 2, name: 'I'},
+            {id: 3, name: 'woman'},               
+        ],
+        answer: 'woman',
+        chooseAnswer: true,
+    },  
+    {
+        id: 9,
+        exercise: 9,
+        question: 'Дівчинка',
+        task: [
+            {id: 1, src: 'girlImage.svg', alt: 'girl', name: 'girl'},
+            {id: 2, src: 'manImage.svg', alt: 'man', name: 'man'},
+            {id: 3, src: 'womanImage.svg', alt: 'woman', name: 'woman'},           
+        ],
+        answer: 'girl',
+        chooseImage: true,
+    },    
+    {
+        id: 10,
+        exercise: 10,
+        question: [
+            {
+                id: 1, 
+                word: 'A', 
+                title: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'man'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'чоловік'},
+                    {id: 2, name: 'чоловіка'},
+                    {id: 3, name: 'людина'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'один'},
+                    {id: 2, name: 'на'},
+                    {id: 3, name: 'одна'},
+                ]
+            },
+            {
+                id: 2, 
+                word: 'man', 
+                title: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'man'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'чоловік'},
+                    {id: 2, name: 'чоловіка'},
+                    {id: 3, name: 'людина'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'чоловік'},
+                    {id: 2, name: 'чоловіка'},
+                    {id: 3, name: 'людина'},
+                ]
+            }
+        ],
+        src: 'manImage.svg',
+        alt: 'man image',
+        task: [
+            {id: 1, name: 'Чоловік'},
+            {id: 2, name: 'дівчинка'},
+            {id: 3, name: 'хлопчик'},
+            {id: 4, name: 'хлопець'},
+            {id: 5, name: 'яблуко'},
+        ],
+        answer: 'Чоловік',
+        choosePositiveAnswer: true,
+    },    
+    {
+        id: 11,
+        exercise: 11,
+        question: [
+            {
+                id: 1, 
+                word: 'I', 
+                title: [
+                    {id: 1, name: 'I'},
+                    {id: 2, name: 'am'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'я'},
+                    {id: 2, name: 'мені'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'я'},
+                    {id: 2, name: 'мене'},
+                    {id: 3, name: 'мені'},
+                ]
+            },
+            {
+                id: 2, 
+                word: 'am', 
+                title: [
+                    {id: 1, name: 'I'},
+                    {id: 2, name: 'am'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'я'},
+                    {id: 2, name: 'мені'},
+                ], 
+                translateMore: [],
+            },
+            {
+                id: 3, 
+                word: 'Tom', 
+                title: [], 
+                translate: [ 
+                    {id: 1, name: 'Том'},
+                    {id: 2, name: 'Томом'},
+                    {id: 3, name: 'Тома'},
+                ], 
+                translateMore: [],
+            }
+        ],
+        src: 'boyImage.svg',
+        alt: 'boy image',
+        task: [
+            {id: 1, name: 'Том'},
+            {id: 2, name: 'жінка'},
+            {id: 3, name: 'хлопчик'},
+            {id: 4, name: 'Я'},
+            {id: 5, name: 'він'},
+            {id: 6, name: 'чоловік'},
+        ],
+        answer: 'Я Том',
+        choosePositiveAnswer: true,
+    },        
 ];
 
 

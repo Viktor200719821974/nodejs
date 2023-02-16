@@ -8,7 +8,7 @@ const ChooseAnswerComponent = ({
             </span> 
             <div className="lessonPage_main_div_choose_answer_chooseAnswerComponent">
                 {
-                    task.map(c => 
+                    task.map((c, index) => 
                         <div 
                             key={c.id}
                             className={
@@ -16,6 +16,7 @@ const ChooseAnswerComponent = ({
                                     ? "lessonPage_div_choose_answer_chooseAnswerComponent display_alien_justify"
                                     : "lessonPage_div_choose_answer_select_chooseAnswerComponent display_alien_justify"
                             }
+                            style={{top: `${index * 63}px`}}
                             onClick={() => {
                                 chooseWrong && setIdElement(c.id);
                                 chooseWrong && setName(c.name);
@@ -29,7 +30,12 @@ const ChooseAnswerComponent = ({
                                 >
                                 {c.id}
                             </span>
-                            <span className="lessonPage_span_choose_answer_name_chooseAnswerComponent">
+                            <span className={
+                                (idElement !== c.id) 
+                                    ? "lessonPage_span_choose_answer_name_chooseAnswerComponent"
+                                    : "lessonPage_span_choose_answer_name_select_chooseAnswerComponent"
+                                }
+                                >
                                 {c.name}
                             </span>
                         </div>

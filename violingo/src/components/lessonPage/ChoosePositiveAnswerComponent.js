@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
-import { AiFillSound } from 'react-icons/ai';
+import { AiFillSound, } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IMAGES_CHOOSE_IMAGE_COMPONENT } from '../../constants';
 import { arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer } from '../../redux/actions';
+import BlockTranslateComponent from './BlockTranslateComponent';
 
 const ChoosePositiveAnswerComponent = ({
-    src, alt, question, task, showBlockTranslate, setShowBlockTranslate, translate, setIdElement,
-    setName, name, arrayChange, setArrayChange,
+    src, alt, question, task, showBlockTranslate, setShowBlockTranslate, setIdElement, setName, 
+    name, arrayChange, setArrayChange, nameTranslate, setNameTranslate, moreInfo, setMoreInfo,
 }) => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
@@ -19,7 +20,6 @@ const ChoosePositiveAnswerComponent = ({
         });
         return array1;
     };
-    
     const pushItems = (id, nameValue) => {
         if (array.length === 0) {
             array.push(nameValue);
@@ -48,6 +48,8 @@ const ChoosePositiveAnswerComponent = ({
         arrayId.splice(index, 1);
         dispatch(arrayChoosePositiveAnswer(array));
         dispatch(arrayIdChoosePositiveAnswer(arrayId));
+        setIdElement(0);
+        setName('');
     }
     useEffect(() => {
         setArrayChange(filterTask(task, arrayId));
@@ -71,37 +73,41 @@ const ChoosePositiveAnswerComponent = ({
                             color={'rgb(28, 176, 246)'}
                             style={{ width: '29px', height: '22px', cursor: 'pointer' }}
                         />
-                        <span
-                            className="lessonPage_span_question_choosePositiveAnswerComponent"
-                            onMouseLeave={() => setShowBlockTranslate(false)}
-                            onMouseEnter={() => setShowBlockTranslate(true)}
-                        >
-                            {question}
-                        </span>
                         {
-                            showBlockTranslate &&
-                            <div
-                                className="lessonPage_main_div_block_translate_choosePositiveAnswerComponent"
-                                onMouseLeave={() => setShowBlockTranslate(false)}
-                                onMouseEnter={() => setShowBlockTranslate(true)}
-                            >
-                                <div className="lessonPage_div_triangle_block_translate_choosePositiveAnswerComponent"></div>
-                                {
-                                    translate.map(c =>
-                                        <span
-                                            className={
-                                                (c.id < translate.length)
-                                                    ? "lessonPage_span_block_translate_choosePositiveAnswerComponent"
-                                                    : "lessonPage_span_block_translate_border_bottom_none_choosePositiveAnswerComponent"
-                                            }
-                                            key={c.id}
+                            question.map(c => 
+                                <span
+                                    key={c.id}
+                                    className="lessonPage_span_question_choosePositiveAnswerComponent"
+                                    >
+                                    <span 
+                                        className="lessonPage_span_question_word_choosePositiveAnswerComponent"
+                                        onMouseLeave={() => { 
+                                            setShowBlockTranslate(false); 
+                                            setNameTranslate('');
+                                            setMoreInfo(false);
+                                        }}
+                                        onMouseEnter={(e) => { 
+                                            setShowBlockTranslate(true); 
+                                            setNameTranslate(e.target.innerHTML);
+                                        }}
                                         >
-                                            {c.name}
-                                        </span>
-                                    )
-                                }
-                            </div>
-                        }
+                                        {c.word}
+                                        {
+                                            (showBlockTranslate && nameTranslate === c.word) &&
+                                                <BlockTranslateComponent
+                                                    setShowBlockTranslate={setShowBlockTranslate}
+                                                    translate={c.translate}
+                                                    title={c.title}
+                                                    translateMore={c.translateMore}
+                                                    moreInfo={moreInfo}
+                                                    setMoreInfo={setMoreInfo}
+                                                    wordId={c.id}
+                                                />
+                                        }
+                                    </span>
+                                </span> 
+                            )
+                        }           
                     </span>
                 </div>
             </div>
@@ -122,10 +128,10 @@ const ChoosePositiveAnswerComponent = ({
                 {
                     arrayChange.map(c =>
                         <span
-                            className={
-                                !!arrayId.filter(value => value === c.id)
-                                    ? "lessonPage_span_option_answer_choosePositiveAnswerComponent"
-                                    : "lessonPage_span_option_answer_empty_place_choosePositiveAnswerComponent"
+                            className={ "lessonPage_span_option_answer_choosePositiveAnswerComponent"
+                                // !!arrayId.filter(value => value === c.id)
+                                //     ? "lessonPage_span_option_answer_choosePositiveAnswerComponent"
+                                //     : "lessonPage_span_option_answer_empty_place_choosePositiveAnswerComponent"
                             }
                             key={c.id}
                             onClick={() => {

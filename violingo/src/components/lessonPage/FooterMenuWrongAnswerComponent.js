@@ -1,18 +1,26 @@
 import { ImCross } from 'react-icons/im';
+import { useDispatch } from 'react-redux';
 
 import flagMore from '../../icons/flag_more.svg';
+import { 
+    arrayChoosePositiveAnswerEmpty, arrayIdChoosePositiveAnswerEmpty, 
+} from '../../redux/actions';
 
 const FooterMenuWrongAnswerComponent = ({
     answer, setModalShow, setExerciseNumber, exerciseNumber, setChooseWrong, setPositiveAnswer, 
     setWrong, setIdElement, setChangedElement, 
 }) => {
+    const dispatch = useDispatch();
+
     const continueExercise = () => {
         setExerciseNumber(exerciseNumber + 1);
         setChooseWrong(true);
         setPositiveAnswer(false);
         setWrong(false);
         setIdElement(0);
-        setChangedElement(false);      
+        setChangedElement(false);  
+        dispatch(arrayChoosePositiveAnswerEmpty());
+        dispatch(arrayIdChoosePositiveAnswerEmpty());   
     }
     return (
         <div className="lessonPage_main_div_down_block_wrong">
