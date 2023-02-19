@@ -9,6 +9,7 @@ import FooterMenuWrongAnswerComponent from '../components/lessonPage/FooterMenuW
 import FooterMenuPositiveAnswerComponent from '../components/lessonPage/FooterMenuPositiveAnswerComponent';
 import ChoosePositiveAnswerComponent from '../components/lessonPage/ChoosePositiveAnswerComponent';
 import ChooseAnswerComponent from '../components/lessonPage/ChooseAnswerComponent';
+import ChooseMissingWordComponent from '../components/lessonPage/ChooseMissingWordComponent';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -21,7 +22,7 @@ const LessonPage = () => {
     const [whichWrongs, setWhichWrongs] = useState([]);
     const [positiveAnswer, setPositiveAnswer] = useState(false);
     const [widthValue, setWidthValue] = useState(0);
-    const [exerciseNumber, setExerciseNumber] = useState(1);
+    const [exerciseNumber, setExerciseNumber] = useState(12);
     const [showBlockTranslate, setShowBlockTranslate] = useState(false);
     const [arrayChange, setArrayChange] = useState([]);
     const [nameTranslate, setNameTranslate] = useState('');
@@ -149,10 +150,16 @@ const LessonPage = () => {
                                             chooseWrong={chooseWrong}
                                         />
                                 }
+                                {
+                                    c.chooseMissingWord && 
+                                        <ChooseMissingWordComponent
+                                        question={c.question}
+                                        task={c.task}
+                                    />
+                                }
                             </div>
                         )
-                }
-                
+                } 
             </div>
             {
                 (!wrong && !positiveAnswer) &&                    
@@ -188,8 +195,7 @@ const LessonPage = () => {
                         setIdElement={setIdElement}
                         setChangedElement={setChangedElement}
                     />
-            }               
-                        
+            }                           
         </div>
     );
 };

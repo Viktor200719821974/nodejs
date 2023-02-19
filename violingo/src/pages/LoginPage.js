@@ -92,27 +92,32 @@ const LoginPage = () => {
                 </div>
                 {
                     !isLoginState ? 
-                        <button 
-                            className="loginPage_div_button_registration"
-                            onClick={() => {
-                                navigate(REGISTRATION_PAGE);
-                                setError(false);
-                                setErrorMessage('');
-                            }}
-                        >
-                            Зареєструватися
-                        </button>
+                        <div className="loginPage_div_wrap_for_button">
+                           <button 
+                                className="loginPage_div_button_registration"
+                                onClick={() => {
+                                    navigate(REGISTRATION_PAGE);
+                                    setError(false);
+                                    setErrorMessage('');
+                                }}
+                                >
+                                Зареєструватися
+                            </button> 
+                        </div>
                     :
-                        <button 
-                            className="loginPage_div_button_registration"
-                            onClick={() => {
-                                navigate(LOGIN_PAGE);
-                                setError(false);
-                                setErrorMessage('');
-                            }}
-                        >
-                            Вхід
-                        </button>
+                        <div className="loginPage_div_wrap_for_button">
+                           <button 
+                                className="loginPage_div_button_registration"
+                                onClick={() => {
+                                    navigate(LOGIN_PAGE);
+                                    setError(false);
+                                    setErrorMessage('');
+                                }}
+                                >
+                                Вхід
+                            </button> 
+                        </div>
+                        
                 }
             </div>
             <div className="loginPage_div_main_loginComponent display_alien_justify">
@@ -153,39 +158,43 @@ const LoginPage = () => {
                             </div>
                     }        
                     <div className="loginPage_div_main_line_and_or_loginComponent">
-                    <div className="loginPage_div_line_loginComponent"></div>
-                    <div className="loginPage_div_sign_or_loginComponent sign">або</div>
-                    <div className="loginPage_div_line_loginComponent"></div>
+                        <div className="loginPage_div_line_loginComponent"></div>
+                        <div className="loginPage_div_sign_or_loginComponent sign">або</div>
+                        <div className="loginPage_div_line_loginComponent"></div>
                     </div>
                     <div className="loginPage_div_buttons_loginComponent display_alien_justify">
-                        <button 
-                            className="loginPage_button_facebook_google_loginComponent display_alien_justify"
-                            style={{marginRight: '20px'}}
-                            >
-                            <img 
-                                src={facebook} 
-                                alt="stamp google" 
-                            />
-                            <span 
-                                className="loginPage_span_sign_loginComponent sign"
-                                style={{color: '#3b5998'}}
+                        <div className="loginPage_div_wrap_for_button_facebook">
+                            <button 
+                                className="loginPage_button_facebook_loginComponent display_alien_justify"
+                                style={{marginRight: '20px'}}
                                 >
-                                Facebook
-                            </span>
-                        </button>
-                        <button className="loginPage_button_facebook_google_loginComponent">
-                            <img 
-                                src={google} 
-                                alt="stamp google" 
-                                style={{width: '20px', height: '21px'}}
-                            />
-                            <span 
-                                className="loginPage_span_sign_loginComponent sign"
-                                style={{color: '#4285f4'}}
-                                >
-                                Google
-                            </span>
-                        </button>
+                                <img 
+                                    src={facebook} 
+                                    alt="stamp google" 
+                                />
+                                <span 
+                                    className="loginPage_span_sign_loginComponent sign"
+                                    style={{color: '#3b5998'}}
+                                    >
+                                    Facebook
+                                </span>
+                            </button>
+                        </div>
+                        <div className="loginPage_div_wrap_for_button_facebook">
+                            <button className="loginPage_button_google_loginComponent">
+                                <img 
+                                    src={google} 
+                                    alt="stamp google" 
+                                    style={{width: '20px', height: '21px'}}
+                                />
+                                <span 
+                                    className="loginPage_span_sign_loginComponent sign"
+                                    style={{color: '#4285f4'}}
+                                    >
+                                    Google
+                                </span>
+                            </button> 
+                        </div>
                     </div>
                     <div className="loginPage_div_sign_privacy_policy_loginComponent">
                         <span className="loginPage_span_sign_privacy_policy_loginComponent">

@@ -58,16 +58,17 @@ export const publicRoutes = [
         path: LESSON_PAGE,
         Component: LessonPage
     },
+    {
+        path: LEARN_PAGE,
+        Component: MainLearnPage
+    },  
     // {
     //     path: DEVICE_ROUTE + '/:id',
     //     Component: DevicePage
     // },
 ];
 export const statisticRoutes = [
-    {
-        path: LEARN_PAGE,
-        Component: MainLearnPage
-    },   
+     
     {
         path: REVIEW_PAGE,
         Component: MainLearnPage

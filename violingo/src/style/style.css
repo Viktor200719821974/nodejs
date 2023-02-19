@@ -72,7 +72,6 @@ header {
     top: 0;
     min-height: 70px;
     width: 100%;
-    padding: 0 200px; 
     color: white;
     display: flex;
     flex-direction: row;
@@ -95,21 +94,30 @@ header {
     text-transform: lowercase;
     font-size: 37px;
     cursor: pointer;
+    width: 32%;
+    display: flex;
+    justify-content: center;
 }
 .homePage_sign_language {
     text-transform: uppercase;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
     font-size: 15px;
     letter-spacing: .8px;
     display: flex;
     justify-content: flex-end;
     position: relative;
 }
+.homePage_main_div_scroll_buttons {
+    width: 18%;
+}
 .homePage_div_main_buttons_start_and_enter {
     display: flex;
     align-items: center;
     margin-left: 10px;
+}
+.homePage_span_wrap_button_enter {
+    position: relative;
 }
 .homePage_button_enter {
     background-color: #fff;
@@ -125,6 +133,17 @@ header {
     letter-spacing: .8px;
     box-shadow: 0 4px 0 #b2def3;
     font-weight: 700;
+    position: absolute;
+    left: 150px;
+    top: -22px;
+}
+.homePage_button_enter:active {
+    box-shadow: none;
+    top: -20px;
+    border: none;
+}
+.homePage_span_wrap_button_start {
+    position: relative;
 }
 .homePage_button_start {
     background-color: #58cc02;
@@ -140,15 +159,22 @@ header {
     letter-spacing: .8px;
     box-shadow: 0 4px 0 #3f7416;
     font-weight: 700;
-    margin: 0 10px;
+    position: absolute;
+    top: -22px;
+}
+.homePage_button_start:active {
+    box-shadow: none;
+    top: -20px;
+    border: none;
 }
 .homePage_button_start:hover {
     background-color: #70e01a;
 }
 .homePage_languageComponent {
     position: absolute;
-    top: 53px;
-    right: 157px;
+    top: 33px;
+    right: -42px;
+    z-index: 10;
 }
 .homePage_body {
     margin-top: 70px;
@@ -157,6 +183,11 @@ header {
     height: 100%;
     box-sizing: border-box;
     padding: 150px 50px 133px;
+}
+.homePage_div_wrap_for_image_earth {
+    width: 40%;
+    display: flex;
+    justify-content: center;
 }
 .homePage_image_earth {
     height: 280px;
@@ -176,21 +207,26 @@ header {
 }
 .homePage_div_center_body {
     display: flex;
+    width: 100%;
 }
 .homePage_div_main_right {
-    margin-left: 59px;
     width: 750px;
     text-align: center;
     line-height: 40px;
     margin-bottom: 50px;
     display: inline-flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    padding-top: 50px;
 }
 .homePage_span_sign_right {
     font-size: 32px;
     margin-bottom: 50px;   
+}
+.homePage_span_wrap_button1 {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .homePage_span_button1 {
     background-color: #58a700;
@@ -200,12 +236,25 @@ header {
     letter-spacing: .8px;
     font-weight: 700;
     border-radius: 16px;
-    border-bottom: solid 4px #478b13;
+    box-shadow: 0 4px 0 #478b13;
     cursor: pointer;
-    margin-bottom: 20px;
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
+}
+.homePage_span_button1:active {
+    position: absolute;
+    top: 2px;
+    box-shadow: none;
 }
 .homePage_span_button1:hover {
     background-color: #58cc02;  
+}
+.homePage_span_wrap_button2 {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .homePage_span_button2 {
     border: solid 2px #262a60;
@@ -214,7 +263,14 @@ header {
     width: 320px;
     height: 50px;
     cursor: pointer;
-    border-bottom: solid 4px #262a60;
+    box-shadow: 0 2px 0 #262a60;
+    position: absolute;
+    top: 70px;
+}
+.homePage_span_button2:active {
+    position: absolute;
+    top: 72px;
+    box-shadow: none;
 }
 .homePage_span_button2:hover {
     background-color: #262a6039;  
@@ -935,15 +991,18 @@ header {
 }
 .loginPage_div_main_button {
     display: flex;
-    position: relative;
+    padding-left: 50px;
+    width: 100%;
 }
 .loginPage_div_button_cross_close {
-    position: absolute;
     cursor: pointer;
+    width: 80%;
+}
+.loginPage_div_wrap_for_button {
+    position: relative;
 }
 .loginPage_div_button_registration {
     position: absolute;
-    right: 30px;
     padding: 0 16px;
     border-radius: 12px;
     color: #1cb0f6;
@@ -958,20 +1017,20 @@ header {
     font-weight: 700;
     white-space: nowrap;
 }
-.loginPage_div_button_registration:hover {
-    background-color: #e5e5e5;
-    border: 2px solid #cec9c9;
-    box-shadow: 0 2px 0 #cec9c9;
+.loginPage_div_button_registration:active {
+    box-shadow: none;
+    top: 2px;
 }
-.loginPage_div_main_loginComponent {
-    height: 100%;
+.loginPage_div_button_registration:hover {
+    background-color: #f7f7f7;
+    border: 2px solid #e5e5e5;
 }
 .loginPage_div_componentLogin {
     width: 375px;
     margin-top: 150px;
-    position: relative;
+    
 }
-.loginPage_h1_componentLogin {
+.loginPage_h1_loginComponent {
     color: #3c3c3c;
     font-size: 26px;
     margin: 10px 0 15px;
@@ -1024,6 +1083,9 @@ input[type=number] {
 .loginPage_div_sign_forget_password_loginComponent:hover {
     color: #888686;
 }
+.loginPage_div_wrap_for_button_loginComponent {
+    position: relative;
+}
 .loginPage_button_enter_loginComponent {
     background-color: #1cb0f6;
     box-shadow: 0 4px 0 #1899d6;
@@ -1032,19 +1094,25 @@ input[type=number] {
     color: #fff;
     width: 100%;
     height: 46px;
-    margin-top: 20px;
+    position: absolute;
     font-size: 15px;
     font-weight: 700;
     letter-spacing: .8px;
     box-sizing: border-box;
     text-transform: uppercase;
+    top: 20px;
+}
+.loginPage_button_enter_loginComponent:active {
+    box-shadow: none;
+    top: 22px;
 }
 .loginPage_button_enter_loginComponent:hover {
     background-color: #1cb1f6af;
 }
 .loginPage_div_main_line_and_or_loginComponent {
     display: flex;
-    margin: 20px 0;
+    margin-top: 84px;
+    margin-bottom: 20px;
     align-items: center;
 }
 .loginPage_div_line_loginComponent {
@@ -1063,7 +1131,11 @@ input[type=number] {
 .loginPage_div_buttons_loginComponent {
     width: 100%;
 }
-.loginPage_button_facebook_google_loginComponent {
+.loginPage_div_wrap_for_button_facebook {
+    position: relative;
+    margin-bottom: 20px;
+}
+.loginPage_button_facebook_loginComponent {
     box-shadow: 0 2px 0 #e5e5e5;
     border: 2px solid #e5e5e5;
     width: 180px;
@@ -1071,11 +1143,37 @@ input[type=number] {
     background: #fff;
     border-radius: 12px;
     box-sizing: border-box;
+    position: absolute;
+    right: -10px;
+    top: -10px;
 }
-.loginPage_button_facebook_google_loginComponent:hover {
-    background-color: #e5e5e5;
-    box-shadow: 0 2px 0 #c4c1c1;
-    border: 2px solid #c4c1c1;
+.loginPage_button_google_loginComponent {
+    box-shadow: 0 2px 0 #e5e5e5;
+    border: 2px solid #e5e5e5;
+    width: 180px;
+    height: 48px;
+    background: #fff;
+    border-radius: 12px;
+    box-sizing: border-box;
+    position: absolute;
+    left: 10px;
+    top: -10px;
+}
+.loginPage_button_facebook_loginComponent:active {
+    box-shadow: none;
+    top: -8px;
+}
+.loginPage_button_google_loginComponent:active {
+    box-shadow: none;
+    top: -8px;
+}
+.loginPage_button_facebook_loginComponent:hover {
+    background-color: #f7f7f7;
+    border: 2px solid #e5e5e5;
+}
+.loginPage_button_google_loginComponent:hover {
+    background-color: #f7f7f7;
+    border: 2px solid #e5e5e5;
 }
 .loginPage_span_sign_loginComponent {
     font-size: 14px; 
@@ -1174,28 +1272,35 @@ input[type=number] {
 }
 .forgetPasswordPage_header {
     background-color: #1cb0f6; 
-    padding: 0 73px; 
+    width: 100%;
 }
 .forgetPasswordPage_sign_violingo {
     text-transform: lowercase;
     font-size: 37px;
     cursor: pointer;
+    width: 32%;
+    display: flex;
+    justify-content: center;
 }
 .forgetPasswordPage_sign_language {
     text-transform: uppercase;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
     font-size: 15px;
     letter-spacing: .8px;
     display: flex;
     justify-content: flex-end;
-    padding: 20px 24px 15px;
+    position: relative;
 }
 .forgetPasswordPage_languageComponent {
     position: absolute;
-    top: 54px;
-    right: 263px;
+    top: 33px;
+    right: -42px;
     z-index: 100;
+}
+.forgetPasswordPage_div_wrap_for_buttons {
+    width: 18%;
+    position: relative;
 }
 .forgetPasswordPage_button_enter {
     background-color: #fff;
@@ -1211,7 +1316,12 @@ input[type=number] {
     letter-spacing: .8px;
     box-shadow: 0 4px 0 #b2def3;
     font-weight: 500;
-    margin-right: 10px;
+    position: absolute;
+    top: -22px;
+}
+.forgetPasswordPage_button_enter:active {
+    box-shadow: none;
+    top: -20px;
 }
 .forgetPasswordPage_button_start {
     background-color: #58cc02;
@@ -1227,6 +1337,13 @@ input[type=number] {
     letter-spacing: .8px;
     box-shadow: 0 4px 0 #3f7416;
     font-weight: 500;
+    position: absolute;
+    top: -22px;
+    left: 78px;
+}
+.forgetPasswordPage_button_start:active {
+    box-shadow: none;
+    top: -20px;
 }
 .forgetPasswordPage_button_start:hover {
     background-color: #70e01a;
@@ -1241,8 +1358,6 @@ input[type=number] {
     height: 100%;
     width: 350px;
     text-align: center;
-    /* z-index: 1; */
-    /* position: relative; */
 }
 .forgetPasswordPage_input_loginComponent {
     cursor: text;
@@ -1255,20 +1370,30 @@ input[type=number] {
     border: 2px solid #e5e5e5;
     margin-top: 20px;
 }
+.forgetPasswordPage_div_wrap_for_button_send {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 150px; 
+    width: 100%;
+}
 .forgetPasswordPage_button_send {
     background-color: #1cb0f6;
     box-shadow: 0 4px 0 #1899d6;
     border: #1cb0f6 0 solid;
     border-radius: 16px;
     color: #fff;
-    width: 100%;
     height: 46px;
-    margin-top: 10px;
+    width: 100%;
+    position: absolute;
     font-size: 15px;
     letter-spacing: .8px;
     box-sizing: border-box;
     text-transform: uppercase;
-    margin-bottom: 150px;
+    left: 0;
+}
+.forgetPasswordPage_button_send:active {
+    top: 2px;
+    box-shadow: none;
 }
 .forgetPasswordPage_image_sendForgetPasswordComponent {
     width: 160px;
@@ -1462,9 +1587,6 @@ input[type=number] {
     color: #e5e5e5;
     font-size: 17px;
 }
-/* .mainLearnPage_main_div_windows {
-    position: relative;
-} */
 .mainLearnPage_modal_window {
     width: 100%;
     height: 100%;
@@ -2856,9 +2978,6 @@ input[type=checkbox]:checked:after {
     border-bottom: 3px dotted #b7b5b5;
     position: relative;
 }
-/* .lessonPage_span_question_word_choosePositiveAnswerComponent {
-    
-} */
 .lessonPage_main_div_block_translate_choosePositiveAnswerComponent {
     position: absolute;
     top: 33px;
@@ -3020,6 +3139,74 @@ input[type=checkbox]:checked:after {
     align-items: center;
     margin-left: 10px;
     margin-bottom: 10px;
+}
+.lessonPage_main_div_chooseMissingWordComponent {
+    width: 600px;
+}
+.lessonPage_span_title_chooseMissingWordComponent {
+    font-size: 32px;
+    color: #3c3c3c;
+    line-height: 1.25;
+    text-align: left;
+    font-weight: 700;
+}
+.lessonPage_main_div_question_chooseMissingWordComponent {
+    margin: 24px 0;
+    display: flex;
+}
+.lessonPage_span_question_part_chooseMissingWordComponent {
+    font-size: 19px;
+    color: #3c3c3c;
+    font-weight: 500;
+}
+.lessonPage_div_wrap_for_empty_span_chooseMissingWordComponent {
+    margin: 0 6px;
+    display: flex;
+    align-items: flex-end;
+}
+.lessonPage_span_question_empty_chooseMissingWordComponent {
+    background: #3c3c3c;
+    display: flex;
+    width: 70px;
+    height: 2px;
+}
+.lessonPage_main_div_task_chooseMissingWordComponent {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding:108px 0;
+}
+.lessonPage_block_div_task_chooseMissingWordComponent {
+    display: flex;
+    width: 48%;
+    align-items: center;
+    border: 2px solid #e5e5e5;
+    box-shadow: 0 2px 0 #e5e5e5;
+    border-radius: 12px;
+    line-height: 1.4;
+    padding: 12px 16px;
+    margin: 0 8px 8px 0;
+    box-sizing: border-box;
+    height: 58px;
+    cursor: pointer;
+}
+.lessonPage_number_block_chooseMissingWordComponent {
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    color: #afafaf;
+    font-size: 15px;
+    font-weight: 700;
+    height: 30px;
+    justify-content: center;
+    width: 30px;
+    align-items: center;
+    display: flex;
+}
+.lessonPage_block_answer_chooseMissingWordComponent {
+    color: #4b4b4b;
+    font-size: 19px;
+    width: 100%;
+    text-align: center;
 }
 
 @media (max-width: 1360px) {

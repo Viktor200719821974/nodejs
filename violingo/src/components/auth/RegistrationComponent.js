@@ -7,7 +7,7 @@ const RegistrationComponent = ({
     return (
         <div>
             <form>
-                <h1 className="loginPage_h1_componentLogin">Створення профілю</h1>
+                <h1 className="loginPage_h1_loginComponent">Створення профілю</h1>
                 <div className="loginPage_div_input_span_registrationComponent">
                     <input 
                         type="number"
@@ -74,12 +74,15 @@ const RegistrationComponent = ({
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button 
-                    className="loginPage_button_enter_loginComponent"
-                    onClick={click}
-                    >
-                    Створити обліковий запис
-                </button>
+                <div className="loginPage_div_wrap_for_button_loginComponent">
+                    <button 
+                        className="loginPage_button_enter_loginComponent"
+                        onClick={click}
+                        >
+                        Створити обліковий запис
+                    </button>
+                </div>
+                
             </form>
         </div>
     );

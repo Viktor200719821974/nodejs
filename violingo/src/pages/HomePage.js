@@ -20,7 +20,7 @@ import computer2 from '../icons/computer2.svg';
 import sovaGift from '../icons/sova-gift.svg';
 import sovaStudy from '../icons/sova-study.svg';
 import { 
-  LOGIN_PAGE, REGISTER_PAGE, VIOLINGO_HOME_PAGE, ENGLISH_PAGE, EFFICACY_PAGE, SUPER_VIOLINGO,
+  LOGIN_PAGE, REGISTER_PAGE, VIOLINGO_HOME_PAGE, LESSON_PAGE, EFFICACY_PAGE, SUPER_VIOLINGO,
   DOWNLOAD_APP_STORE, DOWNLOAD_GOOGLE_PLAY, VIOLINGO_FOR_SCHOOL, ENGLISH_TEST, 
   REGISTRATION_PAGE,
 } from '../constants';
@@ -69,67 +69,86 @@ const HomePage = () =>  {
                 onMouseEnter={() => setIsBool(true)}
                 onMouseLeave={() => setIsBool(false)}
                 />
+                <span className="homePage_languageComponent">
+                  {isBool && 
+                    <LanguageComponent
+                      setValue={setValue}
+                      setIsBool={setIsBool}
+                    />
+                  }
+                </span>
             </span>
-            <span className="homePage_languageComponent">
-              {isBool && 
-                <LanguageComponent
-                  setValue={setValue}
-                  setIsBool={setIsBool}
-                />
+            <div className="homePage_main_div_scroll_buttons">
+              {scrollBool && 
+                <span className="homePage_div_main_buttons_start_and_enter">
+                  <span className="homePage_span_wrap_button_start">
+                    <button 
+                      className="homePage_button_start"
+                      onClick={() => navigate(REGISTRATION_PAGE)}
+                      >
+                        Розпочати
+                    </button>
+                  </span>
+                  <span className="homePage_span_wrap_button_enter">
+                    <button 
+                      className="homePage_button_enter"
+                      onClick={() => navigate(LOGIN_PAGE)}
+                      >
+                        Вхід
+                    </button>
+                  </span>              
+                </span>
               }
-            </span>
-            {scrollBool && 
-              <span className="homePage_div_main_buttons_start_and_enter">
-                <button 
-                  className="homePage_button_start"
-                  onClick={() => navigate(REGISTRATION_PAGE)}
-                  >
-                    Розпочати
-                </button>
-                <button 
-                  className="homePage_button_enter"
-                  onClick={() => navigate(LOGIN_PAGE)}
-                  >
-                    Вхід
-                </button>              
-              </span>}
+            </div> 
         </header>
         <div className="homePage_body">
           <div className="homePage_div_center_body">
-            <div className="homePage_div_ringEarth1">
-              <div className="homePage_div_ringEarth2">
-                <img src={earth} alt="earth" className="homePage_image_earth"/>
+            <div className="homePage_div_wrap_for_image_earth">
+              <div className="homePage_div_ringEarth1">
+                <div className="homePage_div_ringEarth2">
+                  <img src={earth} alt="earth" className="homePage_image_earth"/>
+                </div>
               </div>
             </div>
+            
             <div className="homePage_div_main_right">
               <span className="homePage_span_sign_right sign">
                   Безкоштовний, веселий та ефективний спосіб вивчення мови!
               </span>
-              <span 
-                className="homePage_span_button1 display_alien_justify" 
-                onClick={() => navigate(REGISTRATION_PAGE)}
-                >
-                РОЗПОЧАТИ
+              <span className="homePage_span_wrap_button1">
+                <span 
+                  className="homePage_span_button1 display_alien_justify" 
+                  onClick={() => navigate(REGISTRATION_PAGE)}
+                  >
+                  РОЗПОЧАТИ
+                </span>
               </span>
-              <span 
-                className="homePage_span_button2 display_alien_justify"
-                onClick={() => navigate(LOGIN_PAGE)}
-                >
-                УЖЕ МАЮ ОБЛІКОВИЙ ЗАПИС
+              <span className="homePage_span_wrap_button2">
+                <span 
+                  className="homePage_span_button2 display_alien_justify"
+                  onClick={() => navigate(LOGIN_PAGE)}
+                  >
+                  УЖЕ МАЮ ОБЛІКОВИЙ ЗАПИС
+                </span>
               </span>
+              
             </div>
           </div>
         </div>
         <div 
           className="homePage_div_choice_language"
-          onClick={() => navigate(ENGLISH_PAGE)}
+          onClick={() => navigate(LESSON_PAGE)}
           >
           <MdOutlineKeyboardArrowLeft size={'40px'} color={'#c5b9b9'} style={{cursor: "pointer"}}/>
           <img src={americaflag} alt="america flag" className="homePage_image_choice_language"/>
           <span className="homePage_span_sign_language sign">
             АНГЛІЙСЬКА
           </span>
-          <MdOutlineKeyboardArrowRight size={'40px'} color={'#c5b9b9'} style={{cursor: "pointer"}}/>
+          <MdOutlineKeyboardArrowRight 
+            size={'40px'} 
+            color={'#c5b9b9'} 
+            style={{cursor: "pointer"}}
+          />
         </div> 
         <div className="homePage_main_div_image_sova display_alien_justify">
           <img src={sova} alt="sova" className="homePage_image_sova"/>

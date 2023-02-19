@@ -9,7 +9,7 @@ const LoginComponent = ({
     return (
         <div>
             <form>
-                <h1 className="loginPage_h1_componentLogin">Увійти</h1>
+                <h1 className="loginPage_h1_loginComponent">Увійти</h1>
                 <div>
                     <input 
                         type="text" 
@@ -36,12 +36,15 @@ const LoginComponent = ({
                         Забули?
                     </div>
                 </div>
-                <button 
-                    className="loginPage_button_enter_loginComponent"
-                    onClick={click}
-                    >
-                        УВІЙТИ
-                </button>
+                <div className="loginPage_div_wrap_for_button_loginComponent">
+                   <button 
+                        className="loginPage_button_enter_loginComponent"
+                        onClick={click}
+                        >
+                            УВІЙТИ
+                    </button> 
+                </div>
+                
             </form>
         </div>
     );

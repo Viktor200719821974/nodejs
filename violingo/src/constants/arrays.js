@@ -487,7 +487,28 @@ export const arrayLessonPageChooseImage = [
         ],
         answer: 'Я Том',
         choosePositiveAnswer: true,
-    },        
+    },  
+    {
+        id: 12,
+        exercise: 12,
+        question: [
+            {
+                part1: [
+                    {id: 1, text: 'I'},
+            ],
+                part2: [
+                    {id: 2, text: 'a woman.'},
+                ], 
+            }
+        ],
+        task: [
+            {id: 1, name: 'am'},
+            {id: 2, name: 'is'},
+            {id: 3, name: 'are'},    
+        ],
+        answer: 'I am a woman.',
+        chooseMissingWord: true,
+    },           
 ];
 
 

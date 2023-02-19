@@ -88,23 +88,8 @@ const ForgetPasswordPage = () => {
                         size={'30px'}
                         onMouseEnter={() => setIsBool(true)}
                         onMouseLeave={() => setIsBool(false)}
-                        />
-                </span>                
-                <button 
-                    className="forgetPasswordPage_button_enter"
-                    onClick={() => navigate(LOGIN_PAGE)}
-                    >
-                        Вхід
-                </button>
-                <button 
-                    className="forgetPasswordPage_button_start"
-                    onClick={() => navigate(REGISTRATION_PAGE)}
-                    >
-                        Розпочати
-                </button>
-            </header>
-            <div className="forgetPasswordPage_div_body">
-            <span className="forgetPasswordPage_languageComponent">
+                    />
+                    <span className="forgetPasswordPage_languageComponent">
                         {isBool && 
                             <LanguageComponent
                                 setValue={setValue}
@@ -112,6 +97,23 @@ const ForgetPasswordPage = () => {
                             />
                         }
                     </span>
+                </span> 
+                <div className="forgetPasswordPage_div_wrap_for_buttons">
+                    <button 
+                        className="forgetPasswordPage_button_enter"
+                        onClick={() => navigate(LOGIN_PAGE)}
+                        >
+                        Вхід
+                    </button>
+                    <button 
+                        className="forgetPasswordPage_button_start"
+                        onClick={() => navigate(REGISTRATION_PAGE)}
+                        >
+                        Розпочати
+                    </button>
+                </div>               
+            </header>
+            <div className="forgetPasswordPage_div_body">
                 <div className="forgetPasswordPage_div_body_forComponents">
                     { (!isChange && !ifSend) && 
                         <ForgetPasswordComponent
@@ -148,12 +150,14 @@ const ForgetPasswordPage = () => {
                     />
                 }
                 { !ifSend && 
-                    <button 
-                        className="forgetPasswordPage_button_send sign"
-                        onClick={send}
-                        >
-                        Надіслати
-                    </button>
+                    <div className="forgetPasswordPage_div_wrap_for_button_send">
+                       <button 
+                            className="forgetPasswordPage_button_send sign"
+                            onClick={send}
+                            >
+                            Надіслати
+                        </button> 
+                    </div>
                 }
                 <div className="forgetPasswordPage_div_line display_alien_justify">
                     <ul className="forgetPasswordPage_ul">
