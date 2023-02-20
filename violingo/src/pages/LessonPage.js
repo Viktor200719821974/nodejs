@@ -10,6 +10,7 @@ import FooterMenuPositiveAnswerComponent from '../components/lessonPage/FooterMe
 import ChoosePositiveAnswerComponent from '../components/lessonPage/ChoosePositiveAnswerComponent';
 import ChooseAnswerComponent from '../components/lessonPage/ChooseAnswerComponent';
 import ChooseMissingWordComponent from '../components/lessonPage/ChooseMissingWordComponent';
+import ChooseTranslateWordsComponent from '../components/lessonPage/ChooseTranslateWordsComponent';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -22,13 +23,20 @@ const LessonPage = () => {
     const [whichWrongs, setWhichWrongs] = useState([]);
     const [positiveAnswer, setPositiveAnswer] = useState(false);
     const [widthValue, setWidthValue] = useState(0);
-    const [exerciseNumber, setExerciseNumber] = useState(12);
+    const [exerciseNumber, setExerciseNumber] = useState(14);
     const [showBlockTranslate, setShowBlockTranslate] = useState(false);
     const [arrayChange, setArrayChange] = useState([]);
     const [nameTranslate, setNameTranslate] = useState('');
     const [moreInfo, setMoreInfo] = useState(false);
-    // const [answer, setAnswer] = useState('');
-    
+    const [answerChose, setAnswerChose] = useState('');
+    const [answerIdChose, setAnswerIdChose] = useState(0);
+    const [changeClassName, setChangeClassName] = useState('');
+    const [trueAnswer, setTrueAnswer] = useState(false);
+    const [taskChose, setTaskChose] = useState('');
+    const [taskChoseBool, setTaskChoseBool] = useState(false);
+    const [changeClassNameNumber, setChangeClassNameNumber] = useState('');
+    const [changeClassNameName, setChangeClassNameName] = useState('');
+   
     const answer = arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
         .map(c => c.answer)[0];
     const clickNext = () => {
@@ -61,9 +69,30 @@ const LessonPage = () => {
         } else {
             setChooseSendWrong(false);
         }
+        if (taskChose !== answerChose && taskChose !== '' && answerChose !== '') {
+            setTrueAnswer(true);
+            setChangeClassName('lessonPage_main_span_wrong_answer_chooseTranslateWordsComponent');
+            setChangeClassNameNumber('lessonPage_span_number_wrong_answer_chooseTranslateWordsComponent');
+            setChangeClassNameName('lessonPage_span_name_wrong_answer_chooseTranslateWordsComponent');
+            const timer = setTimeout(() => {  
+                setTrueAnswer(false);
+                setTaskChose('');
+                setAnswerChose('');
+                setIdElement(0);
+                setAnswerIdChose(0);
+            }, 500);
+            if (!trueAnswer) {
+               clearTimeout(timer); 
+            }  
+        }
+        if (!trueAnswer) {
+            setChangeClassName('lessonPage_main_span_select_chooseTranslateWordsComponent');
+            setChangeClassNameNumber("lessonPage_span_number_select_chooseTranslateWordsComponent");
+            setChangeClassNameName("lessonPage_span_name_select_chooseTranslateWordsComponent");
+        }    
         const keyDownHandler = (e) => {
             if (e.key > 0 && e.key <= 3) {
-               setIdElement(Number(e.key));
+                setIdElement(Number(e.key));
             } else {
                 setIdElement(idElement);
             } 
@@ -72,7 +101,8 @@ const LessonPage = () => {
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
         whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, arrayChange,
-        nameTranslate, moreInfo,
+        nameTranslate, moreInfo, answerChose, answerIdChose, changeClassName, trueAnswer,
+        taskChose, taskChoseBool, changeClassNameNumber, changeClassNameName,
     ]);
     
     return (
@@ -155,7 +185,29 @@ const LessonPage = () => {
                                         <ChooseMissingWordComponent
                                         question={c.question}
                                         task={c.task}
+                                        idElement={idElement}
+                                        setIdElement={setIdElement}
+                                        setName={setName}
                                     />
+                                }
+                                {
+                                    c.chooseTranslateWords && 
+                                        <ChooseTranslateWordsComponent
+                                            task={c.task}
+                                            answerOptions={c.answerOptions}
+                                            idElement={idElement}
+                                            setIdElement={setIdElement}
+                                            setAnswerChose={setAnswerChose}
+                                            setAnswerIdChose={setAnswerIdChose}
+                                            answerIdChose={answerIdChose}
+                                            changeClassName={changeClassName}
+                                            setTaskChose={setTaskChose}
+                                            setName={setName}
+                                            taskChoseBool={taskChoseBool}
+                                            answerChose={answerChose}
+                                            changeClassNameNumber={changeClassNameNumber}
+                                            changeClassNameName={changeClassNameName}
+                                        />
                                 }
                             </div>
                         )

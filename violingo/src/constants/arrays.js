@@ -508,7 +508,79 @@ export const arrayLessonPageChooseImage = [
         ],
         answer: 'I am a woman.',
         chooseMissingWord: true,
-    },           
+    },   
+    {
+        id: 13,
+        exercise: 13,
+        question: [
+            {
+                id: 1, 
+                word: 'A', 
+                title: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'girl'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'дівчина'},
+                    {id: 2, name: 'дівчинка'},
+                    {id: 3, name: 'дівчину'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'одна'},
+                    {id: 2, name: 'на'},
+                    {id: 3, name: 'один'},
+                ]
+            },
+            {
+                id: 2, 
+                word: 'girl', 
+                title: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'girl'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'дівчина'},
+                    {id: 2, name: 'дівчинка'},
+                    {id: 3, name: 'дівчину'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'дівчина'},
+                    {id: 2, name: 'дівчинка'},
+                    {id: 3, name: 'дівчини'},
+                ],
+            },
+        ],
+        src: 'girlImage.svg',
+        alt: 'girl image',
+        task: [
+            {id: 1, name: 'вода'},
+            {id: 2, name: 'Дівчина'},
+            {id: 3, name: 'хлопчик'},
+            {id: 4, name: 'яблуко'},
+            {id: 5, name: 'чоловік'},
+        ],
+        answer: 'Дівчина',
+        choosePositiveAnswer: true,
+    },   
+    {
+        id: 14,
+        exercise: 14,
+        question: [],
+        task: [
+            {id: 1, name: 'хлопець', answer: 'boy'},
+            {id: 2, name: 'жінка', answer: 'woman'},
+            {id: 3, name: 'чоловік', answer: 'man'}, 
+            {id: 4, name: 'я', answer: 'I'},   
+        ],
+        answerOptions: [
+            {id: 1, name: 'boy'},
+            {id: 2, name: 'man'},
+            {id: 3, name: 'woman'}, 
+            {id: 4, name: 'I'},
+        ],
+        answer: 'Ok',
+        chooseTranslateWords: true,
+    },          
 ];
 
 
