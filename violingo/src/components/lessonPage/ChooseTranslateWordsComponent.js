@@ -1,23 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux';
-
-import { arrayChoosePositiveAnswer } from '../../redux/actions';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const ChooseTranslateWordsComponent = ({ 
-    task, answerOptions, idElement, setIdElement, answerIdChose, setAnswerIdChose, setAnswerChose, 
-    changeClassName, setName, setTaskChose, taskChoseBool, answerChose, changeClassNameNumber,
-    changeClassNameName,
+    task, answerOptions, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
+    setTaskChose, changeClassNameNumber,changeClassNameName, questionIdChose, 
+    setQuestionIdChose, setQuestionNameChose, setPositiveAnswer,
 }) => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
-    const dispatch = useDispatch();
-    console.log(array); 
-    const click = (name) => {
-        console.log(name);
-        if (name !== undefined) {
-        //    array.push(name, answerChose);
-        //    dispatch(arrayChoosePositiveAnswer(array));  
-        } 
-    }
     
+    const filterTask = (array1, array2) => {
+        array2.forEach(element => {
+            array1 = array1.filter(item => item.name !== element);
+        });
+        return array1;
+    };
+    const firstArray = filterTask(task, array);
+    const secondArray = filterTask(answerOptions, array);
+    
+    useEffect(() => {
+        if (firstArray.length === 0 && secondArray.length === 0) {
+            setPositiveAnswer(true);
+        }
+        // eslint-disable-next-line
+    }, [firstArray, secondArray]);
     return (
         <div className="lessonPage_main_div_chooseTranslateWordsComponent">
             <span className="lessonPage_span_title_chooseTranslateWordsComponent">
@@ -26,23 +31,23 @@ const ChooseTranslateWordsComponent = ({
             <div className="lessonPage_main_div_task_answer_chooseTranslateWordsComponent">
                <div className="lessonPage_div_task_chooseTranslateWordsComponent">
                     {
-                        task.map((c, index) =>
+                        firstArray.map((c, index) =>
                             <span 
                                 key={c.id}
                                 className={
-                                    (c.id !== idElement)
+                                    (c.id !== questionIdChose)
                                         ? "lessonPage_main_span_chooseTranslateWordsComponent"
                                         : `${changeClassName}`
                                     }
                                 onClick={() => {
-                                    setIdElement(c.id);
                                     setTaskChose(c.answer);
-                                    click(c.name);
+                                    setQuestionNameChose(c.name);
+                                    setQuestionIdChose(c.id);
                                 }}
                                 >
                                     <span 
                                         className={
-                                            (c.id !== idElement) 
+                                            (c.id !== questionIdChose) 
                                                 ? "lessonPage_span_number_chooseTranslateWordsComponent"
                                                 : `${changeClassNameNumber}`
                                             }
@@ -51,7 +56,7 @@ const ChooseTranslateWordsComponent = ({
                                     </span>
                                     <span 
                                         className={
-                                            (c.id !== idElement) 
+                                            (c.id !== questionIdChose) 
                                                 ? "lessonPage_span_name_chooseTranslateWordsComponent"
                                                 : `${changeClassNameName}`
                                             }
@@ -64,7 +69,7 @@ const ChooseTranslateWordsComponent = ({
                 </div>
                 <div className="lessonPage_div_task_chooseTranslateWordsComponent">
                     {
-                        answerOptions.map((c, index) => 
+                        secondArray.map((c, index) => 
                             <span 
                                 key={c.id}
                                 className={
@@ -75,7 +80,6 @@ const ChooseTranslateWordsComponent = ({
                                 onClick={() => {
                                     setAnswerIdChose(c.id);
                                     setAnswerChose(c.name);
-                                    click();
                                 }}
                                 >
                                     <span 

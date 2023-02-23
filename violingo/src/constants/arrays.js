@@ -251,6 +251,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 2,
         exercise: 2,
+        titleTask: 'Напишіть українською',
         question: [
             {
                 id: 1, 
@@ -315,6 +316,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 6,
         exercise: 6,
+        titleTask: 'Напишіть українською',
         question: [
             {
                 id: 1, 
@@ -379,6 +381,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 10,
         exercise: 10,
+        titleTask: 'Напишіть українською',
         question: [
             {
                 id: 1, 
@@ -432,6 +435,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 11,
         exercise: 11,
+        titleTask: 'Напишіть українською',
         question: [
             {
                 id: 1, 
@@ -512,6 +516,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 13,
         exercise: 13,
+        titleTask: 'Напишіть українською',
         question: [
             {
                 id: 1, 
@@ -572,15 +577,99 @@ export const arrayLessonPageChooseImage = [
             {id: 3, name: 'чоловік', answer: 'man'}, 
             {id: 4, name: 'я', answer: 'I'},   
         ],
-        answerOptions: [
+        answer: [
             {id: 1, name: 'boy'},
             {id: 2, name: 'man'},
             {id: 3, name: 'woman'}, 
             {id: 4, name: 'I'},
         ],
-        answer: 'Ok',
         chooseTranslateWords: true,
-    },          
+    },  
+    {
+        id: 15,
+        exercise: 15,
+        titleTask: 'Напишіть українською',
+        question: [
+            {
+                id: 1, 
+                word: 'I', 
+                title: [
+                    {id: 1, name: 'I'},
+                    {id: 2, name: 'am'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'я'},
+                    {id: 2, name: 'мені'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'я'},
+                    {id: 2, name: 'мене'},
+                    {id: 3, name: 'мені'},
+                ]
+            },
+            {
+                id: 2, 
+                word: 'am', 
+                title: [
+                    {id: 1, name: 'I'},
+                    {id: 2, name: 'am'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'я'},
+                    {id: 2, name: 'мені'},
+                ], 
+                translateMore: []
+            },
+            {
+                id: 3, 
+                word: 'a', 
+                title: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'girl'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'дівчина'},
+                    {id: 2, name: 'дівчинка'},
+                    {id: 3, name: 'дівчину'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'одна'},
+                    {id: 2, name: 'на'},
+                    {id: 3, name: 'один'},
+                ]
+            },
+            {
+                id: 4, 
+                word: 'girl', 
+                title: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'girl'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'дівчина'},
+                    {id: 2, name: 'дівчинка'},
+                    {id: 3, name: 'дівчину'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'дівчина'},
+                    {id: 2, name: 'дівчинка'},
+                    {id: 3, name: 'дівчини'},
+                ],
+            },
+        ],
+        src: 'girlImage.svg',
+        alt: 'girl image',
+        task: [
+            {id: 1, name: 'чоловік'},
+            {id: 2, name: 'дівчинка'},
+            {id: 3, name: 'вона'},
+            {id: 4, name: 'хлопець'},
+            {id: 5, name: 'Я'},
+            {id: 6, name: 'Дівчинка'},
+        ],
+        answer: 'Я дівчинка',
+        choosePositiveAnswer: true,
+    },         
 ];
 
 

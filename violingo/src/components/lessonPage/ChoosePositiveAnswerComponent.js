@@ -9,6 +9,7 @@ import BlockTranslateComponent from './BlockTranslateComponent';
 const ChoosePositiveAnswerComponent = ({
     src, alt, question, task, showBlockTranslate, setShowBlockTranslate, setIdElement, setName, 
     name, arrayChange, setArrayChange, nameTranslate, setNameTranslate, moreInfo, setMoreInfo,
+    titleTask,
 }) => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
@@ -58,7 +59,7 @@ const ChoosePositiveAnswerComponent = ({
     return (
         <div className="lessonPage_main_div_choosePositiveAnswerComponent">
             <span className="lessonPage_span_title_choosePositiveAnswerComponent">
-                Напишіть українською
+                {titleTask}
             </span>
             <div className="lessonPage_main_div_image_choosePositiveAnswerComponent">
                 <img
@@ -78,33 +79,30 @@ const ChoosePositiveAnswerComponent = ({
                                 <span
                                     key={c.id}
                                     className="lessonPage_span_question_choosePositiveAnswerComponent"
+                                    onMouseLeave={() => { 
+                                        setShowBlockTranslate(false); 
+                                        setNameTranslate('');
+                                        setMoreInfo(false);
+                                    }}
+                                    onMouseEnter={(e) => { 
+                                        setShowBlockTranslate(true); 
+                                        setNameTranslate(e.target.innerHTML);
+                                    }}
                                     >
-                                    <span 
-                                        className="lessonPage_span_question_word_choosePositiveAnswerComponent"
-                                        onMouseLeave={() => { 
-                                            setShowBlockTranslate(false); 
-                                            setNameTranslate('');
-                                            setMoreInfo(false);
-                                        }}
-                                        onMouseEnter={(e) => { 
-                                            setShowBlockTranslate(true); 
-                                            setNameTranslate(e.target.innerHTML);
-                                        }}
-                                        >
                                         {c.word}
-                                        {
-                                            (showBlockTranslate && nameTranslate === c.word) &&
-                                                <BlockTranslateComponent
-                                                    setShowBlockTranslate={setShowBlockTranslate}
-                                                    translate={c.translate}
-                                                    title={c.title}
-                                                    translateMore={c.translateMore}
-                                                    moreInfo={moreInfo}
-                                                    setMoreInfo={setMoreInfo}
-                                                    wordId={c.id}
-                                                />
-                                        }
-                                    </span>
+                                        
+                                    {
+                                        (showBlockTranslate && nameTranslate === c.word) &&
+                                            <BlockTranslateComponent
+                                                setShowBlockTranslate={setShowBlockTranslate}
+                                                translate={c.translate}
+                                                title={c.title}
+                                                translateMore={c.translateMore}
+                                                moreInfo={moreInfo}
+                                                setMoreInfo={setMoreInfo}
+                                                wordId={c.id}
+                                            />
+                                    }
                                 </span> 
                             )
                         }           

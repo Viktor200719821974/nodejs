@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
 
 import ChooseImageComponent from '../components/lessonPage/ChooseImageComponent';
@@ -11,6 +12,7 @@ import ChoosePositiveAnswerComponent from '../components/lessonPage/ChoosePositi
 import ChooseAnswerComponent from '../components/lessonPage/ChooseAnswerComponent';
 import ChooseMissingWordComponent from '../components/lessonPage/ChooseMissingWordComponent';
 import ChooseTranslateWordsComponent from '../components/lessonPage/ChooseTranslateWordsComponent';
+import { arrayChoosePositiveAnswer } from '../redux/actions';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -23,20 +25,23 @@ const LessonPage = () => {
     const [whichWrongs, setWhichWrongs] = useState([]);
     const [positiveAnswer, setPositiveAnswer] = useState(false);
     const [widthValue, setWidthValue] = useState(0);
-    const [exerciseNumber, setExerciseNumber] = useState(14);
-    const [showBlockTranslate, setShowBlockTranslate] = useState(false);
+    const [exerciseNumber, setExerciseNumber] = useState(1);
+    const [showBlockTranslate, setShowBlockTranslate] = useState(true);
     const [arrayChange, setArrayChange] = useState([]);
-    const [nameTranslate, setNameTranslate] = useState('');
+    const [nameTranslate, setNameTranslate] = useState('Boy');
     const [moreInfo, setMoreInfo] = useState(false);
     const [answerChose, setAnswerChose] = useState('');
     const [answerIdChose, setAnswerIdChose] = useState(0);
+    const [questionIdChose, setQuestionIdChose] = useState(0);
+    const [questionNameChose, setQuestionNameChose] = useState(0);
     const [changeClassName, setChangeClassName] = useState('');
     const [trueAnswer, setTrueAnswer] = useState(false);
     const [taskChose, setTaskChose] = useState('');
-    const [taskChoseBool, setTaskChoseBool] = useState(false);
     const [changeClassNameNumber, setChangeClassNameNumber] = useState('');
     const [changeClassNameName, setChangeClassNameName] = useState('');
    
+    const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
+    const dispatch = useDispatch();
     const answer = arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
         .map(c => c.answer)[0];
     const clickNext = () => {
@@ -69,6 +74,17 @@ const LessonPage = () => {
         } else {
             setChooseSendWrong(false);
         }
+        if (taskChose === answerChose && taskChose !== '' && answerChose !== '') {
+            array.push(questionNameChose, answerChose);
+            let unique = [...new Set(array)];
+            dispatch(arrayChoosePositiveAnswer(unique));
+            setTrueAnswer(false);
+            setTaskChose('');
+            setAnswerChose('');
+            setQuestionNameChose('');
+            setQuestionIdChose(0);
+            setAnswerIdChose(0);
+        }
         if (taskChose !== answerChose && taskChose !== '' && answerChose !== '') {
             setTrueAnswer(true);
             setChangeClassName('lessonPage_main_span_wrong_answer_chooseTranslateWordsComponent');
@@ -78,7 +94,8 @@ const LessonPage = () => {
                 setTrueAnswer(false);
                 setTaskChose('');
                 setAnswerChose('');
-                setIdElement(0);
+                setQuestionNameChose('');
+                setQuestionIdChose(0);
                 setAnswerIdChose(0);
             }, 500);
             if (!trueAnswer) {
@@ -98,11 +115,13 @@ const LessonPage = () => {
             } 
         }
         document.addEventListener('keydown', keyDownHandler);
+        // eslint-disable-next-line
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
         whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, arrayChange,
         nameTranslate, moreInfo, answerChose, answerIdChose, changeClassName, trueAnswer,
-        taskChose, taskChoseBool, changeClassNameNumber, changeClassNameName,
+        taskChose, changeClassNameNumber, changeClassNameName, questionIdChose,
+        questionNameChose,
     ]);
     
     return (
@@ -167,6 +186,7 @@ const LessonPage = () => {
                                             setNameTranslate={setNameTranslate}
                                             moreInfo={moreInfo}
                                             setMoreInfo={setMoreInfo}
+                                            titleTask={c.titleTask}
                                         />
                                 }
                                 {
@@ -194,19 +214,18 @@ const LessonPage = () => {
                                     c.chooseTranslateWords && 
                                         <ChooseTranslateWordsComponent
                                             task={c.task}
-                                            answerOptions={c.answerOptions}
-                                            idElement={idElement}
-                                            setIdElement={setIdElement}
+                                            answerOptions={c.answer}
                                             setAnswerChose={setAnswerChose}
                                             setAnswerIdChose={setAnswerIdChose}
                                             answerIdChose={answerIdChose}
                                             changeClassName={changeClassName}
                                             setTaskChose={setTaskChose}
-                                            setName={setName}
-                                            taskChoseBool={taskChoseBool}
-                                            answerChose={answerChose}
                                             changeClassNameNumber={changeClassNameNumber}
                                             changeClassNameName={changeClassNameName}
+                                            questionIdChose={questionIdChose}
+                                            setQuestionIdChose={setQuestionIdChose}
+                                            setQuestionNameChose={setQuestionNameChose}
+                                            setPositiveAnswer={setPositiveAnswer}
                                         />
                                 }
                             </div>

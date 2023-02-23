@@ -2967,7 +2967,6 @@ input[type=checkbox]:checked:after {
     box-sizing: border-box;
     padding: 12px 24px;
     height: 67px;
-    width: 100%;
     background-color: #fff;
 }
 .lessonPage_span_question_choosePositiveAnswerComponent {
@@ -2977,18 +2976,18 @@ input[type=checkbox]:checked:after {
     margin-left: 8px;
     border-bottom: 3px dotted #b7b5b5;
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 .lessonPage_main_div_block_translate_choosePositiveAnswerComponent {
     position: absolute;
     top: 33px;
-    left: -54px;
     border: 2px solid #e5e5e5;
     background-color: #f8f8f8;
     z-index: 10;
     border-radius: 16px;
 }
 .lessonPage_div_block_translate_position_choosePositionAnswerComponent {
-    position: relative;
     display: flex;
     align-items: center;
     flex-direction: column;
