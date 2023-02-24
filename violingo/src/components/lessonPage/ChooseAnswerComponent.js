@@ -1,10 +1,30 @@
+import { useEffect } from 'react';
+
 const ChooseAnswerComponent = ({
-    question, task, idElement, setIdElement, setName, chooseWrong,
+    question, task, idElement, setIdElement, setName, chooseWrong, titleTask,
 }) => {
+    
+    useEffect(() => {
+        const keyDownHandler = (e) => {
+            if (e.key > 0 && e.key <= 3 && chooseWrong) {
+                setIdElement(Number(e.key));
+                const chooseAnswer = task.filter(c => c.id === Number(e.key))
+                    .map(item => item.name)[0];
+                setName(chooseAnswer);
+            } else {
+                    setIdElement(idElement);
+            }  
+        }
+        document.addEventListener('keydown', keyDownHandler);
+        return function cleanup() {
+            document.removeEventListener('keydown', keyDownHandler);
+        }
+        // eslint-disable-next-line
+    }, [chooseWrong]);
     return (
         <div className="lessonPage_main_div_chooseAnswerComponent">          
             <span className="lessonPage_span_question_chooseAnswerComponent">
-                Як сказати «{question}»?
+                {titleTask} «{question}»?
             </span> 
             <div className="lessonPage_main_div_choose_answer_chooseAnswerComponent">
                 {

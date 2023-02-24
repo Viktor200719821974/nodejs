@@ -239,6 +239,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 1,
         exercise: 1,
+        titleTask: 'Виберіть зображення для слова',
         question: 'Хлопчик',
         task: [
             {id: 1, src: 'manImage.svg', alt: 'man', name: 'man'},
@@ -280,6 +281,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 3,
         exercise: 3,
+        titleTask: 'Як сказати',
         question: 'Хлопчик',
         task: [
             {id: 1, name: 'man'},
@@ -292,6 +294,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 4,
         exercise: 4,
+        titleTask: 'Виберіть зображення для слова',
         question: 'Жінка',
         task: [
             {id: 1, src: 'manImage.svg', alt: 'man', name: 'man'},
@@ -304,6 +307,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 5,
         exercise: 5,
+        titleTask: 'Як сказати',
         question: 'жінка',
         task: [
             {id: 1, name: 'woman'},
@@ -345,6 +349,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 7,
         exercise: 7,
+        titleTask: 'Виберіть зображення для слова',
         question: 'Чоловік',
         task: [
             {id: 1, src: 'boyImage.svg', alt: 'boy', name: 'boy'},
@@ -357,6 +362,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 8,
         exercise: 8,
+        titleTask: 'Як сказати',
         question: 'жінка',
         task: [
             {id: 1, name: 'boy'},
@@ -369,6 +375,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 9,
         exercise: 9,
+        titleTask: 'Виберіть зображення для слова',
         question: 'Дівчинка',
         task: [
             {id: 1, src: 'girlImage.svg', alt: 'girl', name: 'girl'},
@@ -495,6 +502,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 12,
         exercise: 12,
+        titleTask: 'Виберіть пропущене слово',
         question: [
             {
                 part1: [
@@ -570,6 +578,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 14,
         exercise: 14,
+        titleTask: 'Підберіть переклад',
         question: [],
         task: [
             {id: 1, name: 'хлопець', answer: 'boy'},
@@ -669,7 +678,156 @@ export const arrayLessonPageChooseImage = [
         ],
         answer: 'Я дівчинка',
         choosePositiveAnswer: true,
-    },         
+    }, 
+    {
+        id: 16,
+        exercise: 16,
+        titleTask: 'Напишіть українською',
+        question: [
+            {
+                id: 1, 
+                word: 'A', 
+                title: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'boy'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'хлопчик'},
+                    {id: 2, name: 'хлопець'},
+                    {id: 3, name: 'хлопця'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'одна'},
+                    {id: 2, name: 'на'},
+                    {id: 3, name: 'один'},
+                ]
+            },
+            {
+                id: 2, 
+                word: 'boy', 
+                title: [
+                    {id: 1, name: 'a'},
+                    {id: 2, name: 'boy'},
+                ], 
+                translate: [ 
+                    {id: 1, name: 'хлопчик'},
+                    {id: 2, name: 'хлопець'},
+                    {id: 3, name: 'хлопця'},
+                ], 
+                translateMore: [
+                    {id: 1, name: 'хлопчик'},
+                    {id: 2, name: 'хлопець'},
+                    {id: 3, name: 'хлопця'},
+                ],
+            },
+        ],
+        src: 'boyImage.svg',
+        alt: 'boy image',
+        task: [
+            {id: 1, name: 'хлопець'},
+            {id: 2, name: 'Дівчина'},
+            {id: 3, name: 'Хлопчик'},
+            {id: 4, name: 'я'},
+            {id: 5, name: 'жінка'},
+        ],
+        answer: 'Хлопчик',
+        choosePositiveAnswer: true,
+    },      
+    {
+        id: 17,
+        exercise: 17,
+        titleTask: 'Виберіть пропущене слово',
+        question: [
+            {
+                part1: [
+                    {id: 1, text: 'I'},
+            ],
+                part2: [
+                    {id: 2, text: 'a man.'},
+                ], 
+            }
+        ],
+        task: [
+            {id: 1, name: 'are'},
+            {id: 2, name: 'am'},
+            {id: 3, name: 'you'},    
+        ],
+        answer: 'I am a man.',
+        chooseMissingWord: true,
+    }, 
+    {
+        id: 18,
+        exercise: 18,
+        titleTask: 'Напишіть англійською',
+        question: [
+            {
+                id: 1, 
+                word: 'Я', 
+                title: [], 
+                translate: [ 
+                    {id: 1, name: 'I am'},
+                    {id: 2, name: 'am I'},
+                    {id: 3, name: 'I'},
+                ], 
+                translateMore: []
+            },
+            {
+                id: 2, 
+                word: 'чоловік.', 
+                title: [], 
+                translate: [ 
+                    {id: 1, name: 'a man'},
+                    {id: 2, name: 'the man'},
+                    {id: 3, name: 'man'},
+                ], 
+                translateMore: []
+            },
+        ],
+        src: 'manImage.svg',
+        alt: 'man image',
+        task: [
+            {id: 1, name: 'she'},
+            {id: 2, name: 'the'},
+            {id: 3, name: 'eat'},
+            {id: 4, name: 'am'},
+            {id: 5, name: 'I'},
+            {id: 6, name: 'eats'},
+            {id: 7, name: 'water'},
+            {id: 8, name: 'man'},
+        ],
+        answer: 'I am the man',
+        choosePositiveAnswer: true,
+    },
+    {
+        id: 19,
+        exercise: 19,
+        titleTask: 'Напишіть англійською',
+        question: [
+            {
+                id: 1, 
+                word: 'Чоловік', 
+                title: [], 
+                translate: [ 
+                    {id: 1, name: 'a man'},
+                    {id: 2, name: 'the man'},
+                    {id: 3, name: 'man'},
+                ], 
+                translateMore: []
+            },
+        ],
+        src: 'boyImage.svg',
+        alt: 'boy image',
+        task: [
+            {id: 1, name: 'eats'},
+            {id: 2, name: 'A'},
+            {id: 3, name: 'man'},
+            {id: 4, name: 'girl'},
+            {id: 5, name: 'eat'},
+            {id: 6, name: 'and'},
+        ],
+        answer: 'A man',
+        choosePositiveAnswer: true,
+    },      
 ];
 
 

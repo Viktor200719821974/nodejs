@@ -26,23 +26,27 @@ const LessonPage = () => {
     const [positiveAnswer, setPositiveAnswer] = useState(false);
     const [widthValue, setWidthValue] = useState(0);
     const [exerciseNumber, setExerciseNumber] = useState(1);
-    const [showBlockTranslate, setShowBlockTranslate] = useState(true);
+    const [showBlockTranslate, setShowBlockTranslate] = useState(false);
     const [arrayChange, setArrayChange] = useState([]);
-    const [nameTranslate, setNameTranslate] = useState('Boy');
+    const [nameTranslate, setNameTranslate] = useState('');
     const [moreInfo, setMoreInfo] = useState(false);
     const [answerChose, setAnswerChose] = useState('');
     const [answerIdChose, setAnswerIdChose] = useState(0);
     const [questionIdChose, setQuestionIdChose] = useState(0);
-    const [questionNameChose, setQuestionNameChose] = useState(0);
+    const [questionNameChose, setQuestionNameChose] = useState('');
     const [changeClassName, setChangeClassName] = useState('');
     const [trueAnswer, setTrueAnswer] = useState(false);
     const [taskChose, setTaskChose] = useState('');
     const [changeClassNameNumber, setChangeClassNameNumber] = useState('');
     const [changeClassNameName, setChangeClassNameName] = useState('');
-   
+
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const dispatch = useDispatch();
     const answer = arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
+        .map(c => c.answer)[0];
+    const taskArray = arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
+        .map(c => c.task)[0];
+    const answerArray = arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.answer)[0];
     const clickNext = () => {
         setWrong(true);
@@ -50,6 +54,13 @@ const LessonPage = () => {
     }
     const click = () => {
 
+    }
+    const cleaner = () => {
+        setTaskChose('');
+        setAnswerChose('');
+        setQuestionNameChose('');
+        setQuestionIdChose(0);
+        setAnswerIdChose(0);
     }
     const verify = () => {
         if (idElement > 0) {
@@ -65,6 +76,7 @@ const LessonPage = () => {
             }
         }       
     }
+   
     useEffect(() => {
         if (idElement > 0) {
             setChangedElement(true);
@@ -76,14 +88,15 @@ const LessonPage = () => {
         }
         if (taskChose === answerChose && taskChose !== '' && answerChose !== '') {
             array.push(questionNameChose, answerChose);
-            let unique = [...new Set(array)];
-            dispatch(arrayChoosePositiveAnswer(unique));
+            // let unique = [...new Set(array)];
+            dispatch(arrayChoosePositiveAnswer(array));
             setTrueAnswer(false);
-            setTaskChose('');
-            setAnswerChose('');
-            setQuestionNameChose('');
-            setQuestionIdChose(0);
-            setAnswerIdChose(0);
+            const timer = setTimeout(() => {
+                cleaner();
+            }, 100);
+            if (trueAnswer) {
+                clearTimeout(timer);
+            }
         }
         if (taskChose !== answerChose && taskChose !== '' && answerChose !== '') {
             setTrueAnswer(true);
@@ -92,11 +105,7 @@ const LessonPage = () => {
             setChangeClassNameName('lessonPage_span_name_wrong_answer_chooseTranslateWordsComponent');
             const timer = setTimeout(() => {  
                 setTrueAnswer(false);
-                setTaskChose('');
-                setAnswerChose('');
-                setQuestionNameChose('');
-                setQuestionIdChose(0);
-                setAnswerIdChose(0);
+                cleaner();
             }, 500);
             if (!trueAnswer) {
                clearTimeout(timer); 
@@ -107,21 +116,13 @@ const LessonPage = () => {
             setChangeClassNameNumber("lessonPage_span_number_select_chooseTranslateWordsComponent");
             setChangeClassNameName("lessonPage_span_name_select_chooseTranslateWordsComponent");
         }    
-        const keyDownHandler = (e) => {
-            if (e.key > 0 && e.key <= 3) {
-                setIdElement(Number(e.key));
-            } else {
-                setIdElement(idElement);
-            } 
-        }
-        document.addEventListener('keydown', keyDownHandler);
         // eslint-disable-next-line
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
         whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, arrayChange,
         nameTranslate, moreInfo, answerChose, answerIdChose, changeClassName, trueAnswer,
-        taskChose, changeClassNameNumber, changeClassNameName, questionIdChose,
-        questionNameChose,
+        taskChose, changeClassNameNumber, changeClassNameName, questionIdChose, 
+        questionNameChose, answerArray, taskArray,
     ]);
     
     return (
@@ -163,6 +164,7 @@ const LessonPage = () => {
                                             idElement={idElement}
                                             setName={setName}
                                             chooseWrong={chooseWrong}
+                                            titleTask={c.titleTask}
                                         />
                                 }
                                 {
@@ -198,6 +200,7 @@ const LessonPage = () => {
                                             idElement={idElement}
                                             setName={setName}
                                             chooseWrong={chooseWrong}
+                                            titleTask={c.titleTask}
                                         />
                                 }
                                 {
@@ -208,13 +211,15 @@ const LessonPage = () => {
                                         idElement={idElement}
                                         setIdElement={setIdElement}
                                         setName={setName}
+                                        titleTask={c.titleTask}
+                                        chooseWrong={chooseWrong}
                                     />
                                 }
                                 {
                                     c.chooseTranslateWords && 
                                         <ChooseTranslateWordsComponent
                                             task={c.task}
-                                            answerOptions={c.answer}
+                                            answer={c.answer}
                                             setAnswerChose={setAnswerChose}
                                             setAnswerIdChose={setAnswerIdChose}
                                             answerIdChose={answerIdChose}
@@ -226,6 +231,9 @@ const LessonPage = () => {
                                             setQuestionIdChose={setQuestionIdChose}
                                             setQuestionNameChose={setQuestionNameChose}
                                             setPositiveAnswer={setPositiveAnswer}
+                                            taskArray={taskArray}
+                                            answerArray={answerArray}
+                                            titleTask={c.titleTask}
                                         />
                                 }
                             </div>
@@ -252,6 +260,7 @@ const LessonPage = () => {
                         setWrong={setWrong}
                         setIdElement={setIdElement}
                         setChangedElement={setChangedElement}
+                        setName={setName}
                     />
             }  
             {
@@ -265,6 +274,7 @@ const LessonPage = () => {
                         setWrong={setWrong}
                         setIdElement={setIdElement}
                         setChangedElement={setChangedElement}
+                        setName={setName}
                     />
             }                           
         </div>

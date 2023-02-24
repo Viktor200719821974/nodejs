@@ -1,5 +1,7 @@
+import { useEffect } from "react";
+
 const ChooseMissingWordComponent = ({ 
-    question, task, idElement, setIdElement, setName,
+    question, task, idElement, setIdElement, setName, titleTask, chooseWrong,
 }) => {
     const click = (id, chooseAnswer) => {
         try {
@@ -13,10 +15,28 @@ const ChooseMissingWordComponent = ({
             console.log(e.message);
         }
     }
+    
+    useEffect(() => {
+        const keyDownHandlerMissingWords = (e) => {
+            if ((e.key > 0 && e.key <= 3) && chooseWrong ) {
+                const chooseAnswer = task.filter(c => c.id === Number(e.key))
+                    .map(item => item.name)[0];
+                click(Number(e.key), chooseAnswer);
+            } else {
+                setIdElement(idElement);
+            } 
+        };
+        document.addEventListener('keydown', keyDownHandlerMissingWords);
+        return function cleanup() {
+            document.removeEventListener('keydown', keyDownHandlerMissingWords);
+        }
+        // eslint-disable-next-line
+    }, [chooseWrong]);
+
     return (
         <div className="lessonPage_main_div_chooseMissingWordComponent">
             <span className="lessonPage_span_title_chooseMissingWordComponent">
-                Виберіть пропущене слово
+                {titleTask}
             </span>
             <div className="lessonPage_main_div_question_chooseMissingWordComponent">
                 {

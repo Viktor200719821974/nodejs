@@ -1,12 +1,31 @@
+import { useEffect } from 'react';
 import { IMAGES_CHOOSE_IMAGE_COMPONENT } from '../../constants';
 
 const ChooseImageComponent = ({
-    question, task, setIdElement, idElement, setName, chooseWrong,
+    question, task, setIdElement, idElement, setName, chooseWrong, titleTask,
 }) => {
+   
+    useEffect(() => {
+        const keyDownHandlerChooseImage = (e) => {
+            if ((e.key > 0 && e.key <= 3) && chooseWrong) {
+                setIdElement(Number(e.key));
+                const chooseAnswer = task.filter(c => c.id === Number(e.key))
+                    .map(item => item.name)[0];
+                setName(chooseAnswer);
+            } else {
+                    setIdElement(idElement);
+            }  
+        }
+        document.addEventListener('keydown', keyDownHandlerChooseImage);
+        return function cleanup() {
+            document.removeEventListener('keydown', keyDownHandlerChooseImage);
+          }
+        // eslint-disable-next-line 
+    }, [chooseWrong]);
     return (
         <div className="lessonPage_main_div_chooseImageComponent">
             <h1 style={{color: '#3c3c3c', marginBottom: '24px'}}>
-                Виберіть зображення для слова «{question}»
+                {titleTask} «{question}»
             </h1>
             <div 
                 className="lessonPage_main_div_image_chooseImageComponent"            >

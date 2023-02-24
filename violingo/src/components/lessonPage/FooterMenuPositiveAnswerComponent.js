@@ -8,7 +8,7 @@ import {
 
 const FooterMenuPositiveAnswerComponent = ({
     setModalShow, exerciseNumber, setExerciseNumber, setChooseWrong, setPositiveAnswer, 
-    setWrong, setIdElement, setChangedElement,
+    setWrong, setIdElement, setChangedElement, setName,
 }) => {
     const dispatch = useDispatch();
 
@@ -18,6 +18,7 @@ const FooterMenuPositiveAnswerComponent = ({
         setPositiveAnswer(false);
         setWrong(false);
         setIdElement(0);
+        setName('');
         setChangedElement(false);
         dispatch(arrayChoosePositiveAnswerEmpty());
         dispatch(arrayIdChoosePositiveAnswerEmpty());
