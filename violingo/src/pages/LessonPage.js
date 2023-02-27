@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
+import { useNavigate } from 'react-router-dom';
 
 import ChooseImageComponent from '../components/lessonPage/ChooseImageComponent';
 import { arrayLessonPageChooseImage } from '../constants/arrays';
@@ -12,7 +13,8 @@ import ChoosePositiveAnswerComponent from '../components/lessonPage/ChoosePositi
 import ChooseAnswerComponent from '../components/lessonPage/ChooseAnswerComponent';
 import ChooseMissingWordComponent from '../components/lessonPage/ChooseMissingWordComponent';
 import ChooseTranslateWordsComponent from '../components/lessonPage/ChooseTranslateWordsComponent';
-import { arrayChoosePositiveAnswer } from '../redux/actions';
+import { arrayChoosePositiveAnswer, arrayWrongAnswer } from '../redux/actions';
+import { SUCCESS_EXERCISE } from '../constants';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -39,18 +41,28 @@ const LessonPage = () => {
     const [taskChose, setTaskChose] = useState('');
     const [changeClassNameNumber, setChangeClassNameNumber] = useState('');
     const [changeClassNameName, setChangeClassNameName] = useState('');
+    const [workMistakes, setWorkMistakes] = useState(false);
 
+    const navigate = useNavigate();
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
+    const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
     const dispatch = useDispatch();
-    const answer = arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
+    const answer = !workMistakes ? arrayLessonPageChooseImage
+        .filter(c => c.exercise === exerciseNumber)
+        .map(c => c.answer)[0]
+        : arrayWrongs.filter((c, index) => index === 0)
         .map(c => c.answer)[0];
     const taskArray = arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.task)[0];
     const answerArray = arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.answer)[0];
+
     const clickNext = () => {
         setWrong(true);
         setChooseWrong(false);
+        arrayWrongs.push(arrayLessonPageChooseImage
+            .filter(c => c.exercise === exerciseNumber)[0]);
+           dispatch(arrayWrongAnswer(arrayWrongs));
     }
     const click = () => {
 
@@ -67,7 +79,7 @@ const LessonPage = () => {
             if (name === answer) {
                 setWrong(false);
                 setPositiveAnswer(true);
-                setWidthValue(widthValue + 5);
+                setWidthValue(widthValue + 7.2);
                 setChooseWrong(false);
             } else {
                 setWrong(true);
@@ -85,6 +97,10 @@ const LessonPage = () => {
             setChooseSendWrong(true);
         } else {
             setChooseSendWrong(false);
+        }
+        if (exerciseNumber > 4) {
+            setExerciseNumber(1);
+            setWorkMistakes(true);
         }
         if (taskChose === answerChose && taskChose !== '' && answerChose !== '') {
             array.push(questionNameChose, answerChose);
@@ -115,14 +131,22 @@ const LessonPage = () => {
             setChangeClassName('lessonPage_main_span_select_chooseTranslateWordsComponent');
             setChangeClassNameNumber("lessonPage_span_number_select_chooseTranslateWordsComponent");
             setChangeClassNameName("lessonPage_span_name_select_chooseTranslateWordsComponent");
-        }    
+        }   
+        if (wrong && !workMistakes) {
+            arrayWrongs.push(arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)[0]);
+            dispatch(arrayWrongAnswer(arrayWrongs));
+        } 
+        if (workMistakes && arrayWrongs.length === 0) {
+            setWorkMistakes(false);
+            navigate(SUCCESS_EXERCISE);
+        }
         // eslint-disable-next-line
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
         whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, arrayChange,
         nameTranslate, moreInfo, answerChose, answerIdChose, changeClassName, trueAnswer,
         taskChose, changeClassNameNumber, changeClassNameName, questionIdChose, 
-        questionNameChose, answerArray, taskArray,
+        questionNameChose, answerArray, taskArray, workMistakes,
     ]);
     
     return (
@@ -150,96 +174,190 @@ const LessonPage = () => {
                 whichWrongs={whichWrongs}
                 setChooseSendWrong={setChooseSendWrong}
             />
-            <div>
-                {
-                    arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)
-                        .map(c => 
-                            <div key={c.id} className="lessonPage_main_div_body">
-                                {
-                                    c.chooseImage && 
-                                        <ChooseImageComponent
+            { !workMistakes 
+                ?
+                    <div>
+                    {
+                        arrayLessonPageChooseImage.filter(a => a.exercise === exerciseNumber)
+                            .map(c => 
+                                <div key={c.id} className="lessonPage_main_div_body">
+                                    {
+                                        c.chooseImage && 
+                                            <ChooseImageComponent
+                                                question={c.question}
+                                                task={c.task}
+                                                setIdElement={setIdElement}
+                                                idElement={idElement}
+                                                setName={setName}
+                                                chooseWrong={chooseWrong}
+                                                titleTask={c.titleTask}
+                                            />
+                                    }
+                                    {
+                                        c.choosePositiveAnswer && 
+                                            <ChoosePositiveAnswerComponent
+                                                question={c.question}
+                                                task={c.task}
+                                                setIdElement={setIdElement}
+                                                idElement={idElement}
+                                                setName={setName}
+                                                name={name}
+                                                chooseWrong={chooseWrong}
+                                                wrong={wrong}
+                                                src={c.src}
+                                                alt={c.alt}
+                                                showBlockTranslate={showBlockTranslate}
+                                                setShowBlockTranslate={setShowBlockTranslate}
+                                                arrayChange={arrayChange}
+                                                setArrayChange={setArrayChange}
+                                                nameTranslate={nameTranslate}
+                                                setNameTranslate={setNameTranslate}
+                                                moreInfo={moreInfo}
+                                                setMoreInfo={setMoreInfo}
+                                                titleTask={c.titleTask}
+                                            />
+                                    }
+                                    {
+                                        c.chooseAnswer &&
+                                            <ChooseAnswerComponent
+                                                question={c.question}
+                                                task={c.task}
+                                                setIdElement={setIdElement}
+                                                idElement={idElement}
+                                                setName={setName}
+                                                chooseWrong={chooseWrong}
+                                                titleTask={c.titleTask}
+                                            />
+                                    }
+                                    {
+                                        c.chooseMissingWord && 
+                                            <ChooseMissingWordComponent
                                             question={c.question}
                                             task={c.task}
-                                            setIdElement={setIdElement}
                                             idElement={idElement}
-                                            setName={setName}
-                                            chooseWrong={chooseWrong}
-                                            titleTask={c.titleTask}
-                                        />
-                                }
-                                {
-                                    c.choosePositiveAnswer && 
-                                        <ChoosePositiveAnswerComponent
-                                            question={c.question}
-                                            task={c.task}
                                             setIdElement={setIdElement}
-                                            idElement={idElement}
                                             setName={setName}
-                                            name={name}
+                                            titleTask={c.titleTask}
                                             chooseWrong={chooseWrong}
-                                            wrong={wrong}
-                                            src={c.src}
-                                            alt={c.alt}
-                                            showBlockTranslate={showBlockTranslate}
-                                            setShowBlockTranslate={setShowBlockTranslate}
-                                            arrayChange={arrayChange}
-                                            setArrayChange={setArrayChange}
-                                            nameTranslate={nameTranslate}
-                                            setNameTranslate={setNameTranslate}
-                                            moreInfo={moreInfo}
-                                            setMoreInfo={setMoreInfo}
-                                            titleTask={c.titleTask}
                                         />
-                                }
-                                {
-                                    c.chooseAnswer &&
-                                        <ChooseAnswerComponent
-                                            question={c.question}
-                                            task={c.task}
-                                            setIdElement={setIdElement}
-                                            idElement={idElement}
-                                            setName={setName}
-                                            chooseWrong={chooseWrong}
-                                            titleTask={c.titleTask}
-                                        />
-                                }
-                                {
-                                    c.chooseMissingWord && 
-                                        <ChooseMissingWordComponent
-                                        question={c.question}
-                                        task={c.task}
-                                        idElement={idElement}
-                                        setIdElement={setIdElement}
-                                        setName={setName}
-                                        titleTask={c.titleTask}
-                                        chooseWrong={chooseWrong}
-                                    />
-                                }
-                                {
-                                    c.chooseTranslateWords && 
-                                        <ChooseTranslateWordsComponent
-                                            task={c.task}
-                                            answer={c.answer}
-                                            setAnswerChose={setAnswerChose}
-                                            setAnswerIdChose={setAnswerIdChose}
-                                            answerIdChose={answerIdChose}
-                                            changeClassName={changeClassName}
-                                            setTaskChose={setTaskChose}
-                                            changeClassNameNumber={changeClassNameNumber}
-                                            changeClassNameName={changeClassNameName}
-                                            questionIdChose={questionIdChose}
-                                            setQuestionIdChose={setQuestionIdChose}
-                                            setQuestionNameChose={setQuestionNameChose}
-                                            setPositiveAnswer={setPositiveAnswer}
-                                            taskArray={taskArray}
-                                            answerArray={answerArray}
-                                            titleTask={c.titleTask}
-                                        />
-                                }
-                            </div>
-                        )
-                } 
-            </div>
+                                    }
+                                    {
+                                        c.chooseTranslateWords && 
+                                            <ChooseTranslateWordsComponent
+                                                task={c.task}
+                                                answer={c.answer}
+                                                setAnswerChose={setAnswerChose}
+                                                setAnswerIdChose={setAnswerIdChose}
+                                                answerIdChose={answerIdChose}
+                                                changeClassName={changeClassName}
+                                                setTaskChose={setTaskChose}
+                                                changeClassNameNumber={changeClassNameNumber}
+                                                changeClassNameName={changeClassNameName}
+                                                questionIdChose={questionIdChose}
+                                                setQuestionIdChose={setQuestionIdChose}
+                                                setQuestionNameChose={setQuestionNameChose}
+                                                setPositiveAnswer={setPositiveAnswer}
+                                                taskArray={taskArray}
+                                                answerArray={answerArray}
+                                                titleTask={c.titleTask}
+                                            />
+                                    }
+                                </div>
+                            )
+                    } 
+                    </div>
+                :
+                    <div>
+                        {
+                            arrayWrongs.filter((a, index) => index === 0)
+                                .map(c => 
+                                    <div key={c.id} className="lessonPage_main_div_body">
+                                        {
+                                            c.chooseImage && 
+                                                <ChooseImageComponent
+                                                    question={c.question}
+                                                    task={c.task}
+                                                    setIdElement={setIdElement}
+                                                    idElement={idElement}
+                                                    setName={setName}
+                                                    chooseWrong={chooseWrong}
+                                                    titleTask={c.titleTask}
+                                                />
+                                        }
+                                        {
+                                            c.choosePositiveAnswer && 
+                                                <ChoosePositiveAnswerComponent
+                                                    question={c.question}
+                                                    task={c.task}
+                                                    setIdElement={setIdElement}
+                                                    idElement={idElement}
+                                                    setName={setName}
+                                                    name={name}
+                                                    chooseWrong={chooseWrong}
+                                                    wrong={wrong}
+                                                    src={c.src}
+                                                    alt={c.alt}
+                                                    showBlockTranslate={showBlockTranslate}
+                                                    setShowBlockTranslate={setShowBlockTranslate}
+                                                    arrayChange={arrayChange}
+                                                    setArrayChange={setArrayChange}
+                                                    nameTranslate={nameTranslate}
+                                                    setNameTranslate={setNameTranslate}
+                                                    moreInfo={moreInfo}
+                                                    setMoreInfo={setMoreInfo}
+                                                    titleTask={c.titleTask}
+                                                />
+                                        }
+                                        {
+                                            c.chooseAnswer &&
+                                                <ChooseAnswerComponent
+                                                    question={c.question}
+                                                    task={c.task}
+                                                    setIdElement={setIdElement}
+                                                    idElement={idElement}
+                                                    setName={setName}
+                                                    chooseWrong={chooseWrong}
+                                                    titleTask={c.titleTask}
+                                                />
+                                        }
+                                        {
+                                            c.chooseMissingWord && 
+                                                <ChooseMissingWordComponent
+                                                question={c.question}
+                                                task={c.task}
+                                                idElement={idElement}
+                                                setIdElement={setIdElement}
+                                                setName={setName}
+                                                titleTask={c.titleTask}
+                                                chooseWrong={chooseWrong}
+                                            />
+                                        }
+                                        {
+                                            c.chooseTranslateWords && 
+                                                <ChooseTranslateWordsComponent
+                                                    task={c.task}
+                                                    answer={c.answer}
+                                                    setAnswerChose={setAnswerChose}
+                                                    setAnswerIdChose={setAnswerIdChose}
+                                                    answerIdChose={answerIdChose}
+                                                    changeClassName={changeClassName}
+                                                    setTaskChose={setTaskChose}
+                                                    changeClassNameNumber={changeClassNameNumber}
+                                                    changeClassNameName={changeClassNameName}
+                                                    questionIdChose={questionIdChose}
+                                                    setQuestionIdChose={setQuestionIdChose}
+                                                    setQuestionNameChose={setQuestionNameChose}
+                                                    setPositiveAnswer={setPositiveAnswer}
+                                                    taskArray={taskArray}
+                                                    answerArray={answerArray}
+                                                    titleTask={c.titleTask}
+                                                />
+                                        }
+                                    </div>
+                                )
+                        } 
+                    </div>
+            }
             {
                 (!wrong && !positiveAnswer) &&                    
                     <FooterMenuFirstPositionComponent
@@ -261,6 +379,7 @@ const LessonPage = () => {
                         setIdElement={setIdElement}
                         setChangedElement={setChangedElement}
                         setName={setName}
+                        workMistakes={workMistakes}
                     />
             }  
             {
@@ -275,6 +394,7 @@ const LessonPage = () => {
                         setIdElement={setIdElement}
                         setChangedElement={setChangedElement}
                         setName={setName}
+                        workMistakes={workMistakes}
                     />
             }                           
         </div>

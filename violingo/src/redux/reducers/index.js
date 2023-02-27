@@ -6,10 +6,12 @@ import { statisticUserReducer } from './statisticUserReducer';
 import { isStatisticUserReducer } from './isStatisticUserReducer';
 import { arrayChoosePositiveAnswerReducer } from './arrayChoosePositiveAnswerReducer';
 import { arrayIdChoosePositiveAnswerReducer } from './arrayIdChoosePositiveAnswerReducer';
+import { arrayWrongAnswerReducer } from './arrayWrongAnswerReducer';
 
 const rootReducer = combineReducers({ 
     userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, 
-    arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer,
+    arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, 
+    arrayWrongAnswerReducer,
 });
 
 export { rootReducer };

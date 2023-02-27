@@ -1,18 +1,25 @@
 import { ImCross } from 'react-icons/im';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import flagMore from '../../icons/flag_more.svg';
 import { 
-    arrayChoosePositiveAnswerEmpty, arrayIdChoosePositiveAnswerEmpty, 
+    arrayChoosePositiveAnswerEmpty, arrayIdChoosePositiveAnswerEmpty, arrayWrongAnswer,
 } from '../../redux/actions';
 
 const FooterMenuWrongAnswerComponent = ({
     answer, setModalShow, setExerciseNumber, exerciseNumber, setChooseWrong, setPositiveAnswer, 
-    setWrong, setIdElement, setChangedElement, setName,
+    setWrong, setIdElement, setChangedElement, setName, workMistakes,
 }) => {
+    const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
     const dispatch = useDispatch();
 
     const continueExercise = () => {
+        if (workMistakes && arrayWrongs.length > 0) {
+            const element = arrayWrongs.splice(0, 1)[0];
+            const toIndex = arrayWrongs.length;
+            arrayWrongs.splice(toIndex, 0, element);
+            dispatch(arrayWrongAnswer(arrayWrongs));
+        }
         setExerciseNumber(exerciseNumber + 1);
         setChooseWrong(true);
         setPositiveAnswer(false);

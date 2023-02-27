@@ -13,6 +13,7 @@ export const LESSON_PAGE = '/lesson';
 export const PLACEMENT_PAGE = '/placement';
 export const LOGIN_PAGE = '/login';
 export const FORGET_PASSWORD = '/forget_password';
+export const SUCCESS_EXERCISE = '/success_exercise';
 export const CHANGE_PASSWORD = '/change/password/:token';
 export const ACTIVATE_USER = '/register/activate/:token';
 export const SETTINGS_COACH = '/settings/coach';

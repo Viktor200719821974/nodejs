@@ -4,7 +4,7 @@ import { IMAGES_CHOOSE_IMAGE_COMPONENT } from '../../constants';
 const ChooseImageComponent = ({
     question, task, setIdElement, idElement, setName, chooseWrong, titleTask,
 }) => {
-   
+
     useEffect(() => {
         const keyDownHandlerChooseImage = (e) => {
             if ((e.key > 0 && e.key <= 3) && chooseWrong) {

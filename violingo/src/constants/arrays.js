@@ -267,7 +267,7 @@ export const arrayLessonPageChooseImage = [
             },
         ],
         src: 'boyImage.svg',
-        alt: 'woman image',
+        alt: 'boy image',
         task: [
             {id: 1, name: 'чоловік'},
             {id: 2, name: 'дівчинка'},

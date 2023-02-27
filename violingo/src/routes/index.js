@@ -1,7 +1,8 @@
+import SuccessExerciseComponent from '../components/lessonPage/SuccessExerciseComponent';
 import { 
     HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE, 
     LESSON_PAGE, PLACEMENT_PAGE, LOGIN_PAGE, FORGET_PASSWORD, REGISTRATION_PAGE, CHANGE_PASSWORD, 
-    ACTIVATE_USER, SETTINGS_COACH, SETTINGS_SOUND, ERROR_404_PAGE,
+    ACTIVATE_USER, SETTINGS_COACH, SETTINGS_SOUND, ERROR_404_PAGE, SUCCESS_EXERCISE,
 } from '../constants';
 import ActivatePage from '../pages/ActivatePage';
 import Error404Page from '../pages/Error404Page';
@@ -30,6 +31,10 @@ export const authRoutes = [
     },
 ];
 export const publicRoutes = [
+    {
+        path: SUCCESS_EXERCISE,
+        Component: SuccessExerciseComponent
+    },
     {
         path: HOME_PAGE,
         Component: HomePage

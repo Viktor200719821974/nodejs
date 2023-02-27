@@ -1,7 +1,7 @@
 import { 
-    FETCH_USER, ISLOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, 
+    FETCH_USER, ISLOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, ARRAY_WRONG_ANSWER,
     ARRAY_CHOOSE_POSITIVE_ANSWER, ARRAY_ID_CHOOSE_POSITIVE_ANSWER, 
-    ARRAY_CHOOSE_POSITIVE_ANSWER_EMPTY, ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY,
+    ARRAY_CHOOSE_POSITIVE_ANSWER_EMPTY, ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY, 
 } from './index';
 
 export const fetchUser = (data) => {
@@ -30,4 +30,7 @@ export const arrayChoosePositiveAnswerEmpty = () => {
 }
 export const arrayIdChoosePositiveAnswerEmpty = () => {
     return { type: ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY }
+}
+export const arrayWrongAnswer = (data) => {
+    return { type: ARRAY_WRONG_ANSWER , payload: data };
 }
