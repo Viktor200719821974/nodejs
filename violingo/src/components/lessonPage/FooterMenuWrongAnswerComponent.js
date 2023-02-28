@@ -2,13 +2,10 @@ import { ImCross } from 'react-icons/im';
 import { useDispatch, useSelector } from 'react-redux';
 
 import flagMore from '../../icons/flag_more.svg';
-import { 
-    arrayChoosePositiveAnswerEmpty, arrayIdChoosePositiveAnswerEmpty, arrayWrongAnswer,
-} from '../../redux/actions';
+import { arrayWrongAnswer } from '../../redux/actions';
 
 const FooterMenuWrongAnswerComponent = ({
-    answer, setModalShow, setExerciseNumber, exerciseNumber, setChooseWrong, setPositiveAnswer, 
-    setWrong, setIdElement, setChangedElement, setName, workMistakes,
+    answer, setModalShow, workMistakes, footerMenuNext, setCount, setBackgroundValue,
 }) => {
     const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
     const dispatch = useDispatch();
@@ -20,15 +17,9 @@ const FooterMenuWrongAnswerComponent = ({
             arrayWrongs.splice(toIndex, 0, element);
             dispatch(arrayWrongAnswer(arrayWrongs));
         }
-        setExerciseNumber(exerciseNumber + 1);
-        setChooseWrong(true);
-        setPositiveAnswer(false);
-        setWrong(false);
-        setName('');
-        setIdElement(0);
-        setChangedElement(false);  
-        dispatch(arrayChoosePositiveAnswerEmpty());
-        dispatch(arrayIdChoosePositiveAnswerEmpty());   
+        footerMenuNext();
+        setCount(1);
+        setBackgroundValue('#58cc02');
     }
     return (
         <div className="lessonPage_main_div_down_block_wrong">

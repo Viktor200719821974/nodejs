@@ -5,6 +5,7 @@ const ChooseTranslateWordsComponent = ({
     task, answer, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
     setTaskChose, changeClassNameNumber,changeClassNameName, questionIdChose, titleTask,
     setQuestionIdChose, setQuestionNameChose, setPositiveAnswer, taskArray, answerArray,
+    widthValue, setWidthValue, changeWidth, setChangeWidth,
 }) => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     
@@ -35,13 +36,17 @@ const ChooseTranslateWordsComponent = ({
         }
         if (firstArray.length === 0 && secondArray.length === 0) {
             setPositiveAnswer(true);
+            if(changeWidth) {
+               setWidthValue(widthValue + 6.67); 
+               setChangeWidth(false);
+            }  
         }
         document.addEventListener('keydown',  keyDownHandlerTranslate);
         return function cleanup() {
             document.removeEventListener('keydown', keyDownHandlerTranslate);
           }
         // eslint-disable-next-line
-    }, [firstArray, secondArray]);
+    }, [firstArray, secondArray, widthValue, changeWidth]);
     return (
         <div className="lessonPage_main_div_chooseTranslateWordsComponent">
             <span className="lessonPage_span_title_chooseTranslateWordsComponent">
