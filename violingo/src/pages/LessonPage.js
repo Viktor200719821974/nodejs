@@ -14,7 +14,6 @@ import {
  } from '../redux/actions';
 // import { SUCCESS_EXERCISE } from '../constants';
 import LessonPageBodyComponent from '../components/lessonPage/LessonPageBodyComponent';
-import wrongAnswer from '../icons/wrongAnswer.svg';
 import FinishTestComponent from '../components/lessonPage/FinishTestComponent';
 import FooterMenuFinishTestComponent from '../components/lessonPage/FooterMenuFinishTestComponent';
 import LookLessonModalComponent from '../components/lessonPage/LookLessonModalComponent';
@@ -30,7 +29,7 @@ const LessonPage = () => {
     const [whichWrongs, setWhichWrongs] = useState([]);
     const [positiveAnswer, setPositiveAnswer] = useState(false);
     const [widthValue, setWidthValue] = useState(0);
-    const [exerciseNumber, setExerciseNumber] = useState(1);
+    const [exerciseNumber, setExerciseNumber] = useState(0);
     const [showBlockTranslate, setShowBlockTranslate] = useState(false);
     const [arrayChange, setArrayChange] = useState([]);
     const [nameTranslate, setNameTranslate] = useState('');
@@ -51,16 +50,16 @@ const LessonPage = () => {
     const [backgroundValue, setBackgroundValue] = useState('#58cc02');
     const [finishTest, setFinishTest] = useState(false);
     const [modalFinishTest, setModalFinishTest] = useState(false);
+    const [arrayDifferent, setArrayDifferent] = useState([]);
    
     // const navigate = useNavigate();
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
     const dispatch = useDispatch();
-    const answer = !workMistakes ? arrayLessonPageChooseImage
-        .filter(c => c.exercise === exerciseNumber)
+    
+    const answer = arrayDifferent
+        .filter((c, index) => index === exerciseNumber)
         .map(c => c.answer)[0]
-        : arrayWrongs.filter((c, index) => index === 0)
-        .map(c => c.answer)[0];
     const taskArray = arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.task)[0];
     const answerArray = arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
@@ -70,7 +69,7 @@ const LessonPage = () => {
         setWrong(true);
         setChooseWrong(false);
         arrayWrongs.push(arrayLessonPageChooseImage
-            .filter(c => c.exercise === exerciseNumber)[0]);
+            .filter((c, index) => index === exerciseNumber)[0]);
            dispatch(arrayWrongAnswer(arrayWrongs));
     }
     const click = () => {
@@ -106,7 +105,7 @@ const LessonPage = () => {
         }       
     }
     const footerMenuNext = () => {
-        setExerciseNumber(exerciseNumber + 1);
+        !workMistakes && setExerciseNumber(exerciseNumber + 1);
         setChooseWrong(true);
         setPositiveAnswer(false);
         setWrong(false);
@@ -128,8 +127,8 @@ const LessonPage = () => {
         } else {
             setChooseSendWrong(false);
         }
-        if (exerciseNumber > 15) {
-            setExerciseNumber(1);
+        if (exerciseNumber >= 15) {
+            setExerciseNumber(0);
             setWorkMistakes(true);
         }
         if (taskChose === answerChose && taskChose !== '' && answerChose !== '') {
@@ -163,13 +162,18 @@ const LessonPage = () => {
             setChangeClassNameName("lessonPage_span_name_select_chooseTranslateWordsComponent");
         }   
         if (wrong && !workMistakes) {
-            arrayWrongs.push(arrayLessonPageChooseImage.filter(c => c.exercise === exerciseNumber)[0]);
+            arrayWrongs.push(arrayLessonPageChooseImage.filter((c, index) => index === exerciseNumber)[0]);
             dispatch(arrayWrongAnswer(arrayWrongs));
         } 
         if (workMistakes && arrayWrongs.length === 0) {
             setWorkMistakes(false);
             // navigate(SUCCESS_EXERCISE);
             setFinishTest(true);
+        }
+        if (!workMistakes) {
+            setArrayDifferent(arrayLessonPageChooseImage);
+        } else {
+            setArrayDifferent(arrayWrongs);
         }
         // eslint-disable-next-line
     }, [
@@ -178,7 +182,7 @@ const LessonPage = () => {
         nameTranslate, moreInfo, answerChose, answerIdChose, changeClassName, trueAnswer,
         taskChose, changeClassNameNumber, changeClassNameName, questionIdChose, changeWidth,
         questionNameChose, answerArray, taskArray, workMistakes, numberSuborder, count,
-        backgroundValue, finishTest, modalFinishTest,
+        backgroundValue, finishTest, modalFinishTest, arrayDifferent,
     ]);
     return (
         <div className="lessonPage_main_div">
@@ -230,127 +234,60 @@ const LessonPage = () => {
            { 
                 !finishTest &&
                     <div>
-                        { !workMistakes  
-                            ?
-                                <div className="lessonPage_main_div_body">
-                                    {
-                                        arrayLessonPageChooseImage.filter(a => a.exercise === exerciseNumber)
-                                            .map(c => 
-                                                <LessonPageBodyComponent
-                                                    key={c.id}
-                                                    chooseImage={c.chooseImage}
-                                                    choosePositiveAnswer={c.choosePositiveAnswer}
-                                                    chooseAnswer={c.chooseAnswer}
-                                                    chooseMissingWord={c.chooseMissingWord}
-                                                    chooseTranslateWords={c.chooseTranslateWords}
-                                                    question={c.question}
-                                                    task={c.task}
-                                                    setIdElement={setIdElement}
-                                                    idElement={idElement}
-                                                    setName={setName}
-                                                    name={name}
-                                                    chooseWrong={chooseWrong}
-                                                    titleTask={c.titleTask}
-                                                    setAnswerChose={setAnswerChose}
-                                                    setAnswerIdChose={setAnswerIdChose}
-                                                    answerIdChose={answerIdChose}
-                                                    changeClassName={changeClassName}
-                                                    setTaskChose={setTaskChose}
-                                                    changeClassNameNumber={changeClassNameNumber}
-                                                    changeClassNameName={changeClassNameName}
-                                                    questionIdChose={questionIdChose}
-                                                    setQuestionIdChose={setQuestionIdChose}
-                                                    setQuestionNameChose={setQuestionNameChose}
-                                                    setPositiveAnswer={setPositiveAnswer}
-                                                    taskArray={taskArray}
-                                                    answerArray={answerArray}
-                                                    widthValue={widthValue}
-                                                    setWidthValue={setWidthValue}
-                                                    changeWidth={changeWidth}
-                                                    setChangeWidth={setChangeWidth}
-                                                    wrong={wrong}
-                                                    src={c.src}
-                                                    alt={c.alt}
-                                                    showBlockTranslate={showBlockTranslate}
-                                                    setShowBlockTranslate={setShowBlockTranslate}
-                                                    arrayChange={arrayChange}
-                                                    setArrayChange={setArrayChange}
-                                                    nameTranslate={nameTranslate}
-                                                    setNameTranslate={setNameTranslate}
-                                                    moreInfo={moreInfo}
-                                                    setMoreInfo={setMoreInfo}
-                                                    answer={answer}
-                                                />
-                                            )
-                                    } 
-                                </div>
-                            :
-                                <div className="lessonPage_main_div_body">   
-                                    <div className="lessonPage_main_div_wrong_answer">
-                                        <img 
-                                            src={wrongAnswer} 
-                                            alt='wrong answer'
-                                            className="lessonPage_image_wrong_answer"
+                        <div className="lessonPage_main_div_body">
+                            {
+                                arrayDifferent.filter((a, index) => index === exerciseNumber)
+                                    .map(c => 
+                                        <LessonPageBodyComponent
+                                            key={c.id}
+                                            chooseImage={c.chooseImage}
+                                            choosePositiveAnswer={c.choosePositiveAnswer}
+                                            chooseAnswer={c.chooseAnswer}
+                                            chooseMissingWord={c.chooseMissingWord}
+                                            chooseTranslateWords={c.chooseTranslateWords}
+                                            question={c.question}
+                                            task={c.task}
+                                            setIdElement={setIdElement}
+                                            idElement={idElement}
+                                            setName={setName}
+                                            name={name}
+                                            chooseWrong={chooseWrong}
+                                            titleTask={c.titleTask}
+                                            setAnswerChose={setAnswerChose}
+                                            setAnswerIdChose={setAnswerIdChose}
+                                            answerIdChose={answerIdChose}
+                                            changeClassName={changeClassName}
+                                            setTaskChose={setTaskChose}
+                                            changeClassNameNumber={changeClassNameNumber}
+                                            changeClassNameName={changeClassNameName}
+                                            questionIdChose={questionIdChose}
+                                            setQuestionIdChose={setQuestionIdChose}
+                                            setQuestionNameChose={setQuestionNameChose}
+                                            setPositiveAnswer={setPositiveAnswer}
+                                            taskArray={taskArray}
+                                            answerArray={answerArray}
+                                            widthValue={widthValue}
+                                            setWidthValue={setWidthValue}
+                                            changeWidth={changeWidth}
+                                            setChangeWidth={setChangeWidth}
+                                            wrong={wrong}
+                                            src={c.src}
+                                            alt={c.alt}
+                                            setShowBlockTranslate={setShowBlockTranslate}
+                                            arrayChange={arrayChange}
+                                            setArrayChange={setArrayChange}
+                                            nameTranslate={nameTranslate}
+                                            setNameTranslate={setNameTranslate}
+                                            moreInfo={moreInfo}
+                                            setMoreInfo={setMoreInfo}
+                                            answer={answer}
+                                            workMistakes={workMistakes}
                                         />
-                                        <span className="lessonPage_span_wrong_answer_title">
-                                            Неправильно минулого разу
-                                        </span>
-                                    </div>
-                                    {
-                                        arrayWrongs.filter((a, index) => index === 0)
-                                            .map(c => 
-                                                <LessonPageBodyComponent
-                                                    key={c.id}
-                                                    chooseImage={c.chooseImage}
-                                                    choosePositiveAnswer={c.choosePositiveAnswer}
-                                                    chooseAnswer={c.chooseAnswer}
-                                                    chooseMissingWord={c.chooseMissingWord}
-                                                    chooseTranslateWords={c.chooseTranslateWords}
-                                                    question={c.question}
-                                                    task={c.task}
-                                                    setIdElement={setIdElement}
-                                                    idElement={idElement}
-                                                    setName={setName}
-                                                    name={name}
-                                                    chooseWrong={chooseWrong}
-                                                    titleTask={c.titleTask}
-                                                    setAnswerChose={setAnswerChose}
-                                                    setAnswerIdChose={setAnswerIdChose}
-                                                    answerIdChose={answerIdChose}
-                                                    changeClassName={changeClassName}
-                                                    setTaskChose={setTaskChose}
-                                                    changeClassNameNumber={changeClassNameNumber}
-                                                    changeClassNameName={changeClassNameName}
-                                                    questionIdChose={questionIdChose}
-                                                    setQuestionIdChose={setQuestionIdChose}
-                                                    setQuestionNameChose={setQuestionNameChose}
-                                                    setPositiveAnswer={setPositiveAnswer}
-                                                    taskArray={taskArray}
-                                                    answerArray={answerArray}
-                                                    widthValue={widthValue}
-                                                    setWidthValue={setWidthValue}
-                                                    changeWidth={changeWidth}
-                                                    setChangeWidth={setChangeWidth}
-                                                    wrong={wrong}
-                                                    src={c.src}
-                                                    alt={c.alt}
-                                                    showBlockTranslate={showBlockTranslate}
-                                                    setShowBlockTranslate={setShowBlockTranslate}
-                                                    arrayChange={arrayChange}
-                                                    setArrayChange={setArrayChange}
-                                                    nameTranslate={nameTranslate}
-                                                    setNameTranslate={setNameTranslate}
-                                                    moreInfo={moreInfo}
-                                                    setMoreInfo={setMoreInfo}
-                                                    answer={answer}
-                                                />
-                                            )
-                                    } 
-                                </div>
-                        }
+                                )
+                            } 
+                        </div>
                     </div>
             }
-            
             {
                 (!wrong && !positiveAnswer) && !finishTest &&                 
                     <FooterMenuFirstPositionComponent

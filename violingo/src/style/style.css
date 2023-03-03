@@ -2428,12 +2428,14 @@ input[type=number] {
     padding: 50px 0;
     display: flex;
     justify-content: center;
-    position: relative;
+}
+.lessonPage_main_div_lessonPageBodyComponent {
+    position: relative; 
 }
 .lessonPage_main_div_wrong_answer {
     position: absolute;
-    top: 26px;
-    left: 26%;
+    top: -20px;
+    left: 0;
 }
 .lessonPage_span_wrong_answer_title {
     font-size: 15px;
@@ -3176,14 +3178,17 @@ input[type=checkbox]:checked:after {
 }
 .lessonPage_main_div_question_chooseMissingWordComponent {
     margin: 24px 0;
-    display: flex;
-}
-.lessonPage_span_question_part_chooseMissingWordComponent {
+    /* display: flex; */
     font-size: 19px;
     color: #3c3c3c;
     font-weight: 500;
 }
-.lessonPage_div_wrap_for_empty_span_chooseMissingWordComponent {
+/* .lessonPage_span_question_part_chooseMissingWordComponent {
+    font-size: 19px;
+    color: #3c3c3c;
+    font-weight: 500;
+} */
+/* .lessonPage_div_wrap_for_empty_span_chooseMissingWordComponent {
     margin: 0 6px;
     display: flex;
     align-items: flex-end;
@@ -3193,7 +3198,7 @@ input[type=checkbox]:checked:after {
     display: flex;
     width: 70px;
     height: 2px;
-}
+} */
 .lessonPage_main_div_task_chooseMissingWordComponent {
     display: flex;
     flex-wrap: wrap;
@@ -3418,9 +3423,65 @@ input[type=checkbox]:checked:after {
     color: rgb(255,200,0);
 }
 .lessonPage_modal_lookLessonModalComponent {
-    border-radius: 16px;
     margin: 24px;
     padding: 30px;
+    
+}
+.lessonPage_main_div_lookLessonModalComponent {
+   margin: 24px;
+}
+.lessonPage_div_title_subtitle_lookLessonModalComponent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.lessonPage_title_lookLessonModalComponent {
+    font-size: 32px;
+    font-weight: 500;
+    margin: 40px 0 20px;
+    color: rgb(60, 60, 60);
+}
+.lessonPage_subtitle_lookLessonModalComponent {
+    font-size: 25px;
+    margin: 0 0 30px;
+    color: rgb(153, 153, 153);
+}
+.lessonPage_main_div_blocks_lookLessonModalComponent {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.lessonPage_div_block_title_image_success_lookLessonModalComponent {
+    border-radius: 10px;
+    margin: 10px;
+    min-height: 150px;
+    padding: 15px;
+    width: 165px;
+    background-color: rgb(215, 255, 184);
+    color: rgb(88, 167, 0);
+}
+.lessonPage_main_spain_title_image_successes_lookLessonModalCompoent {
+    display: flex;
+}
+.lessonPage_span_title_task_lookLessonModalComponent {
+    display: inline-block;
+    font-weight: 700;
+    margin-right: 10px;
+    width: 100px;
+}
+.lessonPage_span_image_success_lookLessonModalComponent {
+    background: #fff;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
+.lessonPage_span_question_chooseImage_lookLessonModalComponent {
+    font-weight: 700;
+}
+.lessonPage_span_question_no_chooseImage_lookLessonModalComponent {
+    margin-top: 15px;
 }
 
 @media (max-width: 1360px) {

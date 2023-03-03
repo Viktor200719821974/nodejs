@@ -3,6 +3,7 @@ import ChooseAnswerComponent from './ChooseAnswerComponent';
 import ChooseMissingWordComponent from './ChooseMissingWordComponent';
 import ChoosePositiveAnswerComponent from './ChoosePositiveAnswerComponent';
 import ChooseTranslateWordsComponent from './ChooseTranslateWordsComponent';
+import wrongAnswer from '../../icons/wrongAnswer.svg';
 
 const LessonPageBodyComponent = ({
     task, answer, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
@@ -12,13 +13,27 @@ const LessonPageBodyComponent = ({
     chooseTranslateWords, choosePositiveAnswer, chooseAnswer, question, setIdElement, idElement,
     setName, chooseWrong, name, wrong, src, alt, showBlockTranslate, setShowBlockTranslate,
     arrayChange, nameTranslate, setNameTranslate, moreInfo, setArrayChange, setMoreInfo,
+    workMistakes,
 }) => {
     return (
-        <div>
+        <div className="lessonPage_main_div_lessonPageBodyComponent">
+            {
+                workMistakes && 
+                    <div className="lessonPage_main_div_wrong_answer">
+                        <img 
+                            src={wrongAnswer} 
+                            alt='wrong answer'
+                            className="lessonPage_image_wrong_answer"
+                        />
+                        <span className="lessonPage_span_wrong_answer_title">
+                            Неправильно минулого разу
+                        </span>
+                    </div>
+            }
             {
                 chooseImage && 
                     <ChooseImageComponent
-                        question={question}
+                        question={question.map(c => c.word)}
                         task={task}
                         setIdElement={setIdElement}
                         idElement={idElement}
@@ -54,7 +69,7 @@ const LessonPageBodyComponent = ({
                 {
                     chooseAnswer &&
                         <ChooseAnswerComponent
-                            question={question}
+                            question={question.map(c => c.word)}
                             task={task}
                             setIdElement={setIdElement}
                             idElement={idElement}

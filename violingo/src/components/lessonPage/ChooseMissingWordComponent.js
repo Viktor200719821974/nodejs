@@ -5,11 +5,17 @@ const ChooseMissingWordComponent = ({
 }) => {
     const click = (id, chooseAnswer) => {
         try {
-            let arr = [];
+            // let arr = [];
             setIdElement(id);
-            const part1 = question.map(c => c.part1.map(d => d.text)[0])[0];
-            const part2 = question.map(c => c.part2.map(d => d.text)[0])[0];
-            arr.push(part1, chooseAnswer, part2);
+            const string = question.map(c => c.word)[0];
+            const arr = string.split(" ");
+            const index = arr.indexOf('____');
+            if (index !== -1) {
+                arr[index] = chooseAnswer;
+            }
+            // const part1 = question.map(c => c.part1.map(d => d.text)[0])[0];
+            // const part2 = question.map(c => c.part2.map(d => d.text)[0])[0];
+            // arr.push(part1, chooseAnswer, part2);
             setName(arr.join(' '));
         } catch (e) {
             console.log(e.message);
@@ -40,6 +46,9 @@ const ChooseMissingWordComponent = ({
             </span>
             <div className="lessonPage_main_div_question_chooseMissingWordComponent">
                 {
+                    question.map(c => <span key={c.id}>{c.word}</span>)
+                }
+                {/* {
                     question.map(c => 
                         c.part1.map(d =>
                             <span 
@@ -67,7 +76,7 @@ const ChooseMissingWordComponent = ({
                             </span>
                         )
                     )
-                }
+                } */}
             </div>
             <div className="lessonPage_main_div_task_chooseMissingWordComponent">
                 {

@@ -240,7 +240,7 @@ export const arrayLessonPageChooseImage = [
         id: 1,
         exercise: 1,
         titleTask: 'Виберіть зображення для слова',
-        question: 'Хлопчик',
+        question: [{id: 1, word: 'Хлопчик'}],
         task: [
             {id: 1, src: 'manImage.svg', alt: 'man', name: 'man'},
             {id: 2, src: 'boyImage.svg', alt: 'boy', name: 'boy'},
@@ -282,7 +282,7 @@ export const arrayLessonPageChooseImage = [
         id: 3,
         exercise: 3,
         titleTask: 'Як сказати',
-        question: 'Хлопчик',
+        question: [{id: 1, word: 'Хлопчик'}],
         task: [
             {id: 1, name: 'man'},
             {id: 2, name: 'boy'},
@@ -295,7 +295,7 @@ export const arrayLessonPageChooseImage = [
         id: 4,
         exercise: 4,
         titleTask: 'Виберіть зображення для слова',
-        question: 'Жінка',
+        question: [{id: 1, word: 'Жінка'}],
         task: [
             {id: 1, src: 'manImage.svg', alt: 'man', name: 'man'},
             {id: 2, src: 'womanImage.svg', alt: 'woman', name: 'woman'},
@@ -308,7 +308,7 @@ export const arrayLessonPageChooseImage = [
         id: 5,
         exercise: 5,
         titleTask: 'Як сказати',
-        question: 'жінка',
+        question: [{id: 1, word: 'жінка'}],
         task: [
             {id: 1, name: 'woman'},
             {id: 2, name: 'man'},
@@ -350,7 +350,7 @@ export const arrayLessonPageChooseImage = [
         id: 7,
         exercise: 7,
         titleTask: 'Виберіть зображення для слова',
-        question: 'Чоловік',
+        question: [{id: 1, word: 'Чоловік'}],
         task: [
             {id: 1, src: 'boyImage.svg', alt: 'boy', name: 'boy'},
             {id: 2, src: 'manImage.svg', alt: 'man', name: 'man'},
@@ -363,7 +363,7 @@ export const arrayLessonPageChooseImage = [
         id: 8,
         exercise: 8,
         titleTask: 'Як сказати',
-        question: 'жінка',
+        question: [{id: 1, word: 'жінка'}],
         task: [
             {id: 1, name: 'boy'},
             {id: 2, name: 'I'},
@@ -376,7 +376,7 @@ export const arrayLessonPageChooseImage = [
         id: 9,
         exercise: 9,
         titleTask: 'Виберіть зображення для слова',
-        question: 'Дівчинка',
+        question: [{id: 1, word: 'Дівчинка'}],
         task: [
             {id: 1, src: 'girlImage.svg', alt: 'girl', name: 'girl'},
             {id: 2, src: 'manImage.svg', alt: 'man', name: 'man'},
@@ -503,16 +503,15 @@ export const arrayLessonPageChooseImage = [
         id: 12,
         exercise: 12,
         titleTask: 'Виберіть пропущене слово',
-        question: [
-            {
-                part1: [
-                    {id: 1, text: 'I'},
-            ],
-                part2: [
-                    {id: 2, text: 'a woman.'},
-                ], 
-            }
-        ],
+        question:  [{id: 1, word: 'I ____ a woman.'},],
+            // {
+            //     part1: [
+            //         {id: 1, text: 'I'},
+            // ],
+            //     part2: [
+            //         {id: 2, text: 'a woman.'},
+            //     ], 
+            // }
         task: [
             {id: 1, name: 'am'},
             {id: 2, name: 'is'},
@@ -578,7 +577,7 @@ export const arrayLessonPageChooseImage = [
     {
         id: 14,
         exercise: 14,
-        titleTask: 'Підберіть переклад',
+        titleTask: 'Об’єднайте в пари:',
         question: [],
         task: [
             {id: 1, name: 'хлопець', answer: 'boy'},
@@ -737,16 +736,15 @@ export const arrayLessonPageChooseImage = [
         id: 17,
         exercise: 17,
         titleTask: 'Виберіть пропущене слово',
-        question: [
-            {
-                part1: [
-                    {id: 1, text: 'I'},
-            ],
-                part2: [
-                    {id: 2, text: 'a man.'},
-                ], 
-            }
-        ],
+        question: [ {id: 1, word: 'I ____ a man.'},],
+            // {
+            //     part1: [
+            //         {id: 1, text: 'I'},
+            // ],
+            //     part2: [
+            //         {id: 2, text: 'a man.'},
+            //     ], 
+            // }
         task: [
             {id: 1, name: 'are'},
             {id: 2, name: 'am'},
