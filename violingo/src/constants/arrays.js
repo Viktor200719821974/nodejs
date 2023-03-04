@@ -120,11 +120,11 @@ export const arrayButtonsImagesLearnComponent = [
         part1: [],
         part2: [],
         part3: [
-            {id: 1, src: 'lock.svg', alt: 'lock picture', width: ''},
-            {id: 2, src: 'lock.svg', alt: 'lock picture', width: '30%'},
+            {id: 1, src: 'lock.svg', alt: 'lock picture', width: '30%'},
+            {id: 2, src: 'lock.svg', alt: 'lock picture', width: '40%'},
         ], 
         part4: [
-            {id: 1, src: 'image-book.svg', alt: 'book picture', width: '30%'}, 
+            {id: 1, src: 'image-book.svg', alt: 'book picture', width: '40%'}, 
             {id: 2, src: 'cup.svg', alt: 'cup picture', width: ''},
         ],
     },
