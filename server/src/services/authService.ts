@@ -17,10 +17,10 @@ class AuthService {
         const tokenActivate = await tokenService.generateTokenActivate({ userId: id, userEmail });
         await model.User.update(
             {
-                 activateToken: tokenActivate.activateToken 
+                activateToken: tokenActivate.activateToken 
             }, 
             {
-                 where: { id }
+                where: { id }
             });
         return tokenActivate;
     }
@@ -31,6 +31,7 @@ class AuthService {
         if (exists) {
             await tokenService.deleteTokenPair(userId);
         }
+        console.log(userId);
         // @ts-ignore
         await tokenService.saveToken({ accessToken, refreshToken, userId });
         return { accessToken, refreshToken, userId };

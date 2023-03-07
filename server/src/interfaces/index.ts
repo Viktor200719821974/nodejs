@@ -109,7 +109,7 @@ export interface ILesson extends Model
 export interface IExercise extends Model
     <InferAttributes<IExercise>, InferCreationAttributes<IExercise>> {
         id: number;
-        exercise: number;
+        // exercise: number;
         titleTask: string;
         answer: string;
         src: string;
@@ -134,6 +134,7 @@ export interface ITask extends Model
         src: string;
         alt: string;
         name: string;
+        answer: string;
         exerciseId: number;
 }
 

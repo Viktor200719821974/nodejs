@@ -149,14 +149,14 @@ const Exercise = sequelize.define<IExercise>('Exercise', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
-    exercise: {
-        type: DataTypes.INTEGER, allowNull: false,
-    },
+    // exercise: {
+    //     type: DataTypes.INTEGER, allowNull: false,
+    // },
     titleTask: {
         type: DataTypes.STRING, allowNull: false,
     },
     answer: {
-        type: DataTypes.STRING, allowNull: false,
+        type: DataTypes.STRING, allowNull: true,
     },
     src: {
         type: DataTypes.STRING, allowNull: true, 
@@ -207,6 +207,9 @@ const Task = sequelize.define<ITask>('Task', {
     name: {
         type: DataTypes.STRING, allowNull: false,
     },
+    answer: {
+        type: DataTypes.STRING, allowNull: true,
+    },
     exerciseId: { 
         type: DataTypes.INTEGER, allowNull: false, references: { model: Exercise, key: 'id' } 
     },
@@ -249,9 +252,9 @@ const LookLessonAnswer = sequelize.define<ILookLessonAnswer>('LookLessonAnswer',
         type: DataTypes.INTEGER, allowNull: false, references: { model: Exercise, key: 'id' } 
     },
 });
-User.hasOne(Token);
+// User.hasOne(Token);
 Token.belongsTo(User, { foreignKey: 'userId' });
-User.hasOne(Statistic);
+// User.hasOne(Statistic);
 Statistic.belongsTo(User, { foreignKey: 'userId' });
 Section.hasOne(Part1);
 Part1.belongsTo(Section, { foreignKey: 'sectionId' });
@@ -261,13 +264,13 @@ Section.hasOne(Part3);
 Part3.belongsTo(Section, { foreignKey: 'sectionId' });
 Section.hasOne(Part4);
 Part4.belongsTo(Section, { foreignKey: 'sectionId' });
-Lesson.hasMany(Exercise);
+// Lesson.hasMany(Exercise);
 Exercise.belongsTo(Lesson, { foreignKey: 'lessonId' });
-Exercise.hasOne(Question);
+// Exercise.hasOne(Question);
 Question.belongsTo(Exercise, { foreignKey: 'exerciseId' });
-Exercise.hasOne(Task);
+// Exercise.hasOne(Task);
 Task.belongsTo(Exercise, { foreignKey: 'exerciseId' });
-Exercise.hasOne(LookLessonAnswer);
+// Exercise.hasOne(LookLessonAnswer);
 LookLessonAnswer.belongsTo(Exercise, { foreignKey: 'exerciseId' });
 
 export const model = {
