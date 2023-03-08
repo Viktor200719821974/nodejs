@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 
 import { IRequestExtended } from '../interfaces';
 import { emailService } from '../services/emailService';
-// import { tokenService } from '../services/tokenService';
 import { usersService } from '../services/usersService';
 
 class UsersController {

@@ -17,6 +17,9 @@ class UsersService {
             attributes: {
                 exclude: ['password', 'createdAt', 'updatedAt', 'activateToken'],
             }, 
+            // include: [
+            //     {model: model.Statistic, as: 'statistics'}
+            // ],
             where: { id } 
         });
     }

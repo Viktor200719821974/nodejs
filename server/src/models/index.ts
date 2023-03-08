@@ -1,12 +1,81 @@
 import { DataTypes } from 'sequelize';
-
+// import { InferAttributes, InferCreationAttributes, Model, CreationOptional } from 'sequelize';
 import { sequelize } from '../db';
 import { 
-    IToken, IUser, IStatistic, ISection, IPart1, IExercise, IQuestion, ITask, ILookLessonAnswer, 
+    IToken, 
+    IUser, 
+    IStatistic, 
+    // ISection, IPart1, 
+    IExercise, IQuestion, ITask, 
+    // ILookLessonAnswer, 
     ILesson, 
 } from '../interfaces';
-
-const User = sequelize.define<IUser>('User', {
+// class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+//     declare id: CreationOptional<number>;
+//     declare name: string;
+//     declare email: string;
+//     declare password: string;
+//     declare age: number;
+//     declare activateToken: string;
+//     declare is_active: boolean;
+//     declare is_staff: boolean;
+//     declare is_superuser: boolean;
+//     declare statistic: boolean;
+// }
+// User.init (
+//     {
+//         id: {
+//             type: DataTypes.INTEGER.UNSIGNED,
+//             autoIncrement: true,
+//             primaryKey: true
+//         },
+//         name: {
+//             type: new DataTypes.STRING(128),
+//             allowNull: true
+//         },
+//         email: {
+//             type: new DataTypes.STRING(128),
+//             allowNull: false
+//         },
+//         password: {
+//             type: new DataTypes.STRING(128),
+//             allowNull: false
+//         },
+//         age: {
+//             type: DataTypes.INTEGER,
+//             allowNull: false
+//         },
+//         activateToken: {
+//             type: new DataTypes.STRING(255),
+//             allowNull: false
+//         },
+//         is_active: {
+//             type: DataTypes.BOOLEAN,
+//             allowNull: false,
+//             defaultValue: false
+//         },
+//         is_staff: {
+//             type: DataTypes.BOOLEAN,
+//             allowNull: false,
+//             defaultValue: false
+//         },
+//         is_superuser: {
+//             type: DataTypes.BOOLEAN,
+//             allowNull: false,
+//             defaultValue: false
+//         },
+//         statistic: {
+//             type: DataTypes.BOOLEAN,
+//             allowNull: false,
+//             defaultValue: false
+//         },
+//     },
+//     {
+//         sequelize,
+//         tableName: 'users'
+//     }
+// )
+const User = sequelize.define<IUser>('user', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true,
     },
@@ -20,15 +89,15 @@ const User = sequelize.define<IUser>('User', {
     is_superuser: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     statistic: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
 });
-const Token = sequelize.define<IToken>('Token', {
+const Token = sequelize.define<IToken>('token', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
     accessToken: { type: DataTypes.STRING, unique: true, allowNull: false },
     refreshToken: { type: DataTypes.STRING, unique: true, allowNull: false },
-    userId: { type: DataTypes.INTEGER, allowNull: false, references: { model: User, key: 'id' } },
+    userId: { type: DataTypes.INTEGER, allowNull: false,  },
 });
-const Statistic = sequelize.define<IStatistic>('Statistic', {
+const Statistic = sequelize.define<IStatistic>('statistic', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
@@ -41,102 +110,102 @@ const Statistic = sequelize.define<IStatistic>('Statistic', {
     everyDayTarget: { 
         type: DataTypes.STRING, allowNull: false
     },
-    userId: { type: DataTypes.INTEGER, allowNull: false, references: { model: User, key: 'id' } },
-});
-const Section = sequelize.define<ISection>('Section', {
-    id: {
-        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-    },
-    section: {
-        type: DataTypes.INTEGER, allowNull: false,
-    },
-    background: {
-        type: DataTypes.STRING, allowNull: false, defaultValue: '#000',
-    },
-    title: {
-        type: DataTypes.STRING, allowNull: false,
-    },
-    image1: {
-        type: DataTypes.STRING, allowNull: true, 
-    },
-    alt1: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    image2: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    alt2: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-});
-const Part1 = sequelize.define<IPart1>('Part1', {
-    id: {
-        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-    },
-    src: {
-        type: DataTypes.STRING, allowNull: true, 
-    },
-    alt: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    width: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    sectionId: { 
-        type: DataTypes.INTEGER, allowNull: false, references: { model: Section, key: 'id' } 
-    },
-});
-const Part2 = sequelize.define<IPart1>('Part2', {
-    id: {
-        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-    },
-    src: {
-        type: DataTypes.STRING, allowNull: true, 
-    },
-    alt: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    width: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    sectionId: { 
-        type: DataTypes.INTEGER, allowNull: false, references: { model: Section, key: 'id' } 
-    },
-});
-const Part3 = sequelize.define<IPart1>('Part3', {
-    id: {
-        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-    },
-    src: {
-        type: DataTypes.STRING, allowNull: true, 
-    },
-    alt: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    width: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    sectionId: { 
-        type: DataTypes.INTEGER, allowNull: false, references: { model: Section, key: 'id' } 
-    },
-});
-const Part4 = sequelize.define<IPart1>('Part4', {
-    id: {
-        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-    },
-    src: {
-        type: DataTypes.STRING, allowNull: true, 
-    },
-    alt: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    width: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    sectionId: { 
-        type: DataTypes.INTEGER, allowNull: false, references: { model: Section, key: 'id' } 
-    },
-});
+    userId: { type: DataTypes.INTEGER, allowNull: false,  },
+}, { createdAt: false, updatedAt: false });
+// const Section = sequelize.define<ISection>('Section', {
+//     id: {
+//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+//     },
+//     section: {
+//         type: DataTypes.INTEGER, allowNull: false,
+//     },
+//     background: {
+//         type: DataTypes.STRING, allowNull: false, defaultValue: '#000',
+//     },
+//     title: {
+//         type: DataTypes.STRING, allowNull: false,
+//     },
+//     image1: {
+//         type: DataTypes.STRING, allowNull: true, 
+//     },
+//     alt1: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     image2: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     alt2: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+// });
+// const Part1 = sequelize.define<IPart1>('Part1', {
+//     id: {
+//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+//     },
+//     src: {
+//         type: DataTypes.STRING, allowNull: true, 
+//     },
+//     alt: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     width: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     sectionId: { 
+//         type: DataTypes.INTEGER, allowNull: false, 
+//     },
+// });
+// const Part2 = sequelize.define<IPart1>('Part2', {
+//     id: {
+//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+//     },
+//     src: {
+//         type: DataTypes.STRING, allowNull: true, 
+//     },
+//     alt: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     width: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     sectionId: { 
+//         type: DataTypes.INTEGER, allowNull: false,  
+//     },
+// });
+// const Part3 = sequelize.define<IPart1>('Part3', {
+//     id: {
+//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+//     },
+//     src: {
+//         type: DataTypes.STRING, allowNull: true, 
+//     },
+//     alt: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     width: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     sectionId: { 
+//         type: DataTypes.INTEGER, allowNull: false,  
+//     },
+// });
+// const Part4 = sequelize.define<IPart1>('Part4', {
+//     id: {
+//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+//     },
+//     src: {
+//         type: DataTypes.STRING, allowNull: true, 
+//     },
+//     alt: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     width: {
+//         type: DataTypes.STRING, allowNull: true,
+//     },
+//     sectionId: { 
+//         type: DataTypes.INTEGER, allowNull: false,  
+//     },
+// });
 const Lesson = sequelize.define<ILesson>('Lesson', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
@@ -180,7 +249,7 @@ const Exercise = sequelize.define<IExercise>('Exercise', {
         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
     },
     lessonId: { 
-        type: DataTypes.INTEGER, allowNull: false, references: { model: Lesson, key: 'id' } 
+        type: DataTypes.INTEGER, allowNull: false,  
     },
 });
 const Question = sequelize.define<IQuestion>('Question', {
@@ -191,7 +260,7 @@ const Question = sequelize.define<IQuestion>('Question', {
         type: DataTypes.STRING, allowNull: false,
     },
     exerciseId: { 
-        type: DataTypes.INTEGER, allowNull: false, references: { model: Exercise, key: 'id' } 
+        type: DataTypes.INTEGER, allowNull: false, 
     },
 });
 const Task = sequelize.define<ITask>('Task', {
@@ -211,80 +280,82 @@ const Task = sequelize.define<ITask>('Task', {
         type: DataTypes.STRING, allowNull: true,
     },
     exerciseId: { 
-        type: DataTypes.INTEGER, allowNull: false, references: { model: Exercise, key: 'id' } 
+        type: DataTypes.INTEGER, allowNull: false,  
     },
 });
-const LookLessonAnswer = sequelize.define<ILookLessonAnswer>('LookLessonAnswer', {
-    id: {
-        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-    },
-    titleTask: {
-        type: DataTypes.STRING, allowNull: false,
-    },
-    answerTrue: {
-        type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
-    },
-    answerUser: {
-        type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
-    },
-    wrong: {
-        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-    },
-    question: {
-        type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
-    },
-    chooseImage: {
-        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-    },
-    choosePositiveAnswer: {
-        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-    },
-    chooseAnswer: {
-        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-    },
-    chooseMissingWord: {
-        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-    },
-    chooseTranslateWords: {
-        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-    },
-    exerciseId: { 
-        type: DataTypes.INTEGER, allowNull: false, references: { model: Exercise, key: 'id' } 
-    },
-});
-// User.hasOne(Token);
-Token.belongsTo(User, { foreignKey: 'userId' });
-// User.hasOne(Statistic);
-Statistic.belongsTo(User, { foreignKey: 'userId' });
-Section.hasOne(Part1);
-Part1.belongsTo(Section, { foreignKey: 'sectionId' });
-Section.hasOne(Part2);
-Part2.belongsTo(Section, { foreignKey: 'sectionId' });
-Section.hasOne(Part3);
-Part3.belongsTo(Section, { foreignKey: 'sectionId' });
-Section.hasOne(Part4);
-Part4.belongsTo(Section, { foreignKey: 'sectionId' });
-// Lesson.hasMany(Exercise);
-Exercise.belongsTo(Lesson, { foreignKey: 'lessonId' });
-// Exercise.hasOne(Question);
-Question.belongsTo(Exercise, { foreignKey: 'exerciseId' });
-// Exercise.hasOne(Task);
-Task.belongsTo(Exercise, { foreignKey: 'exerciseId' });
-// Exercise.hasOne(LookLessonAnswer);
-LookLessonAnswer.belongsTo(Exercise, { foreignKey: 'exerciseId' });
+// const LookLessonAnswer = sequelize.define<ILookLessonAnswer>('LookLessonAnswer', {
+//     id: {
+//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+//     },
+//     titleTask: {
+//         type: DataTypes.STRING, allowNull: false,
+//     },
+//     answerTrue: {
+//         type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
+//     },
+//     answerUser: {
+//         type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
+//     },
+//     wrong: {
+//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+//     },
+//     question: {
+//         type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
+//     },
+//     chooseImage: {
+//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+//     },
+//     choosePositiveAnswer: {
+//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+//     },
+//     chooseAnswer: {
+//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+//     },
+//     chooseMissingWord: {
+//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+//     },
+//     chooseTranslateWords: {
+//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+//     },
+//     exerciseId: { 
+//         type: DataTypes.INTEGER, allowNull: false,  
+//     },
+// });
+User.hasOne(Token);
+Token.belongsTo(User);
+
+User.hasOne(Statistic, { foreignKey: 'userId', as: 'statistics'});
+Statistic.belongsTo(User);
+
+// Section.hasOne(Part1, { foreignKey: 'sectionId' });
+// Part1.belongsTo(Section);
+// Section.hasOne(Part2, { foreignKey: 'sectionId' });
+// Part2.belongsTo(Section);
+// Section.hasOne(Part3, { foreignKey: 'sectionId' });
+// Part3.belongsTo(Section);
+// Section.hasOne(Part4, { foreignKey: 'sectionId' });
+// Part4.belongsTo(Section);
+// Lesson.hasMany(Exercise, { sourceKey: 'id', foreignKey: 'lessonId', as: 'exercises' });
+// Exercise.belongsTo(Lesson);
+// Exercise.hasOne(Question, { foreignKey: 'exerciseId' });
+// Question.belongsTo(Exercise);
+// Exercise.hasOne(Task, { foreignKey: 'exerciseId' });
+// Task.belongsTo(Exercise);
+// Exercise.hasOne(LookLessonAnswer, { foreignKey: 'exerciseId' });
+// LookLessonAnswer.belongsTo(Exercise);
 
 export const model = {
     User,
     Token,
     Statistic,
-    Section,
-    Part1,
-    Part2,
-    Part3,
-    Part4,
+    // Section,
+    // Part1,
+    // Part2,
+    // Part3,
+    // Part4,
     Exercise,
     Question,
     Task,
-    LookLessonAnswer,
+    // LookLessonAnswer,
     Lesson,
 }

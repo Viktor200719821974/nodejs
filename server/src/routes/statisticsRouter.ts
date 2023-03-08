@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { statisticsController } from '../controllers/statisticsController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 

@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { model } from '../models';
 
-import { lessonService } from '../services/lessonService';
+import { lessonsService } from '../services/lessonsService';
 
 class LessonsMiddleware {
     async findLessonByNumber(req: Request, res: Response, next: NextFunction) {
         try {
             const { lessonNumber } = req.body;
-            const existNumber = await lessonService.findLessonByNumber(+lessonNumber);
+            const existNumber = await lessonsService.findLessonByNumber(+lessonNumber);
             if (existNumber) {
                 res.status(400).json('Lesson has number already exist');
                 return;
