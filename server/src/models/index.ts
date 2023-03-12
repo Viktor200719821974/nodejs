@@ -206,7 +206,7 @@ const Statistic = sequelize.define<IStatistic>('statistic', {
 //         type: DataTypes.INTEGER, allowNull: false,  
 //     },
 // });
-const Lesson = sequelize.define<ILesson>('Lesson', {
+const Lesson = sequelize.define<ILesson>('lesson', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
@@ -214,7 +214,7 @@ const Lesson = sequelize.define<ILesson>('Lesson', {
         type: DataTypes.INTEGER, allowNull: false,
     } 
 });
-const Exercise = sequelize.define<IExercise>('Exercise', {
+const Exercise = sequelize.define<IExercise>('exercise', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
@@ -252,7 +252,7 @@ const Exercise = sequelize.define<IExercise>('Exercise', {
         type: DataTypes.INTEGER, allowNull: false,  
     },
 });
-const Question = sequelize.define<IQuestion>('Question', {
+const Question = sequelize.define<IQuestion>('question', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
@@ -263,7 +263,7 @@ const Question = sequelize.define<IQuestion>('Question', {
         type: DataTypes.INTEGER, allowNull: false, 
     },
 });
-const Task = sequelize.define<ITask>('Task', {
+const Task = sequelize.define<ITask>('task', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
@@ -335,8 +335,9 @@ Statistic.belongsTo(User);
 // Part3.belongsTo(Section);
 // Section.hasOne(Part4, { foreignKey: 'sectionId' });
 // Part4.belongsTo(Section);
-// Lesson.hasMany(Exercise, { sourceKey: 'id', foreignKey: 'lessonId', as: 'exercises' });
-// Exercise.belongsTo(Lesson);
+Lesson.hasMany(Exercise, { foreignKey: 'lessonId', as: 'exercises' });
+Exercise.belongsTo(Lesson);
+
 // Exercise.hasOne(Question, { foreignKey: 'exerciseId' });
 // Question.belongsTo(Exercise);
 // Exercise.hasOne(Task, { foreignKey: 'exerciseId' });

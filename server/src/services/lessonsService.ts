@@ -17,7 +17,7 @@ class LessonsService {
             },
             where: { id },
             include: [
-                // { model: model.Exercise, as: 'exercises' },
+                { model: model.Exercise, as: 'exercises' },
                 // { model: model.ImageDeviceAws, as: 'imageDeviceAws' },
                 // { model: model.Rating, as: 'rating' },
             ],

@@ -25,7 +25,25 @@ class ExercisesController {
     async createExercise(req: Request, res: Response, next: NextFunction) {
         try {
             const { lessonNumber } = req.params;
-            const exercise = await exercisesService.createExercise(req.body, +lessonNumber);
+            const { 
+                chooseImage, 
+                choosePositiveAnswer, 
+                chooseAnswer, 
+                chooseMissingWord, 
+                chooseTranslateWords,
+                answer,
+                question,
+            } = req.body;
+            const exercise = await exercisesService.createExercise(
+                chooseImage,
+                choosePositiveAnswer,
+                chooseAnswer,
+                chooseMissingWord,
+                chooseTranslateWords,
+                answer,
+                question, 
+                +lessonNumber
+                );
             res.status(201).json(exercise);
         } catch (e) {
             next(e);
