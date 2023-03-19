@@ -6,12 +6,12 @@ class LessonsService {
         return model.Lesson.findAll({
             attributes: {
                 exclude: ['createdAt', 'updatedAt'],
-            }
+            },
         });
     }
 
     async getLessonById(id: number) {
-        return model.Lesson.findOne({ 
+        return model.Lesson.findOne({
             attributes: {
                 exclude: ['createdAt', 'updatedAt'],
             },
@@ -21,11 +21,11 @@ class LessonsService {
                 // { model: model.ImageDeviceAws, as: 'imageDeviceAws' },
                 // { model: model.Rating, as: 'rating' },
             ],
-         });
+        });
     }
 
     async createLesson(lessonNumber: number): Promise<ILesson> {
-        //@ts-ignore
+        // @ts-ignore
         return model.Lesson.create({ lessonNumber });
     }
 

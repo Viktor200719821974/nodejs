@@ -12,6 +12,7 @@ class AuthController {
             const { email, password, name } = req.body;
             const { activateToken } = await authService.registration(req.body, password, email);
             const sendEmail = await emailService.sendMail(email, 'WELCOME', { userName: name }, activateToken)
+                // eslint-disable-next-line no-console
                 .catch(console.error);
             if (!sendEmail) {
                 res.status(404).json('Problems is send email');
@@ -19,25 +20,24 @@ class AuthController {
             }
             const user = await usersService.getUserByEmail(email);
             res.status(200).json(user);
-        } catch(e) {
+        } catch (e) {
             next(e);
         }
-
     }
 
     async login(req: Request, res: Response, next: NextFunction) {
         try {
             const { email } = req.body;
             const id = await usersService.getUserByEmail(email)
-            .then(data => data?.id);
+                .then((data) => data?.id);
             if (!id) {
                 res.status(400).json('Bad email or password');
                 return;
             }
             const user = await usersService.getUserById(id);
-            const {accessToken, refreshToken} = await authService.login(email, id);
-            res.status(200).json({accessToken, refreshToken, user});
-        } catch(e) {
+            const { accessToken, refreshToken } = await authService.login(email, id);
+            res.status(200).json({ accessToken, refreshToken, user });
+        } catch (e) {
             next(e);
         }
     }
@@ -59,6 +59,7 @@ class AuthController {
             const { activateToken, userName } = await authService.forgetPassword(email);
             // @ts-ignore
             const sendEmail = await emailService.sendMail(email, 'FORGET_PASSWORD', { userName }, activateToken)
+                // eslint-disable-next-line no-console
                 .catch(console.error);
             if (!sendEmail) {
                 res.status(404).json('Problems is send email');
@@ -80,10 +81,9 @@ class AuthController {
             }
             // @ts-ignore
             const { userId } = await tokenService.verifyToken(token, 'activateToken')
-                .catch(err => {
+                .catch((err) => {
                     if (err) {
                         res.status(404).json('Bad token');
-                        return;
                     }
                 });
             const findToken = await tokenService.findByParamsActivateToken(token);
@@ -104,15 +104,15 @@ class AuthController {
             const refreshTokenToDelete = req.get('Authorization');
             if (refreshTokenToDelete) {
                 const token = await tokenService.findByParamsToken(refreshTokenToDelete);
-                    if (!token) {
-                        res.status(404).json('No token');
-                    }
+                if (!token) {
+                    res.status(404).json('No token');
+                }
             }
             await tokenService.deleteTokenPair(id);
             const { accessToken, refreshToken, userId } = await tokenService.generateTokenPair(
                 { userId: id, userEmail: email },
             );
-            //@ts-ignore
+            // @ts-ignore
             await tokenService.saveToken({ accessToken, refreshToken, userId });
             res.json({
                 refreshToken,

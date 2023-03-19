@@ -18,10 +18,9 @@ class AuthMiddleware {
                 return;
             }
             // @ts-ignore
-            const { userEmail } = await tokenService.verifyToken(token).catch(err => {
+            const { userEmail } = await tokenService.verifyToken(token).catch((err) => {
                 if (err) {
                     res.status(401).json('Unauthorized');
-                    return;
                 }
             });
             const findToken = await tokenService.findByParamsToken(token);
@@ -52,7 +51,7 @@ class AuthMiddleware {
                 return;
             }
             next();
-        } catch(e) {
+        } catch (e) {
             next(e);
         }
     }
@@ -65,11 +64,12 @@ class AuthMiddleware {
                 res.status(400).json(`User with email: ${email} not exist`);
                 return;
             }
-            next();  
+            next();
         } catch (e) {
             next(e);
         }
     }
+
     async findActivateToken(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const activateToken = req.params.token;
@@ -78,13 +78,13 @@ class AuthMiddleware {
             }
             // @ts-ignore
             const { userId } = await tokenService.verifyToken(activateToken, 'activateToken')
-                .catch(err => {
+                .catch((err) => {
                     if (err) {
                         res.status(404).json('Bad token');
-                        return;
                     }
                 });
-            const user = await model.User.findOne({ where: { id: userId }}).catch(err => console.log(err));
+            const user = await model.User.findOne({ where: { id: userId } })
+                .catch((err) => console.log(err));
             if (user) {
                 req.user = user;
             }
@@ -135,14 +135,13 @@ class AuthMiddleware {
                 res.status(401).json('Unauthorized');
                 return;
             }
-            //@ts-ignore
+            // @ts-ignore
             const { userEmail } = await tokenService.verifyToken(token, 'refreshToken')
-            .catch(err => {
-                if (err) {
-                    res.status(401).json('Unauthorized');
-                    return;
-                }
-            });
+                .catch((err) => {
+                    if (err) {
+                        res.status(401).json('Unauthorized');
+                    }
+                });
             const findToken = await tokenService.findByParamsToken(token);
             if (!findToken) {
                 res.status(400).json('No token');

@@ -7,14 +7,16 @@ import { usersService } from '../services/usersService';
 class StatisticsController {
     async createStatistic(req: Request, res: Response, next: NextFunction) {
         try {
-            const { howDidYouKnow, whatAreYouStuding, everyDayTarget, email } = req.body;
+            const {
+                howDidYouKnow, whatAreYouStuding, everyDayTarget, email,
+            } = req.body;
             const user = await usersService.getUserByEmail(email);
             if (!user) {
                 res.status(404).json('No user');
                 return;
             }
-            //@ts-ignore
-            const id = user.id;
+            // @ts-ignore
+            const { id } = user;
             const exist = await statisticsService.findStatisticUser(+id);
             if (exist) {
                 await statisticsService.deleteStatistic(+id);
@@ -30,11 +32,11 @@ class StatisticsController {
 
     async getStatisticByUserId(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
-            //@ts-ignore
+            // @ts-ignore
             const { id } = req.user;
             const statistic = await statisticsService.getStatisticByUserId(+id);
             res.status(200).json(statistic);
-        } catch(e) {
+        } catch (e) {
             next(e);
         }
     }
@@ -42,11 +44,11 @@ class StatisticsController {
     async updateEveryDayTarget(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const { everyDayTarget } = req.body;
-            //@ts-ignore
+            // @ts-ignore
             const { id } = req.user;
             const statistic = await statisticsService.updateEveryDayTarget(+id, everyDayTarget);
             res.status(200).json(statistic);
-        } catch(e) {
+        } catch (e) {
             next(e);
         }
     }

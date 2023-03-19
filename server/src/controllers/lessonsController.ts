@@ -22,7 +22,7 @@ class LessonsController {
         }
     }
 
-    async createLesson (req: Request, res: Response, next: NextFunction) {
+    async createLesson(req: Request, res: Response, next: NextFunction) {
         try {
             const { lessonNumber } = req.body;
             const lesson = await lessonsService.createLesson(+lessonNumber);

@@ -37,9 +37,8 @@ class EmailService {
         myOAuth2Client.setCredentials({
             refresh_token: config.REFRESH_TOKEN_EMAIL,
         });
-        const myAccessToken = await myOAuth2Client.getAccessToken().then(data => {
-            return data.res?.data.access_token;
-        });
+        const myAccessToken = await myOAuth2Client.getAccessToken()
+            .then((data) => data.res?.data.access_token);
         let subject;
         let templateName;
         if (template === 'WELCOME') {

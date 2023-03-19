@@ -23,33 +23,33 @@ class LessonsMiddleware {
             const data = req.params;
             const exerciseId = Number(data.exerciseId);
             const exercise = await model.Exercise.findOne({ where: { id: exerciseId } });
-            const choosePositiveAnswer = exercise?.choosePositiveAnswer; 
-            const chooseAnswer = exercise?.chooseAnswer; 
+            const choosePositiveAnswer = exercise?.choosePositiveAnswer;
+            const chooseAnswer = exercise?.chooseAnswer;
             const chooseMissingWord = exercise?.chooseMissingWord;
-            const chooseTranslateWords = exercise?.chooseTranslateWords; 
+            const chooseTranslateWords = exercise?.chooseTranslateWords;
             const chooseImage = exercise?.chooseImage;
             const task = await model.Task.findAll({ where: { exerciseId } });
             if (choosePositiveAnswer) {
                 if (task.length > 9) {
                     res.status(400).json('In that exerciese must be max 10 tasks ');
                     return;
-               } 
+                }
             }
             if (chooseAnswer || chooseImage) {
                 if (task.length > 2) {
                     res.status(400).json('In that exerciese must be max 3 tasks ');
                     return;
-               } 
+                }
             }
             if (chooseMissingWord) {
                 if (task.length > 3) {
                     res.status(400).json('In that exerciese must be max 4 tasks ');
                     return;
-               } 
+                }
             }
             if (chooseTranslateWords) {
                 const { answer } = req.body;
-                if(answer === undefined) {
+                if (answer === undefined) {
                     res.status(400)
                         .json('In that exerciese must be to add answer ');
                     return;

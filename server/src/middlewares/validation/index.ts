@@ -28,6 +28,7 @@ class Validates {
             next(e);
         }
     }
+
     changePassword(req: Request, res: Response, next: NextFunction) {
         try {
             const { error } = validators.changePassword.validate(req.body);

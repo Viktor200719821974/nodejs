@@ -13,28 +13,34 @@ class ExercisesService {
     }
 
     async getExercisesLesson(lessonNumber: number): Promise<IExercise[]> {
-        const lessonId = await model.Lesson.findOne({ where: { lessonNumber }})
-            .then(data => data?.id);
-        return model.Exercise.findAll({ 
+        const lessonId = await model.Lesson.findOne({ where: { lessonNumber } })
+            .then((data) => data?.id);
+        return model.Exercise.findAll({
             attributes: {
                 exclude: ['createdAt', 'updatedAt'],
             },
-            where: { lessonId }
+            where: { lessonId },
         });
     }
 
-    async createExercise( 
-        chooseImage: boolean, 
-        choosePositiveAnswer: boolean, 
-        chooseAnswer: boolean, 
-        chooseMissingWord: boolean, 
+    async createExercise(
+        chooseImage: boolean,
+        choosePositiveAnswer: boolean,
+        chooseAnswer: boolean,
+        chooseMissingWord: boolean,
         chooseTranslateWords: boolean,
-        answer: string,
+        answer: [],
+        src: string,
+        alt: string,
         question: [],
-        lessonNumber: number
+        lessonNumber: number,
     ): Promise<IExercise> {
         const cyrillicPattern = /^[\u0400-\u04FF]+$/;
-        const oneWord = answer.split(' ').map(c => c)[0];
+        let arrayValue = answer.map((c:string) => c)[0];
+        if (chooseTranslateWords) {
+            arrayValue = '';
+        }
+        const oneWord = answer.map((c:string) => c)[0].split(' ').map((c) => c)[0];
         let titleTask = '';
         if (chooseImage) {
             titleTask = 'Виберіть зображення для слова';
@@ -44,7 +50,7 @@ class ExercisesService {
                 titleTask = 'Напишіть українською';
             } else {
                 titleTask = 'Напишіть англійською';
-            } 
+            }
         }
         if (chooseAnswer) {
             titleTask = 'Як сказати';
@@ -55,21 +61,40 @@ class ExercisesService {
         if (chooseTranslateWords) {
             titleTask = 'Об’єднайте в пари:';
         }
-        const lessonId = await model.Lesson.findOne( { where: { lessonNumber } })
-            .then(data => data?.id);
+        const lessonId = await model.Lesson.findOne({ where: { lessonNumber } })
+            .then((data) => data?.id);
         const exercise = await model.Exercise.create({
-            titleTask, 
+            titleTask,
             chooseImage,
             choosePositiveAnswer,
             chooseAnswer,
             chooseMissingWord,
             chooseTranslateWords,
-            //@ts-ignore
-            lessonId, 
-           });
+            answer: arrayValue,
+            src,
+            alt,
+            // @ts-ignore
+            lessonId,
+        });
         const exerciseId = exercise.id;
-        await questionsService.createQuestion(question, exerciseId);
-        await tasksService.createTask(answer, exerciseId, cyrillicPattern, oneWord);
+        if (!chooseTranslateWords) {
+            await questionsService.createQuestion(
+                question,
+                exerciseId,
+                choosePositiveAnswer,
+                chooseMissingWord,
+                chooseAnswer,
+                chooseImage,
+            );
+        }
+        await tasksService.createTask(
+            answer,
+            exerciseId,
+            cyrillicPattern,
+            oneWord,
+            question,
+            choosePositiveAnswer,
+        );
         return exercise;
     }
 }

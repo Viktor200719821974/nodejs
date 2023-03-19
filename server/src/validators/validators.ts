@@ -18,5 +18,5 @@ export const validators = {
             .error(new Error('Password is not valid, no space, min 8')),
         repeatPassword: Joi.string().required().trim().min(8)
             .error(new Error('Password is not valid, no space, min 8')),
-    })
+    }),
 };

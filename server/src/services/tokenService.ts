@@ -1,9 +1,10 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
-import { IToken, ITokenActivate, ITokenPair, IUserPayload } from '../interfaces';
+import {
+    IToken, ITokenActivate, ITokenPair, IUserPayload,
+} from '../interfaces';
 import { config } from '../config';
 import { model } from '../models';
-
 
 class TokenService {
     async generateTokenActivate(payload: IUserPayload):Promise<ITokenActivate> {
@@ -25,8 +26,8 @@ class TokenService {
             payload,
             config.SECRET_REFRESH_KEY!,
             { expiresIn: '24h' },
-        )
-        return { accessToken, refreshToken, userId: payload.userId};
+        );
+        return { accessToken, refreshToken, userId: payload.userId };
     }
 
     async saveToken(tokens: IToken): Promise<void> {
@@ -48,7 +49,7 @@ class TokenService {
         return !!model.Token.findOne({ where: { accessToken: token } });
     }
 
-    async findByParamsActivateToken(activateToken: string | undefined): Promise<boolean> {    
+    async findByParamsActivateToken(activateToken: string | undefined): Promise<boolean> {
         return !!model.User.findOne({ where: { activateToken } });
     }
 

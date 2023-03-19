@@ -25,14 +25,16 @@ class ExercisesController {
     async createExercise(req: Request, res: Response, next: NextFunction) {
         try {
             const { lessonNumber } = req.params;
-            const { 
-                chooseImage, 
-                choosePositiveAnswer, 
-                chooseAnswer, 
-                chooseMissingWord, 
+            const {
+                chooseImage,
+                choosePositiveAnswer,
+                chooseAnswer,
+                chooseMissingWord,
                 chooseTranslateWords,
                 answer,
                 question,
+                src,
+                alt,
             } = req.body;
             const exercise = await exercisesService.createExercise(
                 chooseImage,
@@ -41,9 +43,11 @@ class ExercisesController {
                 chooseMissingWord,
                 chooseTranslateWords,
                 answer,
-                question, 
-                +lessonNumber
-                );
+                src,
+                alt,
+                question,
+                +lessonNumber,
+            );
             res.status(201).json(exercise);
         } catch (e) {
             next(e);
