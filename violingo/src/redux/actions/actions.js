@@ -1,6 +1,6 @@
 import { 
-    FETCH_USER, ISLOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, ARRAY_WRONG_ANSWER,
-    ARRAY_CHOOSE_POSITIVE_ANSWER, ARRAY_ID_CHOOSE_POSITIVE_ANSWER, 
+    FETCH_USER, IS_LOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, ARRAY_WRONG_ANSWER,
+    ARRAY_CHOOSE_POSITIVE_ANSWER, ARRAY_ID_CHOOSE_POSITIVE_ANSWER, IS_ADMIN_USER,
     ARRAY_CHOOSE_POSITIVE_ANSWER_EMPTY, ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY, 
 } from './index';
 
@@ -11,7 +11,11 @@ export const noUser = () => {
     return { type: NO_USER }
 }
 export const isLoginUser = (data) => {
-    return { type: ISLOGIN_USER, payload: data };
+    return { type: IS_LOGIN_USER, payload: data };
+}
+
+export const isAdminUser = (data) => {
+    return { type: IS_ADMIN_USER, payload: data };
 }
 export const statisticUser = (data) => {
     return { type: STATISTIC_USER, payload: data };

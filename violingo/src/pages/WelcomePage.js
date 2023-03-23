@@ -21,10 +21,10 @@ const WelcomePage = () => {
     const [howDidYouKnow, setHowDidYouKnow] = useState('');
     const [whatAreYouStuding, setWhatAreYouStuding] = useState('');
     const [everyDayTarget, setEveryDayTarget] = useState('');
-   
+
     useEffect(() => {
     }, [
-        buttonNoActive, idElement, howDidYouKnow, whatAreYouStuding, 
+        buttonNoActive, idElement, howDidYouKnow, whatAreYouStuding,
         newComponent, everyDayTarget,
     ]);
     return (

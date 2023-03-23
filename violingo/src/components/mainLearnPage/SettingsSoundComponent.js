@@ -1,6 +1,6 @@
 const SettingsSoundComponent = ({
-    offSoundEffects, setOffSoundEffects, offExeciseToSpeak, setOffExeciseToSpeak, 
-    offExeciseToAudio, setOffExeciseToAudio,
+    offSoundEffects, setOffSoundEffects, offExerciseToSpeak, setOffExerciseToSpeak,
+    offExerciseToAudio, setOffExerciseToAudio,
 }) => {
     return (
         <div>
@@ -26,8 +26,10 @@ const SettingsSoundComponent = ({
                     <span 
                         className={
                             offSoundEffects
-                                ? "mainLearnPage_span_quadrate_on_settingsSoundComponent"
-                                : "mainLearnPage_span_quadrate_off_settingsSoundComponent"
+                                ? "mainLearnPage_span_quadrate_on_settingsSoundComponent " +
+                                "mainLearnPage_main_style_settingSoundComponent "
+                                : "mainLearnPage_span_quadrate_off_settingsSoundComponent " +
+                                "mainLearnPage_main_style_settingSoundComponent "
                         }
                         >                    
                     </span> 
@@ -39,11 +41,11 @@ const SettingsSoundComponent = ({
                 </span>
                 <div 
                     className="mainLearnPage_div_ellipse_and_quadrate_settingsSoundComponent"
-                    onClick={() => setOffExeciseToSpeak(value => !value)}
+                    onClick={() => setOffExerciseToSpeak(value => !value)}
                     >
                     <span 
                         className={
-                            offExeciseToSpeak 
+                            offExerciseToSpeak
                                 ? "mainLearnPage_span_ellipse_on_settingSoundComponent"
                                 : "mainLearnPage_span_ellipse_off_settingSoundComponent"
                         } 
@@ -51,9 +53,11 @@ const SettingsSoundComponent = ({
                     </span>
                     <span 
                         className={
-                            offExeciseToSpeak
-                                ? "mainLearnPage_span_quadrate_on_settingsSoundComponent"
-                                : "mainLearnPage_span_quadrate_off_settingsSoundComponent"
+                            offExerciseToSpeak
+                                ? "mainLearnPage_span_quadrate_on_settingsSoundComponent " +
+                                "mainLearnPage_main_style_settingSoundComponent "
+                                : "mainLearnPage_span_quadrate_off_settingsSoundComponent " +
+                                "mainLearnPage_main_style_settingSoundComponent "
                         }
                         >                    
                     </span> 
@@ -65,11 +69,11 @@ const SettingsSoundComponent = ({
                 </span>
                 <div 
                     className="mainLearnPage_div_ellipse_and_quadrate_settingsSoundComponent"
-                    onClick={() => setOffExeciseToAudio(value => !value)}
+                    onClick={() => setOffExerciseToAudio(value => !value)}
                     >
                     <span 
                         className={
-                            offExeciseToAudio
+                            offExerciseToAudio
                                 ? "mainLearnPage_span_ellipse_on_settingSoundComponent"
                                 : "mainLearnPage_span_ellipse_off_settingSoundComponent"
                         } 
@@ -77,9 +81,11 @@ const SettingsSoundComponent = ({
                     </span>
                     <span 
                         className={
-                            offExeciseToAudio
-                                ? "mainLearnPage_span_quadrate_on_settingsSoundComponent"
-                                : "mainLearnPage_span_quadrate_off_settingsSoundComponent"
+                            offExerciseToAudio
+                                ? "mainLearnPage_span_quadrate_on_settingsSoundComponent " +
+                                "mainLearnPage_main_style_settingSoundComponent "
+                                : "mainLearnPage_span_quadrate_off_settingsSoundComponent " +
+                                "mainLearnPage_main_style_settingSoundComponent "
                         }
                         >                    
                     </span> 

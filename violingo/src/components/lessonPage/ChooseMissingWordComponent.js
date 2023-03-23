@@ -88,7 +88,7 @@ const ChooseMissingWordComponent = ({
                                     ? "lessonPage_block_div_task_chooseMissingWordComponent"
                                     : "lessonPage_block_div_task_select_chooseMissingComponent"
                                 }
-                            onClick={() => click(c.id, c.name)}
+                            onClick={() => chooseWrong && click(c.id, c.name)}
                             >
                            <span 
                             className={

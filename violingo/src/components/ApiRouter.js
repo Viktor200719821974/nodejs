@@ -8,6 +8,7 @@ const ApiRouter = () => {
 
     const { isLogin } = useSelector(state => state.isLoginUserReducer);
     const { isStatistic } = useSelector(state => state.isStatisticUserReducer);
+    const { isAdmin } = useSelector(state => state.isAdminUserReducer);
 
     return (
         <Routes>
@@ -17,13 +18,13 @@ const ApiRouter = () => {
                 )               
             },
             {
-                (!isStatistic && isLogin) && 
+                (isAdmin && isLogin) &&
                     authRoutes.map(({ path, Component }) =>
                         <Route key={path} path={path} element={<Component/>} loader={() => console.log(path)} exact/>
                     )
             },
             {
-                isStatistic &&
+                (isStatistic && isLogin) &&
                     statisticRoutes.map(({ path, Component }) =>
                         <Route key={path} path={path} element={<Component/>} exact/>
                     )

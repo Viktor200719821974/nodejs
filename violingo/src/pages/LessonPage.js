@@ -56,7 +56,7 @@ const LessonPage = () => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
     const dispatch = useDispatch();
-    
+
     const answer = arrayDifferent
         .filter((c, index) => index === exerciseNumber)
         .map(c => c.answer)[0]
@@ -96,7 +96,8 @@ const LessonPage = () => {
                 } 
                 if (count >= 6) {
                     setBackgroundValue('#ffc800');
-                } 
+                }
+                setChooseWrong(false);
             } else {
                 setWrong(true);
                 setPositiveAnswer(false);
@@ -282,6 +283,7 @@ const LessonPage = () => {
                                             setMoreInfo={setMoreInfo}
                                             answer={answer}
                                             workMistakes={workMistakes}
+                                            showBlockTranslate={showBlockTranslate}
                                         />
                                 )
                             } 

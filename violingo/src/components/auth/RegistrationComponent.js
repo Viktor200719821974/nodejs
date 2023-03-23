@@ -82,7 +82,6 @@ const RegistrationComponent = ({
                         Створити обліковий запис
                     </button>
                 </div>
-                
             </form>
         </div>
     );

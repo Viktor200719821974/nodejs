@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import './style/style.css';
-import { fetchUser, isLoginUser, isStatisticUser } from './redux/actions';
+import {fetchUser, isAdminUser, isLoginUser, isStatisticUser} from './redux/actions';
 import ApiRouter from './components/ApiRouter';
 import { getUserById } from './http/userApi';
 // import { getStatistic } from './http/statisticApi';
@@ -24,6 +24,7 @@ function App() {
             dispatch(fetchUser(data));
             dispatch(isLoginUser(true));
             dispatch(isStatisticUser(data.statistic));
+            dispatch(isAdminUser(data.is_staff));
           }         
         });
         // getStatistic().then(data => {

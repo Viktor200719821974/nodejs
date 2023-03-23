@@ -12,7 +12,7 @@ import RegistrationComponent from '../components/auth/RegistrationComponent';
 import facebook from '../icons/facebook.svg';
 import google from '../icons/stamp-google.svg';
 import { login, registration } from '../http/authApi';
-import { fetchUser, isLoginUser, statisticUser } from '../redux/actions';
+import { fetchUser, isLoginUser, statisticUser, isAdminUser } from '../redux/actions';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    
+
     const click = async(e) => {
         e.preventDefault();
         try {
@@ -45,6 +45,7 @@ const LoginPage = () => {
                             dispatch(isLoginUser(true));
                             dispatch(fetchUser(data.user));
                             dispatch(statisticUser(data.user.statistic));
+                            dispatch(isAdminUser(data.user.is_staff));
                         } 
                     })
                     .catch(err => {

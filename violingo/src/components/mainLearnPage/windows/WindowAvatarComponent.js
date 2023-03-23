@@ -28,40 +28,37 @@ const WindowAvatarComponent = ({
         }       
     }
     return (
-        <div className="mainLearnPage_modal_window">
-            <div
-                className="mainLearnPage_main_div_windowAvatarComponent" 
-                onMouseEnter={() => setMouseOnAvatar(true)}
-                onMouseLeave={() => setMouseOnAvatar(false)}
-                >
-                <div className="mainLearnPage_div_triangle_windowAvatarComponent"></div>
-                <div className="mainLearnPage_div_windowAvatarComponent">
+        <div
+            className="mainLearnPage_main_div_windowAvatarComponent"
+            onMouseEnter={() => setMouseOnAvatar(true)}
+            onMouseLeave={() => setMouseOnAvatar(false)}
+        >
+            <div className="mainLearnPage_div_triangle_windowAvatarComponent"></div>
+            <div className="mainLearnPage_div_windowAvatarComponent">
                     <span className="mainLearnPage_span_title_windowAvatarComponent">
                         Обліковий запис
                     </span>
-                    <div className="mainLearnPage_div_line_windowAvatarComponent"></div>
-                    <span className="mainLearnPage_span_windowAvatarComponent">
+                <div className="mainLearnPage_div_line_windowAvatarComponent"></div>
+                <span className="mainLearnPage_span_windowAvatarComponent">
                         Створити профіль
-                    </span>      
-                    <div className="mainLearnPage_div_line_windowAvatarComponent"></div>      
-                    <span className="mainLearnPage_span_windowAvatarComponent">
+                    </span>
+                <div className="mainLearnPage_div_line_windowAvatarComponent"></div>
+                <span className="mainLearnPage_span_windowAvatarComponent">
                         Налаштування
                     </span>
-                    <div className="mainLearnPage_div_line_windowAvatarComponent"></div>
-                    <span className="mainLearnPage_span_windowAvatarComponent">
+                <div className="mainLearnPage_div_line_windowAvatarComponent"></div>
+                <span className="mainLearnPage_span_windowAvatarComponent">
                         Довідка
                     </span>
-                    <div className="mainLearnPage_div_line_windowAvatarComponent"></div>
-                    <span 
-                        className="mainLearnPage_span_windowAvatarComponent"
-                        onClick={click}
-                        >
+                <div className="mainLearnPage_div_line_windowAvatarComponent"></div>
+                <span
+                    className="mainLearnPage_span_windowAvatarComponent"
+                    onClick={click}
+                >
                         {!isLogin ? "Увійти" : "Вихід"}
                     </span>
-                </div>
-            </div> 
+            </div>
         </div>
-        
     );
 };
 

@@ -33,8 +33,10 @@ const ChooseAnswerComponent = ({
                             key={c.id}
                             className={
                                 (idElement !== c.id) 
-                                    ? "lessonPage_div_choose_answer_chooseAnswerComponent display_alien_justify"
-                                    : "lessonPage_div_choose_answer_select_chooseAnswerComponent display_alien_justify"
+                                    ? "lessonPage_div_choose_answer_chooseAnswerComponent display_alien_justify " +
+                                    "lessonPage_choose_answer_joint_style"
+                                    : "lessonPage_div_choose_answer_select_chooseAnswerComponent display_alien_justify " +
+                                    "lessonPage_choose_answer_joint_style"
                             }
                             style={{top: `${index * 63}px`}}
                             onClick={() => {

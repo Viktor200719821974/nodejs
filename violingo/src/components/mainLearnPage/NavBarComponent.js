@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { IMGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT } from '../../constants';
+import { IMAGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT } from '../../constants';
 import { arrayNavBarComponent } from '../../constants/arrays';
 
 const NavBarComponent = ({
@@ -25,7 +25,7 @@ const NavBarComponent = ({
                         >
                         <img 
                             className="mainLearnPage_navBar_button_image_navBarComponent" 
-                            src={IMGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT + c.src} 
+                            src={IMAGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT + c.src}
                             alt={c.alt}
                         /> 
                          <div className="mainLearnPage_navBar_button_text_navBarComponent">

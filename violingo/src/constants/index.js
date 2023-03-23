@@ -12,6 +12,7 @@ export const WELCOME_PAGE = '/welcome';
 export const LESSON_PAGE = '/lesson';
 export const PLACEMENT_PAGE = '/placement';
 export const LOGIN_PAGE = '/login';
+export const ADMIN_PAGE = '/admin';
 export const FORGET_PASSWORD = '/forget_password';
 export const SUCCESS_EXERCISE = '/success_exercise';
 export const CHANGE_PASSWORD = '/change/password/:token';
@@ -23,7 +24,7 @@ export const ERROR_404_PAGE = '/errors/404.html';
 // LINK ON HOME PAGE
 
 export const VIOLINGO_HOME_PAGE = 'https://localhost:3000';
-export const ENGLISH_PAGE = '/study_english';
+// export const ENGLISH_PAGE = '/study_english';
 export const EFFICACY_PAGE = '/efficacy';
 export const SUPER_VIOLINGO = '/super';
 export const DOWNLOAD_APP_STORE = 'https://localhost:3000';
@@ -40,6 +41,6 @@ export const CONDITIONS = 'https://localhost:3000/conditions';
 
 export const IMAGES_FLAGS_PATH = '/images/flags/';
 export const IMAGES_WELCOME_PATH = '/images/welcome/';
-export const IMGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT = '/images/mainLearnPageNavBarComponent/';
+export const IMAGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT = '/images/mainLearnPageNavBarComponent/';
 export const IMAGES_LEARN_COMPONENT = '/images/imagesLearnComponent/';
 export const IMAGES_CHOOSE_IMAGE_COMPONENT = '/images/lessonPage/chooseImage/';

@@ -2,7 +2,7 @@ import SuccessExerciseComponent from '../components/lessonPage/SuccessExerciseCo
 import { 
     HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE, 
     LESSON_PAGE, PLACEMENT_PAGE, LOGIN_PAGE, FORGET_PASSWORD, REGISTRATION_PAGE, CHANGE_PASSWORD, 
-    ACTIVATE_USER, SETTINGS_COACH, SETTINGS_SOUND, ERROR_404_PAGE, SUCCESS_EXERCISE,
+    ACTIVATE_USER, SETTINGS_COACH, SETTINGS_SOUND, ERROR_404_PAGE, SUCCESS_EXERCISE, ADMIN_PAGE,
 } from '../constants';
 import ActivatePage from '../pages/ActivatePage';
 import Error404Page from '../pages/Error404Page';
@@ -14,21 +14,15 @@ import MainLearnPage from '../pages/MainLearnPage';
 import PlacementPage from '../pages/PlacementPage';
 import RegisterPage from '../pages/RegisterPage';
 import WelcomePage from '../pages/WelcomePage';
+import AdminPage from '../pages/AdminPage';
 
 
 export const authRoutes = [
     {
-        path: REGISTER_PAGE,
-        Component: RegisterPage
-    },     
-    {
-        path: PLACEMENT_PAGE,
-        Component: PlacementPage
-    },
-     {
-        path: WELCOME_PAGE,
-        Component: WelcomePage
-    },
+        path: ADMIN_PAGE,
+        Component: AdminPage
+    }
+
 ];
 export const publicRoutes = [
     {
@@ -64,16 +58,31 @@ export const publicRoutes = [
         Component: LessonPage
     },
     {
-        path: LEARN_PAGE,
-        Component: MainLearnPage
-    },  
+        path: REGISTER_PAGE,
+        Component: RegisterPage
+    },
+    {
+        path: WELCOME_PAGE,
+        Component: WelcomePage
+    },
+    {
+        path: PLACEMENT_PAGE,
+        Component: PlacementPage
+    },
+    {
+        path: ERROR_404_PAGE,
+        Component: Error404Page
+    },
     // {
     //     path: DEVICE_ROUTE + '/:id',
     //     Component: DevicePage
     // },
 ];
 export const statisticRoutes = [
-     
+    {
+        path: LEARN_PAGE,
+        Component: MainLearnPage
+    },
     {
         path: REVIEW_PAGE,
         Component: MainLearnPage
@@ -93,9 +102,5 @@ export const statisticRoutes = [
     {
         path: SETTINGS_SOUND,
         Component: MainLearnPage
-    },
-    {
-        path: ERROR_404_PAGE,
-        Component: Error404Page
     },
 ];

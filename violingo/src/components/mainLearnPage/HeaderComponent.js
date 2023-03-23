@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { RiAdminLine } from 'react-icons/ri';
+import { useSelector } from 'react-redux';
 
 import america from '../../icons/united-states.png';
 import fire from '../../icons/fire.png';
@@ -11,7 +12,7 @@ import WindowFlagComponent from './windows/WindowFlagComponent';
 import WindowAvatarComponent from './windows/WindowAvatarComponent';
 import WindowRubyComponent from './windows/WindowRubyComponent';
 import WindowFireComponent from './windows/WindowFireComponent';
-import { HOME_PAGE } from '../../constants';
+import {ADMIN_PAGE, HOME_PAGE} from '../../constants';
 
 function HeaderComponent({
     isActive, mouseOnFlag, setMouseOnFlag, mouseOnFire, setMouseOnFire, mouseOnRuby, 
@@ -19,6 +20,8 @@ function HeaderComponent({
 }) {
     const navigate = useNavigate();
     // const { user } = useSelector(state => state.userReducer);
+    const { isAdmin } = useSelector(state => state.isAdminUserReducer);
+
     return (
         <header 
             className="mainLearnPage_main_headerComponent" 
@@ -28,13 +31,21 @@ function HeaderComponent({
                 <span onClick={() => navigate(HOME_PAGE)}>violingo</span>
             </div>
             <div className="mainLearnPage_main_div_right_headerComponent">
-                <img 
-                    className="mainLearnPage_image_header_flag_headerComponent" 
-                    src={america} 
-                    alt="language"
-                    onMouseEnter={() => setMouseOnFlag(true)}
-                    onMouseLeave={() => setMouseOnFlag(false)}
+                <div style={{position: 'relative'}}>
+                    <img
+                        className="mainLearnPage_image_header_flag_headerComponent"
+                        src={america}
+                        alt="language"
+                        onMouseEnter={() => setMouseOnFlag(true)}
+                        onMouseLeave={() => setMouseOnFlag(false)}
                     />
+                    {
+                        mouseOnFlag &&
+                        <WindowFlagComponent
+                            setMouseOnFlag={setMouseOnFlag}
+                        />
+                    }
+                </div>
                 <div 
                     className="mainLearnPage_image_number_headerComponent"
                     onMouseEnter={() => setMouseOnFire(true)}
@@ -48,6 +59,12 @@ function HeaderComponent({
                     <span className="mainLearnPage_span_number_headerComponent">
                         0
                     </span>
+                    {
+                        mouseOnFire &&
+                            <WindowFireComponent
+                                setMouseOnFire={setMouseOnFire}
+                            />
+                    }
                 </div>
                 <div 
                     className="mainLearnPage_image_number_headerComponent"
@@ -62,6 +79,12 @@ function HeaderComponent({
                     <span className="mainLearnPage_span_number_headerComponent">
                         0
                     </span>
+                    {
+                        mouseOnRuby &&
+                            <WindowRubyComponent
+                                setMouseOnRuby={setMouseOnRuby}
+                            />
+                    }
                 </div>
                 <div className="mainLearnPage_main_div_avatar_headerComponent">
                     <img 
@@ -74,33 +97,31 @@ function HeaderComponent({
                     {/* <span className="mainLearnPage_span_user_name_headerComponent">
                         {user.name}
                     </span>    */}
-                </div>                         
+                    {
+                        mouseOnAvatar &&
+                            <WindowAvatarComponent
+                                setMouseOnAvatar={setMouseOnAvatar}
+                            />
+                    }
+                </div>
+                {
+                    isAdmin &&
+                        <button
+                            className="mainLearnPage_button_admin_headerComponent"
+                            onClick={() => navigate(ADMIN_PAGE)}
+                            >
+                            <RiAdminLine color={'#afafaf'}/>
+                            <span className="mainLearnPage_span_button_admin_headerComponent">
+                                Admin panel
+                            </span>
+                        </button>
+                }
             </div>
             <div className="mainLearnPage_main_div_windows">
                 {
-                    mouseOnFlag && 
-                        <WindowFlagComponent
-                            setMouseOnFlag={setMouseOnFlag}
-                        />
-                }  
-                {
-                    mouseOnFire && 
-                        <WindowFireComponent
-                            setMouseOnFire={setMouseOnFire}
-                        />
+                    (mouseOnFire || mouseOnRuby || mouseOnAvatar || mouseOnFlag) &&
+                        <div className="mainLearnPage_modal_window"></div>
                 }
-                {
-                    mouseOnRuby && 
-                        <WindowRubyComponent
-                            setMouseOnRuby={setMouseOnRuby}
-                        />
-                }
-                {
-                    mouseOnAvatar && 
-                        <WindowAvatarComponent
-                            setMouseOnAvatar={setMouseOnAvatar}
-                        />
-                }        
             </div>
         </header>
     );

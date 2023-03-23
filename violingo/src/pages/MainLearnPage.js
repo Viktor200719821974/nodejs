@@ -39,8 +39,8 @@ const MainLearnPage = () => {
     const [choosePurposeDay, setChoosePurposeDay] = useState('');
     const [changeBodyRight, setChangeBodyRight] = useState(false);
     const [offSoundEffects, setOffSoundEffects] = useState(true);
-    const [offExeciseToSpeak, setOffExeciseToSpeak] = useState(true);
-    const [offExeciseToAudio, setOffExeciseToAudio] = useState(true);
+    const [offExerciseToSpeak, setOffExerciseToSpeak] = useState(true);
+    const [offExerciseToAudio, setOffExerciseToAudio] = useState(true);
     const [activeButton, setActiveButton] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
     const [scrollBool, setScrollBool] = useState(false);
@@ -120,10 +120,10 @@ const MainLearnPage = () => {
             setShopPage(false);
             setChangeBodyRight(true);
         }
-        if (idElement > 10 || !offSoundEffects || !offExeciseToSpeak || !offExeciseToAudio) {
+        if (idElement > 10 || !offSoundEffects || !offExerciseToSpeak || !offExerciseToAudio) {
             setActiveButton(true);
         }
-        if (offSoundEffects && offExeciseToSpeak && offExeciseToAudio && idElement <= 10) {
+        if (offSoundEffects && offExerciseToSpeak && offExerciseToAudio && idElement <= 10) {
             setActiveButton(false);
         }
         if (idElement === idPurpose) {
@@ -143,8 +143,8 @@ const MainLearnPage = () => {
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
-        settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExeciseToSpeak,
-        offExeciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget, 
+        settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
+        offExerciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget,
         idPurpose,
     ]);
     return (
@@ -189,10 +189,10 @@ const MainLearnPage = () => {
                     { settingsSound && <SettingsSoundComponent
                                             offSoundEffects={offSoundEffects}
                                             setOffSoundEffects={setOffSoundEffects}
-                                            offExeciseToSpeak={offExeciseToSpeak}
-                                            setOffExeciseToSpeak={setOffExeciseToSpeak}
-                                            offExeciseToAudio={offExeciseToAudio}
-                                            setOffExeciseToAudio={setOffExeciseToAudio}
+                                            offExerciseToSpeak={offExerciseToSpeak}
+                                            setOffExerciseToSpeak={setOffExerciseToSpeak}
+                                            offExerciseToAudio={offExerciseToAudio}
+                                            setOffExerciseToAudio={setOffExerciseToAudio}
                                         /> 
                     }
                     {scrollBool && 

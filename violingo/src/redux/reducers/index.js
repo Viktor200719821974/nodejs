@@ -7,11 +7,12 @@ import { isStatisticUserReducer } from './isStatisticUserReducer';
 import { arrayChoosePositiveAnswerReducer } from './arrayChoosePositiveAnswerReducer';
 import { arrayIdChoosePositiveAnswerReducer } from './arrayIdChoosePositiveAnswerReducer';
 import { arrayWrongAnswerReducer } from './arrayWrongAnswerReducer';
+import { isAdminUserReducer } from './isAdminUserReducer';
 
 const rootReducer = combineReducers({ 
     userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, 
     arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, 
-    arrayWrongAnswerReducer,
+    arrayWrongAnswerReducer, isAdminUserReducer,
 });
 
 export { rootReducer };

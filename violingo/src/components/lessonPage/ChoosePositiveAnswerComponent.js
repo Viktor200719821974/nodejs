@@ -9,12 +9,12 @@ import BlockTranslateComponent from './BlockTranslateComponent';
 const ChoosePositiveAnswerComponent = ({
     src, alt, question, task, showBlockTranslate, setShowBlockTranslate, setIdElement, setName, 
     name, arrayChange, setArrayChange, nameTranslate, setNameTranslate, moreInfo, setMoreInfo,
-    titleTask,
+    titleTask, chooseWrong,
 }) => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
     const dispatch = useDispatch();
-    
+
     const filterTask = (array1, array2) => {
         array2.forEach(element => {
             array1 = array1.filter(item => item.id !== element);
@@ -113,9 +113,10 @@ const ChoosePositiveAnswerComponent = ({
                 {
                     array.map((value, index) =>
                         <span
-                            className="lessonPage_span_empty_choosePositiveAnswerComponent"
+                            className="lessonPage_span_empty_choosePositiveAnswerComponent
+                                lessonPage_style_joint_choosePositiveAnswerComponent"
                             key={index}
-                            onClick={() => deleteItem(index, name)}
+                            onClick={() => chooseWrong && deleteItem(index, name)}
                         >
                             {value}
                         </span>
@@ -126,14 +127,16 @@ const ChoosePositiveAnswerComponent = ({
                 {
                     arrayChange.map(c =>
                         <span
-                            className={ "lessonPage_span_option_answer_choosePositiveAnswerComponent"
+                            className={ "lessonPage_span_option_answer_choosePositiveAnswerComponent " +
+                                "lessonPage_style_joint_choosePositiveAnswerComponent"
                                 // !!arrayId.filter(value => value === c.id)
                                 //     ? "lessonPage_span_option_answer_choosePositiveAnswerComponent"
-                                //     : "lessonPage_span_option_answer_empty_place_choosePositiveAnswerComponent"
+                                //     : "lessonPage_span_option_answer_empty_place_choosePositiveAnswerComponent
+                                //      lessonPage_style_joint_choosePositiveAnswerComponent"
                             }
                             key={c.id}
                             onClick={() => {
-                                pushItems(c.id, c.name);
+                                chooseWrong && pushItems(c.id, c.name);
                             }}
                         >
                             {c.name}
