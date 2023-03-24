@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
@@ -14,7 +14,12 @@ function App() {
 
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
- 
+  const { isLogin } = useSelector(state => state.isLoginUserReducer);
+  const { isStatistic } = useSelector(state => state.isStatisticUserReducer);
+  const { isAdmin } = useSelector(state => state.isAdminUserReducer);
+  // console.log(isLogin, 'isLogin');
+  // console.log(isStatistic, 'isStatistic');
+  // console.log(isAdmin, 'isAdmin');
   useEffect(() => {
     try{
       const accessToken = localStorage.getItem('accessToken');
@@ -38,7 +43,7 @@ function App() {
     }
     setLoading(false);
     // eslint-disable-next-line
-  }, []);
+  }, [isLogin, isStatistic, isAdmin]);
   if (loading){
     return <Spinner animation={"grow"}/>
   }

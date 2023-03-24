@@ -20,7 +20,7 @@ import computer2 from '../icons/computer2.svg';
 import sovaGift from '../icons/sova-gift.svg';
 import sovaStudy from '../icons/sova-study.svg';
 import { 
-  LOGIN_PAGE, REGISTER_PAGE, VIOLINGO_HOME_PAGE, LESSON_PAGE, EFFICACY_PAGE, SUPER_VIOLINGO,
+  LOGIN_PAGE, REGISTER_PAGE, VIOLINGO_HOME_PAGE, EFFICACY_PAGE, SUPER_VIOLINGO,
   DOWNLOAD_APP_STORE, DOWNLOAD_GOOGLE_PLAY, VIOLINGO_FOR_SCHOOL, ENGLISH_TEST, 
   REGISTRATION_PAGE,
 } from '../constants';
@@ -137,7 +137,7 @@ const HomePage = () =>  {
         </div>
         <div 
           className="homePage_div_choice_language"
-          onClick={() => navigate(LESSON_PAGE)}
+          // onClick={() => navigate(LESSON_PAGE)}
           >
           <MdOutlineKeyboardArrowLeft size={'40px'} color={'#c5b9b9'} style={{cursor: "pointer"}}/>
           <img src={americaflag} alt="america flag" className="homePage_image_choice_language"/>

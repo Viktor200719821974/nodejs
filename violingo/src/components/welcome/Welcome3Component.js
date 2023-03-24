@@ -1,5 +1,5 @@
 import { BiArrowBack } from 'react-icons/bi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 
 // import { LOGIN_PAGE, LEARN_PAGE } from '../../constants';
@@ -14,7 +14,7 @@ const Welcome3Component = ({
 }) => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
-    // const { isLogin } = useSelector(state => state.isLoginUserReducer);
+    const { user } = useSelector(state => state.userReducer);
     
     const buttonBack = () => {
         setNewComponent1(true);
@@ -26,6 +26,9 @@ const Welcome3Component = ({
         try {
             setButtonNoActive(false);
             setNewComponent2(false);
+            if (email === null) {
+                email = user.email;
+            }
             await postStatistic(howDidYouKnow, whatAreYouStuding, everyDayTarget, email)
                 .then(data => {
                     if (data.status === 201) {

@@ -1,6 +1,6 @@
 const SettingsSoundComponent = ({
     offSoundEffects, setOffSoundEffects, offExerciseToSpeak, setOffExerciseToSpeak,
-    offExerciseToAudio, setOffExerciseToAudio,
+    offExerciseToAudio, setOffExerciseToAudio, setIdElement,
 }) => {
     return (
         <div>

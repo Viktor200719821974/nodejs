@@ -1,7 +1,6 @@
-// import dotenv from 'dotenv';
-//
-// dotenv.config();
+import dotenv from 'dotenv';
 
+dotenv.config();
 export const config = {
     PORT: process.env.PORT || 5000,
     SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY || 'key_access',

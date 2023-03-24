@@ -120,14 +120,11 @@ const MainLearnPage = () => {
             setShopPage(false);
             setChangeBodyRight(true);
         }
-        if (idElement > 10 || !offSoundEffects || !offExerciseToSpeak || !offExerciseToAudio) {
+        if (idElement === idPurpose && offSoundEffects && offExerciseToSpeak && offExerciseToAudio) {
+            setActiveButton(false);
+        }
+        if ((idElement > 10 && idElement !== idPurpose) || !offSoundEffects || !offExerciseToSpeak || !offExerciseToAudio) {
             setActiveButton(true);
-        }
-        if (offSoundEffects && offExerciseToSpeak && offExerciseToAudio && idElement <= 10) {
-            setActiveButton(false);
-        }
-        if (idElement === idPurpose) {
-            setActiveButton(false);
         }
         if (mouseOnFlag || mouseOnFire || mouseOnRuby || mouseOnAvatar) {
             setIsActive(true);

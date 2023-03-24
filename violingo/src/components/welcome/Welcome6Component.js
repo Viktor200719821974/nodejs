@@ -1,4 +1,3 @@
-import { BiArrowBack } from 'react-icons/bi';
 import { RxCross1 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,11 +6,11 @@ import sovaScientist from '../../icons/sova-scientist.svg';
 import { LEARN_PAGE, LESSON_PAGE, PLACEMENT_PAGE } from '../../constants';
 
 const Welcome6Component = ({
-    setNewComponent4, newComponent5,
+      newComponent5,
 }) => {
     const navigate = useNavigate();
     const buttonBack = () => {
-        setNewComponent4(true);
+        navigate(LEARN_PAGE);
     }
     return (
         <div>
@@ -21,7 +20,7 @@ const Welcome6Component = ({
                         className="welcomePage_button_cross" 
                         onClick={buttonBack}
                         >
-                        <BiArrowBack color='#d0cccc' size={'22px'}/>
+                        <RxCross1 color='#d0cccc' size={'22px'}/>
                     </button> 
                     <div className="welcomePage_div_around_cross">
                         <div className="welcomePage_div_one_download" style={{width: '100%'}}></div>
