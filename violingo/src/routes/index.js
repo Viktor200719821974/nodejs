@@ -1,8 +1,25 @@
 import SuccessExerciseComponent from '../components/lessonPage/SuccessExerciseComponent';
-import { 
-    HOME_PAGE, LEARN_PAGE, REVIEW_PAGE, SCHOOLS_PAGE, SHOP_PAGE, REGISTER_PAGE, WELCOME_PAGE, 
-    LESSON_PAGE, PLACEMENT_PAGE, LOGIN_PAGE, FORGET_PASSWORD, REGISTRATION_PAGE, CHANGE_PASSWORD, 
-    ACTIVATE_USER, SETTINGS_COACH, SETTINGS_SOUND, ERROR_404_PAGE, SUCCESS_EXERCISE, ADMIN_PAGE,
+import {
+    HOME_PAGE,
+    LEARN_PAGE,
+    REVIEW_PAGE,
+    SCHOOLS_PAGE,
+    SHOP_PAGE,
+    REGISTER_PAGE,
+    WELCOME_PAGE,
+    LESSON_PAGE,
+    PLACEMENT_PAGE,
+    LOGIN_PAGE,
+    FORGET_PASSWORD,
+    REGISTRATION_PAGE,
+    CHANGE_PASSWORD,
+    ACTIVATE_USER,
+    SETTINGS_COACH,
+    SETTINGS_SOUND,
+    ERROR_404_PAGE,
+    SUCCESS_EXERCISE,
+    ADMIN_PAGE,
+    ADMIN_PAGE_CREATE_TASKS, ADMIN_PAGE_CREATE_EXERCISES,
 } from '../constants';
 import ActivatePage from '../pages/ActivatePage';
 import Error404Page from '../pages/Error404Page';
@@ -15,13 +32,23 @@ import PlacementPage from '../pages/PlacementPage';
 import RegisterPage from '../pages/RegisterPage';
 import WelcomePage from '../pages/WelcomePage';
 import AdminPage from '../pages/AdminPage';
+import CreateTasksComponent from '../components/adminPage/CreateTasksComponent';
+import CreateExercisesComponent from '../components/adminPage/CreateExercisesComponent';
 
 
 export const authRoutes = [
     {
         path: ADMIN_PAGE,
         Component: AdminPage
-    }
+    },
+    {
+        path: ADMIN_PAGE_CREATE_TASKS,
+        Component: CreateTasksComponent
+    },
+    {
+        path: ADMIN_PAGE_CREATE_EXERCISES,
+        Component: CreateExercisesComponent
+    },
 
 ];
 export const publicRoutes = [

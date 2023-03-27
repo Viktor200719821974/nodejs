@@ -46,7 +46,6 @@ const LoginPage = () => {
                             dispatch(fetchUser(data.user));
                             dispatch(statisticUser(data.user.statistic));
                             dispatch(isAdminUser(data.user.is_staff));
-                            console.log(data);
                         } 
                     })
                     .catch(err => {

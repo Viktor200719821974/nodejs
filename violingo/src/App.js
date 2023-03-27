@@ -17,9 +17,7 @@ function App() {
   const { isLogin } = useSelector(state => state.isLoginUserReducer);
   const { isStatistic } = useSelector(state => state.isStatisticUserReducer);
   const { isAdmin } = useSelector(state => state.isAdminUserReducer);
-  // console.log(isLogin, 'isLogin');
-  // console.log(isStatistic, 'isStatistic');
-  // console.log(isAdmin, 'isAdmin');
+
   useEffect(() => {
     try{
       const accessToken = localStorage.getItem('accessToken');

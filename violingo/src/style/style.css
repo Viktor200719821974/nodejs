@@ -3467,6 +3467,43 @@ input[type=checkbox]:checked:after {
 .lessonPage_span_question_no_chooseImage_lookLessonModalComponent {
     margin-top: 15px;
 }
+.adminPage_main_div {
+    flex-direction: column;
+    height: 100vh;
+}
+.adminPage_div_type_button {
+    background-color: #1cb0f6;
+    box-shadow: 0 4px 0 #1899d6;
+    border: #1cb0f6 0 solid;
+    border-radius: 16px;
+    color: #fff;
+    width: 600px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px;
+}
+.adminPage_div_type_button:hover {
+    background-color: #3bb9f5;
+}
+.adminPage_main_div_createComponent {
+    display: flex;
+    height: 100vh;
+}
+.adminPage_div_navBar_createComponent {
+    width: 30%;
+    height: 100%;
+    border-right: 2px solid #e5e5e5;
+}
+.adminPage_div_body_createComponent {
+    width: 70%;
+    height: 100%;
+}
 
 @media (max-width: 1360px) {
     .mainLearnPage_main_navBar {
