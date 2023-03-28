@@ -8,6 +8,7 @@ import './style/style.css';
 import {fetchUser, isAdminUser, isLoginUser, isStatisticUser} from './redux/actions';
 import ApiRouter from './components/ApiRouter';
 import { getUserById } from './http/userApi';
+import violingoLoading from './icons/violingo_loading.png';
 // import { getStatistic } from './http/statisticApi';
 
 function App() {
@@ -43,7 +44,17 @@ function App() {
     // eslint-disable-next-line
   }, [isLogin, isStatistic, isAdmin]);
   if (loading){
-    return <Spinner animation={"grow"}/>
+    return (
+        <div className={"app_spinner_main_div display_alien_justify"}>
+            <img className={"app_spinner_image"} src={violingoLoading} alt={"loading violingo"}/>
+            <div className={"app_spinner_div"}>
+                <Spinner animation={"grow"} variant={"success"} size={"sm"} style={{marginRight: "4px"}}/>
+                <Spinner animation={"grow"} variant={"success"} size={"sm"} style={{marginRight: "4px"}}/>
+                <Spinner animation={"grow"} variant={"success"} size={"sm"} style={{marginRight: "4px"}}/>
+                <Spinner animation={"grow"} variant={"success"} size={"sm"}/>
+            </div>
+        </div>
+    )
   }
   return (
     <BrowserRouter>

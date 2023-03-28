@@ -87,6 +87,16 @@ header {
     align-items: center;
     justify-content: center; 
 }
+.app_spinner_main_div {
+    flex-direction: column;
+    height: 100vh;
+}
+.app_spinner_image {
+    width: 150px;
+}
+.app_spinner_div {
+    margin: 10px;
+}
 .homePage_header {
     background-color: #235390;
 }
@@ -3499,10 +3509,107 @@ input[type=checkbox]:checked:after {
     width: 30%;
     height: 100%;
     border-right: 2px solid #e5e5e5;
+    background: rgba(229, 229, 229, 0.3);
 }
 .adminPage_div_body_createComponent {
     width: 70%;
     height: 100%;
+}
+.adminPage_h2_navBar_createComponent {
+    margin: 20px;
+}
+.adminPage_h3_navBar_createComponent {
+    margin: 0 0 0 10px;
+}
+.adminPage_main_div_dropdowns {
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 4px;
+    width: 60%;
+    margin: 10px;
+    cursor: pointer;
+}
+.adminPage_h3_navBar_dropdown_createComponent {
+    margin: 0 4px 0 0;
+    color: #afafaf;
+}
+.adminPage_div_sign_and_button_createComponent {
+    display: flex;
+    align-items: center;
+    /*padding: 12px 12px 0 0;*/
+    height: 66px;
+}
+.adminPage_span_sign_width_createComponent {
+    width: 173px;
+}
+.adminPage_span_sign_createComponent {
+    font-size: 13px;
+    color: #4b4b4b;
+    text-align: left;
+    font-weight: 700;
+    padding:  0 12px;
+    box-sizing: border-box;
+}
+.adminPage_div_ellipse_and_quadrate_createComponent {
+    display: flex;
+    align-items: center;
+    /*margin-left: 10px ;*/
+    position: relative;
+}
+.adminPage_span_ellipse_on_createComponent {
+    background: #1cb0f6;
+    border-radius: 12px;
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 20px;
+    /*position: relative;*/
+    transition: background .1s;
+    width: 47px;
+    align-items: center;
+}
+.adminPage_span_ellipse_off_createComponent {
+    background: #e5e5e5;
+    border-radius: 12px;
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 20px;
+    position: relative;
+    transition: background .1s;
+    width: 47px;
+    align-items: center;
+}
+.adminPage_main_style_createComponent {
+    border-radius: 10px;
+    border-width: 2px 2px 4px;
+    box-sizing: border-box;
+    content: "";
+    height: 27px;
+    position: absolute;
+    transition: left .2s;
+    width: 27px;
+    background: #fff;
+}
+.adminPage_span_quadrate_on_createComponent {
+    border: solid #1cb0f6;
+    right: 0;
+    cursor: pointer;
+}
+.adminPage_span_quadrate_off_createComponent {
+    border: solid #e5e5e5;
+    left: 0;
+    cursor: pointer;
+}
+.adminPage_image_example_task {
+    width: 80px;
+    cursor: pointer;
+}
+.adminPage_big_image_example_task {
+    position: absolute;
+    top: 0;
+    left: 84px;
+    width: 400px;
+    border: 2px solid #e5e5e5;
+    z-index: 1;
 }
 
 @media (max-width: 1360px) {

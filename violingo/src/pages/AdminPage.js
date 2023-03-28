@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import { ADMIN_PAGE_CREATE_EXERCISES, ADMIN_PAGE_CREATE_TASKS } from '../constants';
 
 const AdminPage = () => {

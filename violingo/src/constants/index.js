@@ -46,3 +46,4 @@ export const IMAGES_WELCOME_PATH = '/images/welcome/';
 export const IMAGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT = '/images/mainLearnPageNavBarComponent/';
 export const IMAGES_LEARN_COMPONENT = '/images/imagesLearnComponent/';
 export const IMAGES_CHOOSE_IMAGE_COMPONENT = '/images/lessonPage/chooseImage/';
+export const IMAGES_IN_DIR_ICONS = '/static/media/';
