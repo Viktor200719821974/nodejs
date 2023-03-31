@@ -9,6 +9,7 @@ import {
     IExercise, IQuestion, ITask,
     // ILookLessonAnswer,
     ILesson,
+    ITheme,
 } from '../interfaces';
 // class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 //     declare id: CreationOptional<number>;
@@ -112,6 +113,14 @@ const Statistic = sequelize.define<IStatistic>('statistic', {
     },
     userId: { type: DataTypes.INTEGER, allowNull: false },
 }, { createdAt: false, updatedAt: false });
+const Theme = sequelize.define<ITheme>('Theme', {
+    id: {
+        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+    },
+    title: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+});
 // const Section = sequelize.define<ISection>('Section', {
 //     id: {
 //         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
@@ -340,6 +349,9 @@ Exercise.belongsTo(Lesson);
 
 Exercise.hasOne(Question, { foreignKey: 'exerciseId', as: 'question' });
 Question.belongsTo(Exercise);
+
+Theme.hasOne(Task, { foreignKey: 'themeId', as: 'task' });
+Task.belongsTo(Theme);
 // Exercise.hasOne(Task, { foreignKey: 'exerciseId' });
 // Task.belongsTo(Exercise);
 // Exercise.hasOne(LookLessonAnswer, { foreignKey: 'exerciseId' });
@@ -359,4 +371,5 @@ export const model = {
     Task,
     // LookLessonAnswer,
     Lesson,
+    Theme,
 };

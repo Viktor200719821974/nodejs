@@ -3519,15 +3519,35 @@ input[type=checkbox]:checked:after {
     margin: 20px;
 }
 .adminPage_h3_navBar_createComponent {
-    margin: 0 0 0 10px;
+    margin: 10px 0 0 10px;
 }
 .adminPage_main_div_dropdowns {
     border: 2px solid #e5e5e5;
     border-radius: 12px;
     padding: 4px;
-    width: 60%;
-    margin: 10px;
+    margin: 10px 10px 0 10px;
     cursor: pointer;
+}
+.adminPage_div_dropdown_menu_createComponent {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #e5e5e5;
+    margin: 0 10px;
+    border-radius: 12px;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.adminPage_span_dropdown_menu_createComponent {
+    display: flex;
+    padding: 4px 4px 4px 10px;
+    align-items: center;
+    cursor: pointer;
+    color: #afafaf;
+    font-weight: bold;
+}
+.adminPage_span_dropdown_menu_createComponent:hover {
+    background: #e5e5e5;
 }
 .adminPage_h3_navBar_dropdown_createComponent {
     margin: 0 4px 0 0;
@@ -3610,6 +3630,28 @@ input[type=checkbox]:checked:after {
     width: 400px;
     border: 2px solid #e5e5e5;
     z-index: 1;
+}
+.adminPage_main_div_modal_createComponent {
+    margin: 24px 24px 96px 24px;
+}
+.adminPage_modal_window {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+.adminPage_main_div_modal_window {
+    width: 600px;
+    background: #fff;
+    position: relative;
+    border-radius: 16px;
+}
+.adminPage_div_error_createThemeComponent {
+    font-size: 12px;
+    color: red;
+    margin-left: 10px;
 }
 
 @media (max-width: 1360px) {

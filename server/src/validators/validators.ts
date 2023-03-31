@@ -19,4 +19,8 @@ export const validators = {
         repeatPassword: Joi.string().required().trim().min(8)
             .error(new Error('Password is not valid, no space, min 8')),
     }),
+    theme: Joi.object({
+        title: Joi.string().required().min(1).max(100)
+            .error(new Error('Name theme is not valid, cannot be empty, max length 100 ')),
+    }),
 };

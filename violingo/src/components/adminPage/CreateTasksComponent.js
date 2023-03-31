@@ -1,8 +1,9 @@
 import { IoMdArrowDropdown } from 'react-icons/io';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
-import {arrayChooseTypeTaskCreateTasksComponent} from "../../constants/arrays";
-import {IMAGES_IN_DIR_ICONS} from '../../constants';
+import { arrayChooseTypeTaskCreateTasksComponent } from '../../constants/arrays';
+import { IMAGES_ADMIN_PAGE } from '../../constants';
+import {getThemes} from "../../http/themesApi";
 
 const CreateTasksComponent = () => {
     const [chooseImage, setChooseImage] = useState(false);
@@ -14,8 +15,15 @@ const CreateTasksComponent = () => {
     const [onMouse, setOnMouse] = useState(false);
     const [typeTask, setTypeTask] = useState('');
     const [choose, setChoose] = useState(false);
+    const [dropdown, setDropdown] = useState(false);
+    const [themes, setThemes] = useState([]);
 
     useEffect(() => {
+        getThemes().then(data => {
+           if (data.status === 200) {
+               setThemes(data.data);
+           }
+        });
         if (typeTask === 'Choose image') {
             setChooseImage(true);
         } else {
@@ -43,16 +51,34 @@ const CreateTasksComponent = () => {
         }
     },[
         typeTask, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose,
-        onMouse, image,
+        onMouse, image, dropdown, themes,
     ]);
     return (
         <div className={"adminPage_main_div_createComponent"}>
             <div className={"adminPage_div_navBar_createComponent"}>
                 <h2 className={"adminPage_h2_navBar_createComponent"}>Create task:</h2>
-                <div className={"adminPage_main_div_dropdowns display_alien_justify"}>
+                <div
+                    className={"adminPage_main_div_dropdowns display_alien_justify"}
+                    onClick={() => setDropdown(value => !value)}
+                >
                     <h3 className={"adminPage_h3_navBar_dropdown_createComponent"}>Choose theme task</h3>
                     <IoMdArrowDropdown/>
                 </div>
+                {
+                    dropdown &&
+                    <div className={"adminPage_div_dropdown_menu_createComponent"}>
+                        {
+                            themes && themes.map(c =>
+                                <span
+                                    key={c.id}
+                                    className={"adminPage_span_dropdown_menu_createComponent"}
+                                >
+                                    {c.title}
+                                </span>
+                            )
+                        }
+                    </div>
+                }
                 <h3 className={"adminPage_h3_navBar_createComponent"}>Choose type task:</h3>
                 {
                     arrayChooseTypeTaskCreateTasksComponent.map(c =>
@@ -92,7 +118,7 @@ const CreateTasksComponent = () => {
                             <div style={{position: 'relative'}}>
                                 <img
                                     className={"adminPage_image_example_task"}
-                                    src={IMAGES_IN_DIR_ICONS + c.src}
+                                    src={IMAGES_ADMIN_PAGE + c.src}
                                     alt={"example task"}
                                     onMouseEnter={() => {
                                         setImage(c.src);
@@ -107,7 +133,7 @@ const CreateTasksComponent = () => {
                                     onMouse && c.src === image &&
                                     <img
                                         className={"adminPage_big_image_example_task"}
-                                        src={IMAGES_IN_DIR_ICONS + image}
+                                        src={IMAGES_ADMIN_PAGE + image}
                                         alt={"example task"}
                                     />
                                 }

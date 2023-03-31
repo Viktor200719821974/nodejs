@@ -44,7 +44,6 @@ const LoginComponent = ({
                             УВІЙТИ
                     </button> 
                 </div>
-                
             </form>
         </div>
     );

@@ -15,6 +15,7 @@ export const LOGIN_PAGE = '/login';
 export const ADMIN_PAGE = '/admin';
 export const ADMIN_PAGE_CREATE_TASKS = '/admin/create_tasks';
 export const ADMIN_PAGE_CREATE_EXERCISES = '/admin/create_exercises';
+export const ADMIN_PAGE_CREATE_THEMES = '/admin/create_themes';
 export const FORGET_PASSWORD = '/forget_password';
 export const SUCCESS_EXERCISE = '/success_exercise';
 export const CHANGE_PASSWORD = '/change/password/:token';
@@ -40,10 +41,9 @@ export const PRIVACY_POLICY = 'https://localhost:3000/privacy_policy';
 export const CONDITIONS = 'https://localhost:3000/conditions';
 
 //PATH TO IMAGES
-
 export const IMAGES_FLAGS_PATH = '/images/flags/';
 export const IMAGES_WELCOME_PATH = '/images/welcome/';
 export const IMAGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT = '/images/mainLearnPageNavBarComponent/';
 export const IMAGES_LEARN_COMPONENT = '/images/imagesLearnComponent/';
 export const IMAGES_CHOOSE_IMAGE_COMPONENT = '/images/lessonPage/chooseImage/';
-export const IMAGES_IN_DIR_ICONS = '/static/media/';
+export const IMAGES_ADMIN_PAGE = '/images/adminPage/';

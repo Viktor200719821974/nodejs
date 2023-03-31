@@ -236,11 +236,11 @@ export const arrayButtonsImagesLearnComponent = [
     },
 ];
 export const arrayChooseTypeTaskCreateTasksComponent = [
-    {id: 1, typeTask: 'Choose image', src: 'chooseImage.34735b2a97b19d785c67.png'},
-    {id: 2, typeTask: 'Choose true answer', src: 'chooseTrueAnswer.523079bdf71f0bf39dfb.png'},
-    {id: 3, typeTask: 'Choose answer', src: 'chooseAnswer.2becf25c52216271f147.png'},
-    {id: 4, typeTask: 'Choose missing word', src: 'chooseMissingWord.1bab6a88b1b0283779fb.png'},
-    {id: 5, typeTask: 'Choose translate words', src: 'chooseTranslateWords.17e4f152916d882c3a1a.png'},
+    {id: 1, typeTask: 'Choose image', src: 'chooseImage.png'},
+    {id: 2, typeTask: 'Choose true answer', src: 'chooseTrueAnswer.png'},
+    {id: 3, typeTask: 'Choose answer', src: 'chooseAnswer.png'},
+    {id: 4, typeTask: 'Choose missing word', src: 'chooseMissingWord.png'},
+    {id: 5, typeTask: 'Choose translate words', src: 'chooseTranslateWords.png'},
 ];
 export const arrayLessonPageChooseImage = [
     {

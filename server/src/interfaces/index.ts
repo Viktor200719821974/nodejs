@@ -128,6 +128,11 @@ export interface IQuestion extends Model
         exerciseId: number;
 }
 
+export interface ITheme extends Model
+    <InferAttributes<ITheme>, InferCreationAttributes<ITheme>> {
+        id: number;
+        title: string;
+}
 export interface ITask extends Model
     <InferAttributes<ITask>, InferCreationAttributes<ITask>> {
         id: number;
