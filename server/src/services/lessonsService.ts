@@ -29,8 +29,8 @@ class LessonsService {
         return model.Lesson.create({ lessonNumber });
     }
 
-    async createTaskExercise(task: ITask, exerciseId: number) {
-        return model.Task.create({ ...task, exerciseId });
+    async createTaskExercise(task: ITask, themeId: number) {
+        return model.Task.create({ ...task, themeId });
     }
 
     async findLessonByNumber(lessonNumber: number): Promise<ILesson | null> {

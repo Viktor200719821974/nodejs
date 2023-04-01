@@ -113,7 +113,7 @@ const Statistic = sequelize.define<IStatistic>('statistic', {
     },
     userId: { type: DataTypes.INTEGER, allowNull: false },
 }, { createdAt: false, updatedAt: false });
-const Theme = sequelize.define<ITheme>('Theme', {
+const Theme = sequelize.define<ITheme>('theme', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
@@ -276,19 +276,34 @@ const Task = sequelize.define<ITask>('task', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
-    src: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    alt: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    name: {
+    // src: {
+    //     type: DataTypes.STRING, allowNull: true,
+    // },
+    // alt: {
+    //     type: DataTypes.STRING, allowNull: true,
+    // },
+    question: {
         type: DataTypes.STRING, allowNull: false,
     },
     answer: {
         type: DataTypes.STRING, allowNull: true,
     },
-    exerciseId: {
+    chooseImage: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    choosePositiveAnswer: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    chooseAnswer: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    chooseMissingWord: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    chooseTranslateWords: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    themeId: {
         type: DataTypes.INTEGER, allowNull: false,
     },
 });

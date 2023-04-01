@@ -4,7 +4,7 @@ import { exercisesController } from '../controllers/exercisesController';
 
 const router = Router();
 
-router.post('/:lessonNumber', exercisesController.createExercise);
+// router.post('/:lessonNumber', exercisesController.createExercise);
 router.get('/', exercisesController.getExercises);
 router.get('/:lessonNumber', exercisesController.getExercisesLesson);
 

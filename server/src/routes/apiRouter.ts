@@ -8,6 +8,7 @@ import { staticsRouter } from './statisticsRouter';
 import { usersRouter } from './usersRouter';
 import { exercisesRouter } from './exercisesRouter';
 import { themesRouter } from './themesRouter';
+import { tasksRouter } from './tasksRouter';
 
 const router = Router();
 
@@ -17,6 +18,7 @@ router.use('/statistic', staticsRouter);
 router.use('/lessons', lessonsRouter);
 router.use('/exercises', exercisesRouter);
 router.use('/themes', themesRouter);
+router.use('/tasks', tasksRouter);
 // @ts-ignore
 router.use('*', (err: any, req: Request, res: Response, next: NextFunction) => {
     res.status(err.status || 500)

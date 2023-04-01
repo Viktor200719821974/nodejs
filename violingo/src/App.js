@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
@@ -16,20 +16,20 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const { isLogin } = useSelector(state => state.isLoginUserReducer);
-  const { isStatistic } = useSelector(state => state.isStatisticUserReducer);
-  const { isAdmin } = useSelector(state => state.isAdminUserReducer);
+  // const { isStatistic } = useSelector(state => state.isStatisticUserReducer);
+  // const { isAdmin } = useSelector(state => state.isAdminUserReducer);
 
   useEffect(() => {
     try{
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {
         getUserById(accessToken).then(data => {
-          if (data) {
-            dispatch(fetchUser(data));
+          if (data.status === 200) {
+            dispatch(fetchUser(data.data));
             dispatch(isLoginUser(true));
-            dispatch(isStatisticUser(data.statistic));
-            dispatch(isAdminUser(data.is_staff));
-          }         
+            dispatch(isStatisticUser(data.data.statistic));
+            dispatch(isAdminUser(data.data.is_staff));
+          }
         });
         // getStatistic().then(data => {
         //   if (data.status === 200) {
@@ -42,7 +42,7 @@ function App() {
     }
     setLoading(false);
     // eslint-disable-next-line
-  }, [isLogin, isStatistic, isAdmin]);
+  }, [isLogin]);
   if (loading){
     return (
         <div className={"app_spinner_main_div display_alien_justify"}>

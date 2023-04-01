@@ -3515,13 +3515,37 @@ input[type=checkbox]:checked:after {
     width: 70%;
     height: 100%;
 }
+.adminPage_div_arrowBack_createComponent {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px 0 0;
+    cursor: pointer;
+    width: 100%;
+    justify-content: flex-end;
+}
+.adminPage_div_arrowBack_border_createComponent {
+    border: 2px solid #e5e5e5;
+    border-radius: 50%;
+}
+.adminPage_div_arrowBack_border_createComponent:hover {
+    background: #e5e5e5;
+}
 .adminPage_h2_navBar_createComponent {
     margin: 20px;
+}
+.adminPage_main_div_chooseTypeTaskComponent {
+    margin: 10px 0;
+    border-top: 2px solid #e5e5e5;
+    border-bottom: 2px solid #e5e5e5;
+    padding: 10px 0;
 }
 .adminPage_h3_navBar_createComponent {
     margin: 10px 0 0 10px;
 }
-.adminPage_main_div_dropdowns {
+.adminPage_main_div_dropdown {
+    position: relative;
+}
+.adminPage_div_title_dropdown {
     border: 2px solid #e5e5e5;
     border-radius: 12px;
     padding: 4px;
@@ -3530,6 +3554,7 @@ input[type=checkbox]:checked:after {
 }
 .adminPage_div_dropdown_menu_createComponent {
     display: flex;
+    background: #fff;
     flex-direction: column;
     border: 2px solid #e5e5e5;
     margin: 0 10px;
@@ -3537,6 +3562,8 @@ input[type=checkbox]:checked:after {
     border-top: none;
     max-height: 200px;
     overflow-y: auto;
+    position: absolute;
+    z-index: 1;
 }
 .adminPage_span_dropdown_menu_createComponent {
     display: flex;
@@ -3652,6 +3679,20 @@ input[type=checkbox]:checked:after {
     font-size: 12px;
     color: red;
     margin-left: 10px;
+}
+.adminPage_h1_title_createComponent {
+    color: #afafaf;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+.adminPage_h2_no_tasks_createComponent {
+    width: 100%;
+    text-align: center;
+    color: #e5e5e5;
+}
+.adminPage_main_div_form_createComponent {
+    padding: 10px;
 }
 
 @media (max-width: 1360px) {
