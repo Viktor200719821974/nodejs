@@ -18,12 +18,12 @@ class AuthMiddleware {
                 return;
             }
             // @ts-ignore
-            const { userEmail } = await tokenService.verifyToken(token).catch(err => {
+            const { userEmail } = await tokenService.verifyToken(token).catch((err) => {
                 if (err) {
                     res.status(401).json('Unauthorized');
-                    return;
                 }
             });
+            console.log(userEmail);
             const findToken = await tokenService.findByParamsAccess(token);
             if (!findToken) {
                 res.status(400).json('No token');
@@ -39,6 +39,7 @@ class AuthMiddleware {
             }
             next();
         } catch (e) {
+            console.log(e, 'errrrrora accesstoken');
             next(e);
         }
     }
@@ -52,7 +53,7 @@ class AuthMiddleware {
                 return;
             }
             next();
-        } catch(e) {
+        } catch (e) {
             next(e);
         }
     }
@@ -66,12 +67,10 @@ class AuthMiddleware {
                 return;
             }
             const userPassword = user.password;
-            if (typeof userPassword === 'string') {
-                const comparePassword = bcrypt.compareSync(password, userPassword);
-                if (!comparePassword) {
-                    res.status(400).json('Bad email or password');
-                    return;
-                }
+            const comparePassword = bcrypt.compareSync(password, userPassword);
+            if (!comparePassword) {
+                res.status(400).json('Bad email or password');
+                return;
             }
             const activeUser = user.is_active;
             if (!activeUser) {
@@ -90,23 +89,22 @@ class AuthMiddleware {
         }
         try {
             const token = req.headers.authorization;
-            if (!token) {
-                res.status(401).json('Unauthorized');
-                return;
-            }
-            //@ts-ignore
+            // if (!token) {
+            //     res.status(401).json('Unauthorized');
+            //     return;
+            // }
+            // @ts-ignore
             const { userEmail } = await tokenService.verifyToken(token, 'refreshToken')
-            .catch(err => {
-                if (err) {
-                    res.status(401).json('Unauthorized');
-                    return;
-                }
-            });
-            const findToken = await tokenService.findByParamsRefresh(token);
-            if (!findToken) {
-                res.status(400).json('No token');
-                return;
-            }
+                .catch((err) => {
+                    if (err) {
+                        res.status(401).json('Unauthorized');
+                    }
+                });
+            // const findToken = await tokenService.findByParamsRefresh(token);
+            // if (!findToken) {
+            //     res.status(400).json('No token');
+            //     return;
+            // }
             const user = await usersService.getUserByEmail(userEmail).then((data) => data);
             if (user) {
                 req.user = user;
@@ -116,6 +114,7 @@ class AuthMiddleware {
             }
             next();
         } catch (e: any) {
+            console.log(e, 'errrrrrrrrrrrrrrrrrrrrrrr');
             next(e);
         }
     }

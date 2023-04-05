@@ -16,8 +16,8 @@ const Auth = observer(() => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
     const [phone, setPhone] = useState('');
     const [age, setAge] = useState('');
     const [error, setError] = useState('');
@@ -34,7 +34,7 @@ const Auth = observer(() => {
                         }
                     });
             } else {
-               const res = await registration(email, password, firstName, lastName, age, phone)
+               const res = await registration(email, password, name, surname, age, phone)
                    .catch(err => {
                         if (err.response) {
                             setError(err.response.data);
@@ -80,16 +80,16 @@ const Auth = observer(() => {
                         <Form.Control
                             className={"mt-3"}
                             placeholder="Введіть ваше ім'я..."
-                            value={firstName}
-                            onChange={e => setFirstName(e.target.value)}
+                            value={name}
+                            onChange={e => setName(e.target.value)}
                         />
                     }
                     {!isLogin &&
                         <Form.Control
                             className={"mt-3"}
                             placeholder="Введіть ваше прізвище..."
-                            value={lastName}
-                            onChange={e => setLastName(e.target.value)}
+                            value={surname}
+                            onChange={e => setSurname(e.target.value)}
                         />
                     }
                     {!isLogin &&

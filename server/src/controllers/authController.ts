@@ -7,7 +7,8 @@ import { tokenService } from '../services/tokenService';
 import { usersService } from '../services/usersService';
 
 class AuthController {
-    async registration(req: Request, res: Response, next: NextFunction): Promise<IUser | undefined> {
+    async registration(req: Request, res: Response, next: NextFunction)
+        : Promise<IUser | undefined> {
         try {
             const { email, password, name } = req.body;
             const { activateToken } = await authService.registration(req.body, password, email);
@@ -20,17 +21,16 @@ class AuthController {
             const user = await usersService.getUserByEmail(email);
             res.json(user);
             return;
-        } catch(e) {
+        } catch (e) {
             next(e);
         }
-
     }
 
     async login(req: Request, res: Response, next: NextFunction) {
         try {
             const { email } = req.body;
             const id = await usersService.getUserByEmail(email)
-            .then(data => data?.id);
+                .then((data) => data?.id);
             if (!id) {
                 res.status(400).json('Bad email or password');
                 return;
@@ -38,7 +38,7 @@ class AuthController {
             const tokenPair = await authService.login(email, id);
             res.json(tokenPair);
             return;
-        } catch(e) {
+        } catch (e) {
             next(e);
         }
     }
@@ -57,6 +57,7 @@ class AuthController {
     async refresh(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const { id, email } = req.user as IUser;
+            console.log(id, email);
             const refreshTokenToDelete = req.get('Authorization');
             const token = await tokenService.findByParamsRefresh(refreshTokenToDelete);
             if (!token) {
@@ -66,14 +67,16 @@ class AuthController {
             const { accessToken, refreshToken, userId } = await tokenService.generateTokenPair(
                 { userId: id, userEmail: email },
             );
-            //@ts-ignore
+            // @ts-ignore
             await tokenService.saveToken({ accessToken, refreshToken, userId });
             res.json({
                 refreshToken,
                 accessToken,
                 user: req.user,
             });
+            return;
         } catch (e) {
+            console.log(e, 'errrors');
             next(e);
         }
     }

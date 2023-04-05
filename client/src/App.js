@@ -11,10 +11,10 @@ import { isLoginUser, fetchUser } from './redux/actions';
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     try{
-      const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {
         getUserById(accessToken).then(data => {
           dispatch(fetchUser(data));
@@ -25,7 +25,7 @@ function App() {
       console.log(err);
     }
     setLoading(false);
-  }, []);
+  }, [loading, accessToken]);
   if (loading){
     return <Spinner animation={"grow"}/>
   }

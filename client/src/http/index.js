@@ -13,7 +13,7 @@ const $refreshHost = axios.create({
 });
 const refreshInterceptor = config => {
     config.headers.authorization = localStorage.getItem('refreshToken');
-    return config
+    return config;
 }
 
 $refreshHost.interceptors.request.use(refreshInterceptor);
@@ -26,6 +26,7 @@ $authHost.interceptors.request.use((config) => {
         return config;
     },
     (error) => {
+        console.log(error);
         return Promise.reject(error);
     });
 
@@ -34,6 +35,7 @@ $authHost.interceptors.response.use(
         return res;
     },
     async (err) => {
+        console.log(err);
         const refreshToken = localStorage.getItem("refreshToken");
         const originalConfig = err.config;
         if (refreshToken && originalConfig.url !== "/auth/login" && err.response ){
@@ -43,10 +45,14 @@ $authHost.interceptors.response.use(
                     const rs = await $refreshHost.post("/auth/refresh",{
                         refreshToken: localStorage.getItem('refreshToken'),
                     });
+                    console.log(rs);
                     localStorage.setItem('accessToken', rs.data.accessToken);
                     localStorage.setItem('refreshToken', rs.data.refreshToken);
-                    return $authHost(originalConfig);
+                    console.log(originalConfig);
+                    $authHost.defaults.headers.common["x-access-token"] = rs.data.accessToken;
+                    return await $authHost(originalConfig);
                 }catch (_error) {
+                    console.log(_error);
                     if (_error.response.status === 401) {
                         localStorage.clear();
                         window.location.href = "/login";

@@ -9,9 +9,9 @@ class UsersController {
         try {
             const users = await usersService.getUsers();
             res.json(users);
-        } catch(e) {
+        } catch (e) {
             next(e);
-        }   
+        }
     }
 
     async getUserById(req: Request, res: Response, next: NextFunction) {
@@ -19,7 +19,8 @@ class UsersController {
             const { id } = req.params;
             const user = await usersService.getUserById(+id);
             res.json(user);
-        } catch(e) {
+            return;
+        } catch (e) {
             next(e);
         }
     }
@@ -57,7 +58,7 @@ class UsersController {
     async userBlocked(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
-             const user = await usersService.userBlocked(+id);
+            const user = await usersService.userBlocked(+id);
             // @ts-ignore
             const { email, name, surname } = user;
             const sendEmail = await emailService.sendMail(email, 'ACCOUNT_BLOCKED', { userName: name, surname })
@@ -78,7 +79,7 @@ class UsersController {
             const user = await usersService.userUnlocked(+id);
             // @ts-ignore
             const { email, name, surname } = user;
-            const sendEmail =  await emailService.sendMail(email, 'ACCOUNT_UNLOCKED', { userName: name, surname })
+            const sendEmail = await emailService.sendMail(email, 'ACCOUNT_UNLOCKED', { userName: name, surname })
                 .catch(console.error);
             if (!sendEmail) {
                 res.status(404).json('Problems is send email');
@@ -96,7 +97,7 @@ class UsersController {
             if (!activateToken) {
                 res.status(400).json('Bad request');
             }
-            await usersService.activateUser(activateToken).catch(err => {
+            await usersService.activateUser(activateToken).catch((err) => {
                 if (err) {
                     console.log(err);
                 }
@@ -106,7 +107,6 @@ class UsersController {
             next(e);
         }
     }
-
 }
 
 export const usersController = new UsersController();

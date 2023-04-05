@@ -1,4 +1,3 @@
-
 export const emailInfo = {
     WELCOME: {
         subject: 'Вітаємо на нашому сайті',

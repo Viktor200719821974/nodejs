@@ -8,16 +8,16 @@ class UsersService {
                 attributes: {
                     exclude: ['password', 'createdAt', 'updatedAt', 'activateToken'],
                 },
-            }
+            },
         );
     }
 
     async getUserById(id: number): Promise<IUser | null> {
-        return model.User.findOne({ 
+        return model.User.findOne({
             attributes: {
                 exclude: ['password', 'createdAt', 'updatedAt', 'activateToken'],
-            }, 
-            where: { id } 
+            },
+            where: { id },
         });
     }
 
@@ -25,8 +25,8 @@ class UsersService {
         return model.User.findOne({
             attributes: {
                 exclude: ['password', 'createdAt', 'updatedAt', 'activateToken'],
-            }, 
-            where: { email } 
+            },
+            where: { email },
         });
     }
 
@@ -58,13 +58,14 @@ class UsersService {
         const id = await model.User.findOne({ where: { activateToken } })
             .then((data) => data?.id);
         await model.User.update(
-            { 
-                is_active: true, 
-                activateToken: 'Activate' 
-            }, 
             {
-                where: { id } 
-            });
+                is_active: true,
+                activateToken: 'Activate',
+            },
+            {
+                where: { id },
+            },
+        );
     }
 }
 

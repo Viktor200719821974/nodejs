@@ -15,15 +15,15 @@ const User = sequelize.define<IUser>('User', {
     phone: { type: DataTypes.STRING, unique: true },
     activateToken: { type: DataTypes.STRING, defaultValue: 'No activate' },
     is_active: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
-    is_staff: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false},
+    is_staff: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     is_superuser: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
 });
 const Token = sequelize.define<IToken>('Token', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
-    accessToken: { type: DataTypes.STRING, unique: true, allowNull: false },
-    refreshToken: { type: DataTypes.STRING, unique: true, allowNull: false },
+    accessToken: { type: DataTypes.STRING, allowNull: false },
+    refreshToken: { type: DataTypes.STRING, allowNull: false },
     userId: { type: DataTypes.INTEGER, allowNull: false, references: { model: User, key: 'id' } },
 });
 
@@ -33,4 +33,4 @@ Token.belongsTo(User, { foreignKey: 'userId' });
 export const model = {
     User,
     Token,
-}
+};
