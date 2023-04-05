@@ -3694,6 +3694,24 @@ input[type=checkbox]:checked:after {
 .adminPage_main_div_form_createComponent {
     padding: 10px;
 }
+.adminPage_main_div_question_answer_createComponent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+.adminPage_div_question_answer_createComponent {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    margin: 4px;
+    text-align: left;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    color: #afafaf;
+    cursor: pointer;
+}
 
 @media (max-width: 1360px) {
     .mainLearnPage_main_navBar {

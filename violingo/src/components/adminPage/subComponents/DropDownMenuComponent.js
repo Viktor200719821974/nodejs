@@ -1,11 +1,11 @@
 import { IoMdArrowDropdown } from 'react-icons/io';
 
-const DropDownMenuComponent = ({ setDropdown, dropdown, themes, click, title, }) => {
+const DropDownMenuComponent = ({ dropdown, themes, click, title, openCloseDropdownMenu }) => {
     return (
         <div className={"adminPage_main_div_dropdown"}>
             <div
                 className={"adminPage_div_title_dropdown display_alien_justify"}
-                onClick={() => setDropdown(value => !value)}
+                onClick={openCloseDropdownMenu}
             >
                 <h4 className={"adminPage_h3_navBar_dropdown_createComponent"}>{title}</h4>
                 <IoMdArrowDropdown/>
@@ -21,7 +21,7 @@ const DropDownMenuComponent = ({ setDropdown, dropdown, themes, click, title, })
                                 onClick={() => click(c.title, c.id)}
                             >
                                     {index + 1}.{c.title}
-                                </span>
+                            </span>
                         )
                     }
                 </div>

@@ -84,6 +84,7 @@ class AuthMiddleware {
                     }
                 });
             const user = await model.User.findOne({ where: { id: userId } })
+                // eslint-disable-next-line no-console
                 .catch((err) => console.log(err));
             if (user) {
                 req.user = user;
@@ -107,12 +108,10 @@ class AuthMiddleware {
                 return;
             }
             const userPassword = user.password;
-            if (typeof userPassword === 'string') {
-                const comparePassword = bcrypt.compareSync(password, userPassword);
-                if (!comparePassword) {
-                    res.status(400).json('Bad email or password');
-                    return;
-                }
+            const comparePassword = bcrypt.compareSync(password, userPassword);
+            if (!comparePassword) {
+                res.status(400).json('Bad email or password');
+                return;
             }
             const activeUser = user.is_active;
             if (!activeUser) {
@@ -142,7 +141,7 @@ class AuthMiddleware {
                         res.status(401).json('Unauthorized');
                     }
                 });
-            const findToken = await tokenService.findByParamsToken(token);
+            const findToken = await tokenService.findByParamsRefreshToken(token);
             if (!findToken) {
                 res.status(400).json('No token');
                 return;

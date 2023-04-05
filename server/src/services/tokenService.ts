@@ -46,11 +46,15 @@ class TokenService {
     }
 
     async findByParamsToken(token: string): Promise<boolean> {
-        return !!model.Token.findOne({ where: { accessToken: token } });
+        return !!await model.Token.findOne({ where: { accessToken: token } });
+    }
+
+    async findByParamsRefreshToken(token: string): Promise<boolean> {
+        return !!await model.Token.findOne({ where: { refreshToken: token } });
     }
 
     async findByParamsActivateToken(activateToken: string | undefined): Promise<boolean> {
-        return !!model.User.findOne({ where: { activateToken } });
+        return !!await model.User.findOne({ where: { activateToken } });
     }
 
     async deleteTokenPair(userId: number): Promise<void> {

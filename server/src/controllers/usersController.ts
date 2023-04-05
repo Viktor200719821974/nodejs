@@ -61,6 +61,7 @@ class UsersController {
             // @ts-ignore
             const { email, name, surname } = user;
             const sendEmail = await emailService.sendMail(email, 'ACCOUNT_BLOCKED', { userName: name, surname })
+                // eslint-disable-next-line no-console
                 .catch(console.error);
             if (!sendEmail) {
                 res.status(404).json('Problems is send email');
@@ -79,6 +80,7 @@ class UsersController {
             // @ts-ignore
             const { email, name, surname } = user;
             const sendEmail = await emailService.sendMail(email, 'ACCOUNT_UNLOCKED', { userName: name, surname })
+                // eslint-disable-next-line no-console
                 .catch(console.error);
             if (!sendEmail) {
                 res.status(404).json('Problems is send email');

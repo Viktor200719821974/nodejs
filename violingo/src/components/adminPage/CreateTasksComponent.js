@@ -26,10 +26,16 @@ const CreateTasksComponent = () => {
     const [themeId, setThemeId] = useState();
 
     const filterTasks = arrayTasks.filter(c => c.themeId === themeId);
-    const click = (titleTheme, id) => {
+    const click = async (titleTheme, id) => {
         try {
             setTitle(titleTheme);
             setThemeId(id);
+            await getTasks().then(data => {
+                if (data.status === 200) {
+                    setArrayTasks(data.data);
+                }
+            });
+            setDropdown(false);
         } catch (e) {
             console.log(e.message);
         }
@@ -52,24 +58,20 @@ const CreateTasksComponent = () => {
             console.log(e.message);
         }
     }
-    const fetchTasks = async () => {
-        await getTasks().then(data => {
-            if (data.status === 200) {
-                setArrayTasks(data.data);
-            }
-        });
+    const openCloseDropdownMenu = async () => {
+        try {
+            setDropdown(value => !value);
+            await getThemes().then(data => {
+                if (data.status === 200) {
+                    setThemes(data.data);
+                }
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
     }
-    const fetchThemes = async () => {
-        await getThemes().then(data => {
-            if (data.status === 200) {
-                setThemes(data.data);
-                // console.log(data);
-            }
-        });
-    }
+
     useEffect(() => {
-        fetchThemes().then();
-        fetchTasks().then();
         if (typeTask === 'Choose image') {
             setChooseImage(true);
         } else {
@@ -113,6 +115,7 @@ const CreateTasksComponent = () => {
                     themes={themes}
                     click={click}
                     title={title}
+                    openCloseDropdownMenu={openCloseDropdownMenu}
                 />
                 {
                     title !== '' &&
@@ -151,15 +154,17 @@ const CreateTasksComponent = () => {
                             No tasks
                         </h2>
                 }
-                {
-                    filterTasks.length > 0 &&
+                <div className={"adminPage_main_div_question_answer_createComponent"}>
+                    {
+                        filterTasks.length > 0 &&
                         filterTasks.map(c =>
-                            <div>
-                                <span>{c.question}</span>
-                                <span>{c.answer}</span>
+                            <div key={c.id} className={"adminPage_div_question_answer_createComponent"}>
+                                <span><b>Question:</b> {c.question}</span>
+                                <span><b>Answer:</b> {c.answer}</span>
                             </div>
                         )
-                }
+                    }
+                </div>
             </div>
         </div>
     );

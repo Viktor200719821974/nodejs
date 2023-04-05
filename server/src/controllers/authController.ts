@@ -101,13 +101,13 @@ class AuthController {
     async refresh(req: IRequestExtended, res: Response, next: NextFunction) {
         try {
             const { id, email } = req.user as IUser;
-            const refreshTokenToDelete = req.get('Authorization');
-            if (refreshTokenToDelete) {
-                const token = await tokenService.findByParamsToken(refreshTokenToDelete);
-                if (!token) {
-                    res.status(404).json('No token');
-                }
-            }
+            // const refreshTokenToDelete = req.get('Authorization');
+            // if (refreshTokenToDelete) {
+            //     const token = await tokenService.findByParamsRefreshToken(refreshTokenToDelete);
+            //     if (!token) {
+            //         res.status(404).json('No token');
+            //     }
+            // }
             await tokenService.deleteTokenPair(id);
             const { accessToken, refreshToken, userId } = await tokenService.generateTokenPair(
                 { userId: id, userEmail: email },
