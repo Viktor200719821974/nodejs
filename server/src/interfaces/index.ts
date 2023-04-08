@@ -138,6 +138,7 @@ export interface ITask extends Model
         id: number;
         // src: string;
         // alt: string;
+        word: string;
         question: string;
         answer: string;
         chooseImage: boolean;
@@ -147,7 +148,13 @@ export interface ITask extends Model
         chooseTranslateWords: boolean;
         themeId: number;
 }
-
+export interface IImageTask extends Model
+    <InferAttributes<IImageTask>, InferCreationAttributes<IImageTask>> {
+        id: number;
+        src: string;
+        alt: string;
+        taskId: number;
+}
 // export interface ILookLessonAnswer extends Model
 //     <InferAttributes<ILookLessonAnswer>, InferCreationAttributes<ILookLessonAnswer>> {
 //         id: number;

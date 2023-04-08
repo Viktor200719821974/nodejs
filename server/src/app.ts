@@ -1,11 +1,18 @@
 import express from 'express';
+import fileUpload from 'express-fileupload';
+import path from 'path';
 
 import { config } from './config';
 import { sequelize } from './db';
 import { apiRouter } from './routes/apiRouter';
 
 const app = express();
+
+app.use(fileUpload());
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use((req, res, next) => {
     // res.header('Access-Control-Allow-Origin', 'http://localhost:5500');
     // res.header('Access-Control-Allow-Headers', 'http://localhost:5500');
@@ -30,4 +37,4 @@ const start = async () => {
         console.log(e);
     }
 };
-start();
+start().then((r) => r);

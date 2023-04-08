@@ -1,3 +1,6 @@
+import { UploadedFile } from 'express-fileupload';
+import path from 'path';
+
 import { model } from '../models';
 import { ITask } from '../interfaces';
 
@@ -69,7 +72,39 @@ class TasksService {
     //         // console.log(newArray);
     //     }
     // }
-    async createTask(task: ITask) : Promise<ITask> {
+    async createTask(task: ITask, image: UploadedFile) : Promise<ITask> {
+        const {
+            chooseMissingWord, chooseImage, answer, word,
+        } = task;
+        if (chooseImage) {
+            const newTask = await model.Task.create({ ...task });
+            const taskId = newTask.id;
+            const fileExtension = path.extname(image.name);
+            const fileName = `${answer}Image${fileExtension}`;
+            const uploadPath = path.join(__dirname, `../static/${fileName}`);
+            image.mv(uploadPath, (err) => {
+                if (err) {
+                    // eslint-disable-next-line no-console
+                    console.log(err);
+                }
+            });
+            // @ts-ignore
+            await model.ImageTask.create({ src: fileName, alt: `${answer} image`, taskId });
+            return newTask;
+        }
+        if (chooseMissingWord) {
+            const createQuestion = answer.split(' ');
+            const arr = [];
+            // eslint-disable-next-line no-plusplus
+            for (let i = 0; i < createQuestion.length; i++) {
+                if (createQuestion[i] === word) {
+                    createQuestion[i] = '____';
+                }
+                arr.push(createQuestion[i]);
+            }
+            const joinArray = arr.join(' ');
+            return model.Task.create({ ...task, question: joinArray });
+        }
         return model.Task.create({ ...task });
     }
 }

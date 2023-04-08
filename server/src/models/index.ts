@@ -2,14 +2,11 @@ import { DataTypes } from 'sequelize';
 // import { InferAttributes, InferCreationAttributes, Model, CreationOptional } from 'sequelize';
 import { sequelize } from '../db';
 import {
-    IToken,
-    IUser,
-    IStatistic,
+    IToken, IUser, IStatistic,
     // ISection, IPart1,
     IExercise, IQuestion, ITask,
     // ILookLessonAnswer,
-    ILesson,
-    ITheme,
+    ILesson, ITheme, IImageTask,
 } from '../interfaces';
 // class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 //     declare id: CreationOptional<number>;
@@ -94,8 +91,8 @@ const Token = sequelize.define<IToken>('token', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
-    accessToken: { type: DataTypes.STRING, unique: true, allowNull: false },
-    refreshToken: { type: DataTypes.STRING, unique: true, allowNull: false },
+    accessToken: { type: DataTypes.STRING, allowNull: false },
+    refreshToken: { type: DataTypes.STRING, allowNull: false },
     userId: { type: DataTypes.INTEGER, allowNull: false },
 });
 const Statistic = sequelize.define<IStatistic>('statistic', {
@@ -276,12 +273,9 @@ const Task = sequelize.define<ITask>('task', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
     },
-    // src: {
-    //     type: DataTypes.STRING, allowNull: true,
-    // },
-    // alt: {
-    //     type: DataTypes.STRING, allowNull: true,
-    // },
+    word: {
+        type: DataTypes.STRING, allowNull: true,
+    },
     question: {
         type: DataTypes.STRING, allowNull: false,
     },
@@ -304,6 +298,20 @@ const Task = sequelize.define<ITask>('task', {
         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
     },
     themeId: {
+        type: DataTypes.INTEGER, allowNull: false,
+    },
+});
+const ImageTask = sequelize.define<IImageTask>('imageTask', {
+    id: {
+        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+    },
+    src: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+    alt: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+    taskId: {
         type: DataTypes.INTEGER, allowNull: false,
     },
 });
@@ -367,6 +375,9 @@ Question.belongsTo(Exercise);
 
 Theme.hasOne(Task, { foreignKey: 'themeId', as: 'task' });
 Task.belongsTo(Theme);
+
+Task.hasOne(ImageTask, { foreignKey: 'taskId', as: 'image' });
+ImageTask.belongsTo(Task);
 // Exercise.hasOne(Task, { foreignKey: 'exerciseId' });
 // Task.belongsTo(Exercise);
 // Exercise.hasOne(LookLessonAnswer, { foreignKey: 'exerciseId' });
@@ -387,4 +398,5 @@ export const model = {
     // LookLessonAnswer,
     Lesson,
     Theme,
+    ImageTask,
 };
