@@ -1,17 +1,30 @@
 import { UploadedFile } from 'express-fileupload';
-import path from 'path';
 
 import { model } from '../models';
 import { ITask } from '../interfaces';
+import { chooseTypeTasksService } from './chooseTypeTasksService';
 
 class TasksService {
     async getTasks(): Promise<ITask[]> {
         return model.Task.findAll();
     }
 
-    async getTasksForTheme(title: string): Promise<ITask[]> {
-        const themeId = await model.Theme.findOne({ where: { title } }).then((data) => data?.id);
-        return model.Task.findAll({ where: { themeId } });
+    async getTasksForThemeAndChooseAnswer(themeId: number, chooseAnswer: boolean)
+        : Promise<ITask[]> {
+        return model.Task.findAll({
+            where: {
+                themeId,
+                chooseAnswer,
+            },
+        });
+    }
+
+    async getTasksForTheme(themeId: number): Promise<ITask[]> {
+        return model.Task.findAll({
+            where: {
+                themeId,
+            },
+        });
     }
 
     // async createTask(
@@ -74,36 +87,18 @@ class TasksService {
     // }
     async createTask(task: ITask, image: UploadedFile) : Promise<ITask> {
         const {
-            chooseMissingWord, chooseImage, answer, word,
+            chooseMissingWord, chooseImage, choosePositiveAnswer, answer, word, chooseAnswer,
+            themeId,
         } = task;
         if (chooseImage) {
-            const newTask = await model.Task.create({ ...task });
-            const taskId = newTask.id;
-            const fileExtension = path.extname(image.name);
-            const fileName = `${answer}Image${fileExtension}`;
-            const uploadPath = path.join(__dirname, `../static/${fileName}`);
-            image.mv(uploadPath, (err) => {
-                if (err) {
-                    // eslint-disable-next-line no-console
-                    console.log(err);
-                }
-            });
-            // @ts-ignore
-            await model.ImageTask.create({ src: fileName, alt: `${answer} image`, taskId });
-            return newTask;
+            return chooseTypeTasksService.chooseImage(answer, image, task);
         }
         if (chooseMissingWord) {
-            const createQuestion = answer.split(' ');
-            const arr = [];
-            // eslint-disable-next-line no-plusplus
-            for (let i = 0; i < createQuestion.length; i++) {
-                if (createQuestion[i] === word) {
-                    createQuestion[i] = '____';
-                }
-                arr.push(createQuestion[i]);
-            }
-            const joinArray = arr.join(' ');
-            return model.Task.create({ ...task, question: joinArray });
+            return chooseTypeTasksService.chooseMissingWord(answer, word, task);
+        }
+        if (choosePositiveAnswer) {
+            return chooseTypeTasksService
+                .choosePositiveAnswer(answer, task, chooseAnswer, +themeId);
         }
         return model.Task.create({ ...task });
     }

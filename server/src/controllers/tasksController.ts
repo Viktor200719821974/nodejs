@@ -15,8 +15,8 @@ class TasksController {
 
     async getTasksForTheme(req: Request, res: Response, next: NextFunction) {
         try {
-            const { title } = req.params;
-            const tasks = await tasksService.getTasksForTheme(title);
+            const { themeId } = req.params;
+            const tasks = await tasksService.getTasksForTheme(+themeId);
             res.status(200).json(tasks);
         } catch (e) {
             next(e);
@@ -26,10 +26,21 @@ class TasksController {
     async createTask(req: Request, res: Response, next: NextFunction) {
         try {
             const image = req.files?.image as UploadedFile;
-            const { chooseImage } = req.body;
-            if (chooseImage && image === undefined) {
+            const {
+                chooseImage, choosePositiveAnswer, themeId, chooseAnswer,
+            } = req.body;
+            if (chooseImage === true && image === undefined) {
                 res.status(400).json('No image');
                 return;
+            }
+            if (choosePositiveAnswer) {
+                const arrayTasks = await tasksService
+                    .getTasksForThemeAndChooseAnswer(themeId, chooseAnswer);
+                if (arrayTasks.length < 3) {
+                    res.status(400)
+                        .json(`Need to add more tasks with chooseAnswer. Now ${arrayTasks.length} and need min 3`);
+                    return;
+                }
             }
             const task = await tasksService.createTask(req.body, image);
             res.status(201).json(task);

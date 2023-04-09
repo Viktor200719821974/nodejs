@@ -136,11 +136,10 @@ export interface ITheme extends Model
 export interface ITask extends Model
     <InferAttributes<ITask>, InferCreationAttributes<ITask>> {
         id: number;
-        // src: string;
-        // alt: string;
         word: string;
         question: string;
         answer: string;
+        optionsAnswer: [];
         chooseImage: boolean;
         choosePositiveAnswer: boolean;
         chooseAnswer: boolean;

@@ -282,6 +282,9 @@ const Task = sequelize.define<ITask>('task', {
     answer: {
         type: DataTypes.STRING, allowNull: true,
     },
+    optionsAnswer: {
+        type: DataTypes.ARRAY(DataTypes.STRING), allowNull: true,
+    },
     chooseImage: {
         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
     },
