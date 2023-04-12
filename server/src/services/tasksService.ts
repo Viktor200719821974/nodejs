@@ -5,7 +5,65 @@ import { ITask } from '../interfaces';
 import { chooseTypeTasksService } from './chooseTypeTasksService';
 
 class TasksService {
-    async getTasks(): Promise<ITask[]> {
+    async getTasks(
+        themeId: string,
+        chooseImage: boolean,
+        chooseAnswer: boolean,
+        choosePositiveAnswer: boolean,
+        chooseMissingWord: boolean,
+        chooseTranslateWords: boolean,
+    ): Promise<ITask[] | undefined> {
+        console.log(chooseAnswer, chooseMissingWord);
+        let tasks;
+        if (
+            chooseImage || chooseAnswer || choosePositiveAnswer || chooseMissingWord
+            || chooseTranslateWords || themeId
+        ) {
+            let id;
+            if (themeId !== 'undefined') {
+                id = +themeId;
+                console.log(id);
+            }
+            if (
+                themeId !== 'undefined' && !chooseImage && !chooseAnswer && !choosePositiveAnswer
+                && !chooseMissingWord && !chooseTranslateWords
+            ) {
+                tasks = await model.Task.findAll({ where: { themeId: id } });
+            }
+            if (themeId !== 'undefined' && chooseImage) {
+                tasks = await model.Task.findAll({ where: { themeId: id, chooseImage } });
+            }
+            if (themeId !== 'undefined' && chooseAnswer) {
+                tasks = await model.Task.findAll({ where: { themeId: id, chooseAnswer } });
+                console.log('chooseAnswer');
+            }
+            if (themeId && choosePositiveAnswer) {
+                tasks = await model.Task.findAll({ where: { themeId: id, choosePositiveAnswer } });
+            }
+            if (themeId !== 'undefined' && chooseMissingWord) {
+                tasks = await model.Task.findAll({ where: { themeId: id, chooseMissingWord } });
+                console.log('chooseMissingWord');
+            }
+            if (themeId !== 'undefined' && chooseTranslateWords) {
+                tasks = await model.Task.findAll({ where: { themeId: id, chooseTranslateWords } });
+            }
+            if (themeId === 'undefined' && chooseImage) {
+                tasks = await model.Task.findAll({ where: { chooseImage } });
+            }
+            if (themeId === 'undefined' && chooseAnswer) {
+                tasks = await model.Task.findAll({ where: { chooseAnswer } });
+            }
+            if (themeId === 'undefined' && choosePositiveAnswer) {
+                tasks = await model.Task.findAll({ where: { choosePositiveAnswer } });
+            }
+            if (themeId === 'undefined' && chooseMissingWord) {
+                tasks = await model.Task.findAll({ where: { chooseMissingWord } });
+            }
+            if (themeId === 'undefined' && chooseTranslateWords) {
+                tasks = await model.Task.findAll({ where: { chooseTranslateWords } });
+            }
+            return tasks;
+        }
         return model.Task.findAll();
     }
 

@@ -8,11 +8,12 @@ import { arrayChoosePositiveAnswerReducer } from './arrayChoosePositiveAnswerRed
 import { arrayIdChoosePositiveAnswerReducer } from './arrayIdChoosePositiveAnswerReducer';
 import { arrayWrongAnswerReducer } from './arrayWrongAnswerReducer';
 import { isAdminUserReducer } from './isAdminUserReducer';
+import { tasksReducer } from './tasksReducer';
 
 const rootReducer = combineReducers({ 
     userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, 
     arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, 
-    arrayWrongAnswerReducer, isAdminUserReducer,
+    arrayWrongAnswerReducer, isAdminUserReducer, tasksReducer,
 });
 
 export { rootReducer };

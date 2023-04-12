@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import './style/style.css';
-import {fetchUser, isAdminUser, isLoginUser, isStatisticUser} from './redux/actions';
+import { fetchUser, isAdminUser, isLoginUser, isStatisticUser} from './redux/actions';
 import ApiRouter from './components/ApiRouter';
 import { getUserById } from './http/userApi';
 import violingoLoading from './icons/violingo_loading.png';
+// import { getTasks } from './http/tasksApi';
 // import { getStatistic } from './http/statisticApi';
 
 function App() {
@@ -28,6 +29,13 @@ function App() {
                         dispatch(isStatisticUser(data.data.statistic));
                         dispatch(isAdminUser(data.data.is_staff));
                         // window.location.href = '/learn';
+                        // if (data.data.is_staff) {
+                        //     getTasks().then(data => {
+                        //         if (data.status === 200) {
+                        //             dispatch(fetchTasks(data.data));
+                        //         }
+                        //     });
+                        // }
                     }
                 });
                 // getStatistic().then(data => {

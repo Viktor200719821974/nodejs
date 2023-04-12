@@ -6,7 +6,26 @@ import { tasksService } from '../services/tasksService';
 class TasksController {
     async getTasks(req: Request, res: Response, next: NextFunction) {
         try {
-            const tasks = await tasksService.getTasks();
+            const {
+                themeId,
+                chooseImage,
+                chooseAnswer,
+                choosePositiveAnswer,
+                chooseMissingWord,
+                chooseTranslateWords,
+            } = req.query;
+            console.log(themeId, chooseAnswer, chooseMissingWord, chooseAnswer);
+            const tasks = await tasksService
+                // eslint-disable-next-line max-len
+                .getTasks(
+                    // @ts-ignore
+                    themeId,
+                    chooseImage === 'true',
+                    chooseAnswer === 'true',
+                    choosePositiveAnswer === 'true',
+                    chooseMissingWord === 'true',
+                    chooseTranslateWords === 'true',
+                );
             res.status(200).json(tasks);
         } catch (e) {
             next(e);
