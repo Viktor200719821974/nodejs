@@ -37,7 +37,7 @@ $authHost.interceptors.response.use(
         const refreshToken = localStorage.getItem("refreshToken");
         const originalConfig = err.config;
         if (refreshToken && originalConfig.url !== "/auth/login" && err.response ){
-            if ((err.response.status === 401 || 500) && !originalConfig._retry){
+            if ((err.response.status === 401) && !originalConfig._retry){
                 originalConfig._retry = true;
                 try{
                     await $refreshHost.post("/auth/refresh",{

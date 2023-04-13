@@ -13,10 +13,11 @@ class TasksController {
                 choosePositiveAnswer,
                 chooseMissingWord,
                 chooseTranslateWords,
+                question,
+                word,
+                answer,
             } = req.query;
-            console.log(themeId, chooseAnswer, chooseMissingWord, chooseAnswer);
             const tasks = await tasksService
-                // eslint-disable-next-line max-len
                 .getTasks(
                     // @ts-ignore
                     themeId,
@@ -25,6 +26,9 @@ class TasksController {
                     choosePositiveAnswer === 'true',
                     chooseMissingWord === 'true',
                     chooseTranslateWords === 'true',
+                    question,
+                    word,
+                    answer,
                 );
             res.status(200).json(tasks);
         } catch (e) {
@@ -46,7 +50,7 @@ class TasksController {
         try {
             const image = req.files?.image as UploadedFile;
             const {
-                chooseImage, choosePositiveAnswer, themeId, chooseAnswer,
+                chooseImage, choosePositiveAnswer, chooseAnswer,
             } = req.body;
             if (chooseImage === true && image === undefined) {
                 res.status(400).json('No image');
@@ -54,7 +58,7 @@ class TasksController {
             }
             if (choosePositiveAnswer) {
                 const arrayTasks = await tasksService
-                    .getTasksForThemeAndChooseAnswer(themeId, chooseAnswer);
+                    .getTasksForThemeAndChooseAnswer(chooseAnswer);
                 if (arrayTasks.length < 3) {
                     res.status(400)
                         .json(`Need to add more tasks with chooseAnswer. Now ${arrayTasks.length} and need min 3`);
@@ -66,6 +70,12 @@ class TasksController {
         } catch (e) {
             next(e);
         }
+    }
+
+    async deleteTask(req: Request, res: Response, next: NextFunction) {
+        const { id } = req.params;
+        await tasksService.deleteTask(+id);
+        res.status(200).json('Deleted');
     }
 }
 

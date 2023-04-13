@@ -143,7 +143,7 @@ class AuthMiddleware {
                 });
             const findToken = await tokenService.findByParamsRefreshToken(token);
             if (!findToken) {
-                res.status(400).json('No token');
+                res.status(404).json('No token');
                 return;
             }
             const user = await usersService.getUserByEmail(userEmail);

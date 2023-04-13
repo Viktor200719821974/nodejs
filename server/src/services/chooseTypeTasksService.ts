@@ -36,15 +36,14 @@ class ChooseTypeTasksService {
         return model.Task.create({ ...task, question: joinArray });
     }
 
-    async choosePositiveAnswer(answer: string, task: ITask, chooseAnswer: boolean, themeId: number)
+    async choosePositiveAnswer(answer: string, task: ITask)
         : Promise<ITask> {
         const cyrillicPattern = /^[\u0400-\u04FF]+$/;
         let optionsAnswer = answer.split(' ');
         const arrayTasks = await model.Task
             .findAll({
                 where: {
-                    chooseAnswer,
-                    themeId,
+                    chooseAnswer: true,
                 },
             });
         const arrayOptionsWords = arrayTasks.map((data) => data.answer);

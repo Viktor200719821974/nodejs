@@ -23,4 +23,19 @@ export const validators = {
         title: Joi.string().required().min(1).max(100)
             .error(new Error('Name theme is not valid, cannot be empty, max length 100 ')),
     }),
+    tasks: Joi.object({
+        question: Joi.string().required().allow('').max(100)
+            .error(new Error('Question is not valid, max length 100 ')),
+        answer: Joi.string().required().min(1).max(100)
+            .error(new Error('Answer is not valid, max length 100 ')),
+        themeId: Joi.number().required()
+            .error(new Error('Choose theme')),
+        word: Joi.string().allow(null).allow('').error(new Error('Word is not valid, max length 100')),
+        chooseImage: Joi.boolean(),
+        chooseAnswer: Joi.boolean(),
+        choosePositiveAnswer: Joi.boolean(), 
+        chooseMissingWord: Joi.boolean(),
+        chooseTranslateWords: Joi.boolean(),
+
+    }),
 };

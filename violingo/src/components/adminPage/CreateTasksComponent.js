@@ -27,22 +27,15 @@ const CreateTasksComponent = () => {
     const [answer, setAnswer] = useState('');
     const [question, setQuestion] = useState('');
     const [themeId, setThemeId] = useState();
-    const [word, setWord] = useState('');
+    const [word, setWord] = useState(null);
 
-    // const filterTasks = tasks.filter(c => c.themeId === themeId);
-    // const filterTasksForType = filterTasks.filter(c => c.chooseImage === chooseImage)
-    //     .filter(c => c.chooseAnswer === chooseAnswer)
-    //     .filter(c => c.choosePositiveAnswer === choosePositiveAnswer)
-    //     .filter(c => c.chooseMissingWord === chooseMissingWord)
-    //     .filter(c => c.chooseTranslateWords === chooseTranslateWords);
     const fetchTasksFunc = async () => {
         try {
             await getTasks(
-                themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords
+                themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords,
+                question, answer, word,
             ).then(data => {
-                console.log(data);
                 if (data.status === 200) {
-                    // setArrayTasks(data.data);
                     dispatch(fetchTasks(data.data));
                 }
             });
@@ -54,11 +47,6 @@ const CreateTasksComponent = () => {
         try {
             setTitle(titleTheme);
             setThemeId(id);
-            // await getTasks().then(data => {
-            //     if (data.status === 200) {
-            //         setArrayTasks(data.data);
-            //     }
-            // });
             setDropdown(false);
         } catch (e) {
             console.log(e.message);
@@ -75,14 +63,9 @@ const CreateTasksComponent = () => {
                     setQuestion('');
                     setAnswer('');
                     setWord('');
-                    // await getTasks().then(item => {
-                    //     if (item.status === 200) {
-                    //         dispatch(fetchTasks(item.data));
-                    //     }
-                    // });
                 }
             }).catch(err => {
-                console.log(err);
+                console.log(err.message);
             });
         } catch (e) {
             console.log(e.message);
@@ -99,6 +82,9 @@ const CreateTasksComponent = () => {
         } catch (e) {
             console.log(e.message);
         }
+    }
+    const deleteTask = () => {
+        
     }
 
     useEffect(() => {
@@ -134,9 +120,10 @@ const CreateTasksComponent = () => {
             setWord('');
             setQuestion('');
         }
+        // eslint-disable-next-line
     },[
         typeTask, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose,
-        image, dropdown, answer, question, title, word, themeId,
+        image, dropdown, answer, question, title, word, themeId, tasks.length,
     ]);
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -185,17 +172,16 @@ const CreateTasksComponent = () => {
             </div>
             <div className={"adminPage_div_body_createComponent"}>
                 <h1 className={"adminPage_h1_title_createComponent"}>{title}</h1>
-                {/*{*/}
-                {/*    ((filterTasks.length === 0 && title !== 'Choose theme task' && typeTask === '') ||*/}
-                {/*        (tasks.length === 0 && title === 'Choose theme task') ||*/}
-                {/*        (filterTasksForType.length === 0 && typeTask !== '' && title !== 'Choose theme task')) &&*/}
-                {/*        <h2 className={"adminPage_h2_no_tasks_createComponent"}>*/}
-                {/*            No tasks*/}
-                {/*        </h2>*/}
-                {/*}*/}
+                    {                
+                        tasks.length === 0 &&
+                            <h2 className={"adminPage_h2_no_tasks_createComponent"}>
+                                No tasks
+                            </h2>
+                    }
+                
                 <div className={"adminPage_main_div_question_answer_createComponent"}>
                     {
-                        // (tasks.length > 0 && typeTask === '' && title === 'Choose theme task') &&
+                        tasks.length > 0 &&
                             tasks.map(c =>
                                 <div key={c.id} className={"adminPage_div_question_answer_createComponent"}>
                                     <span><b>Question:</b> {c.question}</span>
@@ -203,24 +189,6 @@ const CreateTasksComponent = () => {
                                 </div>
                             )
                     }
-                    {/*{*/}
-                    {/*    (filterTasks.length > 0 && typeTask === '' && title !== 'Choose theme task') &&*/}
-                    {/*        filterTasks.map(c =>*/}
-                    {/*            <div key={c.id} className={"adminPage_div_question_answer_createComponent"}>*/}
-                    {/*                <span><b>Question:</b> {c.question}</span>*/}
-                    {/*                <span><b>Answer:</b> {c.answer}</span>*/}
-                    {/*            </div>*/}
-                    {/*        )*/}
-                    {/*}*/}
-                    {/*{*/}
-                    {/*    (filterTasksForType.length > 0 && typeTask !== '' && title !== 'Choose theme task') &&*/}
-                    {/*        filterTasksForType.map(c =>*/}
-                    {/*            <div key={c.id} className={"adminPage_div_question_answer_createComponent"}>*/}
-                    {/*                <span><b>Question:</b> {c.question}</span>*/}
-                    {/*                <span><b>Answer:</b> {c.answer}</span>*/}
-                    {/*            </div>*/}
-                    {/*        )*/}
-                    {/*}*/}
                 </div>
             </div>
         </div>
