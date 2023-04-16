@@ -1,4 +1,5 @@
 import cross from '../../icons/cross-closedModal.svg';
+
 const CreateThemesComponent = ({ onHide, title, setTitle, click, error, errorMessage, }) => {
     return (
         <div className="adminPage_modal_window display_alien_justify">

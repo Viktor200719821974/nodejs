@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { IoMdArrowDropdown } from 'react-icons/io';
 
 import { getThemes } from '../../http/themesApi';
-import { createTask, getTasks } from '../../http/tasksApi';
+import { createTask, deleteTask, getTasks } from '../../http/tasksApi';
 import DropDownMenuComponent from './subComponents/DropDownMenuComponent';
 import ArrowBackComponent from './subComponents/ArrowBackComponent';
 import ChooseTypeTaskComponent from './subComponents/ChooseTypeTaskComponent';
-import CreateChooseTypeComponent from './subCreateTaskComponents/CreateChooseTypeComponent';
+import CreateTaskFormComponent from './subCreateTaskComponents/CreateTaskFormComponent';
 import { fetchTasks } from '../../redux/actions';
+import cross from '../../icons/cross-closedModal.svg';
+import DeleteTaskModalComponent from './subCreateTaskComponents/DeleteTaskModalComponent';
 
 const CreateTasksComponent = () => {
     const dispatch = useDispatch();
     const { tasks } = useSelector(state => state.tasksReducer);
+    
     const [chooseImage, setChooseImage] = useState(false);
     const [choosePositiveAnswer, setChoosePositiveAnswer] = useState(false);
     const [chooseAnswer, setChooseAnswer] = useState(false);
@@ -28,6 +32,12 @@ const CreateTasksComponent = () => {
     const [question, setQuestion] = useState('');
     const [themeId, setThemeId] = useState();
     const [word, setWord] = useState(null);
+    const [onHide, setOnHide] = useState(false);
+    const [taskId, setTaskId] = useState(0);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [translate, setTranslate] = useState('');
+    const [dropdownTypeMenu, setDropdownTypeMenu] = useState(true);
 
     const fetchTasksFunc = async () => {
         try {
@@ -52,20 +62,23 @@ const CreateTasksComponent = () => {
             console.log(e.message);
         }
     }
-    const sendTask = (e) => {
+    const sendTask = async(e) => {
         e.preventDefault();
         try {
-            createTask(
+            await createTask(
                 question, answer, themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord,
-                chooseTranslateWords, word,
-            ).then(async data => {
+                chooseTranslateWords, word, translate,
+            ).then(data => {
                 if (data.status === 201) {
                     setQuestion('');
                     setAnswer('');
                     setWord('');
+                    setError(false);
+                    setErrorMessage('');
                 }
             }).catch(err => {
-                console.log(err.message);
+                setErrorMessage(err.response.data);
+                setError(true);
             });
         } catch (e) {
             console.log(e.message);
@@ -83,8 +96,16 @@ const CreateTasksComponent = () => {
             console.log(e.message);
         }
     }
-    const deleteTask = () => {
-        
+    const fetchDeleteTask = async(id) => {
+        try {
+            await deleteTask(taskId).then(data => {
+                if (data.status === 200) {
+                    setOnHide(false);
+                }
+            }).catch (err => console.log(err));
+        } catch (e) {
+            console.log(e.message);
+        }
     }
 
     useEffect(() => {
@@ -123,7 +144,8 @@ const CreateTasksComponent = () => {
         // eslint-disable-next-line
     },[
         typeTask, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose,
-        image, dropdown, answer, question, title, word, themeId, tasks.length,
+        image, dropdown, answer, question, title, word, themeId, tasks.length, onHide, taskId, error, errorMessage, 
+        translate, dropdownTypeMenu,
     ]);
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -141,23 +163,36 @@ const CreateTasksComponent = () => {
                 {
                     title !== '' &&
                         <div className={"adminPage_main_div_chooseTypeTaskComponent"}>
-                            <h3 className={"adminPage_h3_navBar_createComponent"}>Choose type task:</h3>
-                            <ChooseTypeTaskComponent
-                                setChoose={setChoose}
-                                setTypeTask={setTypeTask}
-                                choose={choose}
-                                typeTask={typeTask}
-                                setImage={setImage}
-                                setOnMouse={setOnMouse}
-                                image={image}
-                                onMouse={onMouse}
-                            />
+                            <div className="adminPage_div_dropdown_chooseTypeTask">
+                                <h3 className={"adminPage_h3_navBar_createComponent"}>Choose type task:</h3>
+                                <span 
+                                    className="adminPage_span_image_dropdown_chooseTypeTask"
+                                    onClick={() => setDropdownTypeMenu(value => !value)}
+                                    >
+                                    <IoMdArrowDropdown size={'30px'}/>
+                                </span>
+                            </div>
+                            {
+                                dropdownTypeMenu &&
+                                    <div>
+                                        <ChooseTypeTaskComponent
+                                            setChoose={setChoose}
+                                            setTypeTask={setTypeTask}
+                                            choose={choose}
+                                            typeTask={typeTask}
+                                            setImage={setImage}
+                                            setOnMouse={setOnMouse}
+                                            image={image}
+                                            onMouse={onMouse}
+                                        />  
+                                    </div>
+                            }
                         </div>
                 }
                 <div className={"adminPage_main_div_form_createComponent display_alien_justify"}>
                     {
                         choose &&
-                            <CreateChooseTypeComponent
+                            <CreateTaskFormComponent
                                 question={question}
                                 setQuestion={setQuestion}
                                 answer={answer}
@@ -166,6 +201,10 @@ const CreateTasksComponent = () => {
                                 setWord={setWord}
                                 chooseMissingWord={chooseMissingWord}
                                 word={word}
+                                error={error}
+                                errorMessage={errorMessage}
+                                translate={translate}
+                                setTranslate={setTranslate}
                             />
                     }
                 </div>
@@ -184,8 +223,31 @@ const CreateTasksComponent = () => {
                         tasks.length > 0 &&
                             tasks.map(c =>
                                 <div key={c.id} className={"adminPage_div_question_answer_createComponent"}>
+                                    <div
+                                        className="adminPage_div_image_cross_createTasksComponent display_alien_justify"
+                                        onClick={() => {
+                                            setOnHide(true);
+                                            setTaskId(c.id);
+                                        }}
+                                        >
+                                        <img 
+                                            src={cross} 
+                                            alt="cross open modal"
+                                            className="adminPage_image_cross_createTasksComponent"
+                                        />
+                                    </div>
                                     <span><b>Question:</b> {c.question}</span>
                                     <span><b>Answer:</b> {c.answer}</span>
+                                    {
+                                        onHide &&
+                                            <div className="adminPage_modal_window_delete display_alien_justify">
+                                                <DeleteTaskModalComponent 
+                                                    id={taskId} 
+                                                    fetchDeleteTask={fetchDeleteTask} 
+                                                    setOnHide={setOnHide}
+                                                />
+                                            </div>
+                                    }
                                 </div>
                             )
                     }

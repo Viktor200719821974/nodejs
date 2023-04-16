@@ -24,16 +24,29 @@ class ChooseTypeTasksService {
 
     async chooseMissingWord(answer: string, word: string, task: ITask): Promise<ITask> {
         const createQuestion = answer.split(' ');
+        const wordLength = word.length;
         const arr = [];
         // eslint-disable-next-line no-plusplus
         for (let i = 0; i < createQuestion.length; i++) {
             if (createQuestion[i] === word) {
-                createQuestion[i] = '____';
+                createQuestion[i] = '_'.repeat(wordLength + 2);
             }
             arr.push(createQuestion[i]);
         }
         const joinArray = arr.join(' ');
-        return model.Task.create({ ...task, question: joinArray });
+        const arrayChooseMissingWord = await model.Task.findAll({ where: { chooseMissingWord: true }});
+        let arrayWords = arrayChooseMissingWord.map((c) => c.word).filter(item => item !== word);
+        if (arrayWords.length < 3) {
+            arrayWords.push('are', 'is', 'beer', 'drink', 'am');
+            arrayWords.filter(item => item !== word);
+        }
+        let unique = arrayWords.filter((value, index, array) => array.indexOf(value) === index);
+        unique = await this._getShuffledArray(unique);
+        unique.length = 3;
+        unique.push(word);
+        unique = await this._getShuffledArray(unique);
+        //@ts-ignore
+        return model.Task.create({ ...task, question: joinArray, optionsAnswer: unique });
     }
 
     async choosePositiveAnswer(answer: string, task: ITask)
@@ -49,6 +62,10 @@ class ChooseTypeTasksService {
         const arrayOptionsWords = arrayTasks.map((data) => data.answer);
         let arrayEnglishWords: string[] = [];
         let arrayUkraineWords: string[] = [];
+        if (arrayOptionsWords.length < 3) {
+            arrayEnglishWords.push('beer', 'drink', 'apple', 'boy', 'girl');
+            arrayUkraineWords.push('батько', 'пити', 'яблуко', 'хлопчик', 'дівчинка');
+        }
         // eslint-disable-next-line no-plusplus
         for (let i = 0; i < arrayOptionsWords.length; i++) {
             if (cyrillicPattern.test(arrayOptionsWords[i])) {
@@ -61,6 +78,7 @@ class ChooseTypeTasksService {
             optionsAnswer.forEach((item) => {
                 arrayUkraineWords.filter((c) => c !== item);
             });
+            arrayUkraineWords = arrayUkraineWords.filter((value, index, array) => array.indexOf(value) === index);
             arrayUkraineWords = await this._getShuffledArray(arrayUkraineWords);
             if (optionsAnswer.length > 3) {
                 arrayUkraineWords.length = 3;
@@ -73,6 +91,7 @@ class ChooseTypeTasksService {
             optionsAnswer.forEach((item) => {
                 arrayEnglishWords.filter((c) => c !== item);
             });
+            arrayEnglishWords = arrayEnglishWords.filter((value, index, array) => array.indexOf(value) === index);
             arrayEnglishWords = await this._getShuffledArray(arrayEnglishWords);
             if (optionsAnswer.length > 3) {
                 arrayEnglishWords.length = 3;

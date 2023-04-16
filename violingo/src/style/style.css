@@ -1,3 +1,8 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }  
 * {
     scroll-behavior: smooth;
     font-family: din-round,sans-serif;
@@ -86,6 +91,22 @@ header {
     display: flex;
     align-items: center;
     justify-content: center; 
+}
+.style_button_cancel {
+    border: 2px solid orange;
+    color: orange;
+}
+.style_button_cancel:hover {
+    color: #fff;
+    background-color: orange;
+}
+.style_button_delete {
+    border: 2px solid red;
+    color: red;
+}
+.style_button_delete:hover {
+    color: #fff;
+    background-color: red;
 }
 .app_spinner_main_div {
     flex-direction: column;
@@ -3503,13 +3524,21 @@ input[type=checkbox]:checked:after {
 }
 .adminPage_main_div_createComponent {
     display: flex;
-    height: 100vh;
+    width: 100vw;
+    height: 100%;
+    box-sizing: border-box;
+    /* overflow-x: hidden;
+    overflow-y: hidden; */
 }
 .adminPage_div_navBar_createComponent {
     width: 30%;
-    height: 100%;
+    height: 100vh;
+    /* overflow-y: auto;
+    overflow-x: hidden; */
+    box-sizing: border-box;
     border-right: 2px solid #e5e5e5;
     background: rgba(229, 229, 229, 0.3);
+    box-sizing: border-box;
 }
 .adminPage_div_body_createComponent {
     width: 70%;
@@ -3539,8 +3568,18 @@ input[type=checkbox]:checked:after {
     border-bottom: 2px solid #e5e5e5;
     padding: 10px 0;
 }
+.adminPage_div_dropdown_chooseTypeTask {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-top: 10px;
+}
+.adminPage_span_image_dropdown_chooseTypeTask {
+    cursor: pointer;
+}
 .adminPage_h3_navBar_createComponent {
-    margin: 10px 0 0 10px;
+    margin-left: 10px;
+    width: 80%;
 }
 .adminPage_main_div_dropdown {
     position: relative;
@@ -3583,7 +3622,6 @@ input[type=checkbox]:checked:after {
 .adminPage_div_sign_and_button_createComponent {
     display: flex;
     align-items: center;
-    /*padding: 12px 12px 0 0;*/
     height: 66px;
 }
 .adminPage_span_sign_width_createComponent {
@@ -3600,7 +3638,6 @@ input[type=checkbox]:checked:after {
 .adminPage_div_ellipse_and_quadrate_createComponent {
     display: flex;
     align-items: center;
-    /*margin-left: 10px ;*/
     position: relative;
 }
 .adminPage_span_ellipse_on_createComponent {
@@ -3609,7 +3646,6 @@ input[type=checkbox]:checked:after {
     display: inline-flex;
     flex-shrink: 0;
     height: 20px;
-    /*position: relative;*/
     transition: background .1s;
     width: 47px;
     align-items: center;
@@ -3656,7 +3692,7 @@ input[type=checkbox]:checked:after {
     left: 84px;
     width: 400px;
     border: 2px solid #e5e5e5;
-    z-index: 1;
+    z-index: 100;
 }
 .adminPage_main_div_modal_createComponent {
     margin: 24px 24px 96px 24px;
@@ -3711,6 +3747,59 @@ input[type=checkbox]:checked:after {
     border-radius: 12px;
     color: #afafaf;
     cursor: pointer;
+    position: relative;
+}
+.adminPage_div_question_answer_createComponent:hover {
+    background-color: #f3f3f3;
+}
+.adminPage_div_image_cross_createTasksComponent {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: solid 2px #e5e5e5;
+    position: absolute;
+    top: -11px;
+    right: -9px;
+    background-color: #fff;
+}
+.adminPage_div_image_cross_createTasksComponent:hover {
+    background-color: #e5e5e5;
+}
+.adminPage_image_cross_createTasksComponent {
+    width: 10px;
+    height: 10px;
+}
+.adminPage_modal_window_delete {
+    width: 70%;
+    height: 100%;
+    margin-left: 30%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+.adminPage_main_div_modal_window_delete_deleteTaskModalComponent {
+    width: 400px;
+    background: #fff;
+    position: relative;
+    border-radius: 16px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.adminPage_h3_modal_window_delete_deleteTaskModalComponent {
+    color: #afafaf;
+}
+.adminPage_main_style_button_deleteTaskModalComponent {
+    margin: 12px;
+    border-radius: 12px;
+    padding: 4px;
+    text-transform: uppercase;
+    background-color: #fff;
+    font-weight: 500;
 }
 
 @media (max-width: 1360px) {
