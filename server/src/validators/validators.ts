@@ -30,7 +30,10 @@ export const validators = {
             .error(new Error('Answer is not valid, max length 100 ')),
         themeId: Joi.number().required()
             .error(new Error('Choose theme')),
-        word: Joi.string().allow(null).allow('').error(new Error('Word is not valid, max length 100')),
+        word: Joi.string().allow(null).allow('').max(100)
+            .error(new Error('Word is not valid, max length 100')),
+        translate: Joi.string().allow(null).allow('').max(100)
+            .error(new Error('Translate is not valid, max length 100')),
         chooseImage: Joi.boolean(),
         chooseAnswer: Joi.boolean(),
         choosePositiveAnswer: Joi.boolean(), 

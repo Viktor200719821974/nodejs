@@ -21,7 +21,7 @@ const CreateTasksComponent = () => {
     const [chooseAnswer, setChooseAnswer] = useState(false);
     const [chooseMissingWord, setChooseMissingWord] = useState(false);
     const [chooseTranslateWords, setChooseTranslateWords] = useState(false);
-    const [image, setImage] = useState('');
+    const [file, setFile] = useState(null);
     const [onMouse, setOnMouse] = useState(false);
     const [typeTask, setTypeTask] = useState('');
     const [choose, setChoose] = useState(false);
@@ -38,7 +38,7 @@ const CreateTasksComponent = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [translate, setTranslate] = useState('');
     const [dropdownTypeMenu, setDropdownTypeMenu] = useState(true);
-
+    const [imageExample, setImageExample] = useState('');
     const fetchTasksFunc = async () => {
         try {
             await getTasks(
@@ -65,16 +65,26 @@ const CreateTasksComponent = () => {
     const sendTask = async(e) => {
         e.preventDefault();
         try {
-            await createTask(
-                question, answer, themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord,
-                chooseTranslateWords, word, translate,
-            ).then(data => {
+            const formData = new FormData();
+            formData.append('question', question);
+            formData.append('answer', answer);
+            formData.append('themeId', themeId);
+            formData.append('chooseImage', chooseImage);
+            formData.append('chooseAnswer', chooseAnswer);
+            formData.append('choosePositiveAnswer', choosePositiveAnswer);
+            formData.append('chooseMissingWord', chooseMissingWord);
+            formData.append('chooseTranslateWords', chooseTranslateWords);
+            formData.append('word', word);
+            formData.append('translate', translate);
+            formData.append('image', file);
+            await createTask(formData).then(data => {
                 if (data.status === 201) {
                     setQuestion('');
                     setAnswer('');
                     setWord('');
                     setError(false);
                     setErrorMessage('');
+                    setFile(null);
                 }
             }).catch(err => {
                 setErrorMessage(err.response.data);
@@ -144,8 +154,8 @@ const CreateTasksComponent = () => {
         // eslint-disable-next-line
     },[
         typeTask, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose,
-        image, dropdown, answer, question, title, word, themeId, tasks.length, onHide, taskId, error, errorMessage, 
-        translate, dropdownTypeMenu,
+        dropdown, answer, question, title, word, themeId, tasks.length, onHide, taskId, error, errorMessage, 
+        translate, dropdownTypeMenu, imageExample, file,
     ]);
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -180,9 +190,9 @@ const CreateTasksComponent = () => {
                                             setTypeTask={setTypeTask}
                                             choose={choose}
                                             typeTask={typeTask}
-                                            setImage={setImage}
+                                            setImageExample={setImageExample}
                                             setOnMouse={setOnMouse}
-                                            image={image}
+                                            imageExample={imageExample}
                                             onMouse={onMouse}
                                         />  
                                     </div>
@@ -205,6 +215,8 @@ const CreateTasksComponent = () => {
                                 errorMessage={errorMessage}
                                 translate={translate}
                                 setTranslate={setTranslate}
+                                chooseImage={chooseImage}
+                                setFile={setFile}
                             />
                     }
                 </div>

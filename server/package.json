@@ -33,6 +33,7 @@
     "@types/express-fileupload": "^1.4.1",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/nodemailer": "^6.4.6",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.34.0",
     "eslint": "^8.22.0",
     "eslint-config-standard-with-typescript": "^22.0.0",

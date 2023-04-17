@@ -105,7 +105,7 @@ class TasksService {
     //         // console.log(newArray);
     //     }
     // }
-    async createTask(task: ITask, image: UploadedFile) : Promise<ITask> {
+    async createTask(task: ITask, image: UploadedFile) : Promise<ITask | null> {
         const {
             chooseMissingWord, chooseImage, choosePositiveAnswer, answer, word, 
         } = task;

@@ -1,8 +1,8 @@
-body, html {
+/* body, html {
     height: 100%;
     width: 100%;
     margin: 0;
-  }  
+  }   */
 * {
     scroll-behavior: smooth;
     font-family: din-round,sans-serif;
@@ -3527,17 +3527,11 @@ input[type=checkbox]:checked:after {
     width: 100vw;
     height: 100%;
     box-sizing: border-box;
-    /* overflow-x: hidden;
-    overflow-y: hidden; */
 }
 .adminPage_div_navBar_createComponent {
     width: 30%;
     height: 100vh;
-    /* overflow-y: auto;
-    overflow-x: hidden; */
-    box-sizing: border-box;
-    border-right: 2px solid #e5e5e5;
-    background: rgba(229, 229, 229, 0.3);
+    padding: 0 10px;
     box-sizing: border-box;
 }
 .adminPage_div_body_createComponent {
@@ -3800,6 +3794,20 @@ input[type=checkbox]:checked:after {
     text-transform: uppercase;
     background-color: #fff;
     font-weight: 500;
+}
+.adminPage_input_type_file {
+    margin-top: 12px;
+    color: #afafaf;
+}
+.adminPage_input_type_file::-webkit-file-upload-button {
+    border: 2px solid #e5e5e5;
+    border-radius: 4px;
+    color: #afafaf;
+    background-color: #e5e5e54d;
+    cursor: pointer;
+}
+.adminPage_input_type_file::-webkit-file-upload-button:hover {
+    background-color: #e5e5e5;
 }
 
 @media (max-width: 1360px) {

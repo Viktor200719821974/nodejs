@@ -2,7 +2,7 @@ import { arrayChooseTypeTaskCreateTasksComponent } from '../../../constants/arra
 import { IMAGES_ADMIN_PAGE } from '../../../constants';
 
 const ChooseTypeTaskComponent = ({
-                                     setChoose, setTypeTask, choose, typeTask, setImage, setOnMouse, image, onMouse,
+                                     setChoose, setTypeTask, choose, typeTask, setImageExample, setOnMouse, imageExample, onMouse,
                                  }) => {
     return (
         <div>
@@ -47,19 +47,19 @@ const ChooseTypeTaskComponent = ({
                                 src={IMAGES_ADMIN_PAGE + c.src}
                                 alt={"example task"}
                                 onMouseEnter={() => {
-                                    setImage(c.src);
+                                    setImageExample(c.src);
                                     setOnMouse(true);
                                 }}
                                 onMouseLeave={() => {
-                                    setImage('');
+                                    setImageExample('');
                                     setOnMouse(false);
                                 }}
                             />
                             {
-                                onMouse && c.src === image &&
+                                onMouse && c.src === imageExample &&
                                 <img
                                     className={"adminPage_big_image_example_task"}
-                                    src={IMAGES_ADMIN_PAGE + image}
+                                    src={IMAGES_ADMIN_PAGE + imageExample}
                                     alt={"example task"}
                                 />
                             }

@@ -8,71 +8,7 @@ import {
     // ILookLessonAnswer,
     ILesson, ITheme, IImageTask,
 } from '../interfaces';
-// class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-//     declare id: CreationOptional<number>;
-//     declare name: string;
-//     declare email: string;
-//     declare password: string;
-//     declare age: number;
-//     declare activateToken: string;
-//     declare is_active: boolean;
-//     declare is_staff: boolean;
-//     declare is_superuser: boolean;
-//     declare statistic: boolean;
-// }
-// User.init (
-//     {
-//         id: {
-//             type: DataTypes.INTEGER.UNSIGNED,
-//             autoIncrement: true,
-//             primaryKey: true
-//         },
-//         name: {
-//             type: new DataTypes.STRING(128),
-//             allowNull: true
-//         },
-//         email: {
-//             type: new DataTypes.STRING(128),
-//             allowNull: false
-//         },
-//         password: {
-//             type: new DataTypes.STRING(128),
-//             allowNull: false
-//         },
-//         age: {
-//             type: DataTypes.INTEGER,
-//             allowNull: false
-//         },
-//         activateToken: {
-//             type: new DataTypes.STRING(255),
-//             allowNull: false
-//         },
-//         is_active: {
-//             type: DataTypes.BOOLEAN,
-//             allowNull: false,
-//             defaultValue: false
-//         },
-//         is_staff: {
-//             type: DataTypes.BOOLEAN,
-//             allowNull: false,
-//             defaultValue: false
-//         },
-//         is_superuser: {
-//             type: DataTypes.BOOLEAN,
-//             allowNull: false,
-//             defaultValue: false
-//         },
-//         statistic: {
-//             type: DataTypes.BOOLEAN,
-//             allowNull: false,
-//             defaultValue: false
-//         },
-//     },
-//     {
-//         sequelize,
-//         tableName: 'users'
-//     }
-// )
+
 const User = sequelize.define<IUser>('user', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, allowNull: false, autoIncrement: true,

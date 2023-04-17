@@ -1,7 +1,7 @@
 const CreateTaskFormComponent = (
     {
         question, setQuestion, answer, setAnswer, sendTask, setWord, chooseMissingWord, word, error, errorMessage, translate,
-        setTranslate,
+        setTranslate, chooseImage, setFile,
     }) => {
     return (
         <form>
@@ -51,6 +51,16 @@ const CreateTaskFormComponent = (
                         className="loginPage_input_loginComponent"
                         onChange={(e) => setTranslate(e.target.value)}
                     />
+            }
+            {
+                chooseImage &&
+                    <input
+                        type="file"
+                        placeholder="Select image"
+                        // className="loginPage_input_loginComponent"
+                        className="adminPage_input_type_file"
+                        onChange={(e) => setFile(e.target.files[0])}
+                    />             
             }
             <div className="loginPage_div_wrap_for_button_loginComponent">
                 <button

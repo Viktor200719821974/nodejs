@@ -4,13 +4,9 @@ export const getTasksForTheme = async (title) => {
     return await $authHost.get('/tasks/' + title);
 }
 
-export const createTask = async (
-    question, answer, themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords,
-    word, translate,
-    ) => {
-    return await $authHost.post('/tasks', {
-        question, answer, themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord,
-        chooseTranslateWords, word, translate,
+export const createTask = async (formData) => {
+    return await $authHost.post('/tasks', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
     });
 }
 
