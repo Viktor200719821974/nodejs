@@ -34,6 +34,7 @@ export const validators = {
             .error(new Error('Word is not valid, max length 100')),
         translate: Joi.string().allow(null).allow('').max(100)
             .error(new Error('Translate is not valid, max length 100')),
+        image: Joi.string().allow(null),
         chooseImage: Joi.boolean(),
         chooseAnswer: Joi.boolean(),
         choosePositiveAnswer: Joi.boolean(), 

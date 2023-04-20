@@ -141,11 +141,11 @@ class AuthMiddleware {
                         res.status(401).json('Unauthorized');
                     }
                 });
-            const findToken = await tokenService.findByParamsRefreshToken(token);
-            if (!findToken) {
-                res.status(404).json('No token');
-                return;
-            }
+            // const findToken = await tokenService.findByParamsRefreshToken(token);
+            // if (!findToken) {
+            //     res.status(404).json('No token');
+            //     return;
+            // }
             const user = await usersService.getUserByEmail(userEmail);
             if (user) {
                 req.user = user;

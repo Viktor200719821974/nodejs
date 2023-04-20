@@ -47,3 +47,4 @@ export const IMAGES_MAIN_LEARN_PAGE_NAV_BAR_COMPONENT = '/images/mainLearnPageNa
 export const IMAGES_LEARN_COMPONENT = '/images/imagesLearnComponent/';
 export const IMAGES_CHOOSE_IMAGE_COMPONENT = '/images/lessonPage/chooseImage/';
 export const IMAGES_ADMIN_PAGE = '/images/adminPage/';
+export const IMAGES_SERVER_PATH = 'http://localhost:5500/static/';

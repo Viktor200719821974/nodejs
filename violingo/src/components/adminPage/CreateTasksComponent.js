@@ -9,8 +9,7 @@ import ArrowBackComponent from './subComponents/ArrowBackComponent';
 import ChooseTypeTaskComponent from './subComponents/ChooseTypeTaskComponent';
 import CreateTaskFormComponent from './subCreateTaskComponents/CreateTaskFormComponent';
 import { fetchTasks } from '../../redux/actions';
-import cross from '../../icons/cross-closedModal.svg';
-import DeleteTaskModalComponent from './subCreateTaskComponents/DeleteTaskModalComponent';
+import CreateTasksBodyComponent from './subCreateTaskComponents/CreateTasksBodyComponent';
 
 const CreateTasksComponent = () => {
     const dispatch = useDispatch();
@@ -39,6 +38,8 @@ const CreateTasksComponent = () => {
     const [translate, setTranslate] = useState('');
     const [dropdownTypeMenu, setDropdownTypeMenu] = useState(true);
     const [imageExample, setImageExample] = useState('');
+    const [drag, setDrag] = useState(false);
+    
     const fetchTasksFunc = async () => {
         try {
             await getTasks(
@@ -90,6 +91,7 @@ const CreateTasksComponent = () => {
                 setErrorMessage(err.response.data);
                 setError(true);
             });
+            setDrag(false);
         } catch (e) {
             console.log(e.message);
         }
@@ -106,7 +108,7 @@ const CreateTasksComponent = () => {
             console.log(e.message);
         }
     }
-    const fetchDeleteTask = async(id) => {
+    const fetchDeleteTask = async() => {
         try {
             await deleteTask(taskId).then(data => {
                 if (data.status === 200) {
@@ -150,12 +152,14 @@ const CreateTasksComponent = () => {
             setAnswer('');
             setWord('');
             setQuestion('');
+            setErrorMessage('');
+            setError(false);
         }
         // eslint-disable-next-line
     },[
         typeTask, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose,
         dropdown, answer, question, title, word, themeId, tasks.length, onHide, taskId, error, errorMessage, 
-        translate, dropdownTypeMenu, imageExample, file,
+        translate, dropdownTypeMenu, imageExample, file, drag,
     ]);
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -217,54 +221,21 @@ const CreateTasksComponent = () => {
                                 setTranslate={setTranslate}
                                 chooseImage={chooseImage}
                                 setFile={setFile}
+                                setDrag={setDrag}
+                                drag={drag}
                             />
                     }
                 </div>
             </div>
-            <div className={"adminPage_div_body_createComponent"}>
-                <h1 className={"adminPage_h1_title_createComponent"}>{title}</h1>
-                    {                
-                        tasks.length === 0 &&
-                            <h2 className={"adminPage_h2_no_tasks_createComponent"}>
-                                No tasks
-                            </h2>
-                    }
-                
-                <div className={"adminPage_main_div_question_answer_createComponent"}>
-                    {
-                        tasks.length > 0 &&
-                            tasks.map(c =>
-                                <div key={c.id} className={"adminPage_div_question_answer_createComponent"}>
-                                    <div
-                                        className="adminPage_div_image_cross_createTasksComponent display_alien_justify"
-                                        onClick={() => {
-                                            setOnHide(true);
-                                            setTaskId(c.id);
-                                        }}
-                                        >
-                                        <img 
-                                            src={cross} 
-                                            alt="cross open modal"
-                                            className="adminPage_image_cross_createTasksComponent"
-                                        />
-                                    </div>
-                                    <span><b>Question:</b> {c.question}</span>
-                                    <span><b>Answer:</b> {c.answer}</span>
-                                    {
-                                        onHide &&
-                                            <div className="adminPage_modal_window_delete display_alien_justify">
-                                                <DeleteTaskModalComponent 
-                                                    id={taskId} 
-                                                    fetchDeleteTask={fetchDeleteTask} 
-                                                    setOnHide={setOnHide}
-                                                />
-                                            </div>
-                                    }
-                                </div>
-                            )
-                    }
-                </div>
-            </div>
+            <CreateTasksBodyComponent
+                tasks={tasks}
+                taskId={taskId}
+                setOnHide={setOnHide}
+                setTaskId={setTaskId}
+                onHide={onHide}
+                fetchDeleteTask={fetchDeleteTask}
+                title={title}
+            />
         </div>
     );
 };

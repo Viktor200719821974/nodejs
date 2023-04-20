@@ -1,7 +1,9 @@
+import FieldForLoadFiles from './FieldForLoadFiles';
+
 const CreateTaskFormComponent = (
     {
         question, setQuestion, answer, setAnswer, sendTask, setWord, chooseMissingWord, word, error, errorMessage, translate,
-        setTranslate, chooseImage, setFile,
+        setTranslate, chooseImage, setFile, setDrag, drag,
     }) => {
     return (
         <form>
@@ -54,13 +56,20 @@ const CreateTaskFormComponent = (
             }
             {
                 chooseImage &&
-                    <input
-                        type="file"
-                        placeholder="Select image"
-                        // className="loginPage_input_loginComponent"
-                        className="adminPage_input_type_file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                    />             
+                    <div>
+                        <FieldForLoadFiles
+                            setFile={setFile}
+                            setDrag={setDrag}
+                            drag={drag}
+                        />
+                        <input
+                            type="file"
+                            placeholder="Select image"
+                            // className="loginPage_input_loginComponent"
+                            className="adminPage_input_type_file"
+                            onChange={(e) => setFile(e.target.files[0])}
+                        /> 
+                    </div>            
             }
             <div className="loginPage_div_wrap_for_button_loginComponent">
                 <button

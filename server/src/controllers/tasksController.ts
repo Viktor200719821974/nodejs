@@ -49,7 +49,6 @@ class TasksController {
     async createTask(req: Request, res: Response, next: NextFunction) {
         try {
             const image = req.files?.image as UploadedFile;
-            console.log(image);
             const {
                 chooseImage,
             } = req.body;

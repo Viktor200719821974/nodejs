@@ -1,4 +1,6 @@
 import { UploadedFile } from 'express-fileupload';
+import fs from 'fs';
+import path from 'path';
 
 import { model } from '../models';
 import { ITask } from '../interfaces';
@@ -123,6 +125,18 @@ class TasksService {
     }
 
     async deleteTask(id: number): Promise<void> {
+        const chooseImage = await model.Task.findOne({ where: { id } })
+            .then(data => data?.chooseImage);
+        if (chooseImage) {
+            const fileName = await model.ImageTask.findOne({ where: { taskId: id } })
+                .then(data => data?.src);
+            const pathToFile = path.join(__dirname, `../static/${fileName}`);
+            if (fs.existsSync(pathToFile)){
+                fs.unlinkSync(pathToFile);
+            }
+            await model.ImageTask.destroy({ where: { taskId: id } });
+
+        }
         await model.Task.destroy({ where: { id } });
     }
 }
