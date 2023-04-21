@@ -1,4 +1,5 @@
 import { $authHost } from './index';
+
 export const getThemes = async () => {
     return await $authHost.get('/themes');
 }

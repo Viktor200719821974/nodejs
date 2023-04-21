@@ -4,12 +4,12 @@ import { NextFunction, Request, Response } from 'express';
 import { lessonsService } from '../services/lessonsService';
 
 class LessonsMiddleware {
-    async findLessonByNumber(req: Request, res: Response, next: NextFunction) {
+    async findLessonByNumberByThemeId(req: Request, res: Response, next: NextFunction) {
         try {
-            const { lessonNumber } = req.body;
-            const existNumber = await lessonsService.findLessonByNumber(+lessonNumber);
+            const { lessonNumber, themeId } = req.body;
+            const existNumber = await lessonsService.findLessonByNumberByThemeId(+lessonNumber, +themeId);
             if (existNumber) {
-                res.status(400).json('Lesson has number already exist');
+                res.status(400).json(`Lesson with that number: ${lessonNumber} and that theme already exist`);
                 return;
             }
             next();

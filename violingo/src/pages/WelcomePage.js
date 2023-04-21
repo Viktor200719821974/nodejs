@@ -9,7 +9,7 @@ import Welcome5Component from '../components/welcome/Welcome5Component';
 import Welcome6Component from '../components/welcome/Welcome6Component';
 
 const WelcomePage = () => {
-     const location = useLocation();
+    const location = useLocation();
     const [buttonNoActive, setButtonNoActive] = useState(false);
     const [newComponent, setNewComponent] = useState(false);
     const [newComponent1, setNewComponent1] = useState(true);

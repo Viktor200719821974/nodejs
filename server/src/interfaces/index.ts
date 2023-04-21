@@ -104,6 +104,7 @@ export interface ILesson extends Model
     <InferAttributes<ILesson>, InferCreationAttributes<ILesson>> {
         id: number;
         lessonNumber: number;
+        themeId: number;
 }
 
 export interface IExercise extends Model

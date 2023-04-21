@@ -24,8 +24,8 @@ class LessonsController {
 
     async createLesson(req: Request, res: Response, next: NextFunction) {
         try {
-            const { lessonNumber } = req.body;
-            const lesson = await lessonsService.createLesson(+lessonNumber);
+            const { lessonNumber, themeId } = req.body;
+            const lesson = await lessonsService.createLesson(+lessonNumber, +themeId);
             res.status(201).json(lesson);
         } catch (e) {
             next(e);

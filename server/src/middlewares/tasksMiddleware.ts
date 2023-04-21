@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { UploadedFile } from 'express-fileupload';
 
 import { constants } from '../constants/constants';
+import { model } from '../models';
 
 class TasksMiddleware {
     async emptyFieldQuestion(req: Request, res: Response, next: NextFunction) {
@@ -60,6 +61,44 @@ class TasksMiddleware {
             next();
         } catch (e) {
             next(e);
+        }
+    }
+
+    async findSimilarTasks(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { answer, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord } = req.body;
+            let exist;
+            if (chooseAnswer) {
+                exist = await model.Task.findOne({ where: {chooseAnswer: true, answer }});
+                if (exist) {
+                    res.status(400).json(`Task with this answer: ${answer} is already exist`);
+                    return;
+                }
+            }
+            if (chooseImage) {
+                exist = await model.Task.findOne({ where: {chooseImage: true, answer }});
+                if (exist) {
+                    res.status(400).json(`Task with this answer: ${answer} is already exist`);
+                    return;
+                }
+            }
+            if (choosePositiveAnswer) {
+                exist = await model.Task.findOne({ where: {choosePositiveAnswer: true, answer }});
+                if (exist) {
+                    res.status(400).json(`Task with this answer: ${answer} is already exist`);
+                    return;
+                }
+            }
+            if (chooseMissingWord) {
+                exist = await model.Task.findOne({ where: {chooseMissingWord: true, answer }});
+                if (exist) {
+                    res.status(400).json(`Task with this answer: ${answer} is already exist`);
+                    return;
+                }
+            }
+            next();
+        } catch (e) {
+            next(e)
         }
     }
 }

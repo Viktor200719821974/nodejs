@@ -65,7 +65,6 @@ const CreateTaskFormComponent = (
                         <input
                             type="file"
                             placeholder="Select image"
-                            // className="loginPage_input_loginComponent"
                             className="adminPage_input_type_file"
                             onChange={(e) => setFile(e.target.files[0])}
                         /> 

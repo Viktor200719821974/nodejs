@@ -24,17 +24,17 @@ class LessonsService {
         });
     }
 
-    async createLesson(lessonNumber: number): Promise<ILesson> {
+    async createLesson(lessonNumber: number, themeId: number): Promise<ILesson> {
         // @ts-ignore
-        return model.Lesson.create({ lessonNumber });
+        return model.Lesson.create({ lessonNumber, themeId });
     }
 
     async createTaskExercise(task: ITask, themeId: number) {
         return model.Task.create({ ...task, themeId });
     }
 
-    async findLessonByNumber(lessonNumber: number): Promise<ILesson | null> {
-        return model.Lesson.findOne({ where: { lessonNumber } });
+    async findLessonByNumberByThemeId(lessonNumber: number, themeId: number): Promise<ILesson | null> {
+        return model.Lesson.findOne({ where: { lessonNumber, themeId } });
     }
 }
 

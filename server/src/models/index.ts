@@ -155,6 +155,9 @@ const Lesson = sequelize.define<ILesson>('lesson', {
     lessonNumber: {
         type: DataTypes.INTEGER, allowNull: false,
     },
+    themeId: {
+        type: DataTypes.INTEGER, allowNull: false,
+    },
 });
 const Exercise = sequelize.define<IExercise>('exercise', {
     id: {

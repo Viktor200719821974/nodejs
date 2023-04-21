@@ -13,6 +13,7 @@ export const LESSON_PAGE = '/lesson';
 export const PLACEMENT_PAGE = '/placement';
 export const LOGIN_PAGE = '/login';
 export const ADMIN_PAGE = '/admin';
+export const ADMIN_PAGE_CREATE = '/admin/create';
 export const ADMIN_PAGE_CREATE_TASKS = '/admin/create_tasks';
 export const ADMIN_PAGE_CREATE_EXERCISES = '/admin/create_exercises';
 export const ADMIN_PAGE_CREATE_THEMES = '/admin/create_themes';
