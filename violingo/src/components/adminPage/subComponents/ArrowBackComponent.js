@@ -1,14 +1,11 @@
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
 
-import { ADMIN_PAGE } from '../../../constants';
 
-const ArrowBackComponent = () => {
-    const navigate = useNavigate();
+const ArrowBackComponent = ({ functionBack }) => {
     return (
         <div
             className={"adminPage_div_arrowBack_createComponent"}
-            onClick={() => navigate(ADMIN_PAGE)}
+            onClick={functionBack}
         >
             <div className={"adminPage_div_arrowBack_border_createComponent"}>
                 <IoMdArrowRoundBack size={'30px'} color={'#afafaf'}/>

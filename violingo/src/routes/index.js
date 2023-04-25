@@ -21,7 +21,7 @@ import {
     ADMIN_PAGE,
     // ADMIN_PAGE_CREATE_TASKS,
     // ADMIN_PAGE_CREATE_EXERCISES,
-    ADMIN_PAGE_CREATE,
+    // ADMIN_PAGE_CREATE,
 } from '../constants';
 import ActivatePage from '../pages/ActivatePage';
 import Error404Page from '../pages/Error404Page';
@@ -36,7 +36,7 @@ import WelcomePage from '../pages/WelcomePage';
 import AdminPage from '../pages/AdminPage';
 // import CreateTasksComponent from '../components/adminPage/CreateTasksComponent';
 // import CreateExercisesComponent from '../components/adminPage/CreateExercisesComponent';
-import CreateComponent from '../components/adminPage/CreateComponent';
+// import CreateComponent from '../components/adminPage/CreateComponent';
 
 export const authRoutes = [
     {
@@ -51,10 +51,10 @@ export const authRoutes = [
     //     path: ADMIN_PAGE_CREATE_EXERCISES,
     //     Component: CreateExercisesComponent
     // },
-    {
-        path: ADMIN_PAGE_CREATE,
-        Component: CreateComponent
-    }
+    // {
+    //     path: ADMIN_PAGE_CREATE,
+    //     Component: CreateComponent
+    // }
     // {
     //     path: ADMIN_PAGE_CREATE_THEMES,
     //     Component: CreateThemesComponent

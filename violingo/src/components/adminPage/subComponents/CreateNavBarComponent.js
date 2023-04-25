@@ -6,25 +6,39 @@ import ChooseTypeTaskComponent from './ChooseTypeTaskComponent';
 import CreateTaskFormComponent from '../subCreateTaskComponents/CreateTaskFormComponent';
 
 const CreateNavBarComponent = ({
-    dropdown, setDropdown, themes, click, title, openCloseDropdownMenu, setChoose, setAnswer, setDropdownTypeMenu, 
+    dropdown, themes, click, title, openCloseDropdownMenu, setChoose, setAnswer, setDropdownTypeMenu, 
     dropdownTypeMenu, setTypeTask, choose, typeTask, setImageExample, setOnMouse, imageExample, onMouse, question, 
     setQuestion, answer, sendTask, setWord, chooseMissingWord, word, error, errorMessage, translate, setTranslate,
-    chooseImage, setFile, setDrag, drag, createBool,
+    chooseImage, setFile, setDrag, drag, createWhat, functionBack, dropdownMenuLessons, lessons, chooseLesson,
+    openCloseDropdownMenuLessons, lessonNumber,
 }) => {
     return(
         <div className={"adminPage_div_navBar_createComponent"}>
-                <ArrowBackComponent/>
+                <ArrowBackComponent functionBack={functionBack}/>
                 <h2 className={"adminPage_h2_navBar_createComponent"}>
-                    { createBool ? "Create task:" : "Create exercise:" }
+                    { createWhat === 'task' ? "Create task:" : "Create exercise:" }
                 </h2>
                 <DropDownMenuComponent
                     dropdown={dropdown}
-                    setDropdown={setDropdown}
                     themes={themes}
                     click={click}
                     title={title}
                     openCloseDropdownMenu={openCloseDropdownMenu}
+                    lessonMenu={dropdownMenuLessons}
                 />
+                {
+                    (createWhat === 'exercise' && title !== 'Choose theme task') &&
+                        <DropDownMenuComponent
+                            dropdown={dropdownMenuLessons}
+                            themes={lessons}
+                            click={chooseLesson}
+                            title={lessonNumber}
+                            openCloseDropdownMenu={openCloseDropdownMenuLessons}
+                            createWhat={createWhat}
+                            lessonNumber={lessonNumber}
+                            lessonMenu={dropdownMenuLessons}
+                        />
+                }
                 {
                     title !== '' &&
                         <div className={"adminPage_main_div_chooseTypeTaskComponent"}>
@@ -56,7 +70,7 @@ const CreateNavBarComponent = ({
                 }
                 <div className={"adminPage_main_div_form_createComponent display_alien_justify"}>
                     {
-                        (choose && createBool) &&
+                        (choose && createWhat === 'task') &&
                             <CreateTaskFormComponent
                                 question={question}
                                 setQuestion={setQuestion}

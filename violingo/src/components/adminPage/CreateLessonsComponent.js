@@ -5,7 +5,6 @@ const CreateLessonsComponent = ({
     onHide, lessonNumber, setLessonNumber, clickLesson, error, errorMessage, themes, themeTitle, dropdown, openCloseDropdownMenu,
     clickCreateLesson,
 }) => {
-    console.log(error, errorMessage);
     return (
         <div className="adminPage_modal_window display_alien_justify">
             <div className="adminPage_main_div_modal_window">
@@ -34,7 +33,7 @@ const CreateLessonsComponent = ({
                         <input
                             type="number"
                             name="lessonNumber"
-                            value={lessonNumber}
+                            // value={lessonNumber}
                             placeholder="Введіть номер уроку"
                             className="loginPage_input_loginComponent"
                             onChange={(e) => setLessonNumber(e.target.value)}

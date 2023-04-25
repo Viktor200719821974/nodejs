@@ -19,35 +19,41 @@ function App() {
     // const { isStatistic } = useSelector(state => state.isStatisticUserReducer);
     // const { isAdmin } = useSelector(state => state.isAdminUserReducer);
     useEffect(() => {
-        try{
-            const accessToken = localStorage.getItem('accessToken');
-            if (accessToken) {
-                getUserById(accessToken).then(data => {
-                    if (data.status === 200) {
-                        dispatch(fetchUser(data.data));
-                        dispatch(isLoginUser(true));
-                        dispatch(isStatisticUser(data.data.statistic));
-                        dispatch(isAdminUser(data.data.is_staff));
-                        // window.location.href = '/learn';
-                        // if (data.data.is_staff) {
-                        //     getTasks().then(data => {
-                        //         if (data.status === 200) {
-                        //             dispatch(fetchTasks(data.data));
-                        //         }
-                        //     });
-                        // }
+        let action = true;
+            if (action) {
+                try{
+                    const accessToken = localStorage.getItem('accessToken');
+                    if (accessToken) {
+                        getUserById(accessToken).then(data => {
+                            if (data.status === 200) {
+                                dispatch(fetchUser(data.data));
+                                dispatch(isLoginUser(true));
+                                dispatch(isStatisticUser(data.data.statistic));
+                                dispatch(isAdminUser(data.data.is_staff));
+                                // window.location.pathname="/learn";
+                                // if (data.data.is_staff) {
+                                //     getTasks().then(data => {
+                                //         if (data.status === 200) {
+                                //             dispatch(fetchTasks(data.data));
+                                //         }
+                                //     });
+                                // }
+                            }
+                        });
+                        // getStatistic().then(data => {
+                        //   if (data.status === 200) {
+                        //     dispatch(statisticUser(data.data));
+                        //   }
+                        // });
                     }
-                });
-                // getStatistic().then(data => {
-                //   if (data.status === 200) {
-                //     dispatch(statisticUser(data.data));
-                //   }
-                // });
+                } catch(err) {
+                    console.log(err);
+                }
             }
-        } catch(err) {
-            console.log(err);
-        }
         setLoading(false);
+        return () => {
+            action = false;
+        };
         // eslint-disable-next-line
     }, [isLogin]);
     if (loading){

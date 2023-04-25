@@ -2,7 +2,15 @@ import { ILesson, ITask } from '../interfaces';
 import { model } from '../models';
 
 class LessonsService {
-    async getLessons(): Promise<ILesson[]> {
+    async getLessons(themeId: string): Promise<ILesson[]> {
+        if (themeId) {
+            return model.Lesson.findAll({
+                where: { themeId },
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                },
+            });
+        }
         return model.Lesson.findAll({
             attributes: {
                 exclude: ['createdAt', 'updatedAt'],

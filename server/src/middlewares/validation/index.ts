@@ -66,6 +66,18 @@ class Validates {
             next(e);
         }
     }
+    lessons(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { error } = validators.lessons.validate(req.body);
+            if (error) {
+                res.status(400).json(error.message);
+                return;
+            }
+            next();
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export const validates = new Validates();

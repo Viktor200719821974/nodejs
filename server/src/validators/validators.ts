@@ -40,6 +40,11 @@ export const validators = {
         choosePositiveAnswer: Joi.boolean(), 
         chooseMissingWord: Joi.boolean(),
         chooseTranslateWords: Joi.boolean(),
-
+    }),
+    lessons: Joi.object({
+        lessonNumber: Joi.number().required().min(1)
+            .error(new Error('Lesson number is not valid, min 1 ')),
+        themeId: Joi.number().required()
+            .error(new Error('Choose theme')),
     }),
 };

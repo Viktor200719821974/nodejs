@@ -1,26 +1,53 @@
-import { useNavigate } from 'react-router-dom';
 import {useEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ADMIN_PAGE_CREATE } from '../constants';
 import CreateThemesComponent from '../components/adminPage/CreateThemesComponent';
 import {createTheme, getThemes} from '../http/themesApi';
 import CreateLessonsComponent from '../components/adminPage/CreateLessonsComponent';
-import { createLesson } from '../http/lessonsApi';
+import { createLesson, getLessons } from '../http/lessonsApi';
+import { createTask, deleteTask, getTasks } from '../http/tasksApi';
+import { fetchTasks } from '../redux/actions';
+import CreateComponent from '../components/adminPage/CreateComponent';
 
 const AdminPage = () => {
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { tasks } = useSelector(state => state.tasksReducer);
+
     const [show, setShow] = useState(false);
-    const [title, setTitle] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [error, setError] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [lessonNumber, setLessonNumber] = useState();
-    const [themeId, setThemeId] = useState(null);
+    const [lessonNumber, setLessonNumber] = useState(0);
+    const [themeId, setThemeId] = useState();
     const [themes, setThemes] = useState([]);
     const [themeTitle, setThemeTitle] = useState('Choose theme');
     const [dropdown, setDropdown] = useState(false);
+    const [chooseImage, setChooseImage] = useState(false);
+    const [choosePositiveAnswer, setChoosePositiveAnswer] = useState(false);
+    const [chooseAnswer, setChooseAnswer] = useState(false);
+    const [chooseMissingWord, setChooseMissingWord] = useState(false);
+    const [chooseTranslateWords, setChooseTranslateWords] = useState(false);
+    const [file, setFile] = useState(null);
+    const [onMouse, setOnMouse] = useState(false);
+    const [typeTask, setTypeTask] = useState('');
+    const [choose, setChoose] = useState(false);
+    const [title, setTitle] = useState('Choose theme task');
+    const [answer, setAnswer] = useState('');
+    const [question, setQuestion] = useState('');
+    const [word, setWord] = useState(null);
+    const [onHide, setOnHide] = useState(false);
+    const [taskId, setTaskId] = useState(0);
+    const [translate, setTranslate] = useState('');
+    const [dropdownTypeMenu, setDropdownTypeMenu] = useState(true);
+    const [imageExample, setImageExample] = useState('');
+    const [drag, setDrag] = useState(false);
+    const [showComponentCreate, setShowComponentCreate] = useState(false);
+    const [createWhat, setCreateWhat] = useState('');
+    const [lessons, setLessons] = useState([]);
+    const [dropdownMenuLessons, setDropdownMenuLessons] = useState(false);
+    const [lessonId, setLessonId] = useState(0);
    
-    const click = async (e) => {
+    const clickCreateTheme = async (e) => {
         e.preventDefault();
         try {
             await createTheme(title).then(data => {
@@ -80,20 +107,151 @@ const AdminPage = () => {
             console.log(e.message);
         }
     }
+    const click = async (titleTheme, id) => {
+        try {
+            setTitle(titleTheme);
+            setThemeId(id);
+            setDropdown(false);
+            if (createWhat === 'exercise') {
+                await getLessons(id).then(data => {
+                    if (data.status === 200) {
+                        setLessons(data.data);
+                    }
+                });
+            }
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+    const sendTask = async(e) => {
+        e.preventDefault();
+        try {
+            const formData = new FormData();
+            formData.append('question', question);
+            formData.append('answer', answer);
+            formData.append('themeId', themeId);
+            formData.append('chooseImage', chooseImage);
+            formData.append('chooseAnswer', chooseAnswer);
+            formData.append('choosePositiveAnswer', choosePositiveAnswer);
+            formData.append('chooseMissingWord', chooseMissingWord);
+            formData.append('chooseTranslateWords', chooseTranslateWords);
+            formData.append('word', word);
+            formData.append('translate', translate);
+            formData.append('image', file);
+            await createTask(formData).then(data => {
+                if (data.status === 201) {
+                    setQuestion('');
+                    setAnswer('');
+                    setWord('');
+                    setError(false);
+                    setErrorMessage('');
+                    setFile(null);
+                }
+            }).catch(err => {
+                setErrorMessage(err.response.data);
+                setError(true);
+            });
+            setDrag(false);
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+    const fetchDeleteTask = async() => {
+        try {
+            await deleteTask(taskId).then(data => {
+                if (data.status === 200) {
+                    setOnHide(false);
+                }
+            }).catch (err => console.log(err));
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+    const functionBack = () => {
+        setShowComponentCreate(false);
+        setCreateWhat('');
+        setTypeTask('');
+        setTitle('Choose theme task');
+        setChoose(false);
+        setThemeId();
+        setLessonId(0);
+        setLessonNumber(0);
+        setDropdownMenuLessons(false);
+    }
+    const openCloseDropdownMenuLessons = () => {
+        setDropdownMenuLessons(value => !value);
+    }
+    const chooseLesson = async (number, id) => {
+        try {
+            setLessonNumber(number);
+            setLessonId(id);
+            setDropdownMenuLessons(false);
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
     useEffect(() => {
-        // if (!show) {
-        //     setTitle('');
-        //     setError(false);
-        //     setErrorMessage('');
-        // }
-        // if (!showModal) {
-        //     setThemeTitle('Choose theme');
-        //     setError(false);
-        //     setErrorMessage('');
-        //     setThemeId(null);
-        //     setLessonNumber();
-        // }
-    },[ show, title, errorMessage, error, showModal, themeId, themeTitle, dropdown, ]);
+        let active = true;
+        if (active) {
+            if (typeTask === 'Choose image') {
+                setChooseImage(true);
+            } else {
+                setChooseImage(false);
+            }
+            if (typeTask === 'Choose true answer') {
+                setChoosePositiveAnswer(true);
+            } else {
+                setChoosePositiveAnswer(false);
+            }
+            if (typeTask === 'Choose answer') {
+                setChooseAnswer(true);
+            } else {
+                setChooseAnswer(false);
+            }
+            if (typeTask === 'Choose missing word') {
+                setChooseMissingWord(true);
+            } else {
+                setChooseMissingWord(false);
+            }
+            if (typeTask === 'Choose translate words') {
+                setChooseTranslateWords(true);
+            } else {
+                setChooseTranslateWords(false);
+            }
+            if (!choose && showComponentCreate) {
+                setTypeTask('');
+                setAnswer('');
+                setWord('');
+                setQuestion('');
+                setErrorMessage('');
+                setError(false);
+            }
+        }
+        const fetchTasksFunc = async () => {
+            try {
+                await getTasks(
+                    themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords,
+                    question, answer, word,
+                ).then(data => {
+                    if (data.status === 200) {
+                        dispatch(fetchTasks(data.data));
+                    }
+                });
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+        fetchTasksFunc().then();
+        return () => {
+            active = false;
+        };
+    // eslint-disable-next-line
+    },[ 
+        show, title, errorMessage, error, showModal, themeId, themeTitle, dropdown, typeTask, chooseImage, 
+        choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose, lessonNumber,
+        dropdown, answer, question, word, tasks.length, onHide, taskId, translate, dropdownTypeMenu, imageExample, 
+        file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId,
+    ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
             <div
@@ -109,7 +267,7 @@ const AdminPage = () => {
                         onHide={() => setShow(false)}
                         title={title}
                         setTitle={setTitle}
-                        click={click}
+                        click={clickCreateTheme}
                         error={error}
                         errorMessage={errorMessage}
                     />
@@ -137,15 +295,71 @@ const AdminPage = () => {
                         openCloseDropdownMenu={openCloseDropdownMenu}
                     />
             }
+            {
+                showComponentCreate && 
+                    <CreateComponent
+                        typeTask={typeTask} 
+                        chooseImage={chooseImage} 
+                        chooseMissingWord={chooseMissingWord} 
+                        choose={choose}
+                        dropdown={dropdown} 
+                        answer={answer} 
+                        question={question} 
+                        title={title} 
+                        word={word} 
+                        onHide={onHide} 
+                        taskId={taskId} 
+                        error={error} 
+                        errorMessage={errorMessage} 
+                        tasks={tasks} 
+                        setOnHide={setOnHide} 
+                        setTaskId={setTaskId}
+                        translate={translate} 
+                        dropdownTypeMenu={dropdownTypeMenu} 
+                        imageExample={imageExample} 
+                        drag={drag} 
+                        themes={themes} 
+                        setFile={setFile} 
+                        setDrag={setDrag} 
+                        setDropdown={setDropdown} 
+                        setChoose={setChoose} 
+                        setQuestion={setQuestion} 
+                        setAnswer={setAnswer} 
+                        setWord={setWord} 
+                        setDropdownTypeMenu={setDropdownTypeMenu} 
+                        onMouse={onMouse} 
+                        setTypeTask={setTypeTask} 
+                        setImageExample={setImageExample} 
+                        setOnMouse={setOnMouse} 
+                        setTranslate={setTranslate} 
+                        click={click} 
+                        openCloseDropdownMenu={openCloseDropdownMenu} 
+                        sendTask={sendTask} 
+                        fetchDeleteTask={fetchDeleteTask}
+                        createWhat={createWhat}
+                        functionBack={functionBack}
+                        dropdownMenuLessons={dropdownMenuLessons}
+                        lessons={lessons}
+                        openCloseDropdownMenuLessons={openCloseDropdownMenuLessons}
+                        chooseLesson={chooseLesson}
+                        lessonNumber={lessonNumber}
+                    />
+            }
             <div
                 className={"adminPage_div_type_button"}
-                onClick={() => navigate(ADMIN_PAGE_CREATE,  { state: { create: 'tasks' } })}
+                onClick={() => {
+                    setCreateWhat('task'); 
+                    setShowComponentCreate(true);
+                }}
             >
                 Create tasks
             </div>
             <div
                 className={"adminPage_div_type_button"}
-                onClick={() => navigate(ADMIN_PAGE_CREATE,  { state: { create: 'exercises' } })}
+                onClick={() => {
+                    setCreateWhat('exercise'); 
+                    setShowComponentCreate(true);
+                }}
             >
                 Create exercises
             </div>

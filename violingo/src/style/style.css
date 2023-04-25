@@ -3500,7 +3500,12 @@ input[type=checkbox]:checked:after {
 }
 .adminPage_main_div {
     flex-direction: column;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 .adminPage_div_type_button {
     background-color: #1cb0f6;
@@ -3771,13 +3776,14 @@ input[type=checkbox]:checked:after {
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: #fff;
 }
 .adminPage_main_div_modal_window_delete_deleteTaskModalComponent {
     width: 400px;
     background: #fff;
     position: relative;
     border-radius: 16px;
+    border: 2px solid #e5e5e5;
     padding: 8px;
     display: flex;
     flex-direction: column;

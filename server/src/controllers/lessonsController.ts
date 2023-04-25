@@ -5,7 +5,9 @@ import { lessonsService } from '../services/lessonsService';
 class LessonsController {
     async getLessons(req: Request, res: Response, next: NextFunction) {
         try {
-            const lessons = await lessonsService.getLessons();
+            const { themeId } = req.query; 
+            //@ts-ignore
+            const lessons = await lessonsService.getLessons(themeId);
             res.status(200).json(lessons);
         } catch (e) {
             next(e);
