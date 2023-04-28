@@ -3824,6 +3824,40 @@ input[type=checkbox]:checked:after {
     border: 5px dashed #e5e5e5;
     color: #afafaf;
 }
+.adminPage_main_div_createExerciseFormComponent {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+.adminPage_span_createExerciseFormComponent {
+    border: 2px solid #e5e5e5;
+    padding: 4px;
+    margin-bottom: 8px;
+    color: #afafaf;
+    border-radius: 12px;
+}
+.adminPage_div_button_createExerciseFormComponent {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.adminPage_button_createExerciseFormComponent {
+    background-color: #1caff6;
+    border: none;
+    border-radius: 16px;
+    color: #ddf4ff;
+    padding: 4px;
+    height: 46px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+}
+.adminPage_button_createExerciseFormComponent:hover {
+    background-color: #ddf4ff;
+    color: #1cb0f6;
+}
 
 @media (max-width: 1360px) {
     .mainLearnPage_main_navBar {

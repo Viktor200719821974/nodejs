@@ -8,6 +8,7 @@ import { createLesson, getLessons } from '../http/lessonsApi';
 import { createTask, deleteTask, getTasks } from '../http/tasksApi';
 import { fetchTasks } from '../redux/actions';
 import CreateComponent from '../components/adminPage/CreateComponent';
+import { createExercise } from '../http/exercisesApi';
 
 const AdminPage = () => {
     const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const AdminPage = () => {
     const [lessons, setLessons] = useState([]);
     const [dropdownMenuLessons, setDropdownMenuLessons] = useState(false);
     const [lessonId, setLessonId] = useState(0);
+    const [createExerciseBool, setCreateExerciseBool] = useState(false);
    
     const clickCreateTheme = async (e) => {
         e.preventDefault();
@@ -162,7 +164,12 @@ const AdminPage = () => {
                 if (data.status === 200) {
                     setOnHide(false);
                 }
-            }).catch (err => console.log(err));
+            }).catch (err => {
+                if (err.response) {
+                    setError(true);
+                    setErrorMessage(err.response.data);
+                }
+            });
         } catch (e) {
             console.log(e.message);
         }
@@ -177,15 +184,33 @@ const AdminPage = () => {
         setLessonId(0);
         setLessonNumber(0);
         setDropdownMenuLessons(false);
+        setCreateExerciseBool(false);
     }
     const openCloseDropdownMenuLessons = () => {
         setDropdownMenuLessons(value => !value);
     }
-    const chooseLesson = async (number, id) => {
+    const chooseLesson = (number, id) => {
         try {
             setLessonNumber(number);
             setLessonId(id);
             setDropdownMenuLessons(false);
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+    const clickCreateExercise = async () => {
+        try {
+            await createExercise(lessonId, taskId).then(data => {
+                console.log(data);
+                if (data.status === 200) {
+
+                }
+            }).catch(err => {
+                if (err.response) {
+                    setError(true);
+                    setErrorMessage(err.response.data);
+                }
+            });
         } catch (e) {
             console.log(e.message);
         }
@@ -226,6 +251,14 @@ const AdminPage = () => {
                 setErrorMessage('');
                 setError(false);
             }
+            if (dropdown) {
+                setDropdownMenuLessons(false);
+                setLessonNumber(0);
+                setCreateExerciseBool(false);
+            }
+            if (document.getElementById('exerciseForm') === null) {
+                setCreateExerciseBool(false);
+            }
         }
         const fetchTasksFunc = async () => {
             try {
@@ -250,7 +283,7 @@ const AdminPage = () => {
         show, title, errorMessage, error, showModal, themeId, themeTitle, dropdown, typeTask, chooseImage, 
         choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose, lessonNumber,
         dropdown, answer, question, word, tasks.length, onHide, taskId, translate, dropdownTypeMenu, imageExample, 
-        file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId,
+        file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
@@ -343,6 +376,9 @@ const AdminPage = () => {
                         openCloseDropdownMenuLessons={openCloseDropdownMenuLessons}
                         chooseLesson={chooseLesson}
                         lessonNumber={lessonNumber}
+                        createExerciseBool={createExerciseBool}
+                        setCreateExerciseBool={setCreateExerciseBool}
+                        clickCreateExercise={clickCreateExercise}
                     />
             }
             <div

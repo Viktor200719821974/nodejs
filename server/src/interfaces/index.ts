@@ -112,9 +112,9 @@ export interface IExercise extends Model
         id: number;
         // exercise: number;
         titleTask: string;
+        question: string;
         answer: string;
-        src: string;
-        alt: string;
+        tasks: [number];
         chooseImage: boolean;
         choosePositiveAnswer: boolean;
         chooseAnswer: boolean;
@@ -122,12 +122,12 @@ export interface IExercise extends Model
         chooseTranslateWords: boolean;
         lessonId: number;
 }
-export interface IQuestion extends Model
-    <InferAttributes<IQuestion>, InferCreationAttributes<IQuestion>> {
-        id: number;
-        word: string;
-        exerciseId: number;
-}
+// export interface IQuestion extends Model
+//     <InferAttributes<IQuestion>, InferCreationAttributes<IQuestion>> {
+//         id: number;
+//         word: string;
+//         exerciseId: number;
+// }
 
 export interface ITheme extends Model
     <InferAttributes<ITheme>, InferCreationAttributes<ITheme>> {
@@ -140,7 +140,7 @@ export interface ITask extends Model
         word: string;
         question: string;
         answer: string;
-        optionsAnswer: [];
+        optionsAnswer: [string];
         chooseImage: boolean;
         choosePositiveAnswer: boolean;
         chooseAnswer: boolean;
@@ -154,6 +154,13 @@ export interface IImageTask extends Model
         src: string;
         alt: string;
         taskId: number;
+}
+export interface IImageExercise extends Model
+    <InferAttributes<IImageExercise>, InferCreationAttributes<IImageExercise>> {
+        id: number;
+        src: string;
+        alt: string;
+        exerciseId: number;
 }
 // export interface ILookLessonAnswer extends Model
 //     <InferAttributes<ILookLessonAnswer>, InferCreationAttributes<ILookLessonAnswer>> {

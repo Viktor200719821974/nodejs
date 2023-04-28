@@ -4,9 +4,9 @@ import { sequelize } from '../db';
 import {
     IToken, IUser, IStatistic,
     // ISection, IPart1,
-    IExercise, IQuestion, ITask,
+    IExercise, ITask,
     // ILookLessonAnswer,
-    ILesson, ITheme, IImageTask,
+    ILesson, ITheme, IImageTask, IImageExercise,
 } from '../interfaces';
 
 const User = sequelize.define<IUser>('user', {
@@ -169,14 +169,14 @@ const Exercise = sequelize.define<IExercise>('exercise', {
     titleTask: {
         type: DataTypes.STRING, allowNull: false,
     },
+    question: {
+        type: DataTypes.STRING, allowNull: true,
+    },
     answer: {
         type: DataTypes.STRING, allowNull: true,
     },
-    src: {
-        type: DataTypes.STRING, allowNull: true,
-    },
-    alt: {
-        type: DataTypes.STRING, allowNull: true,
+    tasks: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER), allowNull: false,
     },
     chooseImage: {
         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
@@ -197,17 +197,17 @@ const Exercise = sequelize.define<IExercise>('exercise', {
         type: DataTypes.INTEGER, allowNull: false,
     },
 });
-const Question = sequelize.define<IQuestion>('question', {
-    id: {
-        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-    },
-    word: {
-        type: DataTypes.STRING, allowNull: false,
-    },
-    exerciseId: {
-        type: DataTypes.INTEGER, allowNull: false,
-    },
-});
+// const Question = sequelize.define<IQuestion>('question', {
+//     id: {
+//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+//     },
+//     word: {
+//         type: DataTypes.STRING, allowNull: false,
+//     },
+//     exerciseId: {
+//         type: DataTypes.INTEGER, allowNull: false,
+//     },
+// });
 const Task = sequelize.define<ITask>('task', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
@@ -254,6 +254,20 @@ const ImageTask = sequelize.define<IImageTask>('imageTask', {
         type: DataTypes.STRING, allowNull: false,
     },
     taskId: {
+        type: DataTypes.INTEGER, allowNull: false,
+    },
+});
+const ImageExercise = sequelize.define<IImageExercise>('imageExercise', {
+    id: {
+        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+    },
+    src: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+    alt: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+    exerciseId: {
         type: DataTypes.INTEGER, allowNull: false,
     },
 });
@@ -312,14 +326,17 @@ Statistic.belongsTo(User);
 Lesson.hasMany(Exercise, { foreignKey: 'lessonId', as: 'exercises' });
 Exercise.belongsTo(Lesson);
 
-Exercise.hasOne(Question, { foreignKey: 'exerciseId', as: 'question' });
-Question.belongsTo(Exercise);
+// Exercise.hasOne(Question, { foreignKey: 'exerciseId', as: 'question' });
+// Question.belongsTo(Exercise);
 
 Theme.hasOne(Task, { foreignKey: 'themeId', as: 'task' });
 Task.belongsTo(Theme);
 
 Task.hasOne(ImageTask, { foreignKey: 'taskId', as: 'image' });
 ImageTask.belongsTo(Task);
+
+Exercise.hasOne(ImageExercise, { foreignKey: 'exerciseId', as: 'image' });
+ImageExercise.belongsTo(Exercise);
 // Exercise.hasOne(Task, { foreignKey: 'exerciseId' });
 // Task.belongsTo(Exercise);
 // Exercise.hasOne(LookLessonAnswer, { foreignKey: 'exerciseId' });
@@ -335,10 +352,11 @@ export const model = {
     // Part3,
     // Part4,
     Exercise,
-    Question,
+    // Question,
     Task,
     // LookLessonAnswer,
     Lesson,
     Theme,
     ImageTask,
+    ImageExercise,
 };
