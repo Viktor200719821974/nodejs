@@ -12,9 +12,7 @@ class ExercisesService {
         });
     }
 
-    async getExercisesLesson(lessonNumber: number): Promise<IExercise[]> {
-        const lessonId = await model.Lesson.findOne({ where: { lessonNumber } })
-            .then((data) => data?.id);
+    async getExercisesForLesson(lessonId: number): Promise<IExercise[]> {
         return model.Exercise.findAll({
             attributes: {
                 exclude: ['createdAt', 'updatedAt'],
@@ -23,80 +21,66 @@ class ExercisesService {
         });
     }
 
-    // async createExercise(
-    //     chooseImage: boolean,
-    //     choosePositiveAnswer: boolean,
-    //     chooseAnswer: boolean,
-    //     chooseMissingWord: boolean,
-    //     chooseTranslateWords: boolean,
-    //     answer: [],
-    //     src: string,
-    //     alt: string,
-    //     question: [],
-    //     lessonNumber: number,
-    // ): Promise<IExercise> {
-    //     const cyrillicPattern = /^[\u0400-\u04FF]+$/;
-    //     let arrayValue = answer.map((c:string) => c)[0];
-    //     if (chooseTranslateWords) {
-    //         arrayValue = '';
-    //     }
-    //     const oneWord = answer.map((c:string) => c)[0].split(' ').map((c) => c)[0];
-    //     let titleTask = '';
-    //     if (chooseImage) {
-    //         titleTask = 'Виберіть зображення для слова';
-    //     }
-    //     if (choosePositiveAnswer) {
-    //         if (cyrillicPattern.test(oneWord)) {
-    //             titleTask = 'Напишіть українською';
-    //         } else {
-    //             titleTask = 'Напишіть англійською';
-    //         }
-    //     }
-    //     if (chooseAnswer) {
-    //         titleTask = 'Як сказати';
-    //     }
-    //     if (chooseMissingWord) {
-    //         titleTask = 'Виберіть пропущене слово';
-    //     }
-    //     if (chooseTranslateWords) {
-    //         titleTask = 'Об’єднайте в пари:';
-    //     }
-    //     const lessonId = await model.Lesson.findOne({ where: { lessonNumber } })
-    //         .then((data) => data?.id);
-    //     const exercise = await model.Exercise.create({
-    //         titleTask,
-    //         chooseImage,
-    //         choosePositiveAnswer,
-    //         chooseAnswer,
-    //         chooseMissingWord,
-    //         chooseTranslateWords,
-    //         answer: arrayValue,
-    //         src,
-    //         alt,
-    //         // @ts-ignore
-    //         lessonId,
-    //     });
-    //     const exerciseId = exercise.id;
-    //     if (!chooseTranslateWords) {
-    //         await questionsService.createQuestion(
-    //             question,
-    //             exerciseId,
-    //             choosePositiveAnswer,
-    //             chooseMissingWord,
-    //             chooseAnswer,
-    //             chooseImage,
-    //         );
-    //     }
-    //     await tasksService.createTask(
-    //         answer,
-    //         exerciseId,
-    //         cyrillicPattern,
-    //         oneWord,
-    //         question,
-    //         choosePositiveAnswer,
-    //     );
-    //     return exercise;
-    // }
+    async createExercise(id: number, lessonId: number) {
+        const task = await model.Task.findOne({ where: { id } });
+        const chooseAnswer = task?.chooseAnswer;
+        const chooseImage = task?.chooseImage;
+        const choosePositiveAnswer = task?.choosePositiveAnswer;
+        const chooseMissingWord = task?.chooseMissingWord;
+        const chooseTranslateWords = task?.chooseTranslateWords;
+        const question = task?.question;
+        const answer = task?.answer;
+        let tasks = [];
+        tasks.push(id);
+        let titleExercise = '';
+        const cyrillicPattern = /^[\u0400-\u04FF]+$/;
+        //@ts-ignore
+        const oneWord = answer.split(' ').map((c) => c)[0];
+        if (chooseAnswer) {
+            titleExercise = 'Як сказати';
+        }
+        if (chooseImage) {
+            titleExercise = 'Виберіть зображення для слова';
+            let tasksId = (await model.Task.findAll({ where: { chooseImage: true } }))
+                .map((data) => data.id)
+                .filter((c) => c !== id);
+            tasksId = await this._getShuffledArray(tasksId)
+            tasksId.length = 2;
+            tasks = tasks.concat(tasksId);
+            tasks = await this._getShuffledArray(tasks);
+        }
+        if (choosePositiveAnswer) {
+            if (cyrillicPattern.test(oneWord)) {
+                titleExercise = 'Напишіть українською';
+                        } else {
+                            titleExercise = 'Напишіть англійською';
+                        }
+        }
+        if (chooseMissingWord) {
+            titleExercise = 'Виберіть пропущене слово';
+        }
+        if (chooseTranslateWords) {
+            titleExercise = 'Об’єднайте в пари:';
+        }
+        
+        return model.Exercise
+            .create({ 
+                //@ts-ignore
+                question, answer, titleExercise, tasks, lessonId, chooseAnswer, chooseImage, chooseMissingWord, 
+                 //@ts-ignore
+                choosePositiveAnswer, chooseTranslateWords,
+            });
+    }
+
+    private async _getShuffledArray(array: number[]): Promise<number[]> {
+        const newArr = array.slice();
+        // eslint-disable-next-line no-plusplus
+        for (let i = newArr.length - 1; i > 0; i--) {
+            const rand = Math.floor(Math.random() * (i + 1));
+            [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+        }
+        return newArr;
+    }
 }
 
 export const exercisesService = new ExercisesService();

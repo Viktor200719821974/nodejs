@@ -8,7 +8,7 @@ const CreateComponent = ({
     setQuestion, setAnswer, setWord, setDropdownTypeMenu, onMouse, setTypeTask, setImageExample, setOnMouse, 
     setTranslate, click, openCloseDropdownMenu, sendTask, fetchDeleteTask, createWhat, functionBack,
     dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createExerciseBool, setCreateExerciseBool,
-    clickCreateExercise,
+    clickCreateExercise, lessonId, countExecisesLesson,
 }) => {
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -58,7 +58,7 @@ const CreateComponent = ({
             />
             <CreateTasksBodyComponent
                 tasks={tasks}
-                taskId={taskId}
+                lessonId={lessonId}
                 setOnHide={setOnHide}
                 setTaskId={setTaskId}
                 onHide={onHide}
@@ -66,6 +66,8 @@ const CreateComponent = ({
                 title={title}
                 setCreateExerciseBool={setCreateExerciseBool}
                 createWhat={createWhat}
+                lessonNumber={lessonNumber}
+                countExecisesLesson={countExecisesLesson}
             />
         </div>
     );

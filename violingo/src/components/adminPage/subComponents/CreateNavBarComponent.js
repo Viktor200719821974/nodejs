@@ -97,6 +97,8 @@ const CreateNavBarComponent = ({
                             tasks={tasks}
                             clickCreateExercise={clickCreateExercise}
                             taskId={taskId}
+                            error={error}
+                            errorMessage={errorMessage}
                         />   
                 }
             </div>

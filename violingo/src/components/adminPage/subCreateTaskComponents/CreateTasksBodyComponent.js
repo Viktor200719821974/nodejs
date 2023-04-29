@@ -3,11 +3,21 @@ import cross from '../../../icons/cross-closedModal.svg';
 import { IMAGES_SERVER_PATH } from '../../../constants';
 
 const CreateTasksBodyComponent = ({ 
-    tasks, taskId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, setCreateExerciseBool, createWhat,
+    tasks, lessonId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, setCreateExerciseBool, createWhat, lessonNumber,
+    countExecisesLesson,
 }) => {
     return (
         <div className={"adminPage_div_body_createComponent"}>
             <h1 className={"adminPage_h1_title_createComponent"}>{title}</h1>
+            {
+                (createWhat === 'exercise' && lessonId !== 0) &&
+                    <h4 className={"adminPage_h4_quantity_exercises_lesson_createComponent"}>
+                        Кількість вправ в уроці № {lessonNumber}: 
+                        <span className="adminPage_span_countExercisesLesson_createComponent display_alien_justify">
+                            {countExecisesLesson}
+                        </span>
+                    </h4>
+            }
             {
                 (createWhat === 'exercise' && title !== 'Choose theme task' && tasks.length !== 0) &&
                     <h3 className={"adminPage_h1_title_createComponent"}>

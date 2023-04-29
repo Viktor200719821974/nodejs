@@ -12,10 +12,10 @@ class ExercisesController {
         }
     }
 
-    async getExercisesLesson(req: Request, res: Response, next: NextFunction) {
+    async getExercisesForLesson(req: Request, res: Response, next: NextFunction) {
         try {
-            const { lessonNumber } = req.params;
-            const exercises = await exercisesService.getExercisesLesson(+lessonNumber);
+            const { lessonId } = req.params;
+            const exercises = await exercisesService.getExercisesForLesson(+lessonId);
             res.status(200).json(exercises);
         } catch (e) {
             next(e);
@@ -53,6 +53,11 @@ class ExercisesController {
     //         next(e);
     //     }
     // }
+    async createExercise(req: Request, res: Response, next: NextFunction) {
+        const { taskId, lessonId } = req.body;
+        const exercise = await exercisesService.createExercise(+taskId, +lessonId);
+        res.status(201).json(exercise);
+    }
 }
 
 export const exercisesController = new ExercisesController();

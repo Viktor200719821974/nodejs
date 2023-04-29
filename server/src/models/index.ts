@@ -166,7 +166,7 @@ const Exercise = sequelize.define<IExercise>('exercise', {
     // exercise: {
     //     type: DataTypes.INTEGER, allowNull: false,
     // },
-    titleTask: {
+    titleExercise: {
         type: DataTypes.STRING, allowNull: false,
     },
     question: {

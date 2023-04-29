@@ -1,6 +1,12 @@
-const CreateExerciseFormComponent = ({ clickCreateExercise, tasks, taskId, }) => {
+const CreateExerciseFormComponent = ({ clickCreateExercise, tasks, taskId, error, errorMessage, }) => {
     return (
         <div>
+            {
+                error && 
+                    <div className="adminPage_div_error_createThemeComponent">
+                        {errorMessage}
+                    </div>
+            }
             {
                 tasks.filter(c => c.id === taskId).map(d => 
                     <div 

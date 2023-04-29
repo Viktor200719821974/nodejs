@@ -111,7 +111,7 @@ export interface IExercise extends Model
     <InferAttributes<IExercise>, InferCreationAttributes<IExercise>> {
         id: number;
         // exercise: number;
-        titleTask: string;
+        titleExercise: string;
         question: string;
         answer: string;
         tasks: [number];

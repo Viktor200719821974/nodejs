@@ -47,4 +47,10 @@ export const validators = {
         themeId: Joi.number().required()
             .error(new Error('Choose theme')),
     }),
+    exercises: Joi.object({
+        lessonId: Joi.number().required().min(1)
+            .error(new Error('Choose lesson number')),
+        taskId: Joi.number().required().min(1)
+            .error(new Error('Choose task')),
+    }),
 };

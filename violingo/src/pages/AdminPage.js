@@ -8,11 +8,11 @@ import { createLesson, getLessons } from '../http/lessonsApi';
 import { createTask, deleteTask, getTasks } from '../http/tasksApi';
 import { fetchTasks } from '../redux/actions';
 import CreateComponent from '../components/adminPage/CreateComponent';
-import { createExercise } from '../http/exercisesApi';
+import { createExercise, getExercisesForLesson } from '../http/exercisesApi';
 
 const AdminPage = () => {
     const dispatch = useDispatch();
-    const { tasks } = useSelector(state => state.tasksReducer);
+    let { tasks } = useSelector(state => state.tasksReducer);
 
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -48,7 +48,11 @@ const AdminPage = () => {
     const [dropdownMenuLessons, setDropdownMenuLessons] = useState(false);
     const [lessonId, setLessonId] = useState(0);
     const [createExerciseBool, setCreateExerciseBool] = useState(false);
-   
+    const [countExecisesLesson, setCountExercisesLesson] = useState(0);
+    // const [arrayNumber, setArrayNumber] = useState([]);
+    // console.log(taskId);
+    // let merged = [].concat(...arrayNumber);
+    // console.log(merged);
     const clickCreateTheme = async (e) => {
         e.preventDefault();
         try {
@@ -185,6 +189,8 @@ const AdminPage = () => {
         setLessonNumber(0);
         setDropdownMenuLessons(false);
         setCreateExerciseBool(false);
+        setTaskId(0);
+        // setArrayNumber([]);
     }
     const openCloseDropdownMenuLessons = () => {
         setDropdownMenuLessons(value => !value);
@@ -201,9 +207,12 @@ const AdminPage = () => {
     const clickCreateExercise = async () => {
         try {
             await createExercise(lessonId, taskId).then(data => {
-                console.log(data);
-                if (data.status === 200) {
-
+                if (data.status === 201) {
+                    setCreateExerciseBool(false);
+                    setTaskId(0);
+                    // setLessonId(0);
+                    setError(false);
+                    setErrorMessage('');
                 }
             }).catch(err => {
                 if (err.response) {
@@ -243,7 +252,7 @@ const AdminPage = () => {
             } else {
                 setChooseTranslateWords(false);
             }
-            if (!choose && showComponentCreate) {
+            if (!choose && showComponentCreate && !createExerciseBool ) {
                 setTypeTask('');
                 setAnswer('');
                 setWord('');
@@ -255,6 +264,7 @@ const AdminPage = () => {
                 setDropdownMenuLessons(false);
                 setLessonNumber(0);
                 setCreateExerciseBool(false);
+                setLessonId(0);
             }
             if (document.getElementById('exerciseForm') === null) {
                 setCreateExerciseBool(false);
@@ -275,6 +285,21 @@ const AdminPage = () => {
             }
         }
         fetchTasksFunc().then();
+        const fetchExercisesForLesson = async (id) => {
+            try {
+                await getExercisesForLesson(id).then(data => {
+                    if (data.status === 200) {      
+                        setCountExercisesLesson(data.data.length);
+                        // setArrayNumber(data.data.map(c => c.tasks));
+                    }
+                });
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+        if (lessonId !== 0) {
+            fetchExercisesForLesson(lessonId).then();
+        }
         return () => {
             active = false;
         };
@@ -284,6 +309,7 @@ const AdminPage = () => {
         choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose, lessonNumber,
         dropdown, answer, question, word, tasks.length, onHide, taskId, translate, dropdownTypeMenu, imageExample, 
         file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
+        countExecisesLesson,
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
@@ -379,6 +405,8 @@ const AdminPage = () => {
                         createExerciseBool={createExerciseBool}
                         setCreateExerciseBool={setCreateExerciseBool}
                         clickCreateExercise={clickCreateExercise}
+                        lessonId={lessonId}
+                        countExecisesLesson={countExecisesLesson}
                     />
             }
             <div
