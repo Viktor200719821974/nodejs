@@ -14,6 +14,8 @@ class FilterTasksService {
         question: string,
         word: string,
         answer: string,
+        lessonId: string,
+        taskId: string,
     ): Promise<ITask[] | undefined> {
         let tasks;
         let id;
@@ -780,6 +782,44 @@ class FilterTasksService {
                 },
             });
         } 
+        if (lessonId !== '0' && themeId !== 'undefined') {
+            const arrayExercisesLesson = await model.Exercise.findAll({ where: { lessonId, chooseImage: false } });
+            const arrayExercisesLessonChooseImage = await model.Exercise.findAll( { where: { lessonId, chooseImage: true } });
+            let arrayId: any = [];
+            const arrayTaskId = arrayExercisesLesson.map(c => c.tasks);
+            for(let i = 0; i < arrayTaskId.length; i++){
+                arrayId = arrayId.concat(arrayTaskId[i]);
+            }
+            if (arrayExercisesLessonChooseImage.length !== 0) {
+                const arrayExerciseQuestion = arrayExercisesLessonChooseImage.map(c => c.question);
+                const arrayExerciseTasksChooseImage = await model.Task.findAll({ 
+                    where: { 
+                        question: {
+                            [Op.or]: arrayExerciseQuestion
+                        }
+                    }
+                });
+                const arrayIdTasksChooseImage = arrayExerciseTasksChooseImage.map(c => c.id);
+                arrayId = arrayId.concat(arrayIdTasksChooseImage);
+            }
+            tasks = await model.Task.findAll({ 
+                where: {
+                    id: {
+                        [Op.notIn]: arrayId
+                    },
+                    themeId
+                },
+                include: [
+                    { model: model.ImageTask, as: 'image' },
+                ],
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                },
+            });
+            if (taskId !== '0') {
+                tasks = tasks.filter(c => c.id !== Number(taskId));
+            }
+        }
         return tasks;
     }
 }

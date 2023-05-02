@@ -1,10 +1,17 @@
 import { IoMdArrowDropdown } from 'react-icons/io'; 
 
 const DropDownMenuLessonsComponent = ({
-    dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createWhat, lessonNumber,
+    dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createWhat, lessonNumber, errorEmptyArrayLessons,
+    errorEmptyArrayLessonsMessage,
 }) => {
     return (
         <div className={"adminPage_main_div_dropdown"}>
+            {
+                errorEmptyArrayLessons && 
+                    <div className="adminPage_div_error_createThemeComponent">
+                        {errorEmptyArrayLessonsMessage}
+                    </div>
+            }
             <div
                 className={"adminPage_div_title_dropdown display_alien_justify"}
                 onClick={openCloseDropdownMenuLessons}

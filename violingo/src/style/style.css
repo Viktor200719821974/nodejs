@@ -3582,12 +3582,13 @@ input[type=checkbox]:checked:after {
 }
 .adminPage_main_div_dropdown {
     position: relative;
+    margin-top: 10px;
 }
 .adminPage_div_title_dropdown {
     border: 2px solid #e5e5e5;
     border-radius: 12px;
     padding: 4px;
-    margin: 10px 10px 0 10px;
+    margin: 4px 10px 0 10px;
     cursor: pointer;
 }
 .adminPage_div_dropdown_menu_createComponent {
@@ -3719,7 +3720,7 @@ input[type=checkbox]:checked:after {
     color: #afafaf;
     width: 100%;
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 .adminPage_h2_no_tasks_createComponent {
     width: 100%;
@@ -3872,6 +3873,11 @@ input[type=checkbox]:checked:after {
     height: 35px;
     color:rgb(119, 119, 119);
     margin-left: 4px;
+}
+.adminPage_h3_title_createComponent {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px;
 }
 
 @media (max-width: 1360px) {

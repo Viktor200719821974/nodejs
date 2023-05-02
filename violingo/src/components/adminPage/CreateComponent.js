@@ -2,13 +2,14 @@ import CreateTasksBodyComponent from './subCreateTaskComponents/CreateTasksBodyC
 import CreateNavBarComponent from './subComponents/CreateNavBarComponent';
 
 const CreateComponent = ({
-    typeTask, chooseImage, chooseMissingWord, choose,
-    dropdown, answer, question, title, word, onHide, taskId, error, errorMessage, tasks, setOnHide, setTaskId,
+    typeTask, chooseImage, chooseMissingWord, choose, errorEmptyArrayLessons, errorEmptyArrayThemes,
+    dropdown, answer, question, title, word, onHide, error, errorMessage, tasks, setOnHide, setTaskId,
     translate, dropdownTypeMenu, imageExample, drag, themes, setFile, setDrag, setChoose,  lessonNumber,
     setQuestion, setAnswer, setWord, setDropdownTypeMenu, onMouse, setTypeTask, setImageExample, setOnMouse, 
     setTranslate, click, openCloseDropdownMenu, sendTask, fetchDeleteTask, createWhat, functionBack,
-    dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createExerciseBool, setCreateExerciseBool,
-    clickCreateExercise, lessonId, countExecisesLesson,
+    dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createExerciseBool, showFieldAddImage,
+    clickCreateExercise, lessonId, countExecisesLesson, questionForExercise, clickMenuCreateExercise, answerForExercise,
+    errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage,
 }) => {
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -53,8 +54,13 @@ const CreateComponent = ({
                 lessonNumber={lessonNumber}
                 createExerciseBool={createExerciseBool}
                 clickCreateExercise={clickCreateExercise}
-                tasks={tasks}
-                taskId={taskId}
+                answerForExercise={answerForExercise}
+                questionForExercise={questionForExercise}
+                showFieldAddImage={showFieldAddImage}
+                errorEmptyArrayLessons={errorEmptyArrayLessons}
+                errorEmptyArrayThemes={errorEmptyArrayThemes}
+                errorEmptyArrayLessonsMessage={errorEmptyArrayLessonsMessage}
+                errorEmptyArrayThemesMessage={errorEmptyArrayThemesMessage}
             />
             <CreateTasksBodyComponent
                 tasks={tasks}
@@ -64,10 +70,10 @@ const CreateComponent = ({
                 onHide={onHide}
                 fetchDeleteTask={fetchDeleteTask}
                 title={title}
-                setCreateExerciseBool={setCreateExerciseBool}
                 createWhat={createWhat}
                 lessonNumber={lessonNumber}
                 countExecisesLesson={countExecisesLesson}
+                clickMenuCreateExercise={clickMenuCreateExercise}
             />
         </div>
     );

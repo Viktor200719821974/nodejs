@@ -3,8 +3,8 @@ import cross from '../../../icons/cross-closedModal.svg';
 import { IMAGES_SERVER_PATH } from '../../../constants';
 
 const CreateTasksBodyComponent = ({ 
-    tasks, lessonId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, setCreateExerciseBool, createWhat, lessonNumber,
-    countExecisesLesson,
+    tasks, lessonId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, createWhat, lessonNumber,
+    countExecisesLesson, clickMenuCreateExercise,
 }) => {
     return (
         <div className={"adminPage_div_body_createComponent"}>
@@ -19,8 +19,14 @@ const CreateTasksBodyComponent = ({
                     </h4>
             }
             {
-                (createWhat === 'exercise' && title !== 'Choose theme task' && tasks.length !== 0) &&
-                    <h3 className={"adminPage_h1_title_createComponent"}>
+                (createWhat === 'exercise' && title !== 'Choose theme task' && tasks.length !== 0 && lessonId === 0) &&
+                    <h3 className={"adminPage_h3_title_createComponent"}>
+                        Виберіть номер урока
+                    </h3>
+            }
+            {
+                (createWhat === 'exercise' && title !== 'Choose theme task' && tasks.length !== 0 && lessonId !== 0) &&
+                    <h3 className={"adminPage_h3_title_createComponent"}>
                         Виберіть завдання для вправи (для цього просто клацніть мишкою на одне з завдань)
                     </h3>
             }
@@ -37,10 +43,7 @@ const CreateTasksBodyComponent = ({
                             <div 
                                 key={c.id} 
                                 className={"adminPage_div_question_answer_createComponent"}
-                                onClick={() => {
-                                    setTaskId(c.id);
-                                    setCreateExerciseBool(true);
-                                }}
+                                onClick={() => clickMenuCreateExercise(c.id, c.question, c.answer, c.choosePositiveAnswer)}
                                 >
                                 <div
                                     className="adminPage_div_image_cross_createTasksComponent display_alien_justify"

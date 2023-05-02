@@ -8,11 +8,12 @@ import CreateExerciseFormComponent from '../subCreateTaskComponents/CreateExerci
 import DropDownMenuLessonsComponent from './DropDownMenuLessonsComponent';
 
 const CreateNavBarComponent = ({
-    dropdown, themes, click, title, openCloseDropdownMenu, setChoose, setAnswer, setDropdownTypeMenu, 
+    dropdown, themes, click, title, openCloseDropdownMenu, setChoose, setAnswer, setDropdownTypeMenu, showFieldAddImage,
     dropdownTypeMenu, setTypeTask, choose, typeTask, setImageExample, setOnMouse, imageExample, onMouse, question, 
     setQuestion, answer, sendTask, setWord, chooseMissingWord, word, error, errorMessage, translate, setTranslate,
     chooseImage, setFile, setDrag, drag, createWhat, functionBack, dropdownMenuLessons, lessons, chooseLesson,
-    openCloseDropdownMenuLessons, lessonNumber, createExerciseBool, clickCreateExercise, tasks, taskId, 
+    openCloseDropdownMenuLessons, lessonNumber, createExerciseBool, clickCreateExercise, questionForExercise, answerForExercise,
+    errorEmptyArrayLessons, errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage,
 }) => {
     return(
         <div className={"adminPage_div_navBar_createComponent"}>
@@ -27,17 +28,29 @@ const CreateNavBarComponent = ({
                     title={title}
                     openCloseDropdownMenu={openCloseDropdownMenu}
                     lessonMenu={dropdownMenuLessons}
+                    errorEmptyArrayThemes={errorEmptyArrayThemes}
+                    errorEmptyArrayThemesMessage={errorEmptyArrayThemesMessage}
                 />
                 {
                     (createWhat === 'exercise' && title !== 'Choose theme task') &&
-                        <DropDownMenuLessonsComponent
-                            dropdownMenuLessons={dropdownMenuLessons}
-                            lessons={lessons}
-                            chooseLesson={chooseLesson}
-                            openCloseDropdownMenuLessons={openCloseDropdownMenuLessons}
-                            createWhat={createWhat}
-                            lessonNumber={lessonNumber}
-                        />
+                        <div>
+                            {
+                                errorEmptyArrayLessons && 
+                                    <div className="adminPage_div_error_createThemeComponent">
+                                        {errorMessage}
+                                    </div>
+                            }
+                            <DropDownMenuLessonsComponent
+                                dropdownMenuLessons={dropdownMenuLessons}
+                                lessons={lessons}
+                                chooseLesson={chooseLesson}
+                                openCloseDropdownMenuLessons={openCloseDropdownMenuLessons}
+                                createWhat={createWhat}
+                                lessonNumber={lessonNumber}
+                                errorEmptyArrayLessons={errorEmptyArrayLessons}
+                                errorEmptyArrayLessonsMessage={errorEmptyArrayLessonsMessage}
+                            />
+                        </div>
                 }
                 {
                     title !== '' &&
@@ -94,11 +107,15 @@ const CreateNavBarComponent = ({
                 {
                     (createExerciseBool && title !== 'Choose theme task') &&
                         <CreateExerciseFormComponent
-                            tasks={tasks}
                             clickCreateExercise={clickCreateExercise}
-                            taskId={taskId}
                             error={error}
                             errorMessage={errorMessage}
+                            questionForExercise={questionForExercise}
+                            answerForExercise={answerForExercise}
+                            showFieldAddImage={showFieldAddImage}
+                            setFile={setFile}
+                            setDrag={setDrag}
+                            drag={drag}
                         />   
                 }
             </div>

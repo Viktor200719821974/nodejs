@@ -6,7 +6,7 @@ import { tasksService } from '../services/tasksService';
 class TasksController {
     async getTasks(req: Request, res: Response, next: NextFunction) {
         try {
-            const {
+            let {
                 themeId,
                 chooseImage,
                 chooseAnswer,
@@ -16,7 +16,12 @@ class TasksController {
                 question,
                 word,
                 answer,
+                lessonId,
+                taskId,
             } = req.query;
+            if (themeId === undefined) {
+                themeId = 'undefined';
+            }
             const tasks = await tasksService
                 .getTasks(
                     // @ts-ignore
@@ -29,6 +34,8 @@ class TasksController {
                     question,
                     word,
                     answer,
+                    lessonId,
+                    taskId,
                 );
             res.status(200).json(tasks);
         } catch (e) {

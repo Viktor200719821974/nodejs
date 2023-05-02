@@ -49,10 +49,14 @@ const AdminPage = () => {
     const [lessonId, setLessonId] = useState(0);
     const [createExerciseBool, setCreateExerciseBool] = useState(false);
     const [countExecisesLesson, setCountExercisesLesson] = useState(0);
-    // const [arrayNumber, setArrayNumber] = useState([]);
-    // console.log(taskId);
-    // let merged = [].concat(...arrayNumber);
-    // console.log(merged);
+    const [questionForExercise, setQuestionForExercise] = useState('');
+    const [answerForExercise, setAnswerForExercise] = useState('');
+    const [showFieldAddImage, setShowFieldAddImage] = useState(false);
+    const [errorEmptyArrayLessons, setErrorEmptyArrayLessons] = useState(false);
+    const [errorEmptyArrayThemes, setErrorEmptyArrayThemes] = useState(false);
+    const [errorEmptyArrayLessonsMessage, setErrorEmptyArrayLessonsMessage] = useState('');
+    const [errorEmptyArrayThemesMessage, setErrorEmptyArrayThemesMessage] = useState('');
+    
     const clickCreateTheme = async (e) => {
         e.preventDefault();
         try {
@@ -82,7 +86,6 @@ const AdminPage = () => {
                     setErrorMessage('');
                 }
             }).catch (err => {
-                console.log(err);
                 if (err.response) {
                     setError(true);
                     setErrorMessage(err.response.data);
@@ -107,6 +110,13 @@ const AdminPage = () => {
             await getThemes().then(data => {
                 if (data.status === 200) {
                     setThemes(data.data);
+                    if (data.data.length === 0) {
+                        setErrorEmptyArrayThemes(true);
+                        setErrorEmptyArrayThemesMessage('There are no created themes')
+                    } else {
+                        setErrorEmptyArrayThemes(false);
+                        setErrorEmptyArrayThemesMessage('');
+                    }
                 }
             });
         } catch (e) {
@@ -122,6 +132,13 @@ const AdminPage = () => {
                 await getLessons(id).then(data => {
                     if (data.status === 200) {
                         setLessons(data.data);
+                        if (data.data.length === 0) {
+                            setErrorEmptyArrayLessons(true);
+                            setErrorEmptyArrayLessonsMessage('There are no created lessons');
+                        } else {
+                            setErrorEmptyArrayLessons(false);
+                            setErrorEmptyArrayLessonsMessage('');
+                        }
                     }
                 });
             }
@@ -190,7 +207,6 @@ const AdminPage = () => {
         setDropdownMenuLessons(false);
         setCreateExerciseBool(false);
         setTaskId(0);
-        // setArrayNumber([]);
     }
     const openCloseDropdownMenuLessons = () => {
         setDropdownMenuLessons(value => !value);
@@ -206,7 +222,11 @@ const AdminPage = () => {
     }
     const clickCreateExercise = async () => {
         try {
-            await createExercise(lessonId, taskId).then(data => {
+            const formData = new FormData();
+            formData.append('lessonId', lessonId);
+            formData.append('taskId', taskId);
+            formData.append('image', file);
+            await createExercise(formData).then(data => {
                 if (data.status === 201) {
                     setCreateExerciseBool(false);
                     setTaskId(0);
@@ -222,6 +242,17 @@ const AdminPage = () => {
             });
         } catch (e) {
             console.log(e.message);
+        }
+    }
+    const clickMenuCreateExercise = (id, questionTask, answerTask, choosePositiveAnswerValue) => {
+        setCreateExerciseBool(true);
+        setTaskId(id);
+        setQuestionForExercise(questionTask);
+        setAnswerForExercise(answerTask);
+        if (choosePositiveAnswerValue) {
+            setShowFieldAddImage(true);
+        } else {
+            setShowFieldAddImage(false);
         }
     }
     useEffect(() => {
@@ -269,12 +300,26 @@ const AdminPage = () => {
             if (document.getElementById('exerciseForm') === null) {
                 setCreateExerciseBool(false);
             }
+            // if (lessons.length === 0) {
+            //     setErrorEmptyArrayLessons(true);
+            //     setErrorEmptyArrayLessonsMessage('There are no created lessons');
+            // } else {
+            //     setErrorEmptyArrayLessons(false);
+            //     setErrorEmptyArrayLessonsMessage('');
+            // }
+            // if (themes.length === 0) {
+            //     setErrorEmptyArrayThemes(true);
+            //     setErrorEmptyArrayThemesMessage('There are no created themes')
+            // } else {
+            //     setErrorEmptyArrayThemes(false);
+            //     setErrorEmptyArrayThemesMessage('');
+            // }
         }
         const fetchTasksFunc = async () => {
             try {
                 await getTasks(
                     themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords,
-                    question, answer, word,
+                    question, answer, word, lessonId, taskId,
                 ).then(data => {
                     if (data.status === 200) {
                         dispatch(fetchTasks(data.data));
@@ -309,7 +354,8 @@ const AdminPage = () => {
         choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose, lessonNumber,
         dropdown, answer, question, word, tasks.length, onHide, taskId, translate, dropdownTypeMenu, imageExample, 
         file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
-        countExecisesLesson,
+        countExecisesLesson, questionForExercise, answerForExercise, showFieldAddImage, errorEmptyArrayLessons,
+        errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage,
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
@@ -367,7 +413,6 @@ const AdminPage = () => {
                         title={title} 
                         word={word} 
                         onHide={onHide} 
-                        taskId={taskId} 
                         error={error} 
                         errorMessage={errorMessage} 
                         tasks={tasks} 
@@ -403,10 +448,17 @@ const AdminPage = () => {
                         chooseLesson={chooseLesson}
                         lessonNumber={lessonNumber}
                         createExerciseBool={createExerciseBool}
-                        setCreateExerciseBool={setCreateExerciseBool}
                         clickCreateExercise={clickCreateExercise}
                         lessonId={lessonId}
                         countExecisesLesson={countExecisesLesson}
+                        questionForExercise={questionForExercise}
+                        clickMenuCreateExercise={clickMenuCreateExercise}
+                        answerForExercise={answerForExercise}
+                        showFieldAddImage={showFieldAddImage}
+                        errorEmptyArrayLessons={errorEmptyArrayLessons}
+                        errorEmptyArrayThemes={errorEmptyArrayThemes}
+                        errorEmptyArrayLessonsMessage={errorEmptyArrayLessonsMessage}
+                        errorEmptyArrayThemesMessage={errorEmptyArrayThemesMessage}
                     />
             }
             <div

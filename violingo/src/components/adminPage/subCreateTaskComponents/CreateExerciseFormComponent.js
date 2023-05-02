@@ -1,4 +1,9 @@
-const CreateExerciseFormComponent = ({ clickCreateExercise, tasks, taskId, error, errorMessage, }) => {
+import FieldForLoadFiles from './FieldForLoadFiles';
+
+const CreateExerciseFormComponent = ({ 
+    clickCreateExercise, error, errorMessage, questionForExercise, answerForExercise, showFieldAddImage, setDrag, setFile,
+    drag,
+}) => {
     return (
         <div>
             {
@@ -8,21 +13,32 @@ const CreateExerciseFormComponent = ({ clickCreateExercise, tasks, taskId, error
                     </div>
             }
             {
-                tasks.filter(c => c.id === taskId).map(d => 
-                    <div 
-                        key={d.id} 
-                        className="adminPage_main_div_createExerciseFormComponent" 
-                        id={'exerciseForm'}
-                        >
-                        <span className="adminPage_span_createExerciseFormComponent">
-                            <b>Question:</b> {d.question}
-                        </span>
-                        <span className="adminPage_span_createExerciseFormComponent">
-                            <b>Answer:</b> {d.answer}
-                        </span>
-                    </div>
-                )
+                showFieldAddImage &&
+                <div>
+                    <FieldForLoadFiles
+                        setFile={setFile}
+                        setDrag={setDrag}
+                        drag={drag}
+                    />
+                    <input
+                        type="file"
+                        placeholder="Select image"
+                        className="adminPage_input_type_file"
+                        onChange={(e) => setFile(e.target.files[0])}
+                    /> 
+                </div>            
             }
+            <div 
+                className="adminPage_main_div_createExerciseFormComponent" 
+                id={'exerciseForm'}
+                >
+                <span className="adminPage_span_createExerciseFormComponent">
+                    <b>Question:</b> {questionForExercise}
+                </span>
+                <span className="adminPage_span_createExerciseFormComponent">
+                    <b>Answer:</b> {answerForExercise}
+                </span>
+            </div>
             <div className="adminPage_div_button_createExerciseFormComponent">
                 <button 
                     className="adminPage_button_createExerciseFormComponent"

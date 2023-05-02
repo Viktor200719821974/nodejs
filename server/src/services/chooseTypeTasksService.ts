@@ -1,23 +1,14 @@
-import path from 'path';
 import { UploadedFile } from 'express-fileupload';
-import { v4 as uuidv4 } from 'uuid';
 
 import { model } from '../models';
 import { ITask } from '../interfaces';
+import { saveImageService } from './saveImageService';
 
 class ChooseTypeTasksService {
     async chooseImage(answer: string, image: UploadedFile, task: ITask): Promise<ITask | null> {
         const newTask = await model.Task.create({ ...task });
         const taskId = newTask.id;
-        const fileExtension = path.extname(image.name);
-        const fileName = `${answer}${uuidv4()}Image${fileExtension}`;
-        const uploadPath = path.join(__dirname, `../static/${fileName}`);
-        image.mv(uploadPath, (err) => {
-            if (err) {
-                // eslint-disable-next-line no-console
-                console.log(err);
-            }
-        });
+        const fileName = await saveImageService.saveImage(image, answer);
         // @ts-ignore
         await model.ImageTask.create({ src: fileName, alt: `${answer} image`, taskId });
         return model.Task.findOne({ 
