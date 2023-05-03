@@ -95,14 +95,29 @@ class FilterTasksService {
         }
         if (themeId !== 'undefined' && chooseTranslateWords) {
             tasks = await model.Task.findAll({ 
+                where: { chooseAnswer: true, themeId }, 
+            });
+            const arrayAnswer = tasks.map(c => c.answer);
+            const cyrillicPattern = /^[\u0400-\u04FF]+$/;
+            let arrayAnswerEnglish: string[] = [];
+            for (let i = 0; i < arrayAnswer.length; i++) {
+                if (!cyrillicPattern.test(arrayAnswer[i])){
+                    arrayAnswerEnglish.push(arrayAnswer[i]);
+                }
+            }
+            tasks = await model.Task.findAll({
+                where: {
+                    answer: {
+                        [Op.or]: arrayAnswerEnglish
+                    }
+                },
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
-                where: { themeId: id, chooseTranslateWords }, 
                 attributes: {
                     exclude: ['createdAt', 'updatedAt'],
                 },
-            });
+            }); 
         }
         if (themeId === 'undefined' && chooseImage) {
             tasks = await model.Task.findAll({ 
@@ -150,14 +165,29 @@ class FilterTasksService {
         }
         if (themeId === 'undefined' && chooseTranslateWords) {
             tasks = await model.Task.findAll({ 
+                where: { chooseAnswer: true }, 
+            });
+            const arrayAnswer = tasks.map(c => c.answer);
+            const cyrillicPattern = /^[\u0400-\u04FF]+$/;
+            let arrayAnswerEnglish: string[] = [];
+            for (let i = 0; i < arrayAnswer.length; i++) {
+                if (!cyrillicPattern.test(arrayAnswer[i])){
+                    arrayAnswerEnglish.push(arrayAnswer[i]);
+                }
+            }
+            tasks = await model.Task.findAll({
+                where: {
+                    answer: {
+                        [Op.or]: arrayAnswerEnglish
+                    }
+                },
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
-                where: { chooseTranslateWords }, 
                 attributes: {
                     exclude: ['createdAt', 'updatedAt'],
                 },
-            });
+            }); 
         }
         if (question) {
             tasks = await model.Task.findAll({ 
@@ -242,23 +272,23 @@ class FilterTasksService {
                 },
             });
         } 
-        if (question && themeId !== 'undefined' && chooseTranslateWords) {
-            tasks = await model.Task.findAll({ 
-                include: [
-                    { model: model.ImageTask, as: 'image' },
-                ],
-                where: {
-                    question: {
-                        [Op.like]: `%${question}%`,
-                    },
-                    themeId: id,
-                    chooseTranslateWords,
-                },
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
-                },
-            });
-        } 
+        // if (question && themeId !== 'undefined' && chooseTranslateWords) {
+        //     tasks = await model.Task.findAll({ 
+        //         include: [
+        //             { model: model.ImageTask, as: 'image' },
+        //         ],
+        //         where: {
+        //             question: {
+        //                 [Op.like]: `%${question}%`,
+        //             },
+        //             themeId: id,
+        //             chooseTranslateWords,
+        //         },
+        //         attributes: {
+        //             exclude: ['createdAt', 'updatedAt'],
+        //         },
+        //     });
+        // } 
         if (question && themeId === 'undefined' && chooseImage) {
             tasks = await model.Task.findAll({ 
                 include: [
@@ -323,22 +353,22 @@ class FilterTasksService {
                 },
             });
         } 
-        if (question && themeId === 'undefined' && chooseTranslateWords) {
-            tasks = await model.Task.findAll({ 
-                include: [
-                    { model: model.ImageTask, as: 'image' },
-                ],
-                where: {
-                    question: {
-                        [Op.like]: `%${question}%`,
-                    },
-                    chooseTranslateWords,
-                },
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
-                },
-            });
-        } 
+        // if (question && themeId === 'undefined' && chooseTranslateWords) {
+        //     tasks = await model.Task.findAll({ 
+        //         include: [
+        //             { model: model.ImageTask, as: 'image' },
+        //         ],
+        //         where: {
+        //             question: {
+        //                 [Op.like]: `%${question}%`,
+        //             },
+        //             chooseTranslateWords,
+        //         },
+        //         attributes: {
+        //             exclude: ['createdAt', 'updatedAt'],
+        //         },
+        //     });
+        // } 
         if (word) {
             tasks = model.Task.findAll({ 
                 include: [
@@ -454,23 +484,23 @@ class FilterTasksService {
                 },
             });
         } 
-        if (answer && themeId !== 'undefined' && chooseTranslateWords) {
-            tasks = await model.Task.findAll({ 
-                include: [
-                    { model: model.ImageTask, as: 'image' },
-                ],
-                where: {
-                    answer: {
-                        [Op.like]: `%${answer}%`,
-                    },
-                    themeId: id,
-                    chooseTranslateWords,
-                },
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
-                },
-            });
-        } 
+        // if (answer && themeId !== 'undefined' && chooseTranslateWords) {
+        //     tasks = await model.Task.findAll({ 
+        //         include: [
+        //             { model: model.ImageTask, as: 'image' },
+        //         ],
+        //         where: {
+        //             answer: {
+        //                 [Op.like]: `%${answer}%`,
+        //             },
+        //             themeId: id,
+        //             chooseTranslateWords,
+        //         },
+        //         attributes: {
+        //             exclude: ['createdAt', 'updatedAt'],
+        //         },
+        //     });
+        // } 
         if (answer && themeId === 'undefined' && chooseImage) {
             tasks = await model.Task.findAll({ 
                 include: [
@@ -535,22 +565,22 @@ class FilterTasksService {
                 },
             });
         } 
-        if (answer && themeId === 'undefined' && chooseTranslateWords) {
-            tasks = await model.Task.findAll({ 
-                include: [
-                    { model: model.ImageTask, as: 'image' },
-                ],
-                where: {
-                    answer: {
-                        [Op.like]: `%${answer}%`,
-                    },
-                    chooseTranslateWords,
-                },
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
-                },
-            });
-        } 
+        // if (answer && themeId === 'undefined' && chooseTranslateWords) {
+        //     tasks = await model.Task.findAll({ 
+        //         include: [
+        //             { model: model.ImageTask, as: 'image' },
+        //         ],
+        //         where: {
+        //             answer: {
+        //                 [Op.like]: `%${answer}%`,
+        //             },
+        //             chooseTranslateWords,
+        //         },
+        //         attributes: {
+        //             exclude: ['createdAt', 'updatedAt'],
+        //         },
+        //     });
+        // } 
         if (answer && question && themeId !== 'undefined' && chooseImage) {
             tasks = await model.Task.findAll({ 
                 include: [
@@ -631,26 +661,26 @@ class FilterTasksService {
                 },
             });
         } 
-        if (answer && question && themeId !== 'undefined' && chooseTranslateWords) {
-            tasks = await model.Task.findAll({ 
-                include: [
-                    { model: model.ImageTask, as: 'image' },
-                ],
-                where: {
-                    answer: {
-                        [Op.like]: `%${answer}%`,
-                    },
-                    question: {
-                        [Op.like]: `%${question}%`,
-                    },
-                    themeId: id,
-                    chooseTranslateWords,
-                },
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
-                },
-            });
-        } 
+        // if (answer && question && themeId !== 'undefined' && chooseTranslateWords) {
+        //     tasks = await model.Task.findAll({ 
+        //         include: [
+        //             { model: model.ImageTask, as: 'image' },
+        //         ],
+        //         where: {
+        //             answer: {
+        //                 [Op.like]: `%${answer}%`,
+        //             },
+        //             question: {
+        //                 [Op.like]: `%${question}%`,
+        //             },
+        //             themeId: id,
+        //             chooseTranslateWords,
+        //         },
+        //         attributes: {
+        //             exclude: ['createdAt', 'updatedAt'],
+        //         },
+        //     });
+        // } 
         if (answer && question && themeId === 'undefined' && chooseImage) {
             tasks = await model.Task.findAll({ 
                 include: [
@@ -724,25 +754,25 @@ class FilterTasksService {
                 },
             });
         } 
-        if (answer && question && themeId === 'undefined' && chooseTranslateWords) {
-            tasks = await model.Task.findAll({ 
-                include: [
-                    { model: model.ImageTask, as: 'image' },
-                ],
-                where: {
-                    answer: {
-                        [Op.like]: `%${answer}%`,
-                    },
-                    question: {
-                        [Op.like]: `%${question}%`,
-                    },
-                    chooseTranslateWords,
-                },
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
-                },
-            });
-        } 
+        // if (answer && question && themeId === 'undefined' && chooseTranslateWords) {
+        //     tasks = await model.Task.findAll({ 
+        //         include: [
+        //             { model: model.ImageTask, as: 'image' },
+        //         ],
+        //         where: {
+        //             answer: {
+        //                 [Op.like]: `%${answer}%`,
+        //             },
+        //             question: {
+        //                 [Op.like]: `%${question}%`,
+        //             },
+        //             chooseTranslateWords,
+        //         },
+        //         attributes: {
+        //             exclude: ['createdAt', 'updatedAt'],
+        //         },
+        //     });
+        // } 
         if (answer && word && themeId !== 'undefined' && chooseMissingWord) {
             tasks = await model.Task.findAll({ 
                 include: [

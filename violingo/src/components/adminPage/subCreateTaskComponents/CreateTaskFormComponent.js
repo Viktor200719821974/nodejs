@@ -1,9 +1,10 @@
+import CreateTaskChooseTranslateWordsComponent from './CreateTaskChooseTranslateWordsComponent';
 import FieldForLoadFiles from './FieldForLoadFiles';
 
 const CreateTaskFormComponent = (
     {
         question, setQuestion, answer, setAnswer, sendTask, setWord, chooseMissingWord, word, error, errorMessage, translate,
-        setTranslate, chooseImage, setFile, setDrag, drag,
+        setTranslate, chooseImage, setFile, setDrag, drag, chooseTranslateWords, arrayIdTranslateWords, taskId,
     }) => {
     return (
         <form>
@@ -14,7 +15,7 @@ const CreateTaskFormComponent = (
                     </div>
             }
             {
-                !chooseMissingWord &&
+                (!chooseMissingWord && !chooseTranslateWords) &&
                     <input
                         type="text"
                         name="question"
@@ -35,14 +36,17 @@ const CreateTaskFormComponent = (
                         onChange={(e) => setWord(e.target.value)}
                     />
             }
-            <input
-                type="text"
-                name="answer"
-                value={answer}
-                placeholder="Напишіть відповідь на питаннє"
-                className="loginPage_input_loginComponent"
-                onChange={(e) => setAnswer(e.target.value)}
-            />
+            {
+                !chooseTranslateWords &&
+                    <input
+                        type="text"
+                        name="answer"
+                        value={answer}
+                        placeholder="Напишіть відповідь на питаннє"
+                        className="loginPage_input_loginComponent"
+                        onChange={(e) => setAnswer(e.target.value)}
+                    />
+            }
             {
                 chooseMissingWord &&
                     <input
@@ -70,14 +74,23 @@ const CreateTaskFormComponent = (
                         /> 
                     </div>            
             }
-            <div className="loginPage_div_wrap_for_button_loginComponent">
-                <button
-                    className="loginPage_button_enter_loginComponent"
-                    onClick={sendTask}
-                >
-                    Create task
-                </button>
-            </div>
+            {
+                (chooseTranslateWords && taskId !== 0) &&
+                    <CreateTaskChooseTranslateWordsComponent
+                        arrayIdTranslateWords={arrayIdTranslateWords}
+                    />
+            }
+            {
+                (chooseTranslateWords && taskId !== 0) &&
+                    <div className="loginPage_div_wrap_for_button_loginComponent">
+                        <button
+                            className="loginPage_button_enter_loginComponent"
+                            onClick={sendTask}
+                        >
+                            Create task
+                        </button>
+                    </div>
+            }
         </form>
     );
 };

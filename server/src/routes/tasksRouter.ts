@@ -7,9 +7,9 @@ import { tasksMiddleware } from '../middlewares/tasksMiddleware';
 const router = Router();
 
 router.get('/', authMiddleware.checkAccessToken, authMiddleware.userStaff, tasksController.getTasks);
-router.get('/:themeId', authMiddleware.checkAccessToken, authMiddleware.userStaff, tasksController.getTasksForTheme);
+// router.get('/:themeId', authMiddleware.checkAccessToken, authMiddleware.userStaff, tasksController.getTasksForTheme);
 router.post('/', authMiddleware.checkAccessToken, authMiddleware.userStaff, tasksMiddleware.emptyFieldQuestion, 
-    tasksMiddleware.onlyOneWord, tasksMiddleware.checkImageTask, validates.tasks, tasksMiddleware.findSimilarTasks,
+    tasksMiddleware.onlyOneWord, tasksMiddleware.checkImageTask, validates.tasks, tasksMiddleware.findSimilarTasks, 
     tasksController.createTask);
 router.delete('/:id', authMiddleware.checkAccessToken, authMiddleware.userStaff, tasksController.deleteTask);
 

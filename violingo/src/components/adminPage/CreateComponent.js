@@ -2,14 +2,14 @@ import CreateTasksBodyComponent from './subCreateTaskComponents/CreateTasksBodyC
 import CreateNavBarComponent from './subComponents/CreateNavBarComponent';
 
 const CreateComponent = ({
-    typeTask, chooseImage, chooseMissingWord, choose, errorEmptyArrayLessons, errorEmptyArrayThemes,
+    typeTask, chooseImage, chooseMissingWord, choose, errorEmptyArrayLessons, errorEmptyArrayThemes, taskId,
     dropdown, answer, question, title, word, onHide, error, errorMessage, tasks, setOnHide, setTaskId,
     translate, dropdownTypeMenu, imageExample, drag, themes, setFile, setDrag, setChoose,  lessonNumber,
     setQuestion, setAnswer, setWord, setDropdownTypeMenu, onMouse, setTypeTask, setImageExample, setOnMouse, 
     setTranslate, click, openCloseDropdownMenu, sendTask, fetchDeleteTask, createWhat, functionBack,
     dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createExerciseBool, showFieldAddImage,
     clickCreateExercise, lessonId, countExecisesLesson, questionForExercise, clickMenuCreateExercise, answerForExercise,
-    errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage,
+    errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, chooseTranslateWords, arrayIdTranslateWords,
 }) => {
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -61,6 +61,9 @@ const CreateComponent = ({
                 errorEmptyArrayThemes={errorEmptyArrayThemes}
                 errorEmptyArrayLessonsMessage={errorEmptyArrayLessonsMessage}
                 errorEmptyArrayThemesMessage={errorEmptyArrayThemesMessage}
+                chooseTranslateWords={chooseTranslateWords}
+                taskId={taskId}
+                arrayIdTranslateWords={arrayIdTranslateWords}
             />
             <CreateTasksBodyComponent
                 tasks={tasks}
@@ -74,6 +77,7 @@ const CreateComponent = ({
                 lessonNumber={lessonNumber}
                 countExecisesLesson={countExecisesLesson}
                 clickMenuCreateExercise={clickMenuCreateExercise}
+                chooseTranslateWords={chooseTranslateWords}
             />
         </div>
     );

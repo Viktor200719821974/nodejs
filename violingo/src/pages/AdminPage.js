@@ -9,10 +9,12 @@ import { createTask, deleteTask, getTasks } from '../http/tasksApi';
 import { fetchTasks } from '../redux/actions';
 import CreateComponent from '../components/adminPage/CreateComponent';
 import { createExercise, getExercisesForLesson } from '../http/exercisesApi';
+import { arrayIdChoosePositiveAnswerEmpty } from '../redux/actions';
 
 const AdminPage = () => {
     const dispatch = useDispatch();
     let { tasks } = useSelector(state => state.tasksReducer);
+    const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
 
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -56,7 +58,19 @@ const AdminPage = () => {
     const [errorEmptyArrayThemes, setErrorEmptyArrayThemes] = useState(false);
     const [errorEmptyArrayLessonsMessage, setErrorEmptyArrayLessonsMessage] = useState('');
     const [errorEmptyArrayThemesMessage, setErrorEmptyArrayThemesMessage] = useState('');
-    
+    const [arrayIdTranslateWords, setArrayIdTranslateWords] = useState(null);
+
+    const filterTasksForChooseTranslateWords = (array1, array2) => {
+        let arr = [];
+        for (let i = 0; i < array1.length; i++) {
+            for (let j = 0; j < array2.length; j++) {
+                if (array1[i].id === array2[j]) {
+                    arr.push(array1[i]);
+                }
+            }
+        }
+        return arr;
+    }
     const clickCreateTheme = async (e) => {
         e.preventDefault();
         try {
@@ -249,6 +263,8 @@ const AdminPage = () => {
         setTaskId(id);
         setQuestionForExercise(questionTask);
         setAnswerForExercise(answerTask);
+        arrayId.push(id);
+        setArrayIdTranslateWords(filterTasksForChooseTranslateWords(tasks, arrayId));
         if (choosePositiveAnswerValue) {
             setShowFieldAddImage(true);
         } else {
@@ -290,6 +306,9 @@ const AdminPage = () => {
                 setQuestion('');
                 setErrorMessage('');
                 setError(false);
+                setTaskId(0);
+                dispatch(dispatch(arrayIdChoosePositiveAnswerEmpty()));
+                setArrayIdTranslateWords([]);
             }
             if (dropdown) {
                 setDropdownMenuLessons(false);
@@ -300,20 +319,6 @@ const AdminPage = () => {
             if (document.getElementById('exerciseForm') === null) {
                 setCreateExerciseBool(false);
             }
-            // if (lessons.length === 0) {
-            //     setErrorEmptyArrayLessons(true);
-            //     setErrorEmptyArrayLessonsMessage('There are no created lessons');
-            // } else {
-            //     setErrorEmptyArrayLessons(false);
-            //     setErrorEmptyArrayLessonsMessage('');
-            // }
-            // if (themes.length === 0) {
-            //     setErrorEmptyArrayThemes(true);
-            //     setErrorEmptyArrayThemesMessage('There are no created themes')
-            // } else {
-            //     setErrorEmptyArrayThemes(false);
-            //     setErrorEmptyArrayThemesMessage('');
-            // }
         }
         const fetchTasksFunc = async () => {
             try {
@@ -355,7 +360,7 @@ const AdminPage = () => {
         dropdown, answer, question, word, tasks.length, onHide, taskId, translate, dropdownTypeMenu, imageExample, 
         file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
         countExecisesLesson, questionForExercise, answerForExercise, showFieldAddImage, errorEmptyArrayLessons,
-        errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage,
+        errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, 
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
@@ -459,6 +464,9 @@ const AdminPage = () => {
                         errorEmptyArrayThemes={errorEmptyArrayThemes}
                         errorEmptyArrayLessonsMessage={errorEmptyArrayLessonsMessage}
                         errorEmptyArrayThemesMessage={errorEmptyArrayThemesMessage}
+                        chooseTranslateWords={chooseTranslateWords}
+                        taskId={taskId}
+                        arrayIdTranslateWords={arrayIdTranslateWords}
                     />
             }
             <div

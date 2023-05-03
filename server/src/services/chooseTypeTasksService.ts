@@ -5,21 +5,13 @@ import { ITask } from '../interfaces';
 import { saveImageService } from './saveImageService';
 
 class ChooseTypeTasksService {
-    async chooseImage(answer: string, image: UploadedFile, task: ITask): Promise<ITask | null> {
+    async chooseImage(answer: string, image: UploadedFile, task: ITask): Promise<ITask> {
         const newTask = await model.Task.create({ ...task });
         const taskId = newTask.id;
-        const fileName = await saveImageService.saveImage(image, answer);
+        const fileName = await saveImageService.saveImage(image);
         // @ts-ignore
         await model.ImageTask.create({ src: fileName, alt: `${answer} image`, taskId });
-        return model.Task.findOne({ 
-            include: [
-                {model: model.ImageTask, as: 'image'},
-            ],
-            where: { id: taskId },
-            attributes: {
-                exclude: ['createdAt', 'updatedAt'],
-            },
-        });
+        return newTask;
     }
 
     async chooseMissingWord(answer: string, word: string, task: ITask): Promise<ITask> {
@@ -49,7 +41,7 @@ class ChooseTypeTasksService {
         return model.Task.create({ ...task, question: joinArray, optionsAnswer: unique });
     }
 
-    async choosePositiveAnswer(answer: string, task: ITask)
+    async choosePositiveAnswerAndChooseAnswer(answer: string, task: ITask)
         : Promise<ITask> {
         const cyrillicPattern = /^[\u0400-\u04FF]+$/;
         let optionsAnswer = answer.split(' ');
@@ -80,10 +72,14 @@ class ChooseTypeTasksService {
             });
             arrayUkraineWords = arrayUkraineWords.filter((value, index, array) => array.indexOf(value) === index);
             arrayUkraineWords = await this._getShuffledArray(arrayUkraineWords);
-            if (optionsAnswer.length > 3) {
-                arrayUkraineWords.length = 3;
+            if (task.choosePositiveAnswer) {
+                if (optionsAnswer.length > 3) {
+                    arrayUkraineWords.length = 3;
+                } else {
+                    arrayUkraineWords.length = 5;
+                }
             } else {
-                arrayUkraineWords.length = 5;
+                arrayUkraineWords.length = 2;
             }
             optionsAnswer = arrayUkraineWords.concat(optionsAnswer);
             optionsAnswer = await this._getShuffledArray(optionsAnswer);
@@ -93,10 +89,14 @@ class ChooseTypeTasksService {
             });
             arrayEnglishWords = arrayEnglishWords.filter((value, index, array) => array.indexOf(value) === index);
             arrayEnglishWords = await this._getShuffledArray(arrayEnglishWords);
-            if (optionsAnswer.length > 3) {
-                arrayEnglishWords.length = 3;
+            if (task.choosePositiveAnswer) {
+                if (optionsAnswer.length > 3) {
+                    arrayEnglishWords.length = 3;
+                } else {
+                    arrayEnglishWords.length = 5;
+                }
             } else {
-                arrayEnglishWords.length = 5;
+                arrayEnglishWords.length = 2;
             }
             optionsAnswer = arrayEnglishWords.concat(optionsAnswer);
             optionsAnswer = await this._getShuffledArray(optionsAnswer);

@@ -40,11 +40,20 @@ class TasksService {
         return model.Task.findOne({ where: { id } });
     }
 
-    async getTasksForThemeAndChooseAnswer(chooseAnswer: boolean)
+    async getTasksForChooseAnswer(chooseAnswer: boolean)
         : Promise<ITask[]> {
         return model.Task.findAll({
             where: {
-                chooseAnswer,
+                chooseAnswer: true,
+            },
+        });
+    }
+
+    async getTasksForChooseImage(chooseImage: boolean)
+        : Promise<ITask[]> {
+        return model.Task.findAll({
+            where: {
+                chooseImage: true,
             },
         });
     }
@@ -57,19 +66,42 @@ class TasksService {
         });
     }
 
-    async createTask(task: ITask, image: UploadedFile) : Promise<ITask | null> {
-        const {
-            chooseMissingWord, chooseImage, choosePositiveAnswer, answer, word, 
-        } = task;
+    async createTask(
+        chooseImage: boolean, 
+        chooseAnswer: boolean,
+        chooseMissingWord: boolean,
+        choosePositiveAnswer: boolean,
+        chooseTranslateWords: boolean,
+        themeId: number,
+        word: string,
+        answer: string,
+        question: string,
+        translate: string,
+        image: UploadedFile
+    ) : Promise<ITask | null> {
+        const task = {
+            chooseImage,
+            chooseAnswer,
+            chooseMissingWord,
+            choosePositiveAnswer,
+            chooseTranslateWords,
+            themeId,
+            word,
+            answer,
+            question,
+            translate,
+        } as unknown as ITask;
         if (chooseImage) {
             return chooseTypeTasksService.chooseImage(answer, image, task);
         }
         if (chooseMissingWord) {
             return chooseTypeTasksService.chooseMissingWord(answer, word, task);
         }
-        if (choosePositiveAnswer) {
-            return chooseTypeTasksService
-                .choosePositiveAnswer(answer, task);
+        if (choosePositiveAnswer || chooseAnswer) {
+            return chooseTypeTasksService.choosePositiveAnswerAndChooseAnswer(answer, task);
+        }
+        if (chooseTranslateWords) {
+
         }
         return model.Task.create({ ...task });
     }

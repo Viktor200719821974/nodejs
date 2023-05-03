@@ -57,22 +57,34 @@ class TasksController {
         try {
             const image = req.files?.image as UploadedFile;
             const {
-                chooseImage,
+                chooseImage, 
+                chooseAnswer, 
+                chooseMissingWord, 
+                choosePositiveAnswer, 
+                chooseTranslateWords, 
+                themeId, 
+                word, 
+                answer,
+                translate,
+                question,
             } = req.body;
             if (chooseImage === true && image === undefined) {
                 res.status(400).json('No image');
                 return;
             }
-            // if (choosePositiveAnswer) {
-            //     const arrayTasks = await tasksService
-            //         .getTasksForThemeAndChooseAnswer(chooseAnswer);
-            //     if (arrayTasks.length < 3) {
-            //         res.status(400)
-            //             .json(`Need to add more tasks with chooseAnswer. Now ${arrayTasks.length} and need min 3`);
-            //         return;
-            //     }
-            // }
-            const task = await tasksService.createTask(req.body, image);
+            const task = await tasksService.createTask(
+                chooseImage === 'true', 
+                chooseAnswer === 'true',
+                chooseMissingWord === 'true',
+                choosePositiveAnswer === 'true',
+                chooseTranslateWords === 'true',
+                +themeId,
+                word,
+                answer,
+                question,
+                translate,
+                image,
+            );
             res.status(201).json(task);
         } catch (e) {
             next(e);

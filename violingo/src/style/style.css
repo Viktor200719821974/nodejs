@@ -3548,7 +3548,7 @@ input[type=checkbox]:checked:after {
     align-items: center;
     padding: 10px 20px 0 0;
     cursor: pointer;
-    width: 100%;
+    width: 40%;
     justify-content: flex-end;
 }
 .adminPage_div_arrowBack_border_createComponent {
@@ -3559,7 +3559,8 @@ input[type=checkbox]:checked:after {
     background: #e5e5e5;
 }
 .adminPage_h2_navBar_createComponent {
-    margin: 20px;
+    margin: 10px 12px;
+    width: 60%;
 }
 .adminPage_main_div_chooseTypeTaskComponent {
     margin: 10px 0;

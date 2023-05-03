@@ -70,7 +70,7 @@ class ExercisesService {
                 choosePositiveAnswer, chooseTranslateWords,
             }).then(data => data.id);
         if (choosePositiveAnswer) {
-            const fileName = await saveImageService.saveImage(image, answer);
+            const fileName = await saveImageService.saveImage(image);
             //@ts-ignore
             await model.ImageExercise.create({ src: fileName, alt: `${answer} image`, exerciseId });
         }
