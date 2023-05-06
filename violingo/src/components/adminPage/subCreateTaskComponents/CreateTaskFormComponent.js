@@ -5,6 +5,7 @@ const CreateTaskFormComponent = (
     {
         question, setQuestion, answer, setAnswer, sendTask, setWord, chooseMissingWord, word, error, errorMessage, translate,
         setTranslate, chooseImage, setFile, setDrag, drag, chooseTranslateWords, arrayIdTranslateWords, taskId,
+        choosePositiveAnswer, chooseAnswer, deleteSelectedTask,
     }) => {
     return (
         <form>
@@ -78,10 +79,11 @@ const CreateTaskFormComponent = (
                 (chooseTranslateWords && taskId !== 0) &&
                     <CreateTaskChooseTranslateWordsComponent
                         arrayIdTranslateWords={arrayIdTranslateWords}
+                        deleteSelectedTask={deleteSelectedTask}
                     />
             }
             {
-                (chooseTranslateWords && taskId !== 0) &&
+                (chooseImage || choosePositiveAnswer || chooseMissingWord || chooseAnswer || (chooseTranslateWords && taskId !== 0)) &&
                     <div className="loginPage_div_wrap_for_button_loginComponent">
                         <button
                             className="loginPage_button_enter_loginComponent"

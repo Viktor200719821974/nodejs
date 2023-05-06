@@ -216,7 +216,7 @@ const Task = sequelize.define<ITask>('task', {
         type: DataTypes.STRING, allowNull: true,
     },
     question: {
-        type: DataTypes.STRING, allowNull: false,
+        type: DataTypes.STRING, allowNull: true,
     },
     answer: {
         type: DataTypes.STRING, allowNull: true,
@@ -241,6 +241,12 @@ const Task = sequelize.define<ITask>('task', {
     },
     themeId: {
         type: DataTypes.INTEGER, allowNull: false,
+    },
+    translatewordsTasks: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER), allowNull: true,
+    },
+    translatewordsanswers: {
+        type: DataTypes.ARRAY(DataTypes.STRING), allowNull: true,
     },
 });
 const ImageTask = sequelize.define<IImageTask>('imageTask', {

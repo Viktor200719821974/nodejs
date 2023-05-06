@@ -4,8 +4,9 @@ import { IMAGES_SERVER_PATH } from '../../../constants';
 
 const CreateTasksBodyComponent = ({ 
     tasks, lessonId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, createWhat, lessonNumber,
-    countExecisesLesson, clickMenuCreateExercise, chooseTranslateWords,
+    countExecisesLesson, clickMenuCreateExercise, chooseTranslateWords, themeId,
 }) => {
+    
     return (
         <div className={"adminPage_div_body_createComponent"}>
             <h1 className={"adminPage_h1_title_createComponent"}>{title}</h1>
@@ -31,14 +32,20 @@ const CreateTasksBodyComponent = ({
                     </h3>
             }
             {
-                (createWhat === 'task' && chooseTranslateWords) &&
+                (createWhat === 'task' && chooseTranslateWords && tasks.length !== 0) &&
                     <h3 className={"adminPage_h3_title_createComponent"}>
                         Щоб створити це завдання виберіть 4-5 завдань з поданих нижче 
                         (для цього просто клацніть мишкою на одне з завдань)
                     </h3>
             }
+            {
+                (createWhat === 'task' && chooseTranslateWords && themeId === 0) &&
+                    <h2 className={"adminPage_h3_title_createComponent"}>
+                        Оберіть тему!!!!!!!!
+                    </h2>
+            }
                 {                
-                    tasks.length === 0 &&
+                    tasks.length === 0  &&
                         <h2 className={"adminPage_h2_no_tasks_createComponent"}>
                             No tasks
                         </h2>

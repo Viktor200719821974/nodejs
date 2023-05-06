@@ -24,9 +24,9 @@ export const validators = {
             .error(new Error('Name theme is not valid, cannot be empty, max length 100 ')),
     }),
     tasks: Joi.object({
-        question: Joi.string().required().allow('').max(100)
+        question: Joi.string().required().allow(null).allow('').max(100)
             .error(new Error('Question is not valid, max length 100 ')),
-        answer: Joi.string().required().min(1).max(100)
+        answer: Joi.string().required().allow(null).min(1).max(100)
             .error(new Error('Answer is not valid, max length 100 ')),
         themeId: Joi.number().required()
             .error(new Error('Choose theme')),

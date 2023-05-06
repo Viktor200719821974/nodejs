@@ -19,9 +19,6 @@ class TasksController {
                 lessonId,
                 taskId,
             } = req.query;
-            if (themeId === undefined) {
-                themeId = 'undefined';
-            }
             const tasks = await tasksService
                 .getTasks(
                     // @ts-ignore

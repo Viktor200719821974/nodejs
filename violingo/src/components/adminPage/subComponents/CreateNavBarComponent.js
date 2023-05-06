@@ -14,7 +14,7 @@ const CreateNavBarComponent = ({
     chooseImage, setFile, setDrag, drag, createWhat, functionBack, dropdownMenuLessons, lessons, chooseLesson,
     openCloseDropdownMenuLessons, lessonNumber, createExerciseBool, clickCreateExercise, questionForExercise, answerForExercise,
     errorEmptyArrayLessons, errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage,
-    chooseTranslateWords, arrayIdTranslateWords, taskId,
+    chooseTranslateWords, arrayIdTranslateWords, taskId, chooseAnswer, choosePositiveAnswer, deleteSelectedTask,
 }) => {
     return(
         <div className={"adminPage_div_navBar_createComponent"}>
@@ -107,11 +107,14 @@ const CreateNavBarComponent = ({
                             chooseTranslateWords={chooseTranslateWords}
                             arrayIdTranslateWords={arrayIdTranslateWords}
                             taskId={taskId}
+                            chooseAnswer={chooseAnswer}
+                            choosePositiveAnswer={choosePositiveAnswer}
+                            deleteSelectedTask={deleteSelectedTask}
                         />   
                     </div>
             }
             {
-                (createExerciseBool && title !== 'Choose theme task') &&
+                (createExerciseBool && title !== 'Choose theme task' && createWhat === 'exercise') &&
                     <CreateExerciseFormComponent
                         clickCreateExercise={clickCreateExercise}
                         error={error}

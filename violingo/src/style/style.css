@@ -3880,6 +3880,33 @@ input[type=checkbox]:checked:after {
     justify-content: flex-start;
     margin-left: 20px;
 }
+.adminPage_first_div_createTaskChooseTranslateWordsComponent {
+    display: flex;
+    align-items: center;
+}
+.adminPage_second_div_createTaskChooseTranslateWordsComponent {
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 4px;
+    color: #afafaf;
+    width: 95%;
+}
+.adminPage_span_createTaskChooseTranslateWordsComponent {
+    margin-right: 4px;
+}
+.adminPage_span_button_createTaskChooseTranslateWordsComponent {
+    border: 1px solid red;
+    border-radius: 8px;
+    margin-left: 8px;
+    padding: 2px;
+    color: red;
+    cursor: pointer;
+}
+.adminPage_span_button_createTaskChooseTranslateWordsComponent:hover {
+    background-color: #f1bcbc;
+    color: #fff;
+}
 
 @media (max-width: 1360px) {
     .mainLearnPage_main_navBar {

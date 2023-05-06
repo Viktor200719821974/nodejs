@@ -9,19 +9,22 @@ import { createTask, deleteTask, getTasks } from '../http/tasksApi';
 import { fetchTasks } from '../redux/actions';
 import CreateComponent from '../components/adminPage/CreateComponent';
 import { createExercise, getExercisesForLesson } from '../http/exercisesApi';
-import { arrayIdChoosePositiveAnswerEmpty } from '../redux/actions';
+import { 
+    arrayIdChoosePositiveAnswerEmpty, arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer, arrayChoosePositiveAnswerEmpty,
+} from '../redux/actions';
 
 const AdminPage = () => {
     const dispatch = useDispatch();
     let { tasks } = useSelector(state => state.tasksReducer);
     const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
-
+    const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
+    
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [error, setError] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [lessonNumber, setLessonNumber] = useState(0);
-    const [themeId, setThemeId] = useState();
+    const [themeId, setThemeId] = useState(0);
     const [themes, setThemes] = useState([]);
     const [themeTitle, setThemeTitle] = useState('Choose theme');
     const [dropdown, setDropdown] = useState(false);
@@ -37,7 +40,7 @@ const AdminPage = () => {
     const [title, setTitle] = useState('Choose theme task');
     const [answer, setAnswer] = useState('');
     const [question, setQuestion] = useState('');
-    const [word, setWord] = useState(null);
+    const [word, setWord] = useState('');
     const [onHide, setOnHide] = useState(false);
     const [taskId, setTaskId] = useState(0);
     const [translate, setTranslate] = useState('');
@@ -59,7 +62,7 @@ const AdminPage = () => {
     const [errorEmptyArrayLessonsMessage, setErrorEmptyArrayLessonsMessage] = useState('');
     const [errorEmptyArrayThemesMessage, setErrorEmptyArrayThemesMessage] = useState('');
     const [arrayIdTranslateWords, setArrayIdTranslateWords] = useState(null);
-
+    
     const filterTasksForChooseTranslateWords = (array1, array2) => {
         let arr = [];
         for (let i = 0; i < array1.length; i++) {
@@ -70,6 +73,12 @@ const AdminPage = () => {
             }
         }
         return arr;
+    }
+    const filterTasksForChooseTranslateWordsNotEqual = (array1, array2) => {
+        array2.forEach(element => {
+            array1 = array1.filter(item => item.id !== element);
+        });
+        return array1;
     }
     const clickCreateTheme = async (e) => {
         e.preventDefault();
@@ -120,7 +129,9 @@ const AdminPage = () => {
     }
     const openCloseDropdownMenu = async () => {
         try {
-            setDropdown(value => !value);
+            if (arrayId.length === 0) {
+                setDropdown(value => !value);
+            }
             await getThemes().then(data => {
                 if (data.status === 200) {
                     setThemes(data.data);
@@ -179,7 +190,7 @@ const AdminPage = () => {
                 if (data.status === 201) {
                     setQuestion('');
                     setAnswer('');
-                    setWord('');
+                    setWord(null);
                     setError(false);
                     setErrorMessage('');
                     setFile(null);
@@ -215,12 +226,14 @@ const AdminPage = () => {
         setTypeTask('');
         setTitle('Choose theme task');
         setChoose(false);
-        setThemeId();
+        setThemeId(0);
         setLessonId(0);
         setLessonNumber(0);
         setDropdownMenuLessons(false);
         setCreateExerciseBool(false);
         setTaskId(0);
+        dispatch(dispatch(arrayIdChoosePositiveAnswerEmpty()));
+        dispatch(arrayChoosePositiveAnswerEmpty());
     }
     const openCloseDropdownMenuLessons = () => {
         setDropdownMenuLessons(value => !value);
@@ -244,7 +257,6 @@ const AdminPage = () => {
                 if (data.status === 201) {
                     setCreateExerciseBool(false);
                     setTaskId(0);
-                    // setLessonId(0);
                     setError(false);
                     setErrorMessage('');
                 }
@@ -264,12 +276,22 @@ const AdminPage = () => {
         setQuestionForExercise(questionTask);
         setAnswerForExercise(answerTask);
         arrayId.push(id);
-        setArrayIdTranslateWords(filterTasksForChooseTranslateWords(tasks, arrayId));
+        if (chooseTranslateWords && arrayId.length > 0) {
+            array.push(tasks.filter(c => c.id === id)[0]);
+            dispatch(fetchTasks(filterTasksForChooseTranslateWordsNotEqual(tasks, arrayId)));
+            setArrayIdTranslateWords(array);
+        }
         if (choosePositiveAnswerValue) {
             setShowFieldAddImage(true);
         } else {
             setShowFieldAddImage(false);
         }
+    }
+    const deleteSelectedTask = (id) => {
+        tasks.push(array.filter(c => c.id === id)[0]);
+        dispatch(arrayIdChoosePositiveAnswer(arrayId.filter(c => c !== id)));
+        dispatch(arrayChoosePositiveAnswer(filterTasksForChooseTranslateWords(array, arrayId.filter(c => c !== id))));
+        setArrayIdTranslateWords(filterTasksForChooseTranslateWords(array, arrayId.filter(c => c !== id)));
     }
     useEffect(() => {
         let active = true;
@@ -308,6 +330,7 @@ const AdminPage = () => {
                 setError(false);
                 setTaskId(0);
                 dispatch(dispatch(arrayIdChoosePositiveAnswerEmpty()));
+                dispatch(arrayChoosePositiveAnswerEmpty());
                 setArrayIdTranslateWords([]);
             }
             if (dropdown) {
@@ -315,6 +338,9 @@ const AdminPage = () => {
                 setLessonNumber(0);
                 setCreateExerciseBool(false);
                 setLessonId(0);
+            }
+            if (arrayId.length === 0 && chooseTranslateWords) {
+                setTaskId(0);
             }
             if (document.getElementById('exerciseForm') === null) {
                 setCreateExerciseBool(false);
@@ -327,7 +353,9 @@ const AdminPage = () => {
                     question, answer, word, lessonId, taskId,
                 ).then(data => {
                     if (data.status === 200) {
-                        dispatch(fetchTasks(data.data));
+                        if(arrayId.length === 0) {
+                            dispatch(fetchTasks(data.data));
+                        }
                     }
                 });
             } catch (e) {
@@ -340,7 +368,6 @@ const AdminPage = () => {
                 await getExercisesForLesson(id).then(data => {
                     if (data.status === 200) {      
                         setCountExercisesLesson(data.data.length);
-                        // setArrayNumber(data.data.map(c => c.tasks));
                     }
                 });
             } catch (e) {
@@ -467,6 +494,10 @@ const AdminPage = () => {
                         chooseTranslateWords={chooseTranslateWords}
                         taskId={taskId}
                         arrayIdTranslateWords={arrayIdTranslateWords}
+                        chooseAnswer={chooseAnswer}
+                        choosePositiveAnswer={choosePositiveAnswer}
+                        themeId={themeId}
+                        deleteSelectedTask={deleteSelectedTask}
                     />
             }
             <div
