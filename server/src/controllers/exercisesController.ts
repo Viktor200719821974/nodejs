@@ -27,6 +27,7 @@ class ExercisesController {
     async createExercise(req: Request, res: Response, next: NextFunction) {
         try {
             const { taskId, lessonId } = req.body;
+            console.log(taskId, '>>>>>>>>>>>>>>>');
             const image = req.files?.image as UploadedFile;
             const task = await tasksService.getTaskById(+taskId);
             const choosePositiveAnswer = task?.choosePositiveAnswer;

@@ -77,7 +77,8 @@ class TasksService {
         answer: string,
         question: string,
         translate: string,
-        image: UploadedFile
+        translatewordsTasks: string,
+        image: UploadedFile,
     ) : Promise<ITask | null> {
         const task = {
             chooseImage,
@@ -90,6 +91,7 @@ class TasksService {
             answer,
             question,
             translate,
+            translatewordsTasks,
         } as unknown as ITask;
         if (chooseImage) {
             return chooseTypeTasksService.chooseImage(answer, image, task);
@@ -101,7 +103,7 @@ class TasksService {
             return chooseTypeTasksService.choosePositiveAnswerAndChooseAnswer(answer, task);
         }
         if (chooseTranslateWords) {
-
+            return chooseTypeTasksService.chooseTranslateWords(translatewordsTasks, task);
         }
         return model.Task.create({ ...task });
     }

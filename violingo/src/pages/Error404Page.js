@@ -10,7 +10,7 @@ const Error404Page = () => {
                 <h5 className="error404Page_h5">
                     Sorry, the page you were looking for doesn’t exist. Try going to 
                     <a href={HOME_PAGE} className="error404Page_a">
-                        duolingo.com
+                        violingo.com
                     </a>
                     , or follow us on 
                     <a href={HOME_PAGE} className="error404Page_a">

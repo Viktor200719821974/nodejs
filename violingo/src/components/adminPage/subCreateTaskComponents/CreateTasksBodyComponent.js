@@ -1,6 +1,7 @@
 import DeleteTaskModalComponent from './DeleteTaskModalComponent';
 import cross from '../../../icons/cross-closedModal.svg';
 import { IMAGES_SERVER_PATH } from '../../../constants';
+import TaskTypeChooseTranslateWordsComponent from './TaskTypeChooseTranslateWordsComponent';
 
 const CreateTasksBodyComponent = ({ 
     tasks, lessonId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, createWhat, lessonNumber,
@@ -82,8 +83,19 @@ const CreateTasksBodyComponent = ({
                                             />
                                         </span>
                                 }
-                                <span><b>Question:</b> {c.question}</span>
-                                <span><b>Answer:</b> {c.answer}</span>
+                                {
+                                    c.chooseTranslateWords !== true 
+                                    ?
+                                        <div>
+                                            <div><b>Question:</b> {c.question}</div>
+                                            <div><b>Answer:</b> {c.answer}</div>
+                                        </div>
+                                    :
+                                        <TaskTypeChooseTranslateWordsComponent
+                                            tasks={tasks}
+                                            id={c.id}
+                                        />
+                                }
                                 {
                                     onHide &&
                                         <div className="adminPage_modal_window_delete display_alien_justify">

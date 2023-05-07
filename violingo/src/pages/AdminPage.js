@@ -62,7 +62,7 @@ const AdminPage = () => {
     const [errorEmptyArrayLessonsMessage, setErrorEmptyArrayLessonsMessage] = useState('');
     const [errorEmptyArrayThemesMessage, setErrorEmptyArrayThemesMessage] = useState('');
     const [arrayIdTranslateWords, setArrayIdTranslateWords] = useState(null);
-    
+    console.log(tasks);
     const filterTasksForChooseTranslateWords = (array1, array2) => {
         let arr = [];
         for (let i = 0; i < array1.length; i++) {
@@ -174,6 +174,7 @@ const AdminPage = () => {
     const sendTask = async(e) => {
         e.preventDefault();
         try {
+            
             const formData = new FormData();
             formData.append('question', question);
             formData.append('answer', answer);
@@ -185,6 +186,7 @@ const AdminPage = () => {
             formData.append('chooseTranslateWords', chooseTranslateWords);
             formData.append('word', word);
             formData.append('translate', translate);
+            formData.append('translatewordsTasks', arrayId);
             formData.append('image', file);
             await createTask(formData).then(data => {
                 if (data.status === 201) {
@@ -194,6 +196,8 @@ const AdminPage = () => {
                     setError(false);
                     setErrorMessage('');
                     setFile(null);
+                    dispatch(dispatch(arrayIdChoosePositiveAnswerEmpty()));
+                    dispatch(arrayChoosePositiveAnswerEmpty());
                 }
             }).catch(err => {
                 setErrorMessage(err.response.data);
@@ -209,6 +213,7 @@ const AdminPage = () => {
             await deleteTask(taskId).then(data => {
                 if (data.status === 200) {
                     setOnHide(false);
+                    setTaskId(0);
                 }
             }).catch (err => {
                 if (err.response) {
@@ -328,7 +333,7 @@ const AdminPage = () => {
                 setQuestion('');
                 setErrorMessage('');
                 setError(false);
-                setTaskId(0);
+                // setTaskId(0);
                 dispatch(dispatch(arrayIdChoosePositiveAnswerEmpty()));
                 dispatch(arrayChoosePositiveAnswerEmpty());
                 setArrayIdTranslateWords([]);
@@ -387,7 +392,7 @@ const AdminPage = () => {
         dropdown, answer, question, word, tasks.length, onHide, taskId, translate, dropdownTypeMenu, imageExample, 
         file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
         countExecisesLesson, questionForExercise, answerForExercise, showFieldAddImage, errorEmptyArrayLessons,
-        errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, 
+        errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, arrayId.length,
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>

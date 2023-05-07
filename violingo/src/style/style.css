@@ -3907,6 +3907,9 @@ input[type=checkbox]:checked:after {
     background-color: #f1bcbc;
     color: #fff;
 }
+.adminPage_span_taskTypeChooseTranslateWordsComponent {
+    margin-left: 4px;
+}
 
 @media (max-width: 1360px) {
     .mainLearnPage_main_navBar {

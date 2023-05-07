@@ -6,12 +6,37 @@ import { model } from '../models';
 import { tasksService } from '../services/tasksService';
 
 class TasksMiddleware {
-    async emptyFieldQuestion(req: Request, res: Response, next: NextFunction) {
+    async emptyFieldQuestionAndAnswer(req: Request, res: Response, next: NextFunction) {
         try {
-            const { question, choosePositiveAnswer } = req.body;
+            const { 
+                question, choosePositiveAnswer, chooseImage, chooseAnswer, chooseMissingWord, answer, chooseTranslateWords,
+                translatewordsTasks,
+            } = req.body;
             if (choosePositiveAnswer === 'true' && question === '') {
                 res.status(400).json('Field question can not be empty');
                 return;
+            }
+            if ((chooseAnswer === 'true' || chooseImage === 'true') && question === '') {
+                res.status(400).json('Field question can not be empty');
+                return;
+            }
+            if (choosePositiveAnswer === 'true' && answer === '') {
+                res.status(400).json('Field answer can not be empty');
+                return;
+            }
+            if ((chooseAnswer === 'true' || chooseImage === 'true' || chooseMissingWord === 'true') && answer === '') {
+                res.status(400).json('Field answer can not be empty');
+                return;
+            }
+            if (chooseTranslateWords === 'true') {
+                if (translatewordsTasks === '') {
+                    res.status(400).json('Choose from 4 to 5 tasks');
+                    return;
+                }
+                if (translatewordsTasks.split(',').length < 4 || translatewordsTasks.split(',').length > 5) {
+                    res.status(400).json('Minimum tasks is 4 and maximum tasks is 5');
+                    return;
+                }
             }
             next();
         } catch (e) {
@@ -23,14 +48,20 @@ class TasksMiddleware {
         try {
             const { word, chooseMissingWord, translate } = req.body;
             if (chooseMissingWord === 'true') {
+                const cyrillicPattern = /^[\u0400-\u04FF]+$/;
+                if (word === '') {
+                    res.status(400).json('Field word can not be empty');
+                    return;
+                }
+                if (translate === '') {
+                    res.status(400).json('Field translate can not be empty');
+                    return;
+                }
                 const arrayWords = word.split(' ');
                 if (arrayWords.length > 1) {
                     res.status(400).json('Field word must be without space');
                     return;
                 }
-            }
-            const cyrillicPattern = /^[\u0400-\u04FF]+$/;
-            if (chooseMissingWord === 'true') {
                 if (cyrillicPattern.test(word)) {
                     res.status(400).json('Task missing word must be to write only in English.')
                 }
@@ -46,9 +77,7 @@ class TasksMiddleware {
 
     async checkImageTask(req: Request, res: Response, next: NextFunction) {
         try {
-            if (req.body.chooseImage === 'false') {
-                next();
-            } else {
+            if (req.body.chooseImage === 'true') {
                 const { name, size, mimetype } = req.files?.image as UploadedFile;
                 if (size > constants.IMAGE_SIZE) {
                     res.status(400).json(`File ${name} is too big`);
@@ -66,6 +95,7 @@ class TasksMiddleware {
                 }
                 next();
             }
+            next();
         } catch (e) {
             next(e);
         }

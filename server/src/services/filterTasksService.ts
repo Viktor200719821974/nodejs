@@ -740,9 +740,10 @@ class FilterTasksService {
                     exclude: ['createdAt', 'updatedAt'],
                 },
             });
-            if (taskId !== '0') {
-                tasks = tasks.filter(c => c.id !== Number(taskId));
-            }
+            console.log(taskId, '+++++++++++++++++++');
+            console.log(tasks.length, '_________');
+            
+            console.log(tasks.length, '_________');
         }
         return tasks;
     }

@@ -147,8 +147,8 @@ export interface ITask extends Model
         chooseMissingWord: boolean;
         chooseTranslateWords: boolean;
         themeId: number;
-        translatewordsTasks: [number];
-        translatewordsanswers: [string];
+        translatewordsTasks: number[];
+        translatewordsanswers: string[];
 }
 export interface IImageTask extends Model
     <InferAttributes<IImageTask>, InferCreationAttributes<IImageTask>> {

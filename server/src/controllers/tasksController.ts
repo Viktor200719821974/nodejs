@@ -19,7 +19,7 @@ class TasksController {
                 lessonId,
                 taskId,
             } = req.query;
-            const tasks = await tasksService
+            let tasks = await tasksService
                 .getTasks(
                     // @ts-ignore
                     themeId,
@@ -34,6 +34,11 @@ class TasksController {
                     lessonId,
                     taskId,
                 );
+            if (taskId !== '0' && tasks !== undefined) {
+                tasks = tasks.filter(c => c.id !== Number(taskId));
+            }
+            //@ts-ignore
+            console.log(tasks.length, '================');
             res.status(200).json(tasks);
         } catch (e) {
             next(e);
@@ -64,6 +69,7 @@ class TasksController {
                 answer,
                 translate,
                 question,
+                translatewordsTasks,
             } = req.body;
             if (chooseImage === true && image === undefined) {
                 res.status(400).json('No image');
@@ -80,6 +86,7 @@ class TasksController {
                 answer,
                 question,
                 translate,
+                translatewordsTasks,
                 image,
             );
             res.status(201).json(task);

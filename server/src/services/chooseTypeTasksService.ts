@@ -1,4 +1,5 @@
 import { UploadedFile } from 'express-fileupload';
+import { Op } from 'sequelize';
 
 import { model } from '../models';
 import { ITask } from '../interfaces';
@@ -103,6 +104,23 @@ class ChooseTypeTasksService {
         }
         // @ts-ignore
         return model.Task.create({ ...task, optionsAnswer });
+    }
+
+    async chooseTranslateWords(translateWords: string, task: ITask): Promise<ITask> {
+        const arr = translateWords.split(',');
+        const translatewordsTasks = arr.map(str => {
+            return Number(str);
+        });
+        const tasks = await model.Task.findAll({ 
+            where: {
+                id: {
+                    [Op.or]: translatewordsTasks
+                },
+            },
+        });
+        let translatewordsanswers = tasks.map(c => c.answer);
+        translatewordsanswers = await this._getShuffledArray(translatewordsanswers);
+        return model.Task.create({ ...task, translatewordsTasks, translatewordsanswers});
     }
 
     private async _getShuffledArray(array: string[]): Promise<string[]> {
