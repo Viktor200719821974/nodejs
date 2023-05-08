@@ -19,6 +19,13 @@ class TasksController {
                 lessonId,
                 taskId,
             } = req.query;
+            let { limit, page } = req.query;
+            //@ts-ignore
+            page = Number(page) || 1;
+            // @ts-ignore
+            limit = Number(limit) || 12;
+            // @ts-ignore
+            const offset = page * limit - limit;
             let tasks = await tasksService
                 .getTasks(
                     // @ts-ignore
@@ -33,12 +40,10 @@ class TasksController {
                     answer,
                     lessonId,
                     taskId,
+                    offset,
+                    page,
+                    limit,
                 );
-            if (taskId !== '0' && tasks !== undefined) {
-                tasks = tasks.filter(c => c.id !== Number(taskId));
-            }
-            //@ts-ignore
-            console.log(tasks.length, '================');
             res.status(200).json(tasks);
         } catch (e) {
             next(e);
@@ -71,10 +76,6 @@ class TasksController {
                 question,
                 translatewordsTasks,
             } = req.body;
-            if (chooseImage === true && image === undefined) {
-                res.status(400).json('No image');
-                return;
-            }
             const task = await tasksService.createTask(
                 chooseImage === 'true', 
                 chooseAnswer === 'true',

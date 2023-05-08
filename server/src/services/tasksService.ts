@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { model } from '../models';
-import { ITask } from '../interfaces';
+import { IPaginationResponse, ITask } from '../interfaces';
 import { chooseTypeTasksService } from './chooseTypeTasksService';
 import { filterTasksService } from './filterTasksService';
 
@@ -20,7 +20,10 @@ class TasksService {
         answer: string,
         lessonId: string,
         taskId: string,
-    ): Promise<ITask[] | undefined> {
+        offset: number,
+        page: number,
+        limit: number,
+    ): Promise<IPaginationResponse<ITask>> {
         return filterTasksService.filterTasks(
             themeId, 
             chooseImage, 
@@ -33,6 +36,9 @@ class TasksService {
             answer, 
             lessonId,
             taskId,
+            offset,
+            page,
+            limit,
         );
     }
 
@@ -40,7 +46,7 @@ class TasksService {
         return model.Task.findOne({ where: { id } });
     }
 
-    async getTasksForChooseAnswer(chooseAnswer: boolean)
+    async getTasksForChooseAnswer()
         : Promise<ITask[]> {
         return model.Task.findAll({
             where: {
@@ -49,7 +55,7 @@ class TasksService {
         });
     }
 
-    async getTasksForChooseImage(chooseImage: boolean)
+    async getTasksForChooseImage()
         : Promise<ITask[]> {
         return model.Task.findAll({
             where: {
@@ -79,7 +85,7 @@ class TasksService {
         translate: string,
         translatewordsTasks: string,
         image: UploadedFile,
-    ) : Promise<ITask | null> {
+    ) : Promise<ITask | undefined> {
         const task = {
             chooseImage,
             chooseAnswer,
@@ -91,21 +97,21 @@ class TasksService {
             answer,
             question,
             translate,
-            translatewordsTasks,
         } as unknown as ITask;
-        if (chooseImage) {
-            return chooseTypeTasksService.chooseImage(answer, image, task);
-        }
+        let newTask;
         if (chooseMissingWord) {
-            return chooseTypeTasksService.chooseMissingWord(answer, word, task);
+            newTask = await chooseTypeTasksService.chooseMissingWord(answer, word, task);
+        }
+        if (chooseImage) {
+            newTask = await chooseTypeTasksService.chooseImage(answer, image, task);
         }
         if (choosePositiveAnswer || chooseAnswer) {
-            return chooseTypeTasksService.choosePositiveAnswerAndChooseAnswer(answer, task);
+            newTask = await chooseTypeTasksService.choosePositiveAnswerAndChooseAnswer(answer, task);
         }
         if (chooseTranslateWords) {
-            return chooseTypeTasksService.chooseTranslateWords(translatewordsTasks, task);
-        }
-        return model.Task.create({ ...task });
+            newTask = await chooseTypeTasksService.chooseTranslateWords(translatewordsTasks, task);
+        }     
+        return newTask;
     }
 
     async deleteTask(id: number): Promise<void> {

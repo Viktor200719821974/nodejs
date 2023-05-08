@@ -33,9 +33,11 @@ class ExercisesService {
         let tasks = [];
         tasks.push(id);
         let titleExercise = '';
+        let oneWord = '';
         const cyrillicPattern = /^[\u0400-\u04FF]+$/;
-        //@ts-ignore
-        const oneWord = answer.split(' ').map((c) => c)[0];
+        if (answer !== undefined) {
+            oneWord = answer.split(' ').map((c) => c)[0];
+        }
         if (chooseAnswer) {
             titleExercise = 'Як сказати';
         }

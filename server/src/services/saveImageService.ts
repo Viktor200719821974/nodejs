@@ -10,7 +10,7 @@ class SaveImageService {
         image.mv(uploadPath, (err) => {
             if (err) {
                 // eslint-disable-next-line no-console
-                console.log(err);
+                console.log(err.message);
             }
         });
         return fileName;

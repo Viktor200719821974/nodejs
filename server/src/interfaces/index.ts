@@ -164,6 +164,12 @@ export interface IImageExercise extends Model
         alt: string;
         exerciseId: number;
 }
+export interface IPaginationResponse<T> {
+    page: number,
+    perPage: number,
+    count: number,
+    rows: T[],
+}
 // export interface ILookLessonAnswer extends Model
 //     <InferAttributes<ILookLessonAnswer>, InferCreationAttributes<ILookLessonAnswer>> {
 //         id: number;

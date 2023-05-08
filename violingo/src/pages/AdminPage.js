@@ -174,7 +174,6 @@ const AdminPage = () => {
     const sendTask = async(e) => {
         e.preventDefault();
         try {
-            
             const formData = new FormData();
             formData.append('question', question);
             formData.append('answer', answer);
@@ -188,11 +187,13 @@ const AdminPage = () => {
             formData.append('translate', translate);
             formData.append('translatewordsTasks', arrayId);
             formData.append('image', file);
+            
             await createTask(formData).then(data => {
                 if (data.status === 201) {
                     setQuestion('');
                     setAnswer('');
-                    setWord(null);
+                    setWord('');
+                    setTranslate('');
                     setError(false);
                     setErrorMessage('');
                     setFile(null);
@@ -280,7 +281,9 @@ const AdminPage = () => {
         setTaskId(id);
         setQuestionForExercise(questionTask);
         setAnswerForExercise(answerTask);
-        arrayId.push(id);
+        if (createWhat === 'task') {
+            arrayId.push(id);
+        }
         if (chooseTranslateWords && arrayId.length > 0) {
             array.push(tasks.filter(c => c.id === id)[0]);
             dispatch(fetchTasks(filterTasksForChooseTranslateWordsNotEqual(tasks, arrayId)));

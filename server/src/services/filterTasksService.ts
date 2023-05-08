@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 
-import { ITask } from '../interfaces';
 import { model } from '../models';
+import { IPaginationResponse, ITask } from '../interfaces';
 
 class FilterTasksService {
     async filterTasks(
@@ -16,14 +16,19 @@ class FilterTasksService {
         answer: string,
         lessonId: string,
         taskId: string,
-    ): Promise<ITask[] | undefined> {
+        offset: number,
+        page: number,
+        limit: number,
+    ): Promise<IPaginationResponse<ITask>> {
         let tasks;
         let id;
         if (themeId !== '0') {
             id = +themeId;
         }
         if (themeId !== '0') {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -34,7 +39,9 @@ class FilterTasksService {
             });
         }
         if (themeId === '0') {
-            tasks = await model.Task.findAll({
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -44,7 +51,9 @@ class FilterTasksService {
             });
         }
         if (themeId !== '0' && chooseImage) {
-            tasks = await model.Task.findAll({
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ], 
@@ -55,7 +64,9 @@ class FilterTasksService {
             });
         }
         if (themeId !== '0' && chooseAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -66,7 +77,9 @@ class FilterTasksService {
             });
         }
         if (themeId !== '0' && choosePositiveAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -77,7 +90,9 @@ class FilterTasksService {
             });
         }
         if (themeId !== '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -99,7 +114,9 @@ class FilterTasksService {
                     arrayAnswerEnglish.push(arrayAnswer[i]);
                 }
             }
-            tasks = await model.Task.findAll({
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit,
                 where: {
                     answer: {
                         [Op.or]: arrayAnswerEnglish
@@ -125,7 +142,9 @@ class FilterTasksService {
                     arrayAnswerEnglish.push(arrayAnswer[i]);
                 }
             }
-            tasks = await model.Task.findAll({
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit,
                 where: {
                     answer: {
                         [Op.or]: arrayAnswerEnglish
@@ -142,7 +161,9 @@ class FilterTasksService {
             }); 
         }
         if (themeId === '0' && chooseImage) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -153,7 +174,9 @@ class FilterTasksService {
             });
         }
         if (themeId === '0' && chooseAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -164,7 +187,9 @@ class FilterTasksService {
             });
         }
         if (themeId === '0' && choosePositiveAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -175,7 +200,9 @@ class FilterTasksService {
             });
         }
         if (themeId === '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -189,7 +216,9 @@ class FilterTasksService {
             tasks = [];
         }
         if (question) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -204,7 +233,9 @@ class FilterTasksService {
             });
         } 
         if (question && themeId !== '0' && chooseImage) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -221,7 +252,9 @@ class FilterTasksService {
             });
         } 
         if (question && themeId !== '0' && chooseAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -238,7 +271,9 @@ class FilterTasksService {
             });
         } 
         if (question && themeId !== '0' && choosePositiveAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -255,7 +290,9 @@ class FilterTasksService {
             });
         } 
         if (question && themeId !== '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -272,7 +309,9 @@ class FilterTasksService {
             });
         }  
         if (question && themeId === '0' && chooseImage) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -288,7 +327,9 @@ class FilterTasksService {
             });
         } 
         if (question && themeId === '0' && chooseAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -304,7 +345,9 @@ class FilterTasksService {
             });
         } 
         if (question && themeId === '0' && choosePositiveAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -320,7 +363,9 @@ class FilterTasksService {
             });
         } 
         if (question && themeId === '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -336,7 +381,9 @@ class FilterTasksService {
             });
         } 
         if (word) {
-            tasks = model.Task.findAll({ 
+            tasks = model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -351,7 +398,9 @@ class FilterTasksService {
             });
         }
         if (word && themeId !== '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -368,7 +417,9 @@ class FilterTasksService {
             });
         } 
         if (answer) {
-            tasks = model.Task.findAll({ 
+            tasks = model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -383,7 +434,9 @@ class FilterTasksService {
             });
         }
         if (answer && themeId !== '0' && chooseImage) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -400,7 +453,9 @@ class FilterTasksService {
             });
         } 
         if (answer && themeId !== '0' && chooseAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -417,7 +472,9 @@ class FilterTasksService {
             });
         } 
         if (answer && themeId !== '0' && choosePositiveAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -434,7 +491,9 @@ class FilterTasksService {
             });
         } 
         if (answer && themeId !== '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -451,7 +510,9 @@ class FilterTasksService {
             });
         } 
         if (answer && themeId === '0' && chooseImage) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -467,7 +528,9 @@ class FilterTasksService {
             });
         } 
         if (answer && themeId === '0' && chooseAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -483,7 +546,9 @@ class FilterTasksService {
             });
         } 
         if (answer && themeId === '0' && choosePositiveAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -499,7 +564,9 @@ class FilterTasksService {
             });
         } 
         if (answer && themeId === '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -515,7 +582,9 @@ class FilterTasksService {
             });
         } 
         if (answer && question && themeId !== '0' && chooseImage) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -535,7 +604,9 @@ class FilterTasksService {
             });
         } 
         if (answer && question && themeId !== '0' && chooseAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -555,7 +626,9 @@ class FilterTasksService {
             });
         } 
         if (answer && question && themeId !== '0' && choosePositiveAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -575,7 +648,9 @@ class FilterTasksService {
             });
         } 
         if (answer && question && themeId !== '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -595,7 +670,9 @@ class FilterTasksService {
             });
         } 
         if (answer && question && themeId === '0' && chooseImage) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -614,7 +691,9 @@ class FilterTasksService {
             });
         } 
         if (answer && question && themeId === '0' && chooseAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -633,7 +712,9 @@ class FilterTasksService {
             });
         } 
         if (answer && question && themeId === '0' && choosePositiveAnswer) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -652,7 +733,9 @@ class FilterTasksService {
             });
         } 
         if (answer && question && themeId === '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 where: {
                     answer: {
                             [Op.like]: `%${answer}%`,
@@ -668,7 +751,9 @@ class FilterTasksService {
             });
         } 
         if (answer && word && themeId !== '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({ 
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -688,7 +773,9 @@ class FilterTasksService {
             });
         } 
         if (answer && word && themeId === '0' && chooseMissingWord) {
-            tasks = await model.Task.findAll({
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit,
                 include: [
                     { model: model.ImageTask, as: 'image' },
                 ],
@@ -726,7 +813,12 @@ class FilterTasksService {
                 const arrayIdTasksChooseImage = arrayExerciseTasksChooseImage.map(c => c.id);
                 arrayId = arrayId.concat(arrayIdTasksChooseImage);
             }
-            tasks = await model.Task.findAll({ 
+            if (taskId !== '0') {
+                arrayId = arrayId.concat(Number(taskId));
+            }
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit, 
                 where: {
                     id: {
                         [Op.notIn]: arrayId
@@ -740,12 +832,15 @@ class FilterTasksService {
                     exclude: ['createdAt', 'updatedAt'],
                 },
             });
-            console.log(taskId, '+++++++++++++++++++');
-            console.log(tasks.length, '_________');
-            
-            console.log(tasks.length, '_________');
         }
-        return tasks;
+        //@ts-ignore
+        const { rows, count } = tasks;
+        return {
+            page,
+            perPage: limit,
+            rows,
+            count,
+        };
     }
 }
 

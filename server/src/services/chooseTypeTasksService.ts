@@ -31,7 +31,7 @@ class ChooseTypeTasksService {
         let arrayWords = arrayChooseMissingWord.map((c) => c.word).filter(item => item !== word);
         if (arrayWords.length < 3) {
             arrayWords.push('are', 'is', 'beer', 'drink', 'am');
-            arrayWords.filter(item => item !== word);
+            arrayWords = arrayWords.filter(item => item !== word);
         }
         let unique = arrayWords.filter((value, index, array) => array.indexOf(value) === index);
         unique = await this._getShuffledArray(unique);
@@ -69,9 +69,9 @@ class ChooseTypeTasksService {
         }
         if (cyrillicPattern.test(optionsAnswer.map((c) => c)[0])) {
             optionsAnswer.forEach((item) => {
-                arrayUkraineWords.filter((c) => c !== item);
+                arrayUkraineWords = arrayUkraineWords.filter((c) => c !== item);
             });
-            arrayUkraineWords = arrayUkraineWords.filter((value, index, array) => array.indexOf(value) === index);
+            // arrayUkraineWords = arrayUkraineWords.filter((value, index, array) => array.indexOf(value) === index);
             arrayUkraineWords = await this._getShuffledArray(arrayUkraineWords);
             if (task.choosePositiveAnswer) {
                 if (optionsAnswer.length > 3) {
@@ -86,9 +86,9 @@ class ChooseTypeTasksService {
             optionsAnswer = await this._getShuffledArray(optionsAnswer);
         } else {
             optionsAnswer.forEach((item) => {
-                arrayEnglishWords.filter((c) => c !== item);
+                arrayEnglishWords = arrayEnglishWords.filter((c) => c !== item);
             });
-            arrayEnglishWords = arrayEnglishWords.filter((value, index, array) => array.indexOf(value) === index);
+            // arrayEnglishWords = arrayEnglishWords.filter((value, index, array) => array.indexOf(value) === index);
             arrayEnglishWords = await this._getShuffledArray(arrayEnglishWords);
             if (task.choosePositiveAnswer) {
                 if (optionsAnswer.length > 3) {

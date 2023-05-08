@@ -49,11 +49,11 @@ class TasksMiddleware {
             const { word, chooseMissingWord, translate } = req.body;
             if (chooseMissingWord === 'true') {
                 const cyrillicPattern = /^[\u0400-\u04FF]+$/;
-                if (word === '') {
+                if (word === '' || word === null) {
                     res.status(400).json('Field word can not be empty');
                     return;
                 }
-                if (translate === '') {
+                if (translate === '' || translate === null) {
                     res.status(400).json('Field translate can not be empty');
                     return;
                 }
@@ -78,6 +78,11 @@ class TasksMiddleware {
     async checkImageTask(req: Request, res: Response, next: NextFunction) {
         try {
             if (req.body.chooseImage === 'true') {
+                const image = req.files?.image;
+                if (req.body.chooseImage === 'true' && image === undefined) {
+                    res.status(400).json('No image');
+                    return;
+                }
                 const { name, size, mimetype } = req.files?.image as UploadedFile;
                 if (size > constants.IMAGE_SIZE) {
                     res.status(400).json(`File ${name} is too big`);
@@ -87,13 +92,12 @@ class TasksMiddleware {
                     res.status(400).json('Only .png, .jpg, .svg, .jpeg, .gif, .webp format allowed!');
                     return;
                 }
-                const arrayChooseImage = await tasksService.getTasksForChooseImage(req.body.chooseImage === 'true');
+                const arrayChooseImage = await tasksService.getTasksForChooseImage();
                 if (arrayChooseImage.length < 3) {
                     res.status(400)
                         .json(`Need to add more tasks with chooseAnswer. Now ${arrayChooseImage.length} and need min 2`);
                     return;
                 }
-                next();
             }
             next();
         } catch (e) {
@@ -104,31 +108,29 @@ class TasksMiddleware {
     async findSimilarTasks(req: Request, res: Response, next: NextFunction) {
         try {
             const { answer, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord } = req.body;
-            let exist;
             if (chooseAnswer === 'true') {
-                exist = await model.Task.findOne({ where: {chooseAnswer: true, answer } });
+                let exist = await model.Task.findOne({ where: {chooseAnswer: true, answer } });
                 if (exist) {
                     res.status(400).json(`Task with this answer: ${answer} is already exist`);
                     return;
                 }
             }
             if (chooseImage === 'true') {
-                exist = await model.Task.findOne({ where: { chooseImage: true, answer } });
+                let exist = await model.Task.findOne({ where: { chooseImage: true, answer } });
                 if (exist) {
                     res.status(400).json(`Task with this answer: ${answer} is already exist`);
                     return;
                 }
             }
             if (choosePositiveAnswer === 'true') {
-                exist = await model.Task.findOne({ where: { choosePositiveAnswer: true, answer } });
-                console.log(exist);
+                let exist = await model.Task.findOne({ where: { choosePositiveAnswer: true, answer } });
                 if (exist) {
                     res.status(400).json(`Task with this answer: ${answer} is already exist`);
                     return;
                 }
             }
             if (chooseMissingWord === 'true') {
-                exist = await model.Task.findOne({ where: { chooseMissingWord: true, answer } });
+                let exist = await model.Task.findOne({ where: { chooseMissingWord: true, answer } });
                 if (exist) {
                     res.status(400).json(`Task with this answer: ${answer} is already exist`);
                     return;
