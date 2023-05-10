@@ -13,7 +13,7 @@ const CreateNavBarComponent = ({
     setQuestion, answer, sendTask, setWord, chooseMissingWord, word, error, errorMessage, translate, setTranslate,
     chooseImage, setFile, setDrag, drag, createWhat, functionBack, dropdownMenuLessons, lessons, chooseLesson,
     openCloseDropdownMenuLessons, lessonNumber, createExerciseBool, clickCreateExercise, questionForExercise, answerForExercise,
-    errorEmptyArrayLessons, errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage,
+    errorEmptyArrayLessons, errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, setPage,
     chooseTranslateWords, arrayIdTranslateWords, taskId, chooseAnswer, choosePositiveAnswer, deleteSelectedTask,
 }) => {
     return(
@@ -79,6 +79,7 @@ const CreateNavBarComponent = ({
                                         setOnMouse={setOnMouse}
                                         imageExample={imageExample}
                                         onMouse={onMouse}
+                                        setPage={setPage}
                                     />  
                                 </div>
                         }

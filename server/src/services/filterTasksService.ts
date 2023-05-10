@@ -19,6 +19,7 @@ class FilterTasksService {
         offset: number,
         page: number,
         limit: number,
+        createWhat: string,
     ): Promise<IPaginationResponse<ITask>> {
         let tasks;
         let id;
@@ -102,7 +103,7 @@ class FilterTasksService {
                 },
             });
         }
-        if (themeId !== '0' && chooseTranslateWords) {
+        if (themeId !== '0' && chooseTranslateWords && createWhat === 'task') {
             tasks = await model.Task.findAll({ 
                 where: { chooseAnswer: true, themeId }, 
             });
@@ -120,35 +121,7 @@ class FilterTasksService {
                 where: {
                     answer: {
                         [Op.or]: arrayAnswerEnglish
-                    }
-                },
-                include: [
-                    { model: model.ImageTask, as: 'image' },
-                ],
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
-                },
-            }); 
-        }
-        if (themeId !== '0' && chooseTranslateWords) {
-            tasks = await model.Task.findAll({ 
-                where: { chooseAnswer: true, themeId }, 
-            });
-            const arrayAnswer = tasks.map(c => c.answer);
-            const cyrillicPattern = /^[\u0400-\u04FF]+$/;
-            let arrayAnswerEnglish: string[] = [];
-            for (let i = 0; i < arrayAnswer.length; i++) {
-                if (!cyrillicPattern.test(arrayAnswer[i])){
-                    arrayAnswerEnglish.push(arrayAnswer[i]);
-                }
-            }
-            tasks = await model.Task.findAndCountAll({
-                offset,
-                limit,
-                where: {
-                    answer: {
-                        [Op.or]: arrayAnswerEnglish
-                    },
+                    }, 
                     themeId,
                     chooseAnswer: true,
                 },
@@ -159,6 +132,22 @@ class FilterTasksService {
                     exclude: ['createdAt', 'updatedAt'],
                 },
             }); 
+        }
+        if (themeId !== '0' && chooseTranslateWords && createWhat === 'exercise') {
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
+                where: { 
+                    chooseTranslateWords: true, 
+                    themeId, 
+                },
+                include: [
+                    { model: model.ImageTask, as: 'image' },
+                ],
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                }, 
+            });
         }
         if (themeId === '0' && chooseImage) {
             tasks = await model.Task.findAndCountAll({ 
@@ -212,8 +201,49 @@ class FilterTasksService {
                 },
             });
         }
-        if (themeId === '0' && chooseTranslateWords) {
-            tasks = [];
+        if (themeId === '0' && chooseTranslateWords && createWhat === 'task') {
+            tasks = await model.Task.findAll({ 
+                where: { chooseAnswer: true, themeId }, 
+            });
+            const arrayAnswer = tasks.map(c => c.answer);
+            const cyrillicPattern = /^[\u0400-\u04FF]+$/;
+            let arrayAnswerEnglish: string[] = [];
+            for (let i = 0; i < arrayAnswer.length; i++) {
+                if (!cyrillicPattern.test(arrayAnswer[i])){
+                    arrayAnswerEnglish.push(arrayAnswer[i]);
+                }
+            }
+            tasks = await model.Task.findAndCountAll({
+                offset,
+                limit,
+                where: {
+                    answer: {
+                        [Op.or]: arrayAnswerEnglish
+                    }, 
+                    chooseAnswer: true,
+                },
+                include: [
+                    { model: model.ImageTask, as: 'image' },
+                ],
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                },
+            }); 
+        }
+        if (themeId === '0' && chooseTranslateWords && createWhat === 'exercise') {
+            tasks = await model.Task.findAndCountAll({ 
+                offset,
+                limit,
+                where: { 
+                    chooseTranslateWords: true, 
+                },
+                include: [
+                    { model: model.ImageTask, as: 'image' },
+                ],
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                }, 
+            });
         }
         if (question) {
             tasks = await model.Task.findAndCountAll({ 

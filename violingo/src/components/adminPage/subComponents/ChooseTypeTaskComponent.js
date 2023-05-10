@@ -2,8 +2,8 @@ import { arrayChooseTypeTaskCreateTasksComponent } from '../../../constants/arra
 import { IMAGES_ADMIN_PAGE } from '../../../constants';
 
 const ChooseTypeTaskComponent = ({
-                                     setChoose, setTypeTask, choose, typeTask, setImageExample, setOnMouse, imageExample, onMouse,
-                                 }) => {
+        setChoose, setTypeTask, choose, typeTask, setImageExample, setOnMouse, imageExample, onMouse, setPage,
+    }) => {
     return (
         <div>
             {
@@ -19,6 +19,7 @@ const ChooseTypeTaskComponent = ({
                             onClick={() => {
                                 setChoose(value => !value);
                                 setTypeTask(c.typeTask);
+                                setPage(1);
                             }}
                         >
                                 <span

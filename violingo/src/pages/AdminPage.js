@@ -62,7 +62,14 @@ const AdminPage = () => {
     const [errorEmptyArrayLessonsMessage, setErrorEmptyArrayLessonsMessage] = useState('');
     const [errorEmptyArrayThemesMessage, setErrorEmptyArrayThemesMessage] = useState('');
     const [arrayIdTranslateWords, setArrayIdTranslateWords] = useState(null);
-    console.log(tasks);
+    const [page, setPage] = useState(1);
+    const [countPage, setCountPage] = useState();
+    
+    let numberPage = [];
+    for (let i = 1; i <= countPage; i++ ){
+        Number(i);
+        numberPage.push(i);
+    }
     const filterTasksForChooseTranslateWords = (array1, array2) => {
         let arr = [];
         for (let i = 0; i < array1.length; i++) {
@@ -153,6 +160,7 @@ const AdminPage = () => {
             setTitle(titleTheme);
             setThemeId(id);
             setDropdown(false);
+            setPage(1);
             if (createWhat === 'exercise') {
                 await getLessons(id).then(data => {
                     if (data.status === 200) {
@@ -240,6 +248,7 @@ const AdminPage = () => {
         setTaskId(0);
         dispatch(dispatch(arrayIdChoosePositiveAnswerEmpty()));
         dispatch(arrayChoosePositiveAnswerEmpty());
+        setPage(1);
     }
     const openCloseDropdownMenuLessons = () => {
         setDropdownMenuLessons(value => !value);
@@ -301,6 +310,16 @@ const AdminPage = () => {
         dispatch(arrayChoosePositiveAnswer(filterTasksForChooseTranslateWords(array, arrayId.filter(c => c !== id))));
         setArrayIdTranslateWords(filterTasksForChooseTranslateWords(array, arrayId.filter(c => c !== id)));
     }
+    const functionPrev = () => {
+        if (page > 1)  {
+            setPage(() => page - 1);
+        }
+    }
+    const functionNext = () => {
+        if (page !== countPage) {
+            setPage(() => page + 1);
+        }
+    }
     useEffect(() => {
         let active = true;
         if (active) {
@@ -358,11 +377,16 @@ const AdminPage = () => {
             try {
                 await getTasks(
                     themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords,
-                    question, answer, word, lessonId, taskId,
+                    question, answer, word, lessonId, taskId, page, createWhat,
                 ).then(data => {
-                    if (data.status === 200) {
+                    if (data.status === 200 && data.data.rows !== undefined) {
                         if(arrayId.length === 0) {
-                            dispatch(fetchTasks(data.data));
+                            dispatch(fetchTasks(data.data.rows));
+                        }
+                        if (data.data.count && data.data.perPage){
+                            let count = Number(data.data.count);
+                            let perPage = Number(data.data.perPage);
+                            setCountPage(Math.ceil(count/perPage));
                         }
                     }
                 });
@@ -395,7 +419,7 @@ const AdminPage = () => {
         dropdown, answer, question, word, tasks.length, onHide, taskId, translate, dropdownTypeMenu, imageExample, 
         file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
         countExecisesLesson, questionForExercise, answerForExercise, showFieldAddImage, errorEmptyArrayLessons,
-        errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, arrayId.length,
+        errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, arrayId.length, page, countPage,
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
@@ -506,6 +530,12 @@ const AdminPage = () => {
                         choosePositiveAnswer={choosePositiveAnswer}
                         themeId={themeId}
                         deleteSelectedTask={deleteSelectedTask}
+                        numberPage={numberPage}
+                        page={page}
+                        setPage={setPage}
+                        functionPrev={functionPrev}
+                        functionNext={functionNext}
+                        countPage={countPage}
                     />
             }
             <div

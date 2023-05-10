@@ -2,10 +2,12 @@ import DeleteTaskModalComponent from './DeleteTaskModalComponent';
 import cross from '../../../icons/cross-closedModal.svg';
 import { IMAGES_SERVER_PATH } from '../../../constants';
 import TaskTypeChooseTranslateWordsComponent from './TaskTypeChooseTranslateWordsComponent';
+import PaginationComponent from '../subComponents/PaginationComponent';
 
 const CreateTasksBodyComponent = ({ 
-    tasks, lessonId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, createWhat, lessonNumber,
-    countExecisesLesson, clickMenuCreateExercise, chooseTranslateWords, themeId,
+    tasks, lessonId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, createWhat, lessonNumber, setPage,
+    countExecisesLesson, clickMenuCreateExercise, chooseTranslateWords, themeId, numberPage, page, functionPrev,
+    functionNext, countPage,
 }) => {
     
     return (
@@ -109,6 +111,18 @@ const CreateTasksBodyComponent = ({
                         )
                 }    
             </div>
+            {
+                countPage > 1 &&
+                    <div className="adminPage_div_pagination_createTasksBodyComponent">
+                        <PaginationComponent
+                            numberPage={numberPage}
+                            page={page}
+                            setPage={setPage}
+                            functionPrev={functionPrev}
+                            functionNext={functionNext}
+                        />
+                    </div>
+            }
         </div>
     );
 };

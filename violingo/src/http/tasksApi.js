@@ -10,11 +10,18 @@ export const createTask = async (formData) => {
     });
 }
 
+export const getAllTasks = async () => {
+    return await $authHost.get('/tasks');
+}
+
 export const getTasks = async (
     themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords, question, answer, word,
-    lessonId, taskId,
+    lessonId, taskId, page, createWhat,
 ) => {
-    return await $authHost.get(`/tasks?themeId=${themeId}&chooseImage=${chooseImage}&chooseAnswer=${chooseAnswer}&choosePositiveAnswer=${choosePositiveAnswer}&chooseMissingWord=${chooseMissingWord}&chooseTranslateWords=${chooseTranslateWords}&question=${question}&answer=${answer}&word=${word}&lessonId=${lessonId}&taskId=${taskId}`);
+    return await $authHost
+        .get(
+            `/tasks?themeId=${themeId}&chooseImage=${chooseImage}&chooseAnswer=${chooseAnswer}&choosePositiveAnswer=${choosePositiveAnswer}&chooseMissingWord=${chooseMissingWord}&chooseTranslateWords=${chooseTranslateWords}&question=${question}&answer=${answer}&word=${word}&lessonId=${lessonId}&taskId=${taskId}&page=${page}&createWhat=${createWhat}`
+            );
 }
 
 export const deleteTask = async (id) => {

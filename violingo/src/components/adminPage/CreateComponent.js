@@ -2,14 +2,15 @@ import CreateTasksBodyComponent from './subCreateTaskComponents/CreateTasksBodyC
 import CreateNavBarComponent from './subComponents/CreateNavBarComponent';
 
 const CreateComponent = ({
-    typeTask, chooseImage, chooseMissingWord, choose, errorEmptyArrayLessons, errorEmptyArrayThemes, taskId,
-    dropdown, answer, question, title, word, onHide, error, errorMessage, tasks, setOnHide, setTaskId, themeId,
+    typeTask, chooseImage, chooseMissingWord, choose, errorEmptyArrayLessons, errorEmptyArrayThemes, taskId, setPage,
+    dropdown, answer, question, title, word, onHide, error, errorMessage, tasks, setOnHide, setTaskId, themeId, functionNext,
     translate, dropdownTypeMenu, imageExample, drag, themes, setFile, setDrag, setChoose,  lessonNumber, deleteSelectedTask,
-    setQuestion, setAnswer, setWord, setDropdownTypeMenu, onMouse, setTypeTask, setImageExample, setOnMouse, 
+    setQuestion, setAnswer, setWord, setDropdownTypeMenu, onMouse, setTypeTask, setImageExample, setOnMouse, numberPage,
     setTranslate, click, openCloseDropdownMenu, sendTask, fetchDeleteTask, createWhat, functionBack, choosePositiveAnswer,
-    dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createExerciseBool, showFieldAddImage,
+    dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createExerciseBool, showFieldAddImage, page,
     clickCreateExercise, lessonId, countExecisesLesson, questionForExercise, clickMenuCreateExercise, answerForExercise,
     errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, chooseTranslateWords, arrayIdTranslateWords, chooseAnswer,
+    functionPrev, countPage,
 }) => {
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -67,6 +68,7 @@ const CreateComponent = ({
                 chooseAnswer={chooseAnswer}
                 choosePositiveAnswer={choosePositiveAnswer}
                 deleteSelectedTask={deleteSelectedTask}
+                setPage={setPage}
             />
             <CreateTasksBodyComponent
                 tasks={tasks}
@@ -82,6 +84,12 @@ const CreateComponent = ({
                 clickMenuCreateExercise={clickMenuCreateExercise}
                 chooseTranslateWords={chooseTranslateWords}
                 themeId={themeId}
+                numberPage={numberPage}
+                page={page}
+                setPage={setPage}
+                functionPrev={functionPrev}
+                functionNext={functionNext}
+                countPage={countPage}
             />
         </div>
     );

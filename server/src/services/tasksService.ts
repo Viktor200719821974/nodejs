@@ -23,6 +23,7 @@ class TasksService {
         offset: number,
         page: number,
         limit: number,
+        createWhat: string,
     ): Promise<IPaginationResponse<ITask>> {
         return filterTasksService.filterTasks(
             themeId, 
@@ -39,7 +40,19 @@ class TasksService {
             offset,
             page,
             limit,
-        );
+            createWhat,
+        );         
+    }
+
+    async getAllTasks(): Promise<ITask[]> {
+        return model.Task.findAll({
+            include: [
+                { model: model.ImageTask, as: 'image' },
+            ], 
+            attributes: {
+                exclude: ['createdAt', 'updatedAt'],
+            },
+        });
     }
 
     async getTaskById(id: number): Promise<ITask | null> {

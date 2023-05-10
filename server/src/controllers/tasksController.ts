@@ -18,32 +18,42 @@ class TasksController {
                 answer,
                 lessonId,
                 taskId,
+                createWhat,
             } = req.query;
             let { limit, page } = req.query;
             //@ts-ignore
             page = Number(page) || 1;
             // @ts-ignore
-            limit = Number(limit) || 12;
+            limit = Number(limit) || 20;
             // @ts-ignore
             const offset = page * limit - limit;
-            let tasks = await tasksService
-                .getTasks(
-                    // @ts-ignore
-                    themeId,
-                    chooseImage === 'true',
-                    chooseAnswer === 'true',
-                    choosePositiveAnswer === 'true',
-                    chooseMissingWord === 'true',
-                    chooseTranslateWords === 'true',
-                    question,
-                    word,
-                    answer,
-                    lessonId,
-                    taskId,
-                    offset,
-                    page,
-                    limit,
-                );
+            let tasks;
+            if (
+                themeId || chooseAnswer || chooseImage || choosePositiveAnswer || chooseMissingWord || 
+                chooseTranslateWords || question || word || answer || lessonId || taskId || createWhat
+                ) {
+                tasks = await tasksService
+                    .getTasks(
+                        // @ts-ignore
+                        themeId,
+                        chooseImage === 'true',
+                        chooseAnswer === 'true',
+                        choosePositiveAnswer === 'true',
+                        chooseMissingWord === 'true',
+                        chooseTranslateWords === 'true',
+                        question,
+                        word,
+                        answer,
+                        lessonId,
+                        taskId,
+                        offset,
+                        page,
+                        limit,
+                        createWhat,
+                    );
+            } else {
+                tasks = await tasksService.getAllTasks();
+            }
             res.status(200).json(tasks);
         } catch (e) {
             next(e);
