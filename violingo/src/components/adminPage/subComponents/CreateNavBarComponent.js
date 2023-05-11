@@ -15,6 +15,7 @@ const CreateNavBarComponent = ({
     openCloseDropdownMenuLessons, lessonNumber, createExerciseBool, clickCreateExercise, questionForExercise, answerForExercise,
     errorEmptyArrayLessons, errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, setPage,
     chooseTranslateWords, arrayIdTranslateWords, taskId, chooseAnswer, choosePositiveAnswer, deleteSelectedTask,
+    arraytTranslateWordsTasks,
 }) => {
     return(
         <div className={"adminPage_div_navBar_createComponent"}>
@@ -126,6 +127,7 @@ const CreateNavBarComponent = ({
                         setFile={setFile}
                         setDrag={setDrag}
                         drag={drag}
+                        arraytTranslateWordsTasks={arraytTranslateWordsTasks}
                     />   
             }
         </div>

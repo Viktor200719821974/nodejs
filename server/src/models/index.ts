@@ -6,7 +6,7 @@ import {
     // ISection, IPart1,
     IExercise, ITask,
     // ILookLessonAnswer,
-    ILesson, ITheme, IImageTask, IImageExercise,
+    ILesson, ITheme, IImageTask, IImageExercise, IModule,
 } from '../interfaces';
 
 const User = sequelize.define<IUser>('user', {
@@ -148,6 +148,17 @@ const Theme = sequelize.define<ITheme>('theme', {
 //         type: DataTypes.INTEGER, allowNull: false,
 //     },
 // });
+const Module = sequelize.define<IModule>('module', {
+    id: {
+        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+    },
+    moduleNumber: {
+        type: DataTypes.INTEGER, allowNull: false,
+    },
+    themeId: {
+        type: DataTypes.INTEGER, allowNull: false,
+    },
+});
 const Lesson = sequelize.define<ILesson>('lesson', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
@@ -156,6 +167,9 @@ const Lesson = sequelize.define<ILesson>('lesson', {
         type: DataTypes.INTEGER, allowNull: false,
     },
     themeId: {
+        type: DataTypes.INTEGER, allowNull: false,
+    },
+    moduleId: {
         type: DataTypes.INTEGER, allowNull: false,
     },
 });
@@ -329,6 +343,9 @@ Statistic.belongsTo(User);
 // Part3.belongsTo(Section);
 // Section.hasOne(Part4, { foreignKey: 'sectionId' });
 // Part4.belongsTo(Section);
+Module.hasMany(Lesson, { foreignKey: 'moduleId', as: 'lessons' });
+Lesson.belongsTo(Module);
+
 Lesson.hasMany(Exercise, { foreignKey: 'lessonId', as: 'exercises' });
 Exercise.belongsTo(Lesson);
 
@@ -361,6 +378,7 @@ export const model = {
     // Question,
     Task,
     // LookLessonAnswer,
+    Module,
     Lesson,
     Theme,
     ImageTask,

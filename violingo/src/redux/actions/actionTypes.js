@@ -1,6 +1,7 @@
 export const FETCH_USER = 'FETCH_USER';
 export const IS_LOGIN_USER = 'IS_LOGIN_USER';
 export const FETCH_TASKS = 'FETCH_TASKS';
+export const FETCH_ALL_TASKS_WITHOUT_FILTERS = 'FETCH_ALL_TASKS_WITHOUT_FILTERS';
 export const IS_ADMIN_USER = 'IS_ADMIN_USER';
 export const NO_USER = 'NO_USER';
 export const STATISTIC_USER = 'STATISTIC_USER';

@@ -26,7 +26,7 @@ class FilterTasksService {
         if (themeId !== '0') {
             id = +themeId;
         }
-        if (themeId !== '0') {
+        if (themeId !== '0' && themeId !== undefined) {
             tasks = await model.Task.findAndCountAll({ 
                 offset,
                 limit,
@@ -39,7 +39,7 @@ class FilterTasksService {
                 },
             });
         }
-        if (themeId === '0') {
+        if (themeId === '0' || themeId === undefined) {
             tasks = await model.Task.findAndCountAll({
                 offset,
                 limit,
@@ -823,14 +823,16 @@ class FilterTasksService {
                 },
             });
         } 
-        if (lessonId !== '0' && themeId !== '0') {
+        if (lessonId !== '0' && themeId !== '0' && lessonId !== undefined) {
             const arrayExercisesLesson = await model.Exercise.findAll({ where: { lessonId, chooseImage: false } });
             const arrayExercisesLessonChooseImage = await model.Exercise.findAll( { where: { lessonId, chooseImage: true } });
             let arrayId: any = [];
             const arrayTaskId = arrayExercisesLesson.map(c => c.tasks);
+            console.log(arrayTaskId, '__________+++++++++++');
             for(let i = 0; i < arrayTaskId.length; i++){
-                arrayId = arrayId.concat(arrayTaskId[i]);
+                arrayId.push(arrayTaskId[i][0]);
             }
+            console.log(arrayId, '_________________');
             if (arrayExercisesLessonChooseImage.length !== 0) {
                 const arrayExerciseQuestion = arrayExercisesLessonChooseImage.map(c => c.question);
                 const arrayExerciseTasksChooseImage = await model.Task.findAll({ 
@@ -843,25 +845,124 @@ class FilterTasksService {
                 const arrayIdTasksChooseImage = arrayExerciseTasksChooseImage.map(c => c.id);
                 arrayId = arrayId.concat(arrayIdTasksChooseImage);
             }
-            if (taskId !== '0') {
+            console.log(arrayId, '+++++++++++++');
+            if (taskId !== '0' && taskId !== undefined) {
                 arrayId = arrayId.concat(Number(taskId));
             }
-            tasks = await model.Task.findAndCountAll({
-                offset,
-                limit, 
-                where: {
-                    id: {
-                        [Op.notIn]: arrayId
+            console.log(arrayId, '>>>>>>>>>>>>');
+            if (!chooseAnswer && !chooseImage && !chooseMissingWord && !choosePositiveAnswer && !chooseTranslateWords) {
+                tasks = await model.Task.findAndCountAll({
+                    offset,
+                    limit, 
+                    where: {
+                        id: {
+                            [Op.notIn]: arrayId
+                        },
+                        themeId
                     },
-                    themeId
-                },
-                include: [
-                    { model: model.ImageTask, as: 'image' },
-                ],
-                attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
-                },
-            });
+                    include: [
+                        { model: model.ImageTask, as: 'image' },
+                    ],
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                }); 
+            }
+            if (chooseAnswer) {
+                tasks = await model.Task.findAndCountAll({
+                    offset,
+                    limit, 
+                    where: {
+                        id: {
+                            [Op.notIn]: arrayId
+                        },
+                        themeId,
+                        chooseAnswer: true,
+                    },
+                    include: [
+                        { model: model.ImageTask, as: 'image' },
+                    ],
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                });  
+            }
+            if (chooseImage) {
+                tasks = await model.Task.findAndCountAll({
+                    offset,
+                    limit, 
+                    where: {
+                        id: {
+                            [Op.notIn]: arrayId
+                        },
+                        themeId,
+                        chooseImage: true,
+                    },
+                    include: [
+                        { model: model.ImageTask, as: 'image' },
+                    ],
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                });  
+            }
+            if (choosePositiveAnswer) {
+                tasks = await model.Task.findAndCountAll({
+                    offset,
+                    limit, 
+                    where: {
+                        id: {
+                            [Op.notIn]: arrayId
+                        },
+                        themeId,
+                        choosePositiveAnswer: true,
+                    },
+                    include: [
+                        { model: model.ImageTask, as: 'image' },
+                    ],
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                });  
+            }
+            if (chooseMissingWord) {
+                tasks = await model.Task.findAndCountAll({
+                    offset,
+                    limit, 
+                    where: {
+                        id: {
+                            [Op.notIn]: arrayId
+                        },
+                        themeId,
+                        chooseMissingWord: true,
+                    },
+                    include: [
+                        { model: model.ImageTask, as: 'image' },
+                    ],
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                });  
+            }
+            if (chooseTranslateWords) {
+                tasks = await model.Task.findAndCountAll({
+                    offset,
+                    limit, 
+                    where: {
+                        id: {
+                            [Op.notIn]: arrayId
+                        },
+                        themeId,
+                        chooseTranslateWords: true,
+                    },
+                    include: [
+                        { model: model.ImageTask, as: 'image' },
+                    ],
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt'],
+                    },
+                });  
+            }
         }
         //@ts-ignore
         const { rows, count } = tasks;

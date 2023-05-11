@@ -53,6 +53,13 @@ export interface ITokenActivateAndName {
     userName?: string;
 }
 
+export interface IModule extends Model
+    <InferAttributes<IModule>, InferCreationAttributes<IModule>> {
+        id: number;
+        moduleNumber: number;
+        themeId: number;
+}
+
 // export interface ISection extends Model
 //     <InferAttributes<ISection>, InferCreationAttributes<ISection>> {
 //         id: number;
@@ -105,6 +112,7 @@ export interface ILesson extends Model
         id: number;
         lessonNumber: number;
         themeId: number;
+        moduleId: number;
 }
 
 export interface IExercise extends Model

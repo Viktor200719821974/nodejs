@@ -9,11 +9,12 @@ import { arrayIdChoosePositiveAnswerReducer } from './arrayIdChoosePositiveAnswe
 import { arrayWrongAnswerReducer } from './arrayWrongAnswerReducer';
 import { isAdminUserReducer } from './isAdminUserReducer';
 import { tasksReducer } from './tasksReducer';
+import { allTasksWithoutFiltersReducer } from './allTasksWithoutFiltersReducer';
 
 const rootReducer = combineReducers({ 
     userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, 
     arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, 
-    arrayWrongAnswerReducer, isAdminUserReducer, tasksReducer,
+    arrayWrongAnswerReducer, isAdminUserReducer, tasksReducer, allTasksWithoutFiltersReducer,
 });
 
 export { rootReducer };

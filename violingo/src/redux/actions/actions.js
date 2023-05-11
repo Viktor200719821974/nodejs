@@ -1,6 +1,6 @@
 import { 
     FETCH_USER, IS_LOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, ARRAY_WRONG_ANSWER,
-    ARRAY_CHOOSE_POSITIVE_ANSWER, ARRAY_ID_CHOOSE_POSITIVE_ANSWER, IS_ADMIN_USER,
+    ARRAY_CHOOSE_POSITIVE_ANSWER, ARRAY_ID_CHOOSE_POSITIVE_ANSWER, IS_ADMIN_USER, FETCH_ALL_TASKS_WITHOUT_FILTERS,
     ARRAY_CHOOSE_POSITIVE_ANSWER_EMPTY, ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY, FETCH_TASKS,
 } from './index';
 
@@ -15,6 +15,9 @@ export const isLoginUser = (data) => {
 }
 export const fetchTasks = (data) => {
     return { type: FETCH_TASKS, payload: data };
+}
+export const fetchAllTasksWithoutFilters = (data) => {
+    return { type: FETCH_ALL_TASKS_WITHOUT_FILTERS, payload: data };
 }
 export const isAdminUser = (data) => {
     return { type: IS_ADMIN_USER, payload: data };

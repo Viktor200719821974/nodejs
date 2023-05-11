@@ -1,34 +1,19 @@
-import { useEffect, useState } from 'react';
-import { getAllTasks } from '../../../http/tasksApi';
+import { useSelector } from 'react-redux';
+
 
 const TaskTypeChooseTranslateWordsComponent = ({ id }) => {
-    const [tasks, setTasks] = useState([]);
-
-    const task = tasks.filter(c => c.id === id);
+    const { allTasks } = useSelector(state => state.allTasksWithoutFiltersReducer);
+    const task = allTasks.filter(c => c.id === id);
     const translatewordsTasks = task.map(c => c.translatewordsTasks)[0];
     
     let filter = [];
-    for (let i = 0; i < tasks.length; i++) {
+    for (let i = 0; i < allTasks.length; i++) {
         for (let j = 0; j < translatewordsTasks.length; j++) {
-            if (tasks[i].id === translatewordsTasks[j]) {
-                filter.push(tasks[i]);
+            if (allTasks[i].id === translatewordsTasks[j]) {
+                filter.push(allTasks[i]);
             }
         }
     }
-    useEffect(() => {
-        const fetchAllTasks = async () => {
-            try {
-                getAllTasks().then(data => {
-                    if (data.status === 200) {
-                        setTasks(data.data);
-                    }
-                });
-            } catch (e) {
-                console.log(e.message);
-            }
-        }
-        fetchAllTasks().then();
-    }, [tasks]);
     return (
         <div>
             {

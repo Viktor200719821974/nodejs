@@ -5,19 +5,21 @@ import CreateThemesComponent from '../components/adminPage/CreateThemesComponent
 import {createTheme, getThemes} from '../http/themesApi';
 import CreateLessonsComponent from '../components/adminPage/CreateLessonsComponent';
 import { createLesson, getLessons } from '../http/lessonsApi';
-import { createTask, deleteTask, getTasks } from '../http/tasksApi';
-import { fetchTasks } from '../redux/actions';
+import { createTask, deleteTask, getTasks, getAllTasks, } from '../http/tasksApi';
+import { fetchTasks, fetchAllTasksWithoutFilters, } from '../redux/actions';
 import CreateComponent from '../components/adminPage/CreateComponent';
 import { createExercise, getExercisesForLesson } from '../http/exercisesApi';
 import { 
     arrayIdChoosePositiveAnswerEmpty, arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer, arrayChoosePositiveAnswerEmpty,
 } from '../redux/actions';
+import { getModules } from '../http/modulesApi';
 
 const AdminPage = () => {
     const dispatch = useDispatch();
     let { tasks } = useSelector(state => state.tasksReducer);
     const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
+    const { allTasks } = useSelector(state => state.allTasksWithoutFiltersReducer);
     
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -64,6 +66,10 @@ const AdminPage = () => {
     const [arrayIdTranslateWords, setArrayIdTranslateWords] = useState(null);
     const [page, setPage] = useState(1);
     const [countPage, setCountPage] = useState();
+    const [arraytTranslateWordsTasks, setArrayTranslateWordsTasks] = useState([]);
+    const [moduleNumber, setModuleNumber] = useState(0);
+    const [modules, setModules] = useState([]);
+    const [dropdownMenuModules, setDropdownMenuModules] = useState(false);
     
     let numberPage = [];
     for (let i = 1; i <= countPage; i++ ){
@@ -154,6 +160,25 @@ const AdminPage = () => {
         } catch (e) {
             console.log(e.message);
         }
+    }
+    const openCloseDropdownMenuModules = async () => {
+        try {
+            setDropdownMenuModules(value => !value);
+            await getModules(themeId).then(data => {
+                if (data.status === 200) {
+                    setModules(data.data);
+                }
+            })
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+    const closeModalLessonOrModule = () => {
+        setShowModal(false);
+        setLessonNumber(0);
+        setModuleNumber(0);
+        setError(false);
+        setErrorMessage('');
     }
     const click = async (titleTheme, id) => {
         try {
@@ -274,6 +299,7 @@ const AdminPage = () => {
                     setTaskId(0);
                     setError(false);
                     setErrorMessage('');
+                    setArrayTranslateWordsTasks([]);
                 }
             }).catch(err => {
                 if (err.response) {
@@ -286,14 +312,24 @@ const AdminPage = () => {
         }
     }
     const clickMenuCreateExercise = (id, questionTask, answerTask, choosePositiveAnswerValue) => {
-        setCreateExerciseBool(true);
-        setTaskId(id);
-        setQuestionForExercise(questionTask);
-        setAnswerForExercise(answerTask);
+        if (lessonId !== 0) {
+            setCreateExerciseBool(true);
+            setTaskId(id);
+            setQuestionForExercise(questionTask);
+            setAnswerForExercise(answerTask);
+            if (createWhat === 'exercise') {
+                const task = allTasks.filter(c => c.id === id);
+                const chooseTranslateWordsTrue = task.map(c => c.chooseTranslateWords)[0];
+                if (chooseTranslateWordsTrue) {
+                    const arrayTasks = task.map(c => c.translatewordsTasks)[0];
+                    setArrayTranslateWordsTasks(filterTasksForChooseTranslateWords(allTasks, arrayTasks));
+                }
+            }   
+        }
         if (createWhat === 'task') {
             arrayId.push(id);
         }
-        if (chooseTranslateWords && arrayId.length > 0) {
+        if (chooseTranslateWords && arrayId.length > 0 && createWhat === 'task') {
             array.push(tasks.filter(c => c.id === id)[0]);
             dispatch(fetchTasks(filterTasksForChooseTranslateWordsNotEqual(tasks, arrayId)));
             setArrayIdTranslateWords(array);
@@ -369,7 +405,7 @@ const AdminPage = () => {
             if (arrayId.length === 0 && chooseTranslateWords) {
                 setTaskId(0);
             }
-            if (document.getElementById('exerciseForm') === null) {
+            if (document.getElementById('exerciseForm') === null && arraytTranslateWordsTasks.length === 0) {
                 setCreateExerciseBool(false);
             }
         }
@@ -406,6 +442,18 @@ const AdminPage = () => {
                 console.log(e.message);
             }
         }
+        const fetchAllTasks = async () => {
+            try {
+                getAllTasks().then(data => {
+                    if (data.status === 200) {
+                        dispatch(fetchAllTasksWithoutFilters(data.data));
+                    }
+                });
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+        fetchAllTasks().then();
         if (lessonId !== 0) {
             fetchExercisesForLesson(lessonId).then();
         }
@@ -420,6 +468,7 @@ const AdminPage = () => {
         file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
         countExecisesLesson, questionForExercise, answerForExercise, showFieldAddImage, errorEmptyArrayLessons,
         errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, arrayId.length, page, countPage,
+        arraytTranslateWordsTasks, moduleNumber, modules, dropdownMenuModules,
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
@@ -428,6 +477,42 @@ const AdminPage = () => {
                 onClick={ () => setShow(true) }
             >
                 Create themes
+            </div>
+            <div
+                className={"adminPage_div_type_button"}
+                onClick={() => {
+                    setShowModal(true); 
+                    setCreateWhat('module')
+                }}
+            >
+                Create modules
+            </div>
+            <div
+                className={"adminPage_div_type_button"}
+                onClick={() => {
+                    setShowModal(true); 
+                    setCreateWhat('lesson')
+                }}
+            >
+                Create lessons
+            </div>
+            <div
+                className={"adminPage_div_type_button"}
+                onClick={() => {
+                    setCreateWhat('task'); 
+                    setShowComponentCreate(true);
+                }}
+            >
+                Create tasks
+            </div>
+            <div
+                className={"adminPage_div_type_button"}
+                onClick={() => {
+                    setCreateWhat('exercise'); 
+                    setShowComponentCreate(true);
+                }}
+            >
+                Create exercises
             </div>
             {
                 show &&
@@ -441,17 +526,11 @@ const AdminPage = () => {
                         errorMessage={errorMessage}
                     />
             }
-            <div
-                className={"adminPage_div_type_button"}
-                onClick={() => setShowModal(true)}
-            >
-                Create lessons
-            </div>
             {
                 showModal && 
                     <CreateLessonsComponent
                         show={showModal}
-                        onHide={() => setShowModal(false)}
+                        closeModalLessonOrModule={closeModalLessonOrModule}
                         lessonNumber={lessonNumber}
                         setLessonNumber={setLessonNumber}
                         clickLesson={clickLesson}
@@ -462,6 +541,10 @@ const AdminPage = () => {
                         dropdown={dropdown}
                         clickCreateLesson={clickCreateLesson}
                         openCloseDropdownMenu={openCloseDropdownMenu}
+                        createWhat={createWhat}
+                        setModuleNumber={setModuleNumber}
+                        openCloseDropdownMenuModules={openCloseDropdownMenuModules}
+                        modules={modules}
                     />
             }
             {
@@ -536,26 +619,9 @@ const AdminPage = () => {
                         functionPrev={functionPrev}
                         functionNext={functionNext}
                         countPage={countPage}
+                        arraytTranslateWordsTasks={arraytTranslateWordsTasks}
                     />
             }
-            <div
-                className={"adminPage_div_type_button"}
-                onClick={() => {
-                    setCreateWhat('task'); 
-                    setShowComponentCreate(true);
-                }}
-            >
-                Create tasks
-            </div>
-            <div
-                className={"adminPage_div_type_button"}
-                onClick={() => {
-                    setCreateWhat('exercise'); 
-                    setShowComponentCreate(true);
-                }}
-            >
-                Create exercises
-            </div>
         </div>
     );
 };
