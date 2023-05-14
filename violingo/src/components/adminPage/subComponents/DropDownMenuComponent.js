@@ -2,6 +2,7 @@ import { IoMdArrowDropdown } from 'react-icons/io';
 
 const DropDownMenuComponent = ({ 
     dropdown, themes, click, title, openCloseDropdownMenu, errorEmptyArrayThemes, errorEmptyArrayThemesMessage,
+    dropdownMenuModules,
 }) => {
     return (
         <div className={"adminPage_main_div_dropdown"}>
@@ -18,7 +19,7 @@ const DropDownMenuComponent = ({
                 <h4 
                     className={"adminPage_h3_navBar_dropdown_createComponent"}
                     >
-                    {title}
+                        {typeof(title) === 'string' ? title :`Модуль № ${title}`}
                 </h4>
                 <IoMdArrowDropdown/>
             </div>
@@ -27,13 +28,25 @@ const DropDownMenuComponent = ({
                     <div className={"adminPage_div_dropdown_menu_createComponent"}>
                         {
                             themes.map((c, index) =>
-                                <span
-                                    key={c.id}
-                                    className={"adminPage_span_dropdown_menu_createComponent"}
-                                    onClick={() => click(c.title, c.id)}
-                                >
-                                        {index + 1}.{c.title}
-                                </span>
+                                <div key={c.id}>
+                                    {
+                                    !dropdownMenuModules 
+                                    ?
+                                        <span
+                                            className={"adminPage_span_dropdown_menu_createComponent"}
+                                            onClick={() => click(c.title, c.id)}
+                                            >
+                                                {index + 1}.{c.title}
+                                        </span>
+                                    :
+                                        <span
+                                            className={"adminPage_span_dropdown_menu_createComponent"}
+                                            onClick={() => click(c.moduleNumber, c.id)}
+                                            >
+                                                Модуль № {c.moduleNumber}
+                                        </span>
+                                    }
+                                </div>
                             )
                         }
                     </div>

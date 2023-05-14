@@ -43,11 +43,19 @@ export const validators = {
         chooseMissingWord: Joi.boolean(),
         chooseTranslateWords: Joi.boolean(),
     }),
+    modules: Joi.object({
+        moduleNumber: Joi.number().required().min(1)
+            .error(new Error('Module number is not valid, min 1 ')),
+        themeId: Joi.number().required()
+            .error(new Error('Choose theme')),
+    }),
     lessons: Joi.object({
         lessonNumber: Joi.number().required().min(1)
             .error(new Error('Lesson number is not valid, min 1 ')),
         themeId: Joi.number().required()
             .error(new Error('Choose theme')),
+        moduleId: Joi.number().required()
+            .error(new Error('Choose module')),
     }),
     exercises: Joi.object({
         lessonId: Joi.number().required().min(1)

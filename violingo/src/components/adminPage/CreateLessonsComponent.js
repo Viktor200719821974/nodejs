@@ -2,8 +2,9 @@ import cross from '../../icons/cross-closedModal.svg';
 import DropDownMenuComponent from './subComponents/DropDownMenuComponent';
 
 const CreateLessonsComponent = ({ 
-    lessonNumber, setLessonNumber, clickLesson, error, errorMessage, themes, themeTitle, dropdown, openCloseDropdownMenu,
+    setLessonNumber, clickLesson, error, errorMessage, themes, themeTitle, dropdown, openCloseDropdownMenu,
     clickCreateLesson, createWhat, setModuleNumber, closeModalLessonOrModule, openCloseDropdownMenuModules, modules,
+    moduleNumber, dropdownMenuModules, clickCreateModule, 
 }) => {
     return (
         <div className="adminPage_modal_window display_alien_justify">
@@ -28,18 +29,19 @@ const CreateLessonsComponent = ({
                         <DropDownMenuComponent
                             dropdown={dropdown} 
                             themes={themes} 
-                            click={clickCreateLesson} 
+                            click={clickCreateModule} 
                             title={themeTitle} 
                             openCloseDropdownMenu={openCloseDropdownMenu}
                         />
                         {
                             createWhat === 'lesson' &&
                                 <DropDownMenuComponent
-                                    dropdown={dropdown} 
+                                    dropdown={dropdownMenuModules} 
                                     themes={modules} 
                                     click={clickCreateLesson} 
-                                    title={themeTitle} 
+                                    title={moduleNumber} 
                                     openCloseDropdownMenu={openCloseDropdownMenuModules}
+                                    dropdownMenuModules={dropdownMenuModules}
                                 />
                         }
                         {

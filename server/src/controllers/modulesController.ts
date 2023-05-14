@@ -4,7 +4,9 @@ import { modulesService } from '../services/modulesService';
 class ModulesController {
     async getModules(req: Request, res: Response, next: NextFunction) {
         try {
-            const modules = await modulesService.getModules();
+            const { themeId } = req.query;
+            //@ts-ignore
+            const modules = await modulesService.getModules(+themeId);
             res.status(200).json(modules);
         } catch (e) {
             next(e);
@@ -14,7 +16,7 @@ class ModulesController {
     async createModule(req: Request, res: Response, next: NextFunction) {
         try {
             const module = await modulesService.createModule(req.body);
-            res.status(200).json(module);
+            res.status(201).json(module);
         } catch (e) {
             next(e);
         }

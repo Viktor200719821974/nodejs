@@ -12,7 +12,7 @@ import { createExercise, getExercisesForLesson } from '../http/exercisesApi';
 import { 
     arrayIdChoosePositiveAnswerEmpty, arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer, arrayChoosePositiveAnswerEmpty,
 } from '../redux/actions';
-import { getModules } from '../http/modulesApi';
+import { getModules, createModule } from '../http/modulesApi';
 
 const AdminPage = () => {
     const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const AdminPage = () => {
     const [onMouse, setOnMouse] = useState(false);
     const [typeTask, setTypeTask] = useState('');
     const [choose, setChoose] = useState(false);
-    const [title, setTitle] = useState('Choose theme task');
+    const [title, setTitle] = useState('');
     const [answer, setAnswer] = useState('');
     const [question, setQuestion] = useState('');
     const [word, setWord] = useState('');
@@ -67,9 +67,10 @@ const AdminPage = () => {
     const [page, setPage] = useState(1);
     const [countPage, setCountPage] = useState();
     const [arraytTranslateWordsTasks, setArrayTranslateWordsTasks] = useState([]);
-    const [moduleNumber, setModuleNumber] = useState(0);
+    const [moduleNumber, setModuleNumber] = useState('Choose number of module');
     const [modules, setModules] = useState([]);
     const [dropdownMenuModules, setDropdownMenuModules] = useState(false);
+    const [moduleId, setModuleId] = useState(0);
     
     let numberPage = [];
     for (let i = 1; i <= countPage; i++ ){
@@ -115,23 +116,45 @@ const AdminPage = () => {
     const clickLesson = async (e) => {
         e.preventDefault();
         try {
-            await createLesson(lessonNumber, themeId).then(data => {
-                if (data.status === 201) {
-                    setShowModal(false);
-                    setError(false);
-                    setErrorMessage('');
-                }
-            }).catch (err => {
-                if (err.response) {
-                    setError(true);
-                    setErrorMessage(err.response.data);
-                }
-            });
+            if (createWhat === 'lesson') {
+                await createLesson(lessonNumber, themeId, moduleId).then(data => {
+                    if (data.status === 201) {
+                        setShowModal(false);
+                        setThemeTitle('Choose theme');
+                        setModuleNumber('Choose number of module');
+                        setModuleId(0);
+                        setError(false);
+                        setErrorMessage('');
+                    }
+                }).catch (err => {
+                    if (err.response) {
+                        setError(true);
+                        setErrorMessage(err.response.data);
+                    }
+                });
+            }
+            if (createWhat === 'module') {
+                await createModule(moduleNumber, themeId).then(data => {
+                    if (data.status === 201) {
+                        setShowModal(false);
+                        setThemeTitle('Choose theme');
+                        setModuleNumber('Choose number of module');
+                        setModuleId(0);
+                        setError(false);
+                        setErrorMessage('');
+                    }
+                }).catch (err => {
+                    if (err.response) {
+                        setError(true);
+                        setErrorMessage(err.response.data);
+                    }
+                });
+            }
         } catch (err) {
             console.log(err.message);
         }
     }
-    const clickCreateLesson = async (newTitleTheme, id) => {
+    const clickCreateModule = async (newTitleTheme, id) => {
         try {
             setThemeTitle(newTitleTheme);
             setThemeId(id);
@@ -140,10 +163,21 @@ const AdminPage = () => {
             console.log(e.message);
         }
     }
+    const clickCreateLesson = async (newModuleNumber, id) => {
+        try {
+            setModuleNumber(newModuleNumber);
+            setModuleId(id);
+            setDropdownMenuModules(false);
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
     const openCloseDropdownMenu = async () => {
         try {
             if (arrayId.length === 0) {
                 setDropdown(value => !value);
+                setDropdownMenuModules(false);
+                setModuleNumber('Choose number of module');
             }
             await getThemes().then(data => {
                 if (data.status === 200) {
@@ -164,6 +198,7 @@ const AdminPage = () => {
     const openCloseDropdownMenuModules = async () => {
         try {
             setDropdownMenuModules(value => !value);
+            setDropdown(false);
             await getModules(themeId).then(data => {
                 if (data.status === 200) {
                     setModules(data.data);
@@ -176,7 +211,8 @@ const AdminPage = () => {
     const closeModalLessonOrModule = () => {
         setShowModal(false);
         setLessonNumber(0);
-        setModuleNumber(0);
+        setModuleNumber('Choose number of module');
+        setThemeTitle('Choose theme');
         setError(false);
         setErrorMessage('');
     }
@@ -468,7 +504,7 @@ const AdminPage = () => {
         file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
         countExecisesLesson, questionForExercise, answerForExercise, showFieldAddImage, errorEmptyArrayLessons,
         errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, arrayId.length, page, countPage,
-        arraytTranslateWordsTasks, moduleNumber, modules, dropdownMenuModules,
+        arraytTranslateWordsTasks, moduleNumber, modules, dropdownMenuModules, moduleId,
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
@@ -531,7 +567,6 @@ const AdminPage = () => {
                     <CreateLessonsComponent
                         show={showModal}
                         closeModalLessonOrModule={closeModalLessonOrModule}
-                        lessonNumber={lessonNumber}
                         setLessonNumber={setLessonNumber}
                         clickLesson={clickLesson}
                         error={error}
@@ -545,6 +580,9 @@ const AdminPage = () => {
                         setModuleNumber={setModuleNumber}
                         openCloseDropdownMenuModules={openCloseDropdownMenuModules}
                         modules={modules}
+                        moduleNumber={moduleNumber}
+                        dropdownMenuModules={dropdownMenuModules}
+                        clickCreateModule={clickCreateModule}
                     />
             }
             {
@@ -620,6 +658,7 @@ const AdminPage = () => {
                         functionNext={functionNext}
                         countPage={countPage}
                         arraytTranslateWordsTasks={arraytTranslateWordsTasks}
+                        moduleId={moduleId}
                     />
             }
         </div>

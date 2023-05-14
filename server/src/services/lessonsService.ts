@@ -26,23 +26,21 @@ class LessonsService {
             where: { id },
             include: [
                 { model: model.Exercise, as: 'exercises' },
-                // { model: model.ImageDeviceAws, as: 'imageDeviceAws' },
-                // { model: model.Rating, as: 'rating' },
             ],
         });
     }
 
-    async createLesson(lessonNumber: number, themeId: number): Promise<ILesson> {
-        // @ts-ignore
-        return model.Lesson.create({ lessonNumber, themeId });
+    async createLesson(lessonNumber: number, themeId: number, moduleId: number): Promise<ILesson> {
+        //@ts-ignore
+        return model.Lesson.create({ lessonNumber, themeId, moduleId });
     }
 
     async createTaskExercise(task: ITask, themeId: number) {
         return model.Task.create({ ...task, themeId });
     }
 
-    async findLessonByNumberByThemeId(lessonNumber: number, themeId: number): Promise<ILesson | null> {
-        return model.Lesson.findOne({ where: { lessonNumber, themeId } });
+    async findLessonByNumberByThemeId(lessonNumber: number, themeId: number, moduleId: number): Promise<ILesson | null> {
+        return model.Lesson.findOne({ where: { lessonNumber, themeId, moduleId } });
     }
 }
 
