@@ -31,7 +31,8 @@
         "no-unused-vars": ["error", {
             "args": "none"
         }],
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "prefer-destructuring": ["error", {"object": true, "array": false}]
     },
     "settings": {
         "import/resolver" : {

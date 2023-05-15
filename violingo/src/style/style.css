@@ -1091,7 +1091,7 @@ input::-webkit-inner-spin-button {
 }
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 .loginPage_div_input_loginComponent {
     position: relative;
@@ -2822,7 +2822,7 @@ input[type=number] {
     border-radius: 16px;
 }
 input[type="checkbox"] {
-    -webkit-appearance: none;
+    appearance: none;
     width: 20px;
     height: 20px;
     background: #fff;
@@ -3506,6 +3506,11 @@ input[type=checkbox]:checked:after {
     position: fixed;
     top: 0;
     left: 0;
+}
+.adminPage_div_button_back {
+    position: absolute;
+    top: 0;
+    left: 150px;
 }
 .adminPage_div_type_button {
     background-color: #1cb0f6;

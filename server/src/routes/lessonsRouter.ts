@@ -8,8 +8,14 @@ import { authMiddleware } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-router.post('/', authMiddleware.checkAccessToken, authMiddleware.userStaff, lessonsMiddleware.findLessonByNumberByThemeId, 
-    validates.lessons, lessonsController.createLesson);
+router.post(
+    '/',
+    authMiddleware.checkAccessToken,
+    authMiddleware.userStaff,
+    lessonsMiddleware.findLessonByNumberByThemeId,
+    validates.lessons,
+    lessonsController.createLesson,
+);
 router.get('/', authMiddleware.checkAccessToken, lessonsController.getLessons);
 router.get('/:id', lessonsController.getLessonById);
 // router.get('/exercises', exercisesController.getExercises);

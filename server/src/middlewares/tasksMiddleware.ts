@@ -3,15 +3,18 @@ import { UploadedFile } from 'express-fileupload';
 
 import { constants } from '../constants/constants';
 import { model } from '../models';
-import { tasksService } from '../services/tasksService';
 
 class TasksMiddleware {
-    async emptyFieldQuestionAndAnswer(req: Request, res: Response, next: NextFunction) {
+    async emptyFieldQuestionAndAnswerAndChooseTheme(req: Request, res: Response, next: NextFunction) {
         try {
-            const { 
-                question, choosePositiveAnswer, chooseImage, chooseAnswer, chooseMissingWord, answer, chooseTranslateWords,
-                translatewordsTasks,
+            const {
+                question, choosePositiveAnswer, chooseImage, chooseAnswer, chooseMissingWord,
+                answer, chooseTranslateWords, translateWordsTasks, themeId,
             } = req.body;
+            if (themeId === "0" || themeId === undefined) {
+                res.status(400).json('Choose theme of task');
+                return;
+            }
             if (choosePositiveAnswer === 'true' && question === '') {
                 res.status(400).json('Field question can not be empty');
                 return;
@@ -29,11 +32,11 @@ class TasksMiddleware {
                 return;
             }
             if (chooseTranslateWords === 'true') {
-                if (translatewordsTasks === '') {
+                if (translateWordsTasks === '') {
                     res.status(400).json('Choose from 4 to 5 tasks');
                     return;
                 }
-                if (translatewordsTasks.split(',').length < 4 || translatewordsTasks.split(',').length > 5) {
+                if (translateWordsTasks.split(',').length < 4 || translateWordsTasks.split(',').length > 5) {
                     res.status(400).json('Minimum tasks is 4 and maximum tasks is 5');
                     return;
                 }
@@ -43,7 +46,7 @@ class TasksMiddleware {
             next(e);
         }
     }
-    
+
     async onlyOneWord(req: Request, res: Response, next: NextFunction) {
         try {
             const { word, chooseMissingWord, translate } = req.body;
@@ -63,10 +66,10 @@ class TasksMiddleware {
                     return;
                 }
                 if (cyrillicPattern.test(word)) {
-                    res.status(400).json('Task missing word must be to write only in English.')
+                    res.status(400).json('Task missing word must be to write only in English.');
                 }
                 if (cyrillicPattern.test(translate)) {
-                    res.status(400).json('Translate of answer missing word must be to write only in Ukraine.')
+                    res.status(400).json('Translate of answer missing word must be to write only in Ukraine.');
                 }
             }
             next();
@@ -92,12 +95,6 @@ class TasksMiddleware {
                     res.status(400).json('Only .png, .jpg, .svg, .jpeg, .gif, .webp format allowed!');
                     return;
                 }
-                const arrayChooseImage = await tasksService.getTasksForChooseImage();
-                if (arrayChooseImage.length < 3) {
-                    res.status(400)
-                        .json(`Need to add more tasks with chooseAnswer. Now ${arrayChooseImage.length} and need min 2`);
-                    return;
-                }
             }
             next();
         } catch (e) {
@@ -107,30 +104,34 @@ class TasksMiddleware {
 
     async findSimilarTasks(req: Request, res: Response, next: NextFunction) {
         try {
-            const { answer, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord } = req.body;
+            const {
+                answer, chooseImage, choosePositiveAnswer, chooseAnswer, chooseMissingWord,
+            } = req.body;
             if (chooseAnswer === 'true') {
-                let exist = await model.Task.findOne({ where: {chooseAnswer: true, answer } });
+                const exist = await model.Task.findOne({ where: { chooseAnswer: true, answer } });
                 if (exist) {
                     res.status(400).json(`Task with this answer: ${answer} is already exist`);
                     return;
                 }
             }
             if (chooseImage === 'true') {
-                let exist = await model.Task.findOne({ where: { chooseImage: true, answer } });
+                const exist = await model.Task.findOne({ where: { chooseImage: true, answer } });
                 if (exist) {
                     res.status(400).json(`Task with this answer: ${answer} is already exist`);
                     return;
                 }
             }
             if (choosePositiveAnswer === 'true') {
-                let exist = await model.Task.findOne({ where: { choosePositiveAnswer: true, answer } });
+                const exist = await model.Task
+                    .findOne({ where: { choosePositiveAnswer: true, answer } });
                 if (exist) {
                     res.status(400).json(`Task with this answer: ${answer} is already exist`);
                     return;
                 }
             }
             if (chooseMissingWord === 'true') {
-                let exist = await model.Task.findOne({ where: { chooseMissingWord: true, answer } });
+                const exist = await model.Task
+                    .findOne({ where: { chooseMissingWord: true, answer } });
                 if (exist) {
                     res.status(400).json(`Task with this answer: ${answer} is already exist`);
                     return;
@@ -138,7 +139,7 @@ class TasksMiddleware {
             }
             next();
         } catch (e) {
-            next(e)
+            next(e);
         }
     }
 }

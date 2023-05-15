@@ -26,10 +26,11 @@ class ExercisesController {
 
     async createExercise(req: Request, res: Response, next: NextFunction) {
         try {
+            console.log('.>>>>>>>>>>>>>>>>>');
             const { taskId, lessonId } = req.body;
-            console.log(taskId, '>>>>>>>>>>>>>>>');
             const image = req.files?.image as UploadedFile;
             const task = await tasksService.getTaskById(+taskId);
+            console.log('/????????????????????????');
             const choosePositiveAnswer = task?.choosePositiveAnswer;
             if (choosePositiveAnswer === true && image === undefined) {
                 res.status(400).json('No image');

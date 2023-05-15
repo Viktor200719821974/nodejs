@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import CreateThemesComponent from '../components/adminPage/CreateThemesComponent';
 import {createTheme, getThemes} from '../http/themesApi';
@@ -10,12 +11,16 @@ import { fetchTasks, fetchAllTasksWithoutFilters, } from '../redux/actions';
 import CreateComponent from '../components/adminPage/CreateComponent';
 import { createExercise, getExercisesForLesson } from '../http/exercisesApi';
 import { 
-    arrayIdChoosePositiveAnswerEmpty, arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer, arrayChoosePositiveAnswerEmpty,
+    arrayIdChoosePositiveAnswerEmpty, arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer, 
+    arrayChoosePositiveAnswerEmpty,
 } from '../redux/actions';
 import { getModules, createModule } from '../http/modulesApi';
+import ArrowBackComponent from '../components/adminPage/subComponents/ArrowBackComponent';
+import { LEARN_PAGE } from '../constants';
 
 const AdminPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     let { tasks } = useSelector(state => state.tasksReducer);
     const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
@@ -39,7 +44,7 @@ const AdminPage = () => {
     const [onMouse, setOnMouse] = useState(false);
     const [typeTask, setTypeTask] = useState('');
     const [choose, setChoose] = useState(false);
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState('Choose theme task');
     const [answer, setAnswer] = useState('');
     const [question, setQuestion] = useState('');
     const [word, setWord] = useState('');
@@ -178,6 +183,8 @@ const AdminPage = () => {
                 setDropdown(value => !value);
                 setDropdownMenuModules(false);
                 setModuleNumber('Choose number of module');
+                setModuleId(0);
+                setLessonId(0);
             }
             await getThemes().then(data => {
                 if (data.status === 200) {
@@ -254,7 +261,7 @@ const AdminPage = () => {
             formData.append('chooseTranslateWords', chooseTranslateWords);
             formData.append('word', word);
             formData.append('translate', translate);
-            formData.append('translatewordsTasks', arrayId);
+            formData.append('translateWordsTasks', arrayId);
             formData.append('image', file);
             
             await createTask(formData).then(data => {
@@ -294,6 +301,9 @@ const AdminPage = () => {
         } catch (e) {
             console.log(e.message);
         }
+    }
+    const functionBackOnLearnPage = () => {
+        navigate(LEARN_PAGE);
     }
     const functionBack = () => {
         setShowComponentCreate(false);
@@ -460,6 +470,9 @@ const AdminPage = () => {
                             let perPage = Number(data.data.perPage);
                             setCountPage(Math.ceil(count/perPage));
                         }
+                        if (data.data.count === 0) {
+                            setCountPage(0);
+                        }
                     }
                 });
             } catch (e) {
@@ -508,6 +521,10 @@ const AdminPage = () => {
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
+            <div className="adminPage_div_button_back">
+                <ArrowBackComponent functionBack={functionBackOnLearnPage}/>
+            </div>
+            
             <div
                 className={"adminPage_div_type_button"}
                 onClick={ () => setShow(true) }
@@ -659,6 +676,11 @@ const AdminPage = () => {
                         countPage={countPage}
                         arraytTranslateWordsTasks={arraytTranslateWordsTasks}
                         moduleId={moduleId}
+                        modules={modules} 
+                        dropdownMenuModules={dropdownMenuModules} 
+                        clickCreateLesson={clickCreateLesson} 
+                        moduleNumber={moduleNumber}
+                        openCloseDropdownMenuModules={openCloseDropdownMenuModules}
                     />
             }
         </div>

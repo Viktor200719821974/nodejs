@@ -10,7 +10,8 @@ const CreateComponent = ({
     dropdownMenuLessons, lessons, chooseLesson, openCloseDropdownMenuLessons, createExerciseBool, showFieldAddImage, page,
     clickCreateExercise, lessonId, countExecisesLesson, questionForExercise, clickMenuCreateExercise, answerForExercise,
     errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, chooseTranslateWords, arrayIdTranslateWords, chooseAnswer,
-    functionPrev, countPage, arraytTranslateWordsTasks, moduleId,
+    functionPrev, countPage, arraytTranslateWordsTasks, moduleId, modules, dropdownMenuModules, clickCreateLesson,
+    moduleNumber, openCloseDropdownMenuModules
 }) => {
     return (
         <div className={"adminPage_main_div_createComponent"}>
@@ -71,6 +72,11 @@ const CreateComponent = ({
                 setPage={setPage}
                 arraytTranslateWordsTasks={arraytTranslateWordsTasks}
                 moduleId={moduleId}
+                modules={modules} 
+                dropdownMenuModules={dropdownMenuModules} 
+                clickCreateLesson={clickCreateLesson} 
+                moduleNumber={moduleNumber}
+                openCloseDropdownMenuModules={openCloseDropdownMenuModules}
             />
             <CreateTasksBodyComponent
                 tasks={tasks}
@@ -92,6 +98,7 @@ const CreateComponent = ({
                 functionPrev={functionPrev}
                 functionNext={functionNext}
                 countPage={countPage}
+                moduleId={moduleId}
             />
         </div>
     );

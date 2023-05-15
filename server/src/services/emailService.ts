@@ -42,24 +42,24 @@ class EmailService {
         let subject;
         let templateName;
         if (template === 'WELCOME') {
-            subject = emailInfo.WELCOME.subject;
-            templateName = emailInfo.WELCOME.templateName;
+            ({ subject } = emailInfo.WELCOME);
+            ({ templateName } = emailInfo.WELCOME);
         }
         if (template === 'FORGET_PASSWORD') {
-            subject = emailInfo.FORGET_PASSWORD.subject;
-            templateName = emailInfo.FORGET_PASSWORD.templateName;
+            ({ subject } = emailInfo.FORGET_PASSWORD);
+            ({ templateName } = emailInfo.FORGET_PASSWORD);
         }
         if (template === 'ACCOUNT_BLOCKED') {
-            subject = emailInfo.ACCOUNT_BLOCKED.subject;
-            templateName = emailInfo.ACCOUNT_BLOCKED.templateName;
+            ({ subject } = emailInfo.ACCOUNT_BLOCKED);
+            ({ templateName } = emailInfo.ACCOUNT_BLOCKED);
         }
         if (template === 'ACCOUNT_UNLOCKED') {
-            subject = emailInfo.ACCOUNT_UNLOCKED.subject;
-            templateName = emailInfo.ACCOUNT_UNLOCKED.templateName;
+            ({ subject } = emailInfo.ACCOUNT_UNLOCKED);
+            ({ templateName } = emailInfo.ACCOUNT_UNLOCKED);
         }
         if (template === 'ORDER_DEVICE') {
-            subject = emailInfo.ORDER_DEVICE.subject;
-            templateName = emailInfo.ORDER_DEVICE.templateName;
+            ({ subject } = emailInfo.ORDER_DEVICE);
+            ({ templateName } = emailInfo.ORDER_DEVICE);
         }
         Object.assign(context, {
             frontendUrl: config.FRONTEND_URL,

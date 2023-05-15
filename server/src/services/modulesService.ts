@@ -16,7 +16,10 @@ class ModulesService {
         return model.Module.create({ ...module });
     }
 
-    async findModuleByNumberByThemeId(themeId: number, moduleNumber: number): Promise<IModule | null> {
+    async findModuleByNumberByThemeId(
+        themeId: number,
+        moduleNumber: number,
+    ): Promise<IModule | null> {
         return model.Module.findOne({ where: { themeId, moduleNumber } });
     }
 }

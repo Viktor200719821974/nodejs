@@ -7,8 +7,14 @@ import { modulesMiddleware } from '../middlewares/modulesMiddleware';
 
 const router = Router();
 
-router.post('/', authMiddleware.checkAccessToken, authMiddleware.userStaff, validates.modules, 
-    modulesMiddleware.findModuleByNumberByThemeId, modulesController.createModule);
+router.post(
+    '/',
+    authMiddleware.checkAccessToken,
+    authMiddleware.userStaff,
+    validates.modules,
+    modulesMiddleware.findModuleByNumberByThemeId,
+    modulesController.createModule,
+);
 router.get('/', authMiddleware.checkAccessToken, modulesController.getModules);
 
 export const modulesRouter = router;

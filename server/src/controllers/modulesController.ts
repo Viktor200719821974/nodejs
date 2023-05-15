@@ -5,7 +5,7 @@ class ModulesController {
     async getModules(req: Request, res: Response, next: NextFunction) {
         try {
             const { themeId } = req.query;
-            //@ts-ignore
+            // @ts-ignore
             const modules = await modulesService.getModules(+themeId);
             res.status(200).json(modules);
         } catch (e) {

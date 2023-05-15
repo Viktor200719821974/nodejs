@@ -15,31 +15,38 @@ class ChooseTypeTasksService {
         return newTask;
     }
 
-    async chooseMissingWord(answer: string, word: string, task: ITask): Promise<ITask> {
+    async chooseMissingWord(
+        answer: string,
+        word: string,
+        task: ITask,
+        translate: string,
+    ): Promise<ITask> {
         const createQuestion = answer.split(' ');
         const wordLength = word.length;
         const arr = [];
-        // eslint-disable-next-line no-plusplus
-        for (let i = 0; i < createQuestion.length; i++) {
+        for (let i = 0; i < createQuestion.length; i += 1) {
             if (createQuestion[i] === word) {
                 createQuestion[i] = '_'.repeat(wordLength + 2);
             }
             arr.push(createQuestion[i]);
         }
         const joinArray = arr.join(' ');
-        const arrayChooseMissingWord = await model.Task.findAll({ where: { chooseMissingWord: true }});
-        let arrayWords = arrayChooseMissingWord.map((c) => c.word).filter(item => item !== word);
+        const arrayChooseMissingWord = await model.Task
+            .findAll({ where: { chooseMissingWord: true } });
+        let arrayWords = arrayChooseMissingWord.map((c) => c.word).filter((item) => item !== word);
         if (arrayWords.length < 3) {
             arrayWords.push('are', 'is', 'beer', 'drink', 'am');
-            arrayWords = arrayWords.filter(item => item !== word);
+            arrayWords = arrayWords.filter((item) => item !== word);
         }
         let unique = arrayWords.filter((value, index, array) => array.indexOf(value) === index);
         unique = await this._getShuffledArray(unique);
         unique.length = 3;
         unique.push(word);
         unique = await this._getShuffledArray(unique);
-        //@ts-ignore
-        return model.Task.create({ ...task, question: joinArray, optionsAnswer: unique });
+        // @ts-ignore
+        return model.Task.create({
+            ...task, question: joinArray, optionsAnswer: unique, translate,
+        });
     }
 
     async choosePositiveAnswerAndChooseAnswer(answer: string, task: ITask)
@@ -56,10 +63,9 @@ class ChooseTypeTasksService {
         let arrayEnglishWords: string[] = [];
         let arrayUkraineWords: string[] = [];
         if (arrayOptionsWords.length < 3) {
-            arrayEnglishWords.push('beer', 'drink', 'apple', 'boy', 'girl');
-            arrayUkraineWords.push('батько', 'пити', 'яблуко', 'хлопчик', 'дівчинка');
+            arrayEnglishWords.push('beer', 'drink', 'apple', 'boy', 'girl', 'mouse');
+            arrayUkraineWords.push('батько', 'пити', 'яблуко', 'хлопчик', 'дівчинка', 'олівець');
         }
-        // eslint-disable-next-line no-plusplus
         for (let i = 0; i < arrayOptionsWords.length; i++) {
             if (cyrillicPattern.test(arrayOptionsWords[i])) {
                 arrayUkraineWords.push(arrayOptionsWords[i]);
@@ -69,9 +75,9 @@ class ChooseTypeTasksService {
         }
         if (cyrillicPattern.test(optionsAnswer.map((c) => c)[0])) {
             optionsAnswer.forEach((item) => {
-                arrayUkraineWords = arrayUkraineWords.filter((c) => c !== item);
+                arrayUkraineWords = arrayUkraineWords
+                    .filter((c) => c !== item);
             });
-            // arrayUkraineWords = arrayUkraineWords.filter((value, index, array) => array.indexOf(value) === index);
             arrayUkraineWords = await this._getShuffledArray(arrayUkraineWords);
             if (task.choosePositiveAnswer) {
                 if (optionsAnswer.length > 3) {
@@ -79,7 +85,8 @@ class ChooseTypeTasksService {
                 } else {
                     arrayUkraineWords.length = 5;
                 }
-            } else {
+            } 
+            if (task.chooseAnswer === true) {
                 arrayUkraineWords.length = 2;
             }
             optionsAnswer = arrayUkraineWords.concat(optionsAnswer);
@@ -88,15 +95,15 @@ class ChooseTypeTasksService {
             optionsAnswer.forEach((item) => {
                 arrayEnglishWords = arrayEnglishWords.filter((c) => c !== item);
             });
-            // arrayEnglishWords = arrayEnglishWords.filter((value, index, array) => array.indexOf(value) === index);
             arrayEnglishWords = await this._getShuffledArray(arrayEnglishWords);
-            if (task.choosePositiveAnswer) {
+            if (task.choosePositiveAnswer === true) {
                 if (optionsAnswer.length > 3) {
                     arrayEnglishWords.length = 3;
                 } else {
                     arrayEnglishWords.length = 5;
                 }
-            } else {
+            } 
+            if (task.chooseAnswer) {
                 arrayEnglishWords.length = 2;
             }
             optionsAnswer = arrayEnglishWords.concat(optionsAnswer);
@@ -108,25 +115,22 @@ class ChooseTypeTasksService {
 
     async chooseTranslateWords(translateWords: string, task: ITask): Promise<ITask> {
         const arr = translateWords.split(',');
-        const translatewordsTasks = arr.map(str => {
-            return Number(str);
-        });
-        const tasks = await model.Task.findAll({ 
+        const translateWordsTasks = arr.map((str) => Number(str));
+        const tasks = await model.Task.findAll({
             where: {
                 id: {
-                    [Op.or]: translatewordsTasks
+                    [Op.or]: translateWordsTasks,
                 },
             },
         });
-        let translatewordsanswers = tasks.map(c => c.answer);
-        translatewordsanswers = await this._getShuffledArray(translatewordsanswers);
-        return model.Task.create({ ...task, translatewordsTasks, translatewordsanswers});
+        let translateWordsAnswers = tasks.map((c) => c.answer);
+        translateWordsAnswers = await this._getShuffledArray(translateWordsAnswers);
+        return model.Task.create({ ...task, translateWordsTasks, translateWordsAnswers });
     }
 
     private async _getShuffledArray(array: string[]): Promise<string[]> {
         const newArr = array.slice();
-        // eslint-disable-next-line no-plusplus
-        for (let i = newArr.length - 1; i > 0; i--) {
+        for (let i = newArr.length - 1; i > 0; i -= 1) {
             const rand = Math.floor(Math.random() * (i + 1));
             [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
         }

@@ -7,9 +7,8 @@ import PaginationComponent from '../subComponents/PaginationComponent';
 const CreateTasksBodyComponent = ({ 
     tasks, lessonId, setOnHide, setTaskId, onHide, fetchDeleteTask, title, createWhat, lessonNumber, setPage,
     countExecisesLesson, clickMenuCreateExercise, chooseTranslateWords, themeId, numberPage, page, functionPrev,
-    functionNext, countPage,
+    functionNext, countPage, moduleId,
 }) => {
-    
     return (
         <div className={"adminPage_div_body_createComponent"}>
             <h1 className={"adminPage_h1_title_createComponent"}>{title}</h1>
@@ -23,7 +22,15 @@ const CreateTasksBodyComponent = ({
                     </h4>
             }
             {
-                (createWhat === 'exercise' && title !== 'Choose theme task' && tasks.length !== 0 && lessonId === 0) &&
+                (createWhat === 'exercise' && title !== 'Choose theme task' && tasks.length !== 0 
+                    && lessonId === 0 && moduleId === 0) &&
+                    <h3 className={"adminPage_h3_title_createComponent"}>
+                        Виберіть номер модуля
+                    </h3>
+            }
+            {
+                (createWhat === 'exercise' && title !== 'Choose theme task' && tasks.length !== 0 
+                    && lessonId === 0 && moduleId !== 0) &&
                     <h3 className={"adminPage_h3_title_createComponent"}>
                         Виберіть номер урока
                     </h3>

@@ -118,11 +118,10 @@ export interface ILesson extends Model
 export interface IExercise extends Model
     <InferAttributes<IExercise>, InferCreationAttributes<IExercise>> {
         id: number;
-        // exercise: number;
         titleExercise: string;
         question: string;
         answer: string;
-        tasks: [number];
+        tasks: number[];
         chooseImage: boolean;
         choosePositiveAnswer: boolean;
         chooseAnswer: boolean;
@@ -130,12 +129,6 @@ export interface IExercise extends Model
         chooseTranslateWords: boolean;
         lessonId: number;
 }
-// export interface IQuestion extends Model
-//     <InferAttributes<IQuestion>, InferCreationAttributes<IQuestion>> {
-//         id: number;
-//         word: string;
-//         exerciseId: number;
-// }
 
 export interface ITheme extends Model
     <InferAttributes<ITheme>, InferCreationAttributes<ITheme>> {
@@ -148,15 +141,16 @@ export interface ITask extends Model
         word: string;
         question: string;
         answer: string;
-        optionsAnswer: [string];
+        translate: string;
+        optionsAnswer: string[];
         chooseImage: boolean;
         choosePositiveAnswer: boolean;
         chooseAnswer: boolean;
         chooseMissingWord: boolean;
         chooseTranslateWords: boolean;
         themeId: number;
-        translatewordsTasks: number[];
-        translatewordsanswers: string[];
+        translateWordsTasks: number[];
+        translateWordsAnswers: string[];
 }
 export interface IImageTask extends Model
     <InferAttributes<IImageTask>, InferCreationAttributes<IImageTask>> {

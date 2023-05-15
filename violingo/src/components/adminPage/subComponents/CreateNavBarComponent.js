@@ -15,7 +15,8 @@ const CreateNavBarComponent = ({
     openCloseDropdownMenuLessons, lessonNumber, createExerciseBool, clickCreateExercise, questionForExercise, answerForExercise,
     errorEmptyArrayLessons, errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, setPage,
     chooseTranslateWords, arrayIdTranslateWords, taskId, chooseAnswer, choosePositiveAnswer, deleteSelectedTask,
-    arraytTranslateWordsTasks, moduleId,
+    arraytTranslateWordsTasks, moduleId, modules, dropdownMenuModules, clickCreateLesson, moduleNumber,
+    openCloseDropdownMenuModules,
 }) => {
     return(
         <div className={"adminPage_div_navBar_createComponent"}>
@@ -38,7 +39,14 @@ const CreateNavBarComponent = ({
             {
                 (createWhat === 'exercise' && title !== 'Choose theme task') &&
                     <div>
-                        
+                        <DropDownMenuComponent
+                            dropdown={dropdownMenuModules} 
+                            themes={modules} 
+                            click={clickCreateLesson} 
+                            title={moduleNumber} 
+                            openCloseDropdownMenu={openCloseDropdownMenuModules}
+                            dropdownMenuModules={dropdownMenuModules}
+                        /> 
                     </div>
             }
             {

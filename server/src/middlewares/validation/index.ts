@@ -54,6 +54,7 @@ class Validates {
             next(e);
         }
     }
+
     tasks(req: Request, res: Response, next: NextFunction) {
         try {
             const { error } = validators.tasks.validate(req.body);
@@ -66,6 +67,7 @@ class Validates {
             next(e);
         }
     }
+
     modules(req: Request, res: Response, next: NextFunction) {
         try {
             const { error } = validators.modules.validate(req.body);
@@ -78,6 +80,7 @@ class Validates {
             next(e);
         }
     }
+
     lessons(req: Request, res: Response, next: NextFunction) {
         try {
             const { error } = validators.lessons.validate(req.body);
@@ -90,6 +93,7 @@ class Validates {
             next(e);
         }
     }
+
     exercises(req: Request, res: Response, next: NextFunction) {
         try {
             const { error } = validators.exercises.validate(req.body);

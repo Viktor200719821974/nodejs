@@ -6,7 +6,7 @@ import { tasksService } from '../services/tasksService';
 class TasksController {
     async getTasks(req: Request, res: Response, next: NextFunction) {
         try {
-            let {
+            const {
                 themeId,
                 chooseImage,
                 chooseAnswer,
@@ -21,7 +21,7 @@ class TasksController {
                 createWhat,
             } = req.query;
             let { limit, page } = req.query;
-            //@ts-ignore
+            // @ts-ignore
             page = Number(page) || 1;
             // @ts-ignore
             limit = Number(limit) || 20;
@@ -29,9 +29,10 @@ class TasksController {
             const offset = page * limit - limit;
             let tasks;
             if (
-                themeId || chooseAnswer || chooseImage || choosePositiveAnswer || chooseMissingWord || 
-                chooseTranslateWords || question || word || answer || lessonId || taskId || createWhat
-                ) {
+                themeId || chooseAnswer || chooseImage || choosePositiveAnswer || chooseMissingWord
+                || chooseTranslateWords || question || word || answer || lessonId || taskId
+                || createWhat
+            ) {
                 tasks = await tasksService
                     .getTasks(
                         // @ts-ignore
@@ -74,20 +75,20 @@ class TasksController {
         try {
             const image = req.files?.image as UploadedFile;
             const {
-                chooseImage, 
-                chooseAnswer, 
-                chooseMissingWord, 
-                choosePositiveAnswer, 
-                chooseTranslateWords, 
-                themeId, 
-                word, 
+                chooseImage,
+                chooseAnswer,
+                chooseMissingWord,
+                choosePositiveAnswer,
+                chooseTranslateWords,
+                themeId,
+                word,
                 answer,
                 translate,
                 question,
-                translatewordsTasks,
+                translateWordsTasks,
             } = req.body;
             const task = await tasksService.createTask(
-                chooseImage === 'true', 
+                chooseImage === 'true',
                 chooseAnswer === 'true',
                 chooseMissingWord === 'true',
                 choosePositiveAnswer === 'true',
@@ -97,7 +98,7 @@ class TasksController {
                 answer,
                 question,
                 translate,
-                translatewordsTasks,
+                translateWordsTasks,
                 image,
             );
             res.status(201).json(task);
@@ -107,9 +108,13 @@ class TasksController {
     }
 
     async deleteTask(req: Request, res: Response, next: NextFunction) {
-        const { id } = req.params;
-        await tasksService.deleteTask(+id);
-        res.status(200).json('Deleted');
+        try {
+            const { id } = req.params;
+            await tasksService.deleteTask(+id);
+            res.status(200).json('Deleted');
+        } catch (e) {
+            next(e);
+        }
     }
 }
 

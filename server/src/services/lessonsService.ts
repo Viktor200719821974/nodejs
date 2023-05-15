@@ -31,7 +31,7 @@ class LessonsService {
     }
 
     async createLesson(lessonNumber: number, themeId: number, moduleId: number): Promise<ILesson> {
-        //@ts-ignore
+        // @ts-ignore
         return model.Lesson.create({ lessonNumber, themeId, moduleId });
     }
 
@@ -39,7 +39,11 @@ class LessonsService {
         return model.Task.create({ ...task, themeId });
     }
 
-    async findLessonByNumberByThemeId(lessonNumber: number, themeId: number, moduleId: number): Promise<ILesson | null> {
+    async findLessonByNumberByThemeId(
+        lessonNumber: number,
+        themeId: number,
+        moduleId: number,
+    ): Promise<ILesson | null> {
         return model.Lesson.findOne({ where: { lessonNumber, themeId, moduleId } });
     }
 }

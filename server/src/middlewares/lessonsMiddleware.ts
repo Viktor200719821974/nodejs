@@ -9,7 +9,8 @@ class LessonsMiddleware {
             if (moduleId === 0) {
                 res.status(400).json('Choose number of module');
             }
-            const existNumber = await lessonsService.findLessonByNumberByThemeId(+lessonNumber, +themeId, +moduleId);
+            const existNumber = await lessonsService
+                .findLessonByNumberByThemeId(+lessonNumber, +themeId, +moduleId);
             if (existNumber) {
                 res.status(400)
                     .json(`Lesson with that number: ${lessonNumber} with that theme and that number module already exist`);

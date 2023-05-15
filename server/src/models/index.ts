@@ -1,5 +1,4 @@
 import { DataTypes } from 'sequelize';
-// import { InferAttributes, InferCreationAttributes, Model, CreationOptional } from 'sequelize';
 import { sequelize } from '../db';
 import {
     IToken, IUser, IStatistic,
@@ -211,17 +210,6 @@ const Exercise = sequelize.define<IExercise>('exercise', {
         type: DataTypes.INTEGER, allowNull: false,
     },
 });
-// const Question = sequelize.define<IQuestion>('question', {
-//     id: {
-//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-//     },
-//     word: {
-//         type: DataTypes.STRING, allowNull: false,
-//     },
-//     exerciseId: {
-//         type: DataTypes.INTEGER, allowNull: false,
-//     },
-// });
 const Task = sequelize.define<ITask>('task', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
@@ -233,6 +221,9 @@ const Task = sequelize.define<ITask>('task', {
         type: DataTypes.STRING, allowNull: true,
     },
     answer: {
+        type: DataTypes.STRING, allowNull: true,
+    },
+    translate: {
         type: DataTypes.STRING, allowNull: true,
     },
     optionsAnswer: {
@@ -256,10 +247,10 @@ const Task = sequelize.define<ITask>('task', {
     themeId: {
         type: DataTypes.INTEGER, allowNull: false,
     },
-    translatewordsTasks: {
+    translateWordsTasks: {
         type: DataTypes.ARRAY(DataTypes.INTEGER), allowNull: true,
     },
-    translatewordsanswers: {
+    translateWordsAnswers: {
         type: DataTypes.ARRAY(DataTypes.STRING), allowNull: true,
     },
 });
@@ -349,9 +340,6 @@ Lesson.belongsTo(Module);
 Lesson.hasMany(Exercise, { foreignKey: 'lessonId', as: 'exercises' });
 Exercise.belongsTo(Lesson);
 
-// Exercise.hasOne(Question, { foreignKey: 'exerciseId', as: 'question' });
-// Question.belongsTo(Exercise);
-
 Theme.hasOne(Task, { foreignKey: 'themeId', as: 'task' });
 Task.belongsTo(Theme);
 
@@ -360,8 +348,6 @@ ImageTask.belongsTo(Task);
 
 Exercise.hasOne(ImageExercise, { foreignKey: 'exerciseId', as: 'image' });
 ImageExercise.belongsTo(Exercise);
-// Exercise.hasOne(Task, { foreignKey: 'exerciseId' });
-// Task.belongsTo(Exercise);
 // Exercise.hasOne(LookLessonAnswer, { foreignKey: 'exerciseId' });
 // LookLessonAnswer.belongsTo(Exercise);
 
@@ -375,7 +361,6 @@ export const model = {
     // Part3,
     // Part4,
     Exercise,
-    // Question,
     Task,
     // LookLessonAnswer,
     Module,

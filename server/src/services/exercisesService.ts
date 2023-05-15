@@ -23,22 +23,24 @@ class ExercisesService {
 
     async createExercise(id: number, lessonId: number, image: UploadedFile) {
         const task = await model.Task.findOne({ where: { id } });
-        const chooseAnswer = task?.chooseAnswer;
-        const chooseImage = task?.chooseImage;
-        const choosePositiveAnswer = task?.choosePositiveAnswer;
-        const chooseMissingWord = task?.chooseMissingWord;
-        const chooseTranslateWords = task?.chooseTranslateWords;
-        const question = task?.question;
-        const answer = task?.answer;
+        const chooseAnswer = task?.chooseAnswer ?? false;
+        const chooseImage = task?.chooseImage ?? false;
+        const choosePositiveAnswer = task?.choosePositiveAnswer ?? false;
+        const chooseMissingWord = task?.chooseMissingWord ?? false;
+        const chooseTranslateWords = task?.chooseTranslateWords ?? false;
+        const question = task?.question ?? '';
+        const answer = task?.answer ?? '';
         let tasks = [];
         tasks.push(id);
         let titleExercise = '';
         let oneWord = '';
         const cyrillicPattern = /^[\u0400-\u04FF]+$/;
+        console.log('.............................................');
         if (answer !== undefined) {
             oneWord = answer.split(' ').map((c) => c)[0];
         }
         if (chooseAnswer) {
+            console.log(chooseAnswer, '________________');
             titleExercise = 'Як сказати';
         }
         if (chooseImage) {
@@ -46,7 +48,7 @@ class ExercisesService {
             let tasksId = (await model.Task.findAll({ where: { chooseImage: true } }))
                 .map((data) => data.id)
                 .filter((c) => c !== id);
-            tasksId = await this._getShuffledArray(tasksId)
+            tasksId = await this._getShuffledArray(tasksId);
             tasksId.length = 2;
             tasks = tasks.concat(tasksId);
             tasks = await this._getShuffledArray(tasks);
@@ -65,21 +67,28 @@ class ExercisesService {
             titleExercise = 'Об’єднайте в пари:';
         }
         const exerciseId = await model.Exercise
-            .create({ 
-                //@ts-ignore
-                question, answer, titleExercise, tasks, lessonId, chooseAnswer, chooseImage, chooseMissingWord, 
-                 //@ts-ignore
-                choosePositiveAnswer, chooseTranslateWords,
-            }).then(data => data.id);
+            // @ts-ignore
+            .create({
+                question,
+                answer,
+                titleExercise,
+                tasks,
+                lessonId,
+                chooseAnswer,
+                chooseImage,
+                chooseMissingWord,
+                choosePositiveAnswer,
+                chooseTranslateWords,
+            }).then((data) => data.id);
         if (choosePositiveAnswer) {
             const fileName = await saveImageService.saveImage(image);
-            //@ts-ignore
+            // @ts-ignore
             await model.ImageExercise.create({ src: fileName, alt: `${answer} image`, exerciseId });
         }
-        return model.Exercise.findOne({ 
+        return model.Exercise.findOne({
             where: { id: exerciseId },
             include: [
-                {model: model.ImageExercise, as: 'image'},
+                { model: model.ImageExercise, as: 'image' },
             ],
             attributes: {
                 exclude: ['createdAt', 'updatedAt'],
