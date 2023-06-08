@@ -1,6 +1,6 @@
 import { SETTINGS_COACH } from '../../../constants';
-import { arraySchedule, arrayScheduleLine } from '../../../constants/arrays';
 import boxClose from '../../../icons/box-close.svg';
+import GraphicComponent from './GraphicComponent';
 
 const AgendaComponent = ({
     points, navigate, setIdElement, purposeDay, 
@@ -11,7 +11,7 @@ const AgendaComponent = ({
         setIdElement(10);
     }
     return (
-        <div>
+        <div className='mainLearnPage_main_div_agendaComponent'>
             <div className="mainLearnPage_div_main_sign_agendaComponent display_alien_justify">
                 <h2 className="mainLearnPage_h2_agendaComponent">Накопичення балів</h2>
                 <span 
@@ -45,19 +45,8 @@ const AgendaComponent = ({
                     </div>            
                 </div>
             </div>
-            <div>
-                <svg height='225px' width='340px' direction="ltr">
-                    {arraySchedule.map(c => 
-                        <text x={c.x} y={c.y} fill="#afafaf" fontSize="17px" key={c.id}>
-                        {c.content}
-                    </text>
-                    )}
-                    <g fill="none">
-                        {arrayScheduleLine.map(c => 
-                            <path stroke="#afafaf" d={`M40 ${c.y} l260 0`} key={c.id} />
-                        )}
-                    </g>
-                </svg>
+            <div className='mainLearnPage_main_div_graphic_agendaComponet'>
+                <GraphicComponent/>
             </div>
         </div>
     );

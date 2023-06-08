@@ -2001,6 +2001,20 @@ input[type=number] {
     border-radius: 10px; 
     padding: 24px;
 }
+/* .mainLearnPage_main_div_agendaComponent {
+    position: relative;
+} */
+/* .mainLearnPage_main_div_graphic_agendaComponet {
+    position: relative;
+} */
+.main_div_graphicComponet {
+    margin-top: 10px;
+    padding: 0;
+    width: 100%;
+}
+/* .graphicComponent_style_plot {
+    background: none;
+} */
 .mainLearnPage_div_main_sign_agendaComponent {
     margin-bottom: 12px;
     box-sizing: border-box;
