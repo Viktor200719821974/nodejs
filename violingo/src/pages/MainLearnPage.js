@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { 
     LEARN_PAGE, REVIEW_PAGE, SHOP_PAGE, SCHOOLS_PAGE, SETTINGS_COACH, SETTINGS_SOUND, 
@@ -21,7 +22,9 @@ import { getStatistic } from '../http/statisticApi';
 const MainLearnPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    
+    const { user } = useSelector(state => state.userReducer);
+    // console.log(user.agenda.map(c => c.daysOfWeekArray));
+
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
@@ -44,7 +47,20 @@ const MainLearnPage = () => {
     const [activeButton, setActiveButton] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
     const [scrollBool, setScrollBool] = useState(false);
-
+    const [dayWeek, setDayWeek] = useState('');
+    const [daysOfWeekArray, setDaysOfWeekArray] = useState([]);
+    const [pointsOfDayArray, setPointsOfDayArray] = useState([]);
+    // console.log(pointsOfDayArray);
+    // console.log(daysOfWeekArray);
+    // let daysOfWeekArray = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+    // let pointsOfDayArray = [0, 0, 0, 0, 0, 0, 100];
+    const date = new Date();
+    const locate = 'ukr';
+    const day = daysOfWeekArray.filter(c => c === dayWeek)[0];
+    const index = daysOfWeekArray.indexOf(day);
+    console.log(dayWeek);
+    pointsOfDayArray[index] = points;
+    
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
@@ -52,97 +68,134 @@ const MainLearnPage = () => {
     const idPurpose = everyDayTarget && arrayPurposeSettingsCoachComponent
             .filter(c => c.name === everyDayTarget)
             .map(c => c.id)[0];
+    const getDayName = (date, location) => {
+        const dayName = date.toLocaleDateString(location, { weekday: 'short' });
+        let firstLetter = dayName.charAt(0);
+        firstLetter = firstLetter.toUpperCase();
+        const twoLetter = dayName.charAt(1);
+        return firstLetter + twoLetter;        
+    };
+    const changePlaceDayWeekInArray = (array, date, locate) => {
+        const dayName = getDayName(date, locate);
+        const fromIndex = array.indexOf(dayName);
+        console.log(dayName, fromIndex);
+        const value = array.splice(fromIndex, 1)[0];
+        console.log(value);
+        array.splice(6, 0, value);
+        console.log(array);
+        return array;
+    };
+    const changePlacePointsInArray = (array, ind) => {
+        const value = array.splice(ind, 1)[0];
+        array.splice(ind, 0, value);
+        return array;
+    };
     
     useEffect(() => {
-        getStatistic().then(data => {
-            if (data.status === 200) {
-                setEveryDayTarget(data.data.everyDayTarget);
+        let action = true;
+        if (action) {
+            const fetchStatistic = () => {
+                getStatistic().then(data => {
+                    if (data.status === 200) {
+                        setEveryDayTarget(data.data.everyDayTarget);
+                    }
+                }).catch (e => console.log(e));
+            };
+            fetchStatistic();
+            setDayWeek(getDayName(date, locate));
+            if (pointsOfDayArray[6] > 0 && dayWeek !== daysOfWeekArray[6]) {
+              setDaysOfWeekArray(changePlaceDayWeekInArray(daysOfWeekArray, date, locate));
+              setPointsOfDayArray(changePlacePointsInArray(pointsOfDayArray, index));
+            } 
+            if (location.pathname === LEARN_PAGE) {
+                setLearnPage(true);
+                setReviewPage(false);
+                setSchoolPage(false);
+                setShopPage(false);
+                setIdElement(1);
+                setSettingsCoach(false);
+                setSettingsSound(false);
+                setChangeBodyRight(false);
+                setActiveButton(false);
             }
-        }).catch (e => console.log(e));
-        if (location.pathname === LEARN_PAGE) {
-            setLearnPage(true);
-            setReviewPage(false);
-            setSchoolPage(false);
-            setShopPage(false);
-            setIdElement(1);
-            setSettingsCoach(false);
-            setSettingsSound(false);
-            setChangeBodyRight(false);
-            setActiveButton(false);
+            if (location.pathname === REVIEW_PAGE) {
+                setReviewPage(true);
+                setLearnPage(false);
+                setSchoolPage(false);
+                setShopPage(false);
+                setIdElement(2);
+                setSettingsCoach(false);
+                setSettingsSound(false);
+                setChangeBodyRight(false);
+                setActiveButton(false);
+            }
+            if (location.pathname === SHOP_PAGE) {
+                setShopPage(true);
+                setReviewPage(false);
+                setLearnPage(false);
+                setSchoolPage(false);
+                setIdElement(3);
+                setSettingsCoach(false);
+                setSettingsSound(false);
+                setChangeBodyRight(false);
+                setActiveButton(false);
+            } 
+            if (location.pathname === SCHOOLS_PAGE) {
+                setSchoolPage(true);
+                setShopPage(false);
+                setReviewPage(false);
+                setLearnPage(false);
+                setIdElement(4);
+                setSettingsCoach(false);
+                setSettingsSound(false);
+                setChangeBodyRight(false);
+                setActiveButton(false);
+            }
+            if (location.pathname === SETTINGS_COACH) {
+                setSettingsCoach(true);
+                setLearnPage(false);
+                setReviewPage(false);
+                setSchoolPage(false);
+                setShopPage(false);
+                setChangeBodyRight(true);
+            }
+            if (location.pathname === SETTINGS_SOUND) {
+                setSettingsCoach(false);
+                setSettingsSound(true);
+                setLearnPage(false);
+                setReviewPage(false);
+                setSchoolPage(false);
+                setShopPage(false);
+                setChangeBodyRight(true);
+            }
+            if (idElement === idPurpose && offSoundEffects && offExerciseToSpeak && offExerciseToAudio) {
+                setActiveButton(false);
+            }
+            if ((idElement > 10 && idElement !== idPurpose) || !offSoundEffects || !offExerciseToSpeak || !offExerciseToAudio) {
+                setActiveButton(true);
+            }
+            if (mouseOnFlag || mouseOnFire || mouseOnRuby || mouseOnAvatar) {
+                setIsActive(true);
+            } else {
+                setIsActive(false);
+            }
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            if (scrollPosition >= 250) {
+                setScrollBool(true);
+            } else {
+                setScrollBool(false);
+            }
         }
-        if (location.pathname === REVIEW_PAGE) {
-            setReviewPage(true);
-            setLearnPage(false);
-            setSchoolPage(false);
-            setShopPage(false);
-            setIdElement(2);
-            setSettingsCoach(false);
-            setSettingsSound(false);
-            setChangeBodyRight(false);
-            setActiveButton(false);
-        }
-        if (location.pathname === SHOP_PAGE) {
-            setShopPage(true);
-            setReviewPage(false);
-            setLearnPage(false);
-            setSchoolPage(false);
-            setIdElement(3);
-            setSettingsCoach(false);
-            setSettingsSound(false);
-            setChangeBodyRight(false);
-            setActiveButton(false);
-        } 
-        if (location.pathname === SCHOOLS_PAGE) {
-            setSchoolPage(true);
-            setShopPage(false);
-            setReviewPage(false);
-            setLearnPage(false);
-            setIdElement(4);
-            setSettingsCoach(false);
-            setSettingsSound(false);
-            setChangeBodyRight(false);
-            setActiveButton(false);
-        }
-        if (location.pathname === SETTINGS_COACH) {
-            setSettingsCoach(true);
-            setLearnPage(false);
-            setReviewPage(false);
-            setSchoolPage(false);
-            setShopPage(false);
-            setChangeBodyRight(true);
-        }
-        if (location.pathname === SETTINGS_SOUND) {
-            setSettingsCoach(false);
-            setSettingsSound(true);
-            setLearnPage(false);
-            setReviewPage(false);
-            setSchoolPage(false);
-            setShopPage(false);
-            setChangeBodyRight(true);
-        }
-        if (idElement === idPurpose && offSoundEffects && offExerciseToSpeak && offExerciseToAudio) {
-            setActiveButton(false);
-        }
-        if ((idElement > 10 && idElement !== idPurpose) || !offSoundEffects || !offExerciseToSpeak || !offExerciseToAudio) {
-            setActiveButton(true);
-        }
-        if (mouseOnFlag || mouseOnFire || mouseOnRuby || mouseOnAvatar) {
-            setIsActive(true);
-        } else {
-            setIsActive(false);
-        }
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        if (scrollPosition >= 250) {
-            setScrollBool(true);
-        } else {
-            setScrollBool(false);
-        }
+        return(() => {
+            action = false;
+        })
+        
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
         offExerciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget,
-        idPurpose,
+        idPurpose, index, daysOfWeekArray, pointsOfDayArray, dayWeek,
     ]);
     return (
         <>
@@ -164,10 +217,10 @@ const MainLearnPage = () => {
                 }
                 >
                 <span className="mainLearnPage_main_navBar">
-                <NavBarComponent
-                    idElement={idElement}
-                    setIdElement={setIdElement}
-                /> 
+                    <NavBarComponent
+                        idElement={idElement}
+                        setIdElement={setIdElement}
+                    /> 
                 </span>  
                 <div className="mainLearnPage_div_body_component">
                     { learnPage && <LearnComponent/> }
@@ -228,6 +281,8 @@ const MainLearnPage = () => {
                         changeBodyRight={changeBodyRight}
                         activeButton={activeButton}
                         everyDayTarget={everyDayTarget}
+                        daysOfWeekArray={daysOfWeekArray}
+                        pointsOfDayArray={pointsOfDayArray}
                     />
                 </div>
             </div> 

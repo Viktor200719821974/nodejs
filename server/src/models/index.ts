@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db';
 import {
-    IToken, IUser, IStatistic,
+    IToken, IUser, IStatistic, IAgendaUser,
     // ISection, IPart1,
     IExercise, ITask,
     // ILookLessonAnswer,
@@ -282,6 +282,20 @@ const ImageExercise = sequelize.define<IImageExercise>('imageExercise', {
         type: DataTypes.INTEGER, allowNull: false,
     },
 });
+const AgendaUser = sequelize.define<IAgendaUser>('agendaUser', {
+    id: {
+        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+    },
+    daysOfWeekArray: {
+        type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false, defaultValue: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'],
+    },
+    pointsOfDayArray: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER), allowNull: false, defaultValue: [0, 0, 0, 0, 0, 0, 0],
+    },
+    userId: {
+        type: DataTypes.INTEGER, allowNull: false,
+    },
+});
 // const LookLessonAnswer = sequelize.define<ILookLessonAnswer>('LookLessonAnswer', {
 //     id: {
 //         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
@@ -326,6 +340,9 @@ Token.belongsTo(User);
 User.hasOne(Statistic, { foreignKey: 'userId', as: 'statistics' });
 Statistic.belongsTo(User);
 
+User.hasOne(AgendaUser, { foreignKey: 'userId', as: 'agenda' });
+AgendaUser.belongsTo(User);
+
 // Section.hasOne(Part1, { foreignKey: 'sectionId' });
 // Part1.belongsTo(Section);
 // Section.hasOne(Part2, { foreignKey: 'sectionId' });
@@ -368,4 +385,5 @@ export const model = {
     Theme,
     ImageTask,
     ImageExercise,
+    AgendaUser,
 };

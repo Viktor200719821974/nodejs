@@ -106,6 +106,17 @@ class UsersController {
             next(e);
         }
     }
+
+    async updateUserAgenda(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            //@ts-ignore
+            const { id } = req.user;
+            const agenda = await usersService.updateUserAgenda(id);
+            res.status(200).json(agenda);
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export const usersController = new UsersController();

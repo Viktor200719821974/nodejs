@@ -2,9 +2,13 @@
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
-import { arraySchedule, arrayScheduleLine } from '../../../constants/arrays';
+// import { arraySchedule, arrayScheduleLine } from '../../../constants/arrays';
 
-const GraphicComponent = () => {
+const GraphicComponent = ({
+    points, daysOfWeekArray, pointsOfDayArray,
+}) => {
+    console.log(pointsOfDayArray);
+    console.log(daysOfWeekArray);
     const options = {
         // responsive: false,
         plugins: {
@@ -15,16 +19,17 @@ const GraphicComponent = () => {
                 suggestedMin: 0,
                 suggestedMax: 120
             }
+
         }
     }
     const data = {
-    labels: arraySchedule,
+    labels: daysOfWeekArray,
     datasets: [
         {
-        label: "",
-        backgroundColor: "rgb(255, 200, 0)",
-        borderColor: "rgb(255, 200, 0)",
-        data: arrayScheduleLine,
+            label: "",
+            backgroundColor: "rgb(255, 200, 0)",
+            borderColor: "rgb(255, 200, 0)",
+            data: pointsOfDayArray,
         },
     ],
     };

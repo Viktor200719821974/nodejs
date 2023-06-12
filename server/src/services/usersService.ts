@@ -17,9 +17,9 @@ class UsersService {
             attributes: {
                 exclude: ['password', 'createdAt', 'updatedAt', 'activateToken'],
             },
-            // include: [
-            //     {model: model.Statistic, as: 'statistics'}
-            // ],
+            include: [
+                {model: model.AgendaUser, as: 'agenda'}
+            ],
             where: { id },
         });
     }
@@ -71,6 +71,10 @@ class UsersService {
 
     async updateStatisticUser(id: number) {
         return model.User.update({ statistic: true }, { where: { id } });
+    }
+
+    async updateUserAgenda(userId: number) {
+
     }
 }
 

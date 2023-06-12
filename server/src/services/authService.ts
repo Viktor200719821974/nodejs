@@ -15,6 +15,8 @@ class AuthService {
         const id = await model.User.create({ ...user, password: hashedPassword })
             .then((data) => data.id);
         const tokenActivate = await tokenService.generateTokenActivate({ userId: id, userEmail });
+        //@ts-ignore
+        await model.AgendaUser.create({ userId: id })
         await model.User.update(
             {
                 activateToken: tokenActivate.activateToken,
@@ -33,8 +35,6 @@ class AuthService {
         if (exists) {
             await tokenService.deleteTokenPair(userId);
         }
-        // eslint-disable-next-line no-console
-        console.log(userId);
         // @ts-ignore
         await tokenService.saveToken({ accessToken, refreshToken, userId });
         return { accessToken, refreshToken, userId };

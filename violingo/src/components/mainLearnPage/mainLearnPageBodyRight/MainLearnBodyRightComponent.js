@@ -3,12 +3,13 @@ import SettingsCoachSoundBodyRightComponent from './SettingsCoachSoundBodyRightC
 import { arrayPurposeSettingsCoachComponent } from '../../../constants/arrays';
 
 const MainLearnBodyRightComponent = ({
-    points, setSettingsCoach, setIdElement, settingsCoach, settingsSound, navigate,
-    setSettingsSound, changeBodyRight, activeButton, choosePurposeDay, everyDayTarget,
+    points, setSettingsCoach, setIdElement, settingsCoach, settingsSound, navigate, daysOfWeekArray, pointsOfDayArray,
+    setSettingsSound, changeBodyRight, activeButton, choosePurposeDay, everyDayTarget, 
 }) => {
     const purposeDay = everyDayTarget && arrayPurposeSettingsCoachComponent
         .filter(c => c.name === everyDayTarget) 
         .map(c => c.point)[0].slice(0,3);
+    console.log(purposeDay, 'purposeDay');
     return (
         <>
             {changeBodyRight &&
@@ -30,10 +31,12 @@ const MainLearnBodyRightComponent = ({
                     <div className="mainLearnPage_div_body_agenda"> 
                         <AgendaComponent
                             points={points}
-                            purposeDay={purposeDay}
+                            purposeDay={purposeDay !== '' ? purposeDay : 10}
                             setSettingsCoach={setSettingsCoach}
                             setIdElement={setIdElement}
                             navigate={navigate}
+                            daysOfWeekArray={daysOfWeekArray}
+                            pointsOfDayArray={pointsOfDayArray}
                         />      
                     </div> 
                 </div>

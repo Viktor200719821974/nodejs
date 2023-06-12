@@ -16,18 +16,18 @@ const CalendarComponent = () => {
     const [dayNow] = useState(date.getDate());
     const [monthNowBool, setMonthNowBool] = useState(true);
     
-    let locale = 'ukr';
+    let location = 'ukr';
     let dateStr = `${currentMonth}/1/${yearValue}`;
     const getDaysInMonth = (year, month) => {
         return new Date(year, month, 0).getDate();
     }
-    const getDayName = (dateString, locale) => {
+    const getDayName = (dateString, location) => {
     let date = new Date(dateString);
-    return date.toLocaleDateString(locale, { weekday: 'short' });        
+    return date.toLocaleDateString(location, { weekday: 'short' });        
     }
-    const getMonthName = (dateString, locale) => {
+    const getMonthName = (dateString, location) => {
         let date = new Date(dateString);
-        return date.toLocaleDateString(locale, { month: 'long'});
+        return date.toLocaleDateString(location, { month: 'long'});
     }
     const getArrayDay = (daysInCurrentMonth, days) => {
         for (let i=1; i < daysInCurrentMonth + 1; i++) {
@@ -35,33 +35,33 @@ const CalendarComponent = () => {
         }
         return days; 
     }
-    const dateNow = (currentMonth, yearValue, locale) => {
+    const dateNow = (currentMonth, yearValue, location) => {
         let dateStr = `${currentMonth}/1/${yearValue}`;
         if (currentMonth === 0) {
             setCurrentMonth(12);
             setYearValue(yearValue - 1);
             dateStr = `12/1/${yearValue - 1}`;
-            setMonthValue(getMonthName(dateStr, locale)); 
+            setMonthValue(getMonthName(dateStr, location)); 
             setDaysInCurrentMonth(getDaysInMonth(yearValue - 1, 12));
         }
         if (currentMonth === 13) {
             setCurrentMonth(1);
             setYearValue(yearValue + 1);
             dateStr = `1/1/${yearValue + 1}`;
-            setMonthValue(getMonthName(dateStr, locale)); 
+            setMonthValue(getMonthName(dateStr, location)); 
             setDaysInCurrentMonth(getDaysInMonth(yearValue + 1, 1));
         }else {
-            setMonthValue(getMonthName(dateStr, locale)); 
+            setMonthValue(getMonthName(dateStr, location)); 
             setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
         } 
     } 
     const previousMonth = () => {
         setCurrentMonth(currentMonth - 1); 
-        dateNow(currentMonth - 1, yearValue, locale);
+        dateNow(currentMonth - 1, yearValue, location);
     }
     const nextMonth = () => {
         setCurrentMonth(currentMonth + 1);
-        dateNow(currentMonth + 1, yearValue, locale); 
+        dateNow(currentMonth + 1, yearValue, location); 
     }    
     useEffect(() => {
         if (dayWeek !== '') {
@@ -101,9 +101,9 @@ const CalendarComponent = () => {
             setMonthNowBool(true);
         } 
         setDaysInCurrentMonth(getDaysInMonth(yearValue, currentMonth));
-        setDayWeek(getDayName(dateStr, locale));
+        setDayWeek(getDayName(dateStr, location));
     }, [
-        currentMonth, monthValue, daysInCurrentMonth, dayWeek, dayNow, dateStr, locale,
+        currentMonth, monthValue, daysInCurrentMonth, dayWeek, dayNow, dateStr, location,
         yearValue, monthNowBool, monthNow, yearNow,
     ]);
     return (

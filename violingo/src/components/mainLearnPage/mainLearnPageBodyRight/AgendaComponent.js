@@ -3,7 +3,7 @@ import boxClose from '../../../icons/box-close.svg';
 import GraphicComponent from './GraphicComponent';
 
 const AgendaComponent = ({
-    points, navigate, setIdElement, purposeDay, 
+    points, navigate, setIdElement, purposeDay, daysOfWeekArray, pointsOfDayArray,
 }) => {
     
     const click = () => {
@@ -46,7 +46,11 @@ const AgendaComponent = ({
                 </div>
             </div>
             <div className='mainLearnPage_main_div_graphic_agendaComponet'>
-                <GraphicComponent/>
+                <GraphicComponent 
+                    points={points}
+                    daysOfWeekArray={daysOfWeekArray}
+                    pointsOfDayArray={pointsOfDayArray}
+                />
             </div>
         </div>
     );

@@ -172,6 +172,13 @@ export interface IPaginationResponse<T> {
     count: number,
     rows: T[],
 }
+export interface IAgendaUser extends Model
+    <InferAttributes<IAgendaUser>, InferCreationAttributes<IAgendaUser>> {
+        id: number;
+        daysOfWeekArray: string[];
+        pointsOfDayArray: number[];
+        userId: number;
+    }
 // export interface ILookLessonAnswer extends Model
 //     <InferAttributes<ILookLessonAnswer>, InferCreationAttributes<ILookLessonAnswer>> {
 //         id: number;
