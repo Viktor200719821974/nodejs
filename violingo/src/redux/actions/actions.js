@@ -1,7 +1,7 @@
 import { 
     FETCH_USER, IS_LOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, ARRAY_WRONG_ANSWER,
     ARRAY_CHOOSE_POSITIVE_ANSWER, ARRAY_ID_CHOOSE_POSITIVE_ANSWER, IS_ADMIN_USER, FETCH_ALL_TASKS_WITHOUT_FILTERS,
-    ARRAY_CHOOSE_POSITIVE_ANSWER_EMPTY, ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY, FETCH_TASKS,
+    ARRAY_CHOOSE_POSITIVE_ANSWER_EMPTY, ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY, FETCH_TASKS, AGENDA_USER,
 } from './index';
 
 export const fetchUser = (data) => {
@@ -42,4 +42,7 @@ export const arrayIdChoosePositiveAnswerEmpty = () => {
 }
 export const arrayWrongAnswer = (data) => {
     return { type: ARRAY_WRONG_ANSWER , payload: data };
+}
+export const agendaUser = (data) => {
+    return { type: AGENDA_USER, payload: data };
 }

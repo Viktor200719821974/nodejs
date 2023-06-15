@@ -18,12 +18,12 @@ import SettingsSoundComponent from '../components/mainLearnPage/SettingsSoundCom
 import MainLearnBodyRightComponent from '../components/mainLearnPage/mainLearnPageBodyRight/MainLearnBodyRightComponent';
 import arrow from '../icons/arrow-up-blue.svg';
 import { getStatistic } from '../http/statisticApi';
+import { updateAgendaUser } from '../http/userApi';
 
 const MainLearnPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { user } = useSelector(state => state.userReducer);
-    // console.log(user.agenda.map(c => c.daysOfWeekArray));
+    const { agenda } = useSelector(state => state.agendaUserReducer);
 
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
@@ -48,19 +48,28 @@ const MainLearnPage = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [scrollBool, setScrollBool] = useState(false);
     const [dayWeek, setDayWeek] = useState('');
-    const [daysOfWeekArray, setDaysOfWeekArray] = useState([]);
-    const [pointsOfDayArray, setPointsOfDayArray] = useState([]);
-    // console.log(pointsOfDayArray);
-    // console.log(daysOfWeekArray);
-    // let daysOfWeekArray = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
-    // let pointsOfDayArray = [0, 0, 0, 0, 0, 0, 100];
+    
+    let daysOfWeekArray = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+    let pointsOfDayArray = agenda.pointsOfDayArray;
     const date = new Date();
     const locate = 'ukr';
-    const day = daysOfWeekArray.filter(c => c === dayWeek)[0];
-    const index = daysOfWeekArray.indexOf(day);
-    console.log(dayWeek);
-    pointsOfDayArray[index] = points;
-    
+    const day = agenda.daysOfWeekArray.filter(c => c === dayWeek)[0];
+    const index = agenda.daysOfWeekArray.indexOf(day);
+    console.log(pointsOfDayArray, '1');
+    daysOfWeekArray.sort((a, b) => {
+        const currentDayIndex = new Date().getDay();
+        const adjustedIndexA = (daysOfWeekArray.indexOf(a) - currentDayIndex + 7) % 7;
+        const adjustedIndexB = (daysOfWeekArray.indexOf(b) - currentDayIndex + 7) % 7;
+        return adjustedIndexA - adjustedIndexB;
+    });
+    // pointsOfDayArray.sort((a, b) => {
+    //     const adjustedIndexA = (pointsOfDayArray.indexOf(a) - index + 1 + 7) % 7;
+    //     console.log(adjustedIndexA);
+    //     const adjustedIndexB = (pointsOfDayArray.indexOf(b) - index + 1 + 7) % 7;
+    //     console.log(adjustedIndexB);
+    //     return adjustedIndexA - adjustedIndexB;
+    // });
+    // console.log(pointsOfDayArray, '2');
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
@@ -75,21 +84,21 @@ const MainLearnPage = () => {
         const twoLetter = dayName.charAt(1);
         return firstLetter + twoLetter;        
     };
-    const changePlaceDayWeekInArray = (array, date, locate) => {
-        const dayName = getDayName(date, locate);
-        const fromIndex = array.indexOf(dayName);
-        console.log(dayName, fromIndex);
-        const value = array.splice(fromIndex, 1)[0];
-        console.log(value);
-        array.splice(6, 0, value);
-        console.log(array);
-        return array;
-    };
-    const changePlacePointsInArray = (array, ind) => {
-        const value = array.splice(ind, 1)[0];
-        array.splice(ind, 0, value);
-        return array;
-    };
+    // const changePlaceDayWeekInArray = (array, date, locate) => {
+    //     const dayName = getDayName(date, locate);
+    //     const fromIndex = array.indexOf(dayName);
+    //     console.log(dayName, fromIndex);
+    //     const value = array.splice(fromIndex, 1)[0];
+    //     console.log(value);
+    //     array.splice(6, 0, value);
+    //     console.log(array);
+    //     return array;
+    // };
+    // const changePlacePointsInArray = (array, ind) => {
+    //     const value = array.splice(ind, 1)[0];
+    //     array.splice(ind, 0, value);
+    //     return array;
+    // };
     
     useEffect(() => {
         let action = true;
@@ -103,9 +112,13 @@ const MainLearnPage = () => {
             };
             fetchStatistic();
             setDayWeek(getDayName(date, locate));
+            const fetchUpdateAgendaUser = async (daysOfWeekArray, points, index, pointsOfDayArray) => {
+                await updateAgendaUser(daysOfWeekArray, points, index, pointsOfDayArray).then(data => console.log(data));
+            }
+            fetchUpdateAgendaUser(daysOfWeekArray, points, index, pointsOfDayArray);
             if (pointsOfDayArray[6] > 0 && dayWeek !== daysOfWeekArray[6]) {
-              setDaysOfWeekArray(changePlaceDayWeekInArray(daysOfWeekArray, date, locate));
-              setPointsOfDayArray(changePlacePointsInArray(pointsOfDayArray, index));
+            //   setDaysOfWeekArray(changePlaceDayWeekInArray(daysOfWeekArray, date, locate));
+            //   setPointsOfDayArray(changePlacePointsInArray(pointsOfDayArray, index));
             } 
             if (location.pathname === LEARN_PAGE) {
                 setLearnPage(true);
@@ -189,7 +202,7 @@ const MainLearnPage = () => {
         return(() => {
             action = false;
         })
-        
+    // eslint-disable-next-line   
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,

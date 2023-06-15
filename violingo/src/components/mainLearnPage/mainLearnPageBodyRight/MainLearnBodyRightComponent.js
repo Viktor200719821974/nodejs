@@ -9,7 +9,6 @@ const MainLearnBodyRightComponent = ({
     const purposeDay = everyDayTarget && arrayPurposeSettingsCoachComponent
         .filter(c => c.name === everyDayTarget) 
         .map(c => c.point)[0].slice(0,3);
-    console.log(purposeDay, 'purposeDay');
     return (
         <>
             {changeBodyRight &&

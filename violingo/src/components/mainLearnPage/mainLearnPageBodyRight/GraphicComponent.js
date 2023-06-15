@@ -7,8 +7,6 @@ import { Line } from "react-chartjs-2";
 const GraphicComponent = ({
     points, daysOfWeekArray, pointsOfDayArray,
 }) => {
-    console.log(pointsOfDayArray);
-    console.log(daysOfWeekArray);
     const options = {
         // responsive: false,
         plugins: {
@@ -17,7 +15,7 @@ const GraphicComponent = ({
         scales: {
             y: {
                 suggestedMin: 0,
-                suggestedMax: 120
+                suggestedMax: points + 20
             }
 
         }

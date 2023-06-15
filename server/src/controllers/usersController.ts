@@ -111,7 +111,8 @@ class UsersController {
         try {
             //@ts-ignore
             const { id } = req.user;
-            const agenda = await usersService.updateUserAgenda(id);
+            const { daysOfWeekArray, points, index, pointsOfDayArray } = req.body;
+            const agenda = await usersService.updateUserAgenda(id, daysOfWeekArray, points, index, pointsOfDayArray);
             res.status(200).json(agenda);
         } catch (e) {
             next(e);

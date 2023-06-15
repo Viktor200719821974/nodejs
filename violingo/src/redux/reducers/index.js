@@ -10,11 +10,13 @@ import { arrayWrongAnswerReducer } from './arrayWrongAnswerReducer';
 import { isAdminUserReducer } from './isAdminUserReducer';
 import { tasksReducer } from './tasksReducer';
 import { allTasksWithoutFiltersReducer } from './allTasksWithoutFiltersReducer';
+import { agendaUserReducer } from './agendaUserReducer';
 
 const rootReducer = combineReducers({ 
     userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, 
     arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, 
-    arrayWrongAnswerReducer, isAdminUserReducer, tasksReducer, allTasksWithoutFiltersReducer,
+    arrayWrongAnswerReducer, isAdminUserReducer, tasksReducer, allTasksWithoutFiltersReducer, 
+    agendaUserReducer,
 });
 
 export { rootReducer };
