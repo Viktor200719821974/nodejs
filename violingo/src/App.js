@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import './style/style.css';
-import { agendaUser, fetchUser, isAdminUser, isLoginUser, isStatisticUser} from './redux/actions';
+import { fetchUser, isAdminUser, isLoginUser, isStatisticUser} from './redux/actions';
 import ApiRouter from './components/ApiRouter';
 import { getUserById } from './http/userApi';
 import violingoLoading from './icons/violingo_loading.png';
@@ -30,7 +30,7 @@ function App() {
                                 dispatch(isLoginUser(true));
                                 dispatch(isStatisticUser(data.data.statistic));
                                 dispatch(isAdminUser(data.data.is_staff));
-                                dispatch(agendaUser(data.data.agenda));
+                                // dispatch(agendaUser(data.data.agenda));
                                 // window.location.pathname="/learn";
                                 // if (data.data.is_staff) {
                                 //     getTasks().then(data => {

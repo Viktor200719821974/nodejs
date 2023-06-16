@@ -9,6 +9,3 @@ export const activateAccount = async (token) => {
     const {data} = await $host.get(`/users/activateUser/${token}`);
     return data;
 }
-export const updateAgendaUser = async (daysOfWeekArray, points, index, pointsOfDayArray) => {
-    return await $authHost.patch('/users/userAgenda', { daysOfWeekArray, points, index, pointsOfDayArray });
-}

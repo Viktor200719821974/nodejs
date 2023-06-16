@@ -72,19 +72,6 @@ class UsersService {
     async updateStatisticUser(id: number) {
         return model.User.update({ statistic: true }, { where: { id } });
     }
-
-    async updateUserAgenda(userId: number, daysOfWeekArray: string[], points: number, index: number, pointsOfDayArray: number[]) {
-        // let pointsOfDayArray = await model.AgendaUser.findOne({ where: { userId } })
-        //     .then(data => data?.pointsOfDayArray);
-        // const day = await model.AgendaUser.findOne({ where: {userId } }).then(data => data?.daysOfWeekArray);
-        // if (day !== undefined) {
-        //     console.log(day[6]);
-        // }
-        // if (pointsOfDayArray !== undefined) {
-            pointsOfDayArray[index] = points;
-        // }
-        return model.AgendaUser.update({ daysOfWeekArray, pointsOfDayArray }, { where: { userId } });
-    }
 }
 
 export const usersService = new UsersService();

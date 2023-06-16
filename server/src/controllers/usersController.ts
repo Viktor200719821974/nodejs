@@ -34,7 +34,7 @@ class UsersController {
         }
     }
 
-    async userManager(req: IRequestExtended, res: Response, next: NextFunction) {
+    async userManager(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
             const user = await usersService.userManager(+id);
@@ -44,7 +44,7 @@ class UsersController {
         }
     }
 
-    async userIsNotManager(req: IRequestExtended, res: Response, next: NextFunction) {
+    async userIsNotManager(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
             const user = await usersService.userIsNotManager(+id);
@@ -54,7 +54,7 @@ class UsersController {
         }
     }
 
-    async userBlocked(req: IRequestExtended, res: Response, next: NextFunction) {
+    async userBlocked(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
             const user = await usersService.userBlocked(+id);
@@ -73,7 +73,7 @@ class UsersController {
         }
     }
 
-    async userUnlocked(req: IRequestExtended, res: Response, next: NextFunction) {
+    async userUnlocked(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
             const user = await usersService.userUnlocked(+id);
@@ -102,18 +102,6 @@ class UsersController {
             const { id } = req.user;
             await usersService.activateUser(id);
             res.json('User activated');
-        } catch (e) {
-            next(e);
-        }
-    }
-
-    async updateUserAgenda(req: IRequestExtended, res: Response, next: NextFunction) {
-        try {
-            //@ts-ignore
-            const { id } = req.user;
-            const { daysOfWeekArray, points, index, pointsOfDayArray } = req.body;
-            const agenda = await usersService.updateUserAgenda(id, daysOfWeekArray, points, index, pointsOfDayArray);
-            res.status(200).json(agenda);
         } catch (e) {
             next(e);
         }
