@@ -6,6 +6,50 @@ import PartLearnComponent from './PartLearnComponent';
 const LearnComponent = () => {
     return (
         <div>
+            <div class="wrapper">
+                <section class="main">
+                
+                    <img class="intro-img" src=""/>  
+                    
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                     <img 
+                        src={IMAGES_LEARN_COMPONENT + 'lock.svg'} 
+                        alt={''}
+                        className=""
+                        style={{borderRadius: '50%', border: '2px solid black', width: '60px', height: '60px'}}
+                    /> 
+                    <img 
+                        src={IMAGES_LEARN_COMPONENT + 'lock.svg'} 
+                        alt={''}
+                        className=""
+                        style={{borderRadius: '50%', border: '2px solid black', width: '60px', height: '60px'}}
+                    /> 
+                    <img 
+                        src={IMAGES_LEARN_COMPONENT + 'lock.svg'} 
+                        alt={''}
+                        className=""
+                        style={{borderRadius: '50%', border: '2px solid black', width: '60px', height: '60px'}}
+                    /> 
+                    <img 
+                        src={IMAGES_LEARN_COMPONENT + 'lock.svg'} 
+                        alt={''}
+                        className=""
+                        style={{borderRadius: '50%', border: '2px solid black', width: '60px', height: '60px'}}
+                    />  
+                </div>
+        
+                </section>
+            </div>
+            {/* <div style={{width: '100%', display: 'flex'}}> */}
+                {/* <div style={{}}>
+                    <img 
+                        src={IMAGES_LEARN_COMPONENT + 'girl1-chapter2.svg'} 
+                        alt={''}
+                        className="shapeOutside"
+                        style={{width: '300px', height: '300px'}}
+                    /> 
+                </div> */}
+            {/* </div> */}
             {arrayButtonsImagesLearnComponent.map(c => 
                 <section key={c.id}>
                     <div 

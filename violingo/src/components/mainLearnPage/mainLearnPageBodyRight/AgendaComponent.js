@@ -3,7 +3,7 @@ import boxClose from '../../../icons/box-close.svg';
 import GraphicComponent from './GraphicComponent';
 
 const AgendaComponent = ({
-    points, navigate, setIdElement, purposeDay, daysOfWeekArray, pointsOfDayArray,
+    points, navigate, setIdElement, purposeDay, daysOfWeekArray, pointsOfDayArray, maxNumberInArrayPoints,
 }) => {
     
     const click = () => {
@@ -50,6 +50,7 @@ const AgendaComponent = ({
                     points={points}
                     daysOfWeekArray={daysOfWeekArray}
                     pointsOfDayArray={pointsOfDayArray}
+                    maxNumberInArrayPoints={maxNumberInArrayPoints}
                 />
             </div>
         </div>

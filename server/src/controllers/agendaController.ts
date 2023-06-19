@@ -19,8 +19,9 @@ class AgendaController {
         try {
             //@ts-ignore
             const { id } = req.user;
-            const { daysOfWeekArray, points, index, pointsOfDayArray } = req.body;
-            const agenda = await agendaService.updateUserAgenda(id, daysOfWeekArray, points, index, pointsOfDayArray);
+            const { daysOfWeekArray, points, index, pointsOfDayArray, arrayIndex, updateBool } = req.body;
+            const agenda = await agendaService
+                .updateUserAgenda(id, daysOfWeekArray, points, index, pointsOfDayArray, arrayIndex, updateBool);
             res.status(200).json(agenda);
         } catch (e) {
             next(e);

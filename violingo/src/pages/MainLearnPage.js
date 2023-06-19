@@ -48,34 +48,31 @@ const MainLearnPage = () => {
     const [dayWeek, setDayWeek] = useState('');
     const [daysOfWeekArray, setDaysOfWeekArray] = useState(null);
     const [pointsOfDayArray, setPointsOfDayArray] = useState(null);
-    // console.log(daysOfWeekArray);
+    const [dayUpdate, setDayUpdate] = useState('');
+    const [arrayIndex, setArrayIndex] = useState([]);
+    const [updateBool, setUpdateBool] = useState(false);
+    const [dateUpdate, setDateUpdate] = useState(' ');
+    
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     // let pointsOfDayArray = [10, 20, 30, 40, 50, 60, 70];
     // let daysOfWeekArray = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     
     const date = new Date();
     const locate = 'ukr';
-    // const day = daysOfWeekArray && daysOfWeekArray.filter(c => c === dayWeek)[0];
-    // console.log(day);
     const index = daysOfWeekArray && daysOfWeekArray.indexOf(dayWeek);
-    // const index = 0;
-    // console.log(index);
+    const maxNumberInArrayPoints = pointsOfDayArray && Math.max(...pointsOfDayArray);
+    
     daysOfWeekArray && daysOfWeekArray.sort((a, b) => {
         const currentDayIndex = new Date().getDay();
-        // const currentDayIndex = 2;
         const adjustedIndexA = (daysOfWeekArrayConst.indexOf(a) - currentDayIndex + 7) % 7;
         const adjustedIndexB = (daysOfWeekArrayConst.indexOf(b) - currentDayIndex + 7) % 7;
         return adjustedIndexA - adjustedIndexB;
     });
     pointsOfDayArray && pointsOfDayArray.sort((a, b) => {
-        console.log(index);
         const adjustedIndexA = (pointsOfDayArray.indexOf(a) - index - 1 + 7) % 7;
-        // console.log(adjustedIndexA);
         const adjustedIndexB = (pointsOfDayArray.indexOf(b) - index - 1 + 7) % 7;
-        // console.log(adjustedIndexB);
         return adjustedIndexA - adjustedIndexB;
     });
-    // console.log(pointsOfDayArray, '2');
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
@@ -90,21 +87,25 @@ const MainLearnPage = () => {
         const twoLetter = dayName.charAt(1);
         return firstLetter + twoLetter;        
     };
-    // const changePlaceDayWeekInArray = (array, date, locate) => {
-    //     const dayName = getDayName(date, locate);
-    //     const fromIndex = array.indexOf(dayName);
-    //     console.log(dayName, fromIndex);
-    //     const value = array.splice(fromIndex, 1)[0];
-    //     console.log(value);
-    //     array.splice(6, 0, value);
-    //     console.log(array);
-    //     return array;
-    // };
-    // const changePlacePointsInArray = (array, ind) => {
-    //     const value = array.splice(ind, 1)[0];
-    //     array.splice(ind, 0, value);
-    //     return array;
-    // };
+    const daysNotLearned = (dayUpdate, dayNow, arrayDayWeek, dateUpdate, dateNow) => {
+        const subtractDates = Math.abs(dateNow - new Date(dateUpdate));
+        const days = Math.floor(subtractDates / (24*60*60*1000));
+        let array = [];
+        if (days < 7) {
+            const dayUpdateIndex = arrayDayWeek && arrayDayWeek.indexOf(dayUpdate);
+            const dayNowIndex = arrayDayWeek && arrayDayWeek.indexOf(dayNow);
+            const filterDaysArray = arrayDayWeek && arrayDayWeek
+                .filter((c, index) => index > dayUpdateIndex && index < dayNowIndex);
+            if (filterDaysArray) {
+                for (let i = 0; i < filterDaysArray.length; i++) {
+                    array.push(arrayDayWeek.indexOf(filterDaysArray[i]));
+                }
+            }
+        } else {
+            array = [0, 1, 2, 3, 4, 5, 6];
+        }
+        return array;
+    };
     
     useEffect(() => {
         let action = true;
@@ -123,10 +124,10 @@ const MainLearnPage = () => {
             };
             fetchStatistic();
             setDayWeek(getDayName(date, locate));
-            // setDayWeek('Вт');
             const fetchUpdateAgendaUser = async () => {
                 try {
-                    await updateAgendaUser(daysOfWeekArray, points, index, pointsOfDayArray).then();
+                    await updateAgendaUser(daysOfWeekArray, points, index, pointsOfDayArray, arrayIndex, updateBool)
+                        .then();
                 } catch(e) {
                     console.log(e.message);
                 }
@@ -138,9 +139,10 @@ const MainLearnPage = () => {
                 try {
                     await getAgendaUser().then(data => {
                         if (data.status === 200) {
-                            // dispatch(agendaUser(data.data));
                             setDaysOfWeekArray(data.data.daysOfWeekArray);
                             setPointsOfDayArray(data.data.pointsOfDayArray);
+                            setDayUpdate(getDayName(new Date(data.data.updatedAt), locate));
+                            setDateUpdate(data.data.updatedAt);
                         }
                     });
                 } catch(e) {
@@ -148,6 +150,16 @@ const MainLearnPage = () => {
                 }
             }
             fetchGetAgendaUser();
+            if (dateUpdate !== ' '){
+                if (new Date().getDate() !== new Date(dateUpdate).getDate()) {
+                    setArrayIndex(daysNotLearned(dayUpdate, dayWeek, daysOfWeekArray, dateUpdate, date));
+                    if (arrayIndex.length > 0) {
+                        setUpdateBool(true);
+                    } else {
+                        setUpdateBool(false);
+                    }
+                }
+            }
             if (location.pathname === LEARN_PAGE) {
                 setLearnPage(true);
                 setReviewPage(false);
@@ -236,7 +248,7 @@ const MainLearnPage = () => {
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
         offExerciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget,
-        idPurpose, dayWeek, index, 
+        idPurpose, dayWeek, index, arrayIndex, updateBool, dayUpdate,
     ]);
     return (
         <>
@@ -324,6 +336,7 @@ const MainLearnPage = () => {
                         everyDayTarget={everyDayTarget}
                         daysOfWeekArray={daysOfWeekArray}
                         pointsOfDayArray={pointsOfDayArray}
+                        maxNumberInArrayPoints={maxNumberInArrayPoints}
                     />
                 </div>
             </div> 

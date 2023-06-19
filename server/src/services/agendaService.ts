@@ -11,17 +11,16 @@ class AgendaService {
         daysOfWeekArray: string[], 
         points: number, 
         index: number, 
-        pointsOfDayArray: number[]
+        pointsOfDayArray: number[],
+        arrayIndex: number[],
+        updateBool: boolean,
     ) {
-        // let pointsOfDayArray = await model.AgendaUser.findOne({ where: { userId } })
-        //     .then(data => data?.pointsOfDayArray);
-        // const day = await model.AgendaUser.findOne({ where: {userId } }).then(data => data?.daysOfWeekArray);
-        // if (day !== undefined) {
-        //     console.log(day[6]);
-        // }
-        // if (pointsOfDayArray !== undefined) {
-            // pointsOfDayArray[index] = points;
-        // }
+        if (updateBool) {
+            for (let i = 0; i < arrayIndex.length; i++) {
+                pointsOfDayArray[arrayIndex[i]] = 0;
+            }
+        }
+        pointsOfDayArray[index] = points;
         return model.AgendaUser.update({ daysOfWeekArray, pointsOfDayArray }, { where: { userId } });
     }
 }

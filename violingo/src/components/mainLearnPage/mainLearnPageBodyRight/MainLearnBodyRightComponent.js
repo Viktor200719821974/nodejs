@@ -4,7 +4,7 @@ import { arrayPurposeSettingsCoachComponent } from '../../../constants/arrays';
 
 const MainLearnBodyRightComponent = ({
     points, setSettingsCoach, setIdElement, settingsCoach, settingsSound, navigate, daysOfWeekArray, pointsOfDayArray,
-    setSettingsSound, changeBodyRight, activeButton, choosePurposeDay, everyDayTarget, 
+    setSettingsSound, changeBodyRight, activeButton, choosePurposeDay, everyDayTarget, maxNumberInArrayPoints,
 }) => {
     const purposeDay = everyDayTarget && arrayPurposeSettingsCoachComponent
         .filter(c => c.name === everyDayTarget) 
@@ -36,6 +36,7 @@ const MainLearnBodyRightComponent = ({
                             navigate={navigate}
                             daysOfWeekArray={daysOfWeekArray}
                             pointsOfDayArray={pointsOfDayArray}
+                            maxNumberInArrayPoints={maxNumberInArrayPoints}
                         />      
                     </div> 
                 </div>
