@@ -3981,26 +3981,6 @@ input[type=checkbox]:checked:after {
 .icon_next_paginationComponent:hover {
     color: #afafaf;
 }
-/* .shapeOutside {
-    padding: 40px; 
-    border-radius: 50%; 
-    border: 2px solid black; 
-    shape-outside: circle();
-    float: left;
-} */
-.wrapper {
-    display: flex;
-}
-.main {
-    flex: 3;
-}
-.intro-img {
-  width: 250px;
-  height: 250px;
-  float: left;
-  shape-outside: circle() margin-box;
-  shape-margin: 10px;
-}  
 
 @media (max-width: 1360px) {
     .mainLearnPage_main_navBar {
