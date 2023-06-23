@@ -3,9 +3,47 @@ import { arrayButtonsImagesLearnComponent } from '../../../constants/arrays';
 import { IMAGES_LEARN_COMPONENT } from '../../../constants';
 import PartLearnComponent from './PartLearnComponent';
 
-const LearnComponent = () => {
+const LearnComponent = ({themes}) => {
     return (
         <div>
+            {
+                themes.map((c, index) => 
+                    <section key={c.id}>
+                        <div
+                            className="mainLearnPage_div_main_header_learnComponent"
+                            style={{background: `${c.background_theme}`}}
+                            >
+                            <div className="mainLearnPage_div_main_signs_learnComponent">
+                                <span className="mainLearnPage_span_sign_chapter_learnComponent">
+                                    Розділ {index + 1}
+                                </span>
+                                <span className="mainLearnPage_span_sign_other_learnComponent">
+                                    {c.title}
+                                </span> 
+                            </div>
+                            <span className="mainLearnPage_span_button_header_learnComponent">
+                                <img 
+                                    src={book} 
+                                    alt="stamp book"
+                                    className="mainLearnPage_image_book_learnComponent"
+                                />
+                                <span className="mainLearnPage_sign_button_learnComponent">
+                                    Посібник
+                                </span>
+                            </span>    
+                        </div>
+                        {
+                            c.module.map(c => 
+                                <div className="mainLearnPage_div_main_button_and_images_learnComponent" key={c.id}>
+                                    <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
+
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </section>
+                )
+            }
             {arrayButtonsImagesLearnComponent.map(c => 
                 <section key={c.id}>
                     <div 

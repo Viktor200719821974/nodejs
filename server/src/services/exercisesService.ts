@@ -1,4 +1,5 @@
 import { UploadedFile } from 'express-fileupload';
+
 import { IExercise } from '../interfaces';
 import { model } from '../models';
 import { saveImageService } from './saveImageService';
@@ -35,12 +36,10 @@ class ExercisesService {
         let titleExercise = '';
         let oneWord = '';
         const cyrillicPattern = /^[\u0400-\u04FF]+$/;
-        console.log('.............................................');
         if (answer !== undefined) {
             oneWord = answer.split(' ').map((c) => c)[0];
         }
         if (chooseAnswer) {
-            console.log(chooseAnswer, '________________');
             titleExercise = 'Як сказати';
         }
         if (chooseImage) {

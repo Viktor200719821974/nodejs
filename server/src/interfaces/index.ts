@@ -134,6 +134,9 @@ export interface ITheme extends Model
     <InferAttributes<ITheme>, InferCreationAttributes<ITheme>> {
         id: number;
         title: string;
+        background_theme: string;
+        image_left: string;
+        image_right: string;
 }
 export interface ITask extends Model
     <InferAttributes<ITask>, InferCreationAttributes<ITask>> {

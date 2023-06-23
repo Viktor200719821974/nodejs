@@ -18,6 +18,7 @@ import MainLearnBodyRightComponent from '../components/mainLearnPage/mainLearnPa
 import arrow from '../icons/arrow-up-blue.svg';
 import { getStatistic } from '../http/statisticApi';
 import { getAgendaUser, updateAgendaUser } from '../http/agendaApi';
+import { getThemes } from '../http/themesApi';
 
 const MainLearnPage = () => {
     const location = useLocation();
@@ -52,6 +53,7 @@ const MainLearnPage = () => {
     const [arrayIndex, setArrayIndex] = useState([]);
     const [updateBool, setUpdateBool] = useState(false);
     const [dateUpdate, setDateUpdate] = useState(' ');
+    const [themes, setThemes] = useState([]);
     
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     // let pointsOfDayArray = [10, 20, 30, 40, 50, 60, 70];
@@ -150,6 +152,18 @@ const MainLearnPage = () => {
                 }
             }
             fetchGetAgendaUser();
+            const fetchThemes = async() => {
+                try {
+                    await getThemes().then(data => {
+                        if (data.status === 200) {
+                            setThemes(data.data);
+                        }
+                    });
+                } catch(e) {
+                    console.log(e.message);
+                }
+            }
+            fetchThemes();
             if (dateUpdate !== ' '){
                 if (new Date().getDate() !== new Date(dateUpdate).getDate()) {
                     setArrayIndex(daysNotLearned(dayUpdate, dayWeek, daysOfWeekArray, dateUpdate, date));
@@ -276,7 +290,11 @@ const MainLearnPage = () => {
                     /> 
                 </span>  
                 <div className="mainLearnPage_div_body_component">
-                    { learnPage && <LearnComponent/> }
+                    { learnPage && 
+                        <LearnComponent
+                            themes={themes}
+                        /> 
+                    }
                     { reviewPage && <ReviewComponent/> }
                     { shopPage && <ShopComponent/> }
                     { schoolPage && <SchoolsComponent/> }

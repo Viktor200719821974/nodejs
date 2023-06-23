@@ -5,6 +5,6 @@ import { validates } from '../middlewares/validation';
 
 const router = Router();
 
-router.get('/', authMiddleware.checkAccessToken, authMiddleware.userStaff, themesController.getThemes);
+router.get('/', themesController.getThemes);
 router.post('/', authMiddleware.checkAccessToken, authMiddleware.userStaff, validates.theme, themesController.createTheme);
 export const themesRouter = router;

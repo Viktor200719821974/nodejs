@@ -1,8 +1,10 @@
-import { $authHost } from './index';
+import { $authHost, $host } from './index';
 
 export const getThemes = async () => {
-    return await $authHost.get('/themes');
+    return await $host.get('/themes');
 }
-export const createTheme = async (title) => {
-    return await  $authHost.post('/themes', { title });
+export const createTheme = async (formData) => {
+    return await  $authHost.post('/themes', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    });
 }

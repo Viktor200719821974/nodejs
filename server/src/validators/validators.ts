@@ -22,6 +22,9 @@ export const validators = {
     theme: Joi.object({
         title: Joi.string().required().min(1).max(100)
             .error(new Error('Name theme is not valid, cannot be empty, max length 100 ')),
+        background_theme: Joi.string().allow(null).error(new Error('Background theme is not valid')),
+        imageLeft: Joi.string().allow(null).error(new Error('Image left is not valid')),
+        imageRight: Joi.string().allow(null).error(new Error('Image right is not valid')),
     }),
     tasks: Joi.object({
         question: Joi.string().required().allow(null).allow('')

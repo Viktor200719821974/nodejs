@@ -52,6 +52,15 @@ const Theme = sequelize.define<ITheme>('theme', {
     title: {
         type: DataTypes.STRING, allowNull: false,
     },
+    background_theme: {
+        type: DataTypes.STRING, allowNull: false, defaultValue: '#58cc02',
+    },
+    image_left: {
+        type: DataTypes.STRING,  
+    },
+    image_right: {
+        type: DataTypes.STRING,  
+    },
 });
 // const Section = sequelize.define<ISection>('Section', {
 //     id: {
@@ -357,8 +366,11 @@ Lesson.belongsTo(Module);
 Lesson.hasMany(Exercise, { foreignKey: 'lessonId', as: 'exercises' });
 Exercise.belongsTo(Lesson);
 
-Theme.hasOne(Task, { foreignKey: 'themeId', as: 'task' });
+Theme.hasMany(Task, { foreignKey: 'themeId', as: 'task' });
 Task.belongsTo(Theme);
+
+Theme.hasMany(Module, { foreignKey: 'themeId', as: 'module' });
+Module.belongsTo(Theme);
 
 Task.hasOne(ImageTask, { foreignKey: 'taskId', as: 'image' });
 ImageTask.belongsTo(Task);

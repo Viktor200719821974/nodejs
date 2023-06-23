@@ -3738,6 +3738,15 @@ input[type=checkbox]:checked:after {
     color: red;
     margin-left: 10px;
 }
+.adminPage_div_input_file_createThemesComponent {
+    padding-top: 12px ;
+}
+.adminPage_span_input_file_createThemesComponent {
+    color: #afafaf;
+    font-size: 17px;
+    font-weight: 600;
+    margin-right: 4px;
+}
 .adminPage_h1_title_createComponent {
     color: #afafaf;
     width: 100%;

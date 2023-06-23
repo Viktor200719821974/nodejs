@@ -54,6 +54,7 @@ const AdminPage = () => {
     const [dropdownTypeMenu, setDropdownTypeMenu] = useState(true);
     const [imageExample, setImageExample] = useState('');
     const [drag, setDrag] = useState(false);
+    const [dragLeft, setDragLeft] = useState(false);
     const [showComponentCreate, setShowComponentCreate] = useState(false);
     const [createWhat, setCreateWhat] = useState('');
     const [lessons, setLessons] = useState([]);
@@ -76,6 +77,9 @@ const AdminPage = () => {
     const [modules, setModules] = useState([]);
     const [dropdownMenuModules, setDropdownMenuModules] = useState(false);
     const [moduleId, setModuleId] = useState(0);
+    const [backgroundTheme, setBackgroundTheme] = useState(null);
+    const [themeImageLeft, setThemeImageLeft] = useState(null);
+    const [themeImageRight, setThemeImageRight] = useState(null);
     
     let numberPage = [];
     for (let i = 1; i <= countPage; i++ ){
@@ -102,7 +106,12 @@ const AdminPage = () => {
     const clickCreateTheme = async (e) => {
         e.preventDefault();
         try {
-            await createTheme(title).then(data => {
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('background_theme', backgroundTheme);
+            formData.append('imageLeft', themeImageLeft);
+            formData.append('imageRight', themeImageRight);
+            await createTheme(formData).then(data => {
                 if (data.status === 201) {
                     setShow(false);
                     setErrorMessage('');
@@ -517,7 +526,8 @@ const AdminPage = () => {
         file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
         countExecisesLesson, questionForExercise, answerForExercise, showFieldAddImage, errorEmptyArrayLessons,
         errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, arrayId.length, page, countPage,
-        arraytTranslateWordsTasks, moduleNumber, modules, dropdownMenuModules, moduleId,
+        arraytTranslateWordsTasks, moduleNumber, modules, dropdownMenuModules, moduleId, backgroundTheme, themeImageLeft,
+        themeImageRight, dragLeft,
     ]);
     return (
         <div className={"adminPage_main_div display_alien_justify"}>
@@ -577,6 +587,13 @@ const AdminPage = () => {
                         click={clickCreateTheme}
                         error={error}
                         errorMessage={errorMessage}
+                        setBackgroundTheme={setBackgroundTheme}
+                        setThemeImageLeft={setThemeImageLeft}
+                        setThemeImageRight={setThemeImageRight}
+                        setDrag={setDrag}
+                        drag={drag}
+                        setDragLeft={setDragLeft}
+                        dragLeft={dragLeft}
                     />
             }
             {
