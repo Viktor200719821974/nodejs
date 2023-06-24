@@ -2,8 +2,11 @@ import book from '../../../icons/book.svg';
 import { arrayButtonsImagesLearnComponent } from '../../../constants/arrays';
 import { IMAGES_LEARN_COMPONENT } from '../../../constants';
 import PartLearnComponent from './PartLearnComponent';
+import ImageLeftComponent from './ImageLeftComponent';
+import ImageRightComponent from './ImageRightComponent';
 
 const LearnComponent = ({themes}) => {
+    console.log(themes);
     return (
         <div>
             {
@@ -12,7 +15,7 @@ const LearnComponent = ({themes}) => {
                         <div
                             className="mainLearnPage_div_main_header_learnComponent"
                             style={{background: `${c.background_theme}`}}
-                            >
+                        >
                             <div className="mainLearnPage_div_main_signs_learnComponent">
                                 <span className="mainLearnPage_span_sign_chapter_learnComponent">
                                     Розділ {index + 1}
@@ -32,15 +35,15 @@ const LearnComponent = ({themes}) => {
                                 </span>
                             </span>    
                         </div>
-                        {
-                            c.module.map(c => 
-                                <div className="mainLearnPage_div_main_button_and_images_learnComponent" key={c.id}>
-                                    <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
-
-                                    </div>
-                                </div>
-                            )
-                        }
+                            {/* <div className="mainLearnPage_div_main_button_and_images_learnComponent"> */}
+                            {
+                                c.image_left &&
+                                    <ImageLeftComponent module={c.module} image_left={c.image_left}/>
+                            }
+                            {
+                                c.image_right &&
+                                    <ImageRightComponent module={c.module} image_right={c.image_right}/>
+                            }       
                     </section>
                 )
             }

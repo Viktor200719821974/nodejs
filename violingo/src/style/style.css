@@ -2345,9 +2345,12 @@ input[type=number] {
     position: relative;
 }
 .mainLearnPage_div_big_image1_learnComponent {
-    position: absolute;
+    /* position: absolute;
     top: 180px;
-    left: 0;  
+    left: 0;   */
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
 .mainLearnPage_div_big_image2_learnComponent {
     position: absolute;
@@ -2366,22 +2369,30 @@ input[type=number] {
 }
 .mainLearnPage_big_image_learnComponent {
     height: 261px;
-    transform: translateY(-50%);
+    /* transform: translateY(-50%); */
     width: 272px;
 }
+/* .mainLearnPage_big_image_learnComponent {
+    height: 261px;
+    transform: translateY(-50%);
+    width: 272px;
+} */
 .mainLearnPage_div_main_buttons_with_image_learnComponent {
     display: flex;
-    align-items: center;
-    flex-direction: column;
+    /* align-items: center; */
+    /* flex-direction: column; */
     margin-top: 30px;
     width: 100%;
-    position: relative;
+    /* position: relative; */
 }
 .mainLearnPage_div_button_learnComponent {
-    display: flex;
+    /* display: flex; */
+    flex-direction: column;
     align-items: center;
-    justify-content: left;
+    /* justify-content: left; */
     cursor: pointer;
+    /* position: relative; */
+    width: 100%;
 }
 .mainLearnPage_div_button_right_learnComponent {
     display: flex;

@@ -163,6 +163,9 @@ const Module = sequelize.define<IModule>('module', {
     moduleNumber: {
         type: DataTypes.INTEGER, allowNull: false,
     },
+    image_module: {
+        type: DataTypes.STRING, allowNull: false,
+    },
     themeId: {
         type: DataTypes.INTEGER, allowNull: false,
     },

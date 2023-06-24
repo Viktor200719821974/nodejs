@@ -1,10 +1,11 @@
 import cross from '../../icons/cross-closedModal.svg';
 import DropDownMenuComponent from './subComponents/DropDownMenuComponent';
+import FieldForLoadFiles from './subCreateTaskComponents/FieldForLoadFiles';
 
 const CreateLessonsComponent = ({ 
     setLessonNumber, clickLesson, error, errorMessage, themes, themeTitle, dropdown, openCloseDropdownMenu,
     clickCreateLesson, createWhat, setModuleNumber, closeModalLessonOrModule, openCloseDropdownMenuModules, modules,
-    moduleNumber, dropdownMenuModules, clickCreateModule, 
+    moduleNumber, dropdownMenuModules, clickCreateModule, setImageModule, setDrag, drag,
 }) => {
     return (
         <div className="adminPage_modal_window display_alien_justify">
@@ -55,13 +56,27 @@ const CreateLessonsComponent = ({
                                         onChange={(e) => setLessonNumber(e.target.value)}
                                     />
                                 :
-                                    <input
-                                        type="number"
-                                        name="moduleNumber"
-                                        placeholder="Введіть номер модуля"
-                                        className="loginPage_input_loginComponent"
-                                        onChange={(e) => setModuleNumber(e.target.value)}
-                                    />
+                                    <div>
+                                        <input
+                                            type="number"
+                                            name="moduleNumber"
+                                            placeholder="Введіть номер модуля"
+                                            className="loginPage_input_loginComponent"
+                                            onChange={(e) => setModuleNumber(e.target.value)}
+                                        /> 
+                                        <FieldForLoadFiles
+                                            setFile={setImageModule}
+                                            setDrag={setDrag}
+                                            drag={drag}
+                                        /> 
+                                        <input
+                                            type="file"
+                                            placeholder="Select image"
+                                            className="adminPage_input_type_file"
+                                            onChange={(e) => setImageModule(e.target.files[0])}
+                                        /> 
+                                    </div>
+                                    
                         }
                         <div className="loginPage_div_wrap_for_button_loginComponent">
                             <button

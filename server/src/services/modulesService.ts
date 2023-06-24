@@ -1,5 +1,8 @@
+import { UploadedFile } from 'express-fileupload';
+
 import { IModule } from '../interfaces';
 import { model } from '../models';
+import { saveImageService } from './saveImageService';
 
 class ModulesService {
     async getModules(themeId: number): Promise<IModule[]> {
@@ -12,8 +15,9 @@ class ModulesService {
         return modules;
     }
 
-    async createModule(module: IModule): Promise<IModule> {
-        return model.Module.create({ ...module });
+    async createModule(module: IModule, image: UploadedFile): Promise<IModule> {
+        const fileName = await saveImageService.saveImage(image);
+        return model.Module.create({ ...module, image_module: fileName });
     }
 
     async findModuleByNumberByThemeId(

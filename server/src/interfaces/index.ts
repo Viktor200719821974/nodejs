@@ -57,6 +57,7 @@ export interface IModule extends Model
     <InferAttributes<IModule>, InferCreationAttributes<IModule>> {
         id: number;
         moduleNumber: number;
+        image_module: string;
         themeId: number;
 }
 
