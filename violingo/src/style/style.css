@@ -2341,64 +2341,37 @@ input[type=number] {
     margin-left: 12px;
 }
 .mainLearnPage_div_main_button_and_images_learnComponent {
-    padding: 0 16px 20px;
-    position: relative;
+    padding: 20px 12px;
 }
-.mainLearnPage_div_big_image1_learnComponent {
-    /* position: absolute;
-    top: 180px;
-    left: 0;   */
+.mainLearnPage_div_big_image_left_learnComponent {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 12px;
+}
+.mainLearnPage_div_big_image_right_learnComponent {
     display: flex;
     justify-content: left;
     align-items: center;
 }
-.mainLearnPage_div_big_image2_learnComponent {
-    position: absolute;
-    top: 560px;
-    right: 0;  
-}
-.mainLearnPage_div_big_image2_ifOneImage_learnComponent {
-    position: absolute;
-    top: 180px;
-    right: 0;  
-}
-.mainLearnPage_div_big_image2_left_learnComponent {
-    position: absolute;
-    top: 560px;
-    left: 0; 
-}
 .mainLearnPage_big_image_learnComponent {
     height: 261px;
-    /* transform: translateY(-50%); */
     width: 272px;
 }
-/* .mainLearnPage_big_image_learnComponent {
-    height: 261px;
-    transform: translateY(-50%);
-    width: 272px;
-} */
 .mainLearnPage_div_main_buttons_with_image_learnComponent {
     display: flex;
-    /* align-items: center; */
-    /* flex-direction: column; */
-    margin-top: 30px;
     width: 100%;
-    /* position: relative; */
 }
 .mainLearnPage_div_button_learnComponent {
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
-    /* justify-content: left; */
-    cursor: pointer;
-    /* position: relative; */
     width: 100%;
 }
 .mainLearnPage_div_button_right_learnComponent {
     display: flex;
     align-items: center;
-    justify-content: right;
-    cursor: pointer;
+    flex-direction: column;
+    width: 70%;
 }
 .mainLearnPage_button_with_image_learnComponent {
     height: 57px;
@@ -2407,6 +2380,43 @@ input[type=number] {
     border: none;
     box-shadow: 0 8px 0 rgba(0,0,0,.2);
     margin: 10px;
+}
+.mainLearnPage_main_div_active_button_with_image_learnComponent {
+    position: relative;
+    width: 104px;
+    height: 100px;
+    border-radius: 50%;
+    /* background-color: #e5e5e5; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 5px solid #e5e5e5; */
+    /* background-size: 50% auto; */
+    background: linear-gradient(rgb(229, 229, 229, 0.6) 50%, rgb(255, 200, 0, 1) 100%);
+    /* line-height:50%; 
+    overflow:visible; */
+}
+.mainLearnPage_second_div_active_button_with_image_learnComponent {
+    width: 88px;
+    height: 84px;
+    border-radius: 50%;
+    background-color:#fff;
+}
+.mainLearnPage_active_button_with_image_learnComponent {
+    height: 57px;
+    width: 70px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 8px 0 #58a700;
+    margin: 10px;
+    background-color: #58cc02;
+    position: absolute;
+    top: 6px;
+}
+.mainLearnPage_active_button_with_image_learnComponent:active {
+    box-shadow: none;
+    position: absolute;
+    height: 68px;
 }
 .error404Page_main_div {
     width: 100%;

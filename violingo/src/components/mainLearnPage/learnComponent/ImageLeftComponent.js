@@ -1,10 +1,10 @@
 import coffer from '../../../icons/coffer.svg';
 import { IMAGES_SERVER_PATH } from '../../../constants';
 
-const ImageLeftComponent = ({ module, image_left, }) => {
+const ImageLeftComponent = ({ module, image_left, themeNumber, moduleNumber, themeId, }) => {
     return (
         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
-            <div className="mainLearnPage_div_big_image1_learnComponent">
+            <div className="mainLearnPage_div_big_image_left_learnComponent">
                 <img 
                     src={IMAGES_SERVER_PATH + image_left} 
                     alt={'left aplication'}
@@ -14,12 +14,11 @@ const ImageLeftComponent = ({ module, image_left, }) => {
             <div className="mainLearnPage_div_button_learnComponent">
                 {
                     module.sort((a, b) => a.moduleNumber - b.moduleNumber).map((c, index) =>
-                        <div>
+                        <div key={c.id}>
                             {
                                 index < 2 && 
                                     <button 
                                         className="mainLearnPage_button_with_image_learnComponent" 
-                                        key={c.id}
                                         style={{marginLeft: `${50 * index}px`}}
                                         >
                                         <img 
@@ -33,17 +32,16 @@ const ImageLeftComponent = ({ module, image_left, }) => {
                 }
                 {
                     module.length > 0 &&
-                        <img src={coffer} alt={"coffer stamp"} style={{marginLeft: '60px'}}/>
+                        <img src={coffer} alt={"coffer stamp"} style={{marginLeft: '60px', cursor: 'pointer'}}/>
                 }
                 {
                     module.sort((a, b) => a.moduleNumber - b.moduleNumber).map((c, index) =>
-                        <div>
+                        <div key={c.id}>
                             {
                                 (index < 4 && index > 1) &&
                                     <button 
                                         className="mainLearnPage_button_with_image_learnComponent" 
-                                        key={c.id}
-                                        style={{marginLeft: `${index % 2 === 0 ? 25 * index : 0}px`}}
+                                        style={{marginLeft: `${index % 2 === 0 ? 25 * index : 25}px`}}
                                         >
                                         <img 
                                             src={IMAGES_SERVER_PATH + c.image_module}

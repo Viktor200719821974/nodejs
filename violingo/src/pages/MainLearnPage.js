@@ -54,6 +54,7 @@ const MainLearnPage = () => {
     const [updateBool, setUpdateBool] = useState(false);
     const [dateUpdate, setDateUpdate] = useState(' ');
     const [themes, setThemes] = useState([]);
+    // const [activeModule, setActiveModule] = useState(false);
     
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     // let pointsOfDayArray = [10, 20, 30, 40, 50, 60, 70];
@@ -63,6 +64,8 @@ const MainLearnPage = () => {
     const locate = 'ukr';
     const index = daysOfWeekArray && daysOfWeekArray.indexOf(dayWeek);
     const maxNumberInArrayPoints = pointsOfDayArray && Math.max(...pointsOfDayArray);
+    const themeNumber = 1;
+    const moduleNumber = 1;
     
     daysOfWeekArray && daysOfWeekArray.sort((a, b) => {
         const currentDayIndex = new Date().getDay();
@@ -262,7 +265,7 @@ const MainLearnPage = () => {
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
         offExerciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget,
-        idPurpose, dayWeek, index, arrayIndex, updateBool, dayUpdate,
+        idPurpose, dayWeek, index, arrayIndex, updateBool, dayUpdate, 
     ]);
     return (
         <>
@@ -293,6 +296,8 @@ const MainLearnPage = () => {
                     { learnPage && 
                         <LearnComponent
                             themes={themes}
+                            themeNumber={themeNumber}
+                            moduleNumber={moduleNumber}
                         /> 
                     }
                     { reviewPage && <ReviewComponent/> }

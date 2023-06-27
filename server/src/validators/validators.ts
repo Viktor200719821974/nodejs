@@ -52,7 +52,7 @@ export const validators = {
     modules: Joi.object({
         moduleNumber: Joi.number().required().min(1)
             .error(new Error('Module number is not valid, min 1 ')),
-        image: Joi.string().required().error(new Error('Image module is not valid')),
+        image: Joi.any().error(new Error('Image module is not valid')),
         themeId: Joi.number().required()
             .error(new Error('Choose theme')),
     }),
