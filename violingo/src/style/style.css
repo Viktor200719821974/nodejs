@@ -2381,43 +2381,54 @@ input[type=number] {
     box-shadow: 0 8px 0 rgba(0,0,0,.2);
     margin: 10px;
 }
-.mainLearnPage_main_div_active_button_with_image_learnComponent {
-    position: relative;
-    width: 104px;
-    height: 100px;
-    border-radius: 50%;
-    /* background-color: #e5e5e5; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 5px solid #e5e5e5; */
-    /* background-size: 50% auto; */
-    background: linear-gradient(rgb(229, 229, 229, 0.6) 50%, rgb(255, 200, 0, 1) 100%);
-    /* line-height:50%; 
-    overflow:visible; */
-}
-.mainLearnPage_second_div_active_button_with_image_learnComponent {
-    width: 88px;
-    height: 84px;
-    border-radius: 50%;
-    background-color:#fff;
-}
 .mainLearnPage_active_button_with_image_learnComponent {
     height: 57px;
     width: 70px;
     border-radius: 50%;
-    border: none;
+    /* border: solid 2px black; */
     box-shadow: 0 8px 0 #58a700;
     margin: 10px;
     background-color: #58cc02;
     position: absolute;
-    top: 6px;
+    top: -2px;
+    border: none;
 }
 .mainLearnPage_active_button_with_image_learnComponent:active {
     box-shadow: none;
     position: absolute;
     height: 68px;
 }
+.mainLearnPage_main_div_active_button_with_image_learnComponent {
+    position: relative;
+    width: 104px;
+    height: 100px;
+    border-radius: 50%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 8px solid #ffc800;
+}
+/* .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    /* border-top: 16px solid #3498db; /* Blue */
+    /* border-radius: 50%; */
+    /* width: 120px; */
+    /* height: 120px; */ */ */
+    /* animation: spin 2s linear infinite; */
+/* } */
+
+/* @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+} */
+/* .mainLearnPage_second_div_active_button_with_image_learnComponent {
+    width: 88px;
+    height: 84px;
+    border-radius: 50%;
+    background-color:#fff;
+} */
+
 .error404Page_main_div {
     width: 100%;
     height: 100vh;

@@ -28,16 +28,18 @@ const ImageRightComponent = ({ module, image_right, image_left, themeNumber, mod
                                                 style={{marginLeft: `${270 - index * 90}px`}}
                                                 className="mainLearnPage_main_div_active_button_with_image_learnComponent"
                                                 >
-                                                    <div 
+                                                    {/* <div className='loader'></div> */}
+                                                    {/* <div 
                                                         className="mainLearnPage_second_div_active_button_with_image_learnComponent"
-                                                        >
+                                                        > */}
+                                                        {/* <button className="mainLearnPage_active_button_with_image_learnComponent">Nlljdslk</button> */}
                                                         <button className="mainLearnPage_active_button_with_image_learnComponent">
                                                             <img 
                                                                 src={IMAGES_LEARN_COMPONENT + 'starForActiveModule.svg'} 
-                                                                alt={'active buttonss'}
+                                                                alt={'active button'}
                                                             />
                                                         </button>
-                                                    </div>
+                                                    {/* </div> */}
                                             </div>
                                         }
                                     </div>
