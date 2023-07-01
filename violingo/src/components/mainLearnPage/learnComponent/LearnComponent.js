@@ -2,7 +2,7 @@ import book from '../../../icons/book.svg';
 import ImageLeftComponent from './ImageLeftComponent';
 import ImageRightComponent from './ImageRightComponent';
 
-const LearnComponent = ({ themes, themeNumber, moduleNumber }) => {
+const LearnComponent = ({ themes, moduleId, show, setShow, }) => {
     return (
         <div>
             {
@@ -37,9 +37,10 @@ const LearnComponent = ({ themes, themeNumber, moduleNumber }) => {
                                         <ImageLeftComponent 
                                             module={c.module} 
                                             image_left={c.image_left}
-                                            themeNumber={themeNumber}
-                                            moduleNumber={moduleNumber}
-                                            themeId={c.id}
+                                            moduleId={moduleId}
+                                            backgroundTheme={c.background_theme}
+                                            show={show}
+                                            setShow={setShow}
                                         />
                                 }
                                 {
@@ -48,9 +49,10 @@ const LearnComponent = ({ themes, themeNumber, moduleNumber }) => {
                                             module={c.module} 
                                             image_right={c.image_right}
                                             image_left={c.image_left}
-                                            themeNumber={themeNumber}
-                                            moduleNumber={moduleNumber}
-                                            themeId={c.id}
+                                            moduleId={moduleId}
+                                            backgroundTheme={c.background_theme}
+                                            show={show}
+                                            setShow={setShow}
                                         />
                                 }  
                             </div>     

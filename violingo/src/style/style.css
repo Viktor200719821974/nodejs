@@ -2001,20 +2001,11 @@ input[type=number] {
     border-radius: 10px; 
     padding: 24px;
 }
-/* .mainLearnPage_main_div_agendaComponent {
-    position: relative;
-} */
-/* .mainLearnPage_main_div_graphic_agendaComponet {
-    position: relative;
-} */
 .main_div_graphicComponet {
     margin-top: 10px;
     padding: 0;
     width: 100%;
 }
-/* .graphicComponent_style_plot {
-    background: none;
-} */
 .mainLearnPage_div_main_sign_agendaComponent {
     margin-bottom: 12px;
     box-sizing: border-box;
@@ -2378,19 +2369,18 @@ input[type=number] {
     width: 70px;
     border-radius: 50%;
     border: none;
-    box-shadow: 0 8px 0 rgba(0,0,0,.2);
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
     margin: 10px;
 }
 .mainLearnPage_active_button_with_image_learnComponent {
     height: 57px;
     width: 70px;
     border-radius: 50%;
-    /* border: solid 2px black; */
     box-shadow: 0 8px 0 #58a700;
     margin: 10px;
     background-color: #58cc02;
     position: absolute;
-    top: -2px;
+    top: 2px;
     border: none;
 }
 .mainLearnPage_active_button_with_image_learnComponent:active {
@@ -2400,35 +2390,86 @@ input[type=number] {
 }
 .mainLearnPage_main_div_active_button_with_image_learnComponent {
     position: relative;
-    width: 104px;
-    height: 100px;
+    width: 98px;
+    height: 92px;
     border-radius: 50%;
-    /* background-color: red; */
+    background-color: #e5e5e5;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 8px solid #ffc800;
 }
-/* .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    /* border-top: 16px solid #3498db; /* Blue */
-    /* border-radius: 50%; */
-    /* width: 120px; */
-    /* height: 120px; */ */ */
-    /* animation: spin 2s linear infinite; */
-/* } */
-
-/* @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-} */
-/* .mainLearnPage_second_div_active_button_with_image_learnComponent {
-    width: 88px;
-    height: 84px;
+.mainLearnPage_active_button_second_div_learnComponent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 98px;
+    height: 92px;
     border-radius: 50%;
-    background-color:#fff;
-} */
-
+    --value: 0%;
+    background: conic-gradient(#ffc800 var(--value), transparent 0);
+}
+.mainLearnPage_active_button_third_div_learnComponent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85px;
+    height: 80px;
+    background: #fff;
+    border-radius: 50%;
+   
+}
+.main_div_lessonStartWindowModalComponent {
+    position: absolute;
+    top: 102px;
+    padding: 16px;
+    box-sizing: border-box;
+    width: 295px;
+    height: 150px;
+    border-radius: 16px;
+}
+.div_triangle_lessonStartWindowModalComponent {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: -6px;
+    right: 47%;
+    border-right: none;
+    border-bottom: none;
+}
+.div_wrap_lessonStartWindowModalComponent {
+    position: relative;
+}
+.h3_lessonStartWindowModalComponent {
+    color: #fff;
+    margin: 0;
+}
+.p_lessonStartWindowModalComponent {
+    color: #fff;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 500;
+}
+.button_lessonStartWindowModalComponent {
+    width: 100%;
+    height: 50px;
+    margin-top: 16px;
+    border: none;
+    background: #fff;
+    border-radius: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 4px 0 #ddd8d8;
+    position: absolute;
+    top: 48px;
+}
+.button_lessonStartWindowModalComponent:active {
+    box-shadow: none;
+    top: 52px;
+}
 .error404Page_main_div {
     width: 100%;
     height: 100vh;

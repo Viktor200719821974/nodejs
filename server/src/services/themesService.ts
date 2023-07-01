@@ -7,7 +7,12 @@ class ThemesService {
     async getThemes(): Promise<ITheme[]> {
         return model.Theme.findAll({
             include: [
-                { model: model.Module, as: 'module' },
+                { model: model.Module, as: 'module', 
+                    include: [ 
+                        { model: model.Lesson, as: 'lessons' } 
+                    ]
+                },
+                
             ]
         });
     }

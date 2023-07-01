@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate, } from 'react-router-dom';
 
 import { 
@@ -54,6 +54,8 @@ const MainLearnPage = () => {
     const [updateBool, setUpdateBool] = useState(false);
     const [dateUpdate, setDateUpdate] = useState(' ');
     const [themes, setThemes] = useState([]);
+    const [moduleId, setModuleId] = useState(1);
+    const [show, setShow] = useState(false);
     // const [activeModule, setActiveModule] = useState(false);
     
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
@@ -64,8 +66,6 @@ const MainLearnPage = () => {
     const locate = 'ukr';
     const index = daysOfWeekArray && daysOfWeekArray.indexOf(dayWeek);
     const maxNumberInArrayPoints = pointsOfDayArray && Math.max(...pointsOfDayArray);
-    const themeNumber = 1;
-    const moduleNumber = 1;
     
     daysOfWeekArray && daysOfWeekArray.sort((a, b) => {
         const currentDayIndex = new Date().getDay();
@@ -115,19 +115,6 @@ const MainLearnPage = () => {
     useEffect(() => {
         let action = true;
         if (action) {
-            const fetchStatistic = () => {
-                try {
-                    getStatistic().then(data => {
-                        if (data.status === 200) {
-                            setEveryDayTarget(data.data.everyDayTarget);
-                        }
-                    });
-                } catch(e) {
-                    console.log(e.message);
-                }
-                    
-            };
-            fetchStatistic();
             setDayWeek(getDayName(date, locate));
             const fetchUpdateAgendaUser = async () => {
                 try {
@@ -140,33 +127,6 @@ const MainLearnPage = () => {
             if (daysOfWeekArray && pointsOfDayArray) {
                 fetchUpdateAgendaUser();
             }
-            const fetchGetAgendaUser = async() => {
-                try {
-                    await getAgendaUser().then(data => {
-                        if (data.status === 200) {
-                            setDaysOfWeekArray(data.data.daysOfWeekArray);
-                            setPointsOfDayArray(data.data.pointsOfDayArray);
-                            setDayUpdate(getDayName(new Date(data.data.updatedAt), locate));
-                            setDateUpdate(data.data.updatedAt);
-                        }
-                    });
-                } catch(e) {
-                    console.log(e.message);
-                }
-            }
-            fetchGetAgendaUser();
-            const fetchThemes = async() => {
-                try {
-                    await getThemes().then(data => {
-                        if (data.status === 200) {
-                            setThemes(data.data);
-                        }
-                    });
-                } catch(e) {
-                    console.log(e.message);
-                }
-            }
-            fetchThemes();
             if (dateUpdate !== ' '){
                 if (new Date().getDate() !== new Date(dateUpdate).getDate()) {
                     setArrayIndex(daysNotLearned(dayUpdate, dayWeek, daysOfWeekArray, dateUpdate, date));
@@ -249,12 +209,12 @@ const MainLearnPage = () => {
             } else {
                 setIsActive(false);
             }
-            window.addEventListener('scroll', handleScroll, { passive: true });
-            if (scrollPosition >= 250) {
-                setScrollBool(true);
-            } else {
-                setScrollBool(false);
-            }
+            // window.addEventListener('scroll', handleScroll, { passive: true });
+            // if (scrollPosition >= 250) {
+            //     setScrollBool(true);
+            // } else {
+            //     setScrollBool(false);
+            // }
         }
         return(() => {
             action = false;
@@ -264,9 +224,57 @@ const MainLearnPage = () => {
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
-        offExerciseToAudio, activeButton, scrollBool, scrollPosition, everyDayTarget,
-        idPurpose, dayWeek, index, arrayIndex, updateBool, dayUpdate, 
+        offExerciseToAudio, activeButton,  everyDayTarget, moduleId, show,
+        idPurpose, dayWeek, index, arrayIndex, updateBool, dayUpdate,
     ]);
+    useMemo(() => {
+        const fetchThemes = async() => {
+            try {
+                await getThemes().then(data => {
+                    if (data.status === 200) {
+                        setThemes(data.data);
+                    }
+                });
+            } catch(e) {
+                console.log(e.message);
+            }
+        }
+        fetchThemes();
+        const fetchStatistic = () => {
+            try {
+                getStatistic().then(data => {
+                    if (data.status === 200) {
+                        setEveryDayTarget(data.data.everyDayTarget);
+                    }
+                });
+            } catch(e) {
+                console.log(e.message);
+            }
+                
+        };
+        fetchStatistic();
+        const fetchGetAgendaUser = async() => {
+            try {
+                await getAgendaUser().then(data => {
+                    if (data.status === 200) {
+                        setDaysOfWeekArray(data.data.daysOfWeekArray);
+                        setPointsOfDayArray(data.data.pointsOfDayArray);
+                        setDayUpdate(getDayName(new Date(data.data.updatedAt), locate));
+                        setDateUpdate(data.data.updatedAt);
+                    }
+                });
+            } catch(e) {
+                console.log(e.message);
+            }
+        }
+        fetchGetAgendaUser();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+            if (scrollPosition >= 250) {
+                setScrollBool(true);
+            } else {
+                setScrollBool(false);
+            }
+    },[scrollPosition,]);
     return (
         <>
             <HeaderComponent
@@ -296,8 +304,10 @@ const MainLearnPage = () => {
                     { learnPage && 
                         <LearnComponent
                             themes={themes}
-                            themeNumber={themeNumber}
-                            moduleNumber={moduleNumber}
+                            moduleId={moduleId}
+                            show={show}
+                            setShow={setShow}
+                            setModuleId={setModuleId}
                         /> 
                     }
                     { reviewPage && <ReviewComponent/> }

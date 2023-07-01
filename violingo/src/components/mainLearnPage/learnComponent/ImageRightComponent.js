@@ -1,7 +1,12 @@
-import { IMAGES_SERVER_PATH, IMAGES_LEARN_COMPONENT } from '../../../constants';
+import { IMAGES_SERVER_PATH } from '../../../constants';
 import coffer from '../../../icons/coffer.svg';
+import ActiveButtonComponent from './ActiveButtonComponent';
+import NoActiveButtonComponent from './NoActiveButtonComponent';
 
-const ImageRightComponent = ({ module, image_right, image_left, themeNumber, moduleNumber, themeId, }) => {
+const ImageRightComponent = ({ 
+    module, image_right, image_left, moduleId, backgroundTheme, show, setShow,
+}) => {
+    // console.log(module);
     return (
         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
             <div className="mainLearnPage_div_button_right_learnComponent">
@@ -12,35 +17,20 @@ const ImageRightComponent = ({ module, image_right, image_left, themeNumber, mod
                                 (index < 2 && !image_left) && 
                                     <div>
                                        {
-                                            moduleNumber !== c.moduleNumber
+                                            moduleId !== c.id 
                                             ?
-                                            <button 
-                                                className="mainLearnPage_button_with_image_learnComponent" 
-                                                style={{marginLeft: `${270 - index * 90}px`}}
-                                                >
-                                                <img 
-                                                    src={IMAGES_SERVER_PATH + c.image_module}
-                                                    alt={'module stamp'}
+                                                <NoActiveButtonComponent 
+                                                    style={`${270 - index * 90}px`} 
+                                                    image_module={c.image_module}
                                                 />
-                                            </button>
                                             :
-                                            <div 
-                                                style={{marginLeft: `${270 - index * 90}px`}}
-                                                className="mainLearnPage_main_div_active_button_with_image_learnComponent"
-                                                >
-                                                    {/* <div className='loader'></div> */}
-                                                    {/* <div 
-                                                        className="mainLearnPage_second_div_active_button_with_image_learnComponent"
-                                                        > */}
-                                                        {/* <button className="mainLearnPage_active_button_with_image_learnComponent">Nlljdslk</button> */}
-                                                        <button className="mainLearnPage_active_button_with_image_learnComponent">
-                                                            <img 
-                                                                src={IMAGES_LEARN_COMPONENT + 'starForActiveModule.svg'} 
-                                                                alt={'active button'}
-                                                            />
-                                                        </button>
-                                                    {/* </div> */}
-                                            </div>
+                                                <ActiveButtonComponent 
+                                                    style={`${270 - index * 90}px`}
+                                                    backgroundTheme={backgroundTheme}
+                                                    show={show}
+                                                    setShow={setShow}
+                                                    lessons={module.map(c => c.lessons)}
+                                                />
                                         }
                                     </div>
                             }
@@ -52,15 +42,18 @@ const ImageRightComponent = ({ module, image_right, image_left, themeNumber, mod
                         <div key={c.id}>
                             {
                                 (index > 3 && index < 6 && image_left) &&
-                                    <button 
-                                        className="mainLearnPage_button_with_image_learnComponent" 
-                                        style={{marginLeft: `${index % 2 === 0 ? 270 : 180}px`}}
-                                        >
-                                        <img 
-                                            src={IMAGES_SERVER_PATH + c.image_module}
-                                            alt={'module stamp'}
-                                        />
-                                    </button>
+                                    <div>
+                                        {
+                                            moduleId !== c.id  
+                                            ?
+                                                <NoActiveButtonComponent
+                                                    style={`${index % 2 === 0 ? 270 : 180}px`} 
+                                                    image_module={c.image_module}
+                                                />
+                                            :
+                                                <ActiveButtonComponent style={`${index % 2 === 0 ? 270 : 180}px`}/>
+                                        }
+                                    </div>
                             }
                         </div> 
                     )
@@ -74,15 +67,18 @@ const ImageRightComponent = ({ module, image_right, image_left, themeNumber, mod
                         <div key={c.id}>
                             {
                                 (index < 4 && index > 1 && !image_left) &&
-                                    <button 
-                                        className="mainLearnPage_button_with_image_learnComponent" 
-                                        style={{marginLeft: `${index * 90}px`}}
-                                        >
-                                        <img 
-                                            src={IMAGES_SERVER_PATH + c.image_module}
-                                            alt={'module stamp'}
-                                        />
-                                    </button>
+                                    <div>
+                                        {
+                                            moduleId !== c.id  
+                                            ?
+                                                <NoActiveButtonComponent
+                                                    style={`${index * 90}px`} 
+                                                    image_module={c.image_module}
+                                                />
+                                            :
+                                                <ActiveButtonComponent style={`${index * 90}px`}/>
+                                        }
+                                    </div>
                             }
                         </div> 
                     )
@@ -92,15 +88,18 @@ const ImageRightComponent = ({ module, image_right, image_left, themeNumber, mod
                         <div key={c.id}>
                             {
                                 (index > 5 && image_left) &&
-                                    <button 
-                                        className="mainLearnPage_button_with_image_learnComponent" 
-                                        style={{marginLeft: `${index % 2 === 0 ? 180 : 270}px`}}
-                                        >
-                                        <img 
-                                            src={IMAGES_SERVER_PATH + c.image_module}
-                                            alt={'module stamp'}
-                                        />
-                                    </button>
+                                    <div>
+                                        {
+                                            moduleId !== c.id  
+                                            ?
+                                                <NoActiveButtonComponent
+                                                    style={`${index % 2 === 0 ? 180 : 270}px`} 
+                                                    image_module={c.image_module}
+                                                />
+                                            :
+                                                <ActiveButtonComponent style={`${index % 2 === 0 ? 180 : 270}px`}/>
+                                        }
+                                    </div>
                             }
                         </div> 
                     )
