@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
+import { useLocation } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 
-import { arrayLessonPageChooseImage } from '../constants/arrays';
+// import { arrayLessonPageChooseImage } from '../constants/arrays';
 import SayAboutWrongModalComponent from '../components/lessonPage/SayAboutWrongModalComponent';
 import FooterMenuFirstPositionComponent from '../components/lessonPage/FooterMenuFirstPositionComponent';
 import FooterMenuWrongAnswerComponent from '../components/lessonPage/FooterMenuWrongAnswerComponent';
@@ -17,6 +18,7 @@ import LessonPageBodyComponent from '../components/lessonPage/LessonPageBodyComp
 import FinishTestComponent from '../components/lessonPage/FinishTestComponent';
 import FooterMenuFinishTestComponent from '../components/lessonPage/FooterMenuFinishTestComponent';
 import LookLessonModalComponent from '../components/lessonPage/LookLessonModalComponent';
+import { getExercisesForLesson } from '../http/exercisesApi';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -51,18 +53,22 @@ const LessonPage = () => {
     const [finishTest, setFinishTest] = useState(false);
     const [modalFinishTest, setModalFinishTest] = useState(false);
     const [arrayDifferent, setArrayDifferent] = useState([]);
-   
+    const [arrayLessonPageChooseImage, setArrayLessonPageChooseImage] = useState(null);
+    // console.log(arrayLessonPageChooseImage[0].image);
+    // console.log(arrayDifferent[0].image);
     // const navigate = useNavigate();
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const lessonId = location.state;
 
     const answer = arrayDifferent
         .filter((c, index) => index === exerciseNumber)
-        .map(c => c.answer)[0]
-    const taskArray = arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
+        .map(c => c.answer)[0];
+    const taskArray = arrayLessonPageChooseImage && arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.task)[0];
-    const answerArray = arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
+    const answerArray = arrayLessonPageChooseImage && arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.answer)[0];
 
     const clickNext = () => {
@@ -171,20 +177,37 @@ const LessonPage = () => {
             // navigate(SUCCESS_EXERCISE);
             setFinishTest(true);
         }
-        if (!workMistakes) {
-            setArrayDifferent(arrayLessonPageChooseImage);
-        } else {
-            setArrayDifferent(arrayWrongs);
-        }
+        // if (!workMistakes && arrayLessonPageChooseImage) {
+        //     setArrayDifferent(arrayLessonPageChooseImage);
+        // } else {
+        //     setArrayDifferent(arrayWrongs);
+        // }
         // eslint-disable-next-line
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
         whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, arrayChange,
         nameTranslate, moreInfo, answerChose, answerIdChose, changeClassName, trueAnswer,
         taskChose, changeClassNameNumber, changeClassNameName, questionIdChose, changeWidth,
-        questionNameChose, answerArray, taskArray, workMistakes, numberSuborder, count,
-        backgroundValue, finishTest, modalFinishTest, arrayDifferent,
+        questionNameChose, answerArray, taskArray,  numberSuborder, count,
+        backgroundValue, finishTest, modalFinishTest, 
+        // arrayDifferent, workMistakes,
     ]);
+    useMemo(() => {
+        const getExercises = async() => {
+            await getExercisesForLesson(lessonId).then(data => {
+                if (data.status === 200) {
+                    setArrayLessonPageChooseImage(data.data);
+                    if (!workMistakes) {
+                        setArrayDifferent(data.data);
+                    } else {
+                        setArrayDifferent(arrayWrongs);
+                    }
+                }
+            });
+        }
+        getExercises();
+    // eslint-disable-next-line
+    }, [arrayWrongs, lessonId, workMistakes]);
     return (
         <div className="lessonPage_main_div">
             {
@@ -253,7 +276,7 @@ const LessonPage = () => {
                                             setName={setName}
                                             name={name}
                                             chooseWrong={chooseWrong}
-                                            titleTask={c.titleTask}
+                                            titleTask={c.titleExercise}
                                             setAnswerChose={setAnswerChose}
                                             setAnswerIdChose={setAnswerIdChose}
                                             answerIdChose={answerIdChose}
@@ -272,8 +295,8 @@ const LessonPage = () => {
                                             changeWidth={changeWidth}
                                             setChangeWidth={setChangeWidth}
                                             wrong={wrong}
-                                            src={c.src}
-                                            alt={c.alt}
+                                            // src={c.src}
+                                            // alt={c.alt}
                                             setShowBlockTranslate={setShowBlockTranslate}
                                             arrayChange={arrayChange}
                                             setArrayChange={setArrayChange}
@@ -284,6 +307,7 @@ const LessonPage = () => {
                                             answer={answer}
                                             workMistakes={workMistakes}
                                             showBlockTranslate={showBlockTranslate}
+                                            image={c.image}
                                         />
                                 )
                             } 

@@ -13,6 +13,8 @@ export interface IUser extends Model
         is_staff: boolean;
         is_superuser: boolean;
         statistic: boolean;
+        module_id: number;
+        lesson_id: number;
 }
 export interface IToken extends Model
     <InferAttributes<IToken>, InferCreationAttributes<IToken>> {

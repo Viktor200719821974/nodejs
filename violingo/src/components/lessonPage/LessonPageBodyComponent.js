@@ -11,9 +11,9 @@ const LessonPageBodyComponent = ({
     setQuestionIdChose, setQuestionNameChose, setPositiveAnswer, taskArray, answerArray,
     widthValue, setWidthValue, changeWidth, setChangeWidth, chooseImage, chooseMissingWord,
     chooseTranslateWords, choosePositiveAnswer, chooseAnswer, question, setIdElement, idElement,
-    setName, chooseWrong, name, wrong, src, alt, showBlockTranslate, setShowBlockTranslate,
+    setName, chooseWrong, name, wrong, showBlockTranslate, setShowBlockTranslate,
     arrayChange, nameTranslate, setNameTranslate, moreInfo, setArrayChange, setMoreInfo,
-    workMistakes,
+    workMistakes, image,
 }) => {
     return (
         <div className="lessonPage_main_div_lessonPageBodyComponent">
@@ -53,8 +53,8 @@ const LessonPageBodyComponent = ({
                         name={name}
                         chooseWrong={chooseWrong}
                         wrong={wrong}
-                        src={src}
-                        alt={alt}
+                        src={image.src}
+                        alt={image.alt}
                         showBlockTranslate={showBlockTranslate}
                         setShowBlockTranslate={setShowBlockTranslate}
                         arrayChange={arrayChange}

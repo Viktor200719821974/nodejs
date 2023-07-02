@@ -21,6 +21,8 @@ const User = sequelize.define<IUser>('user', {
     is_staff: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     is_superuser: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     statistic: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
+    module_id: { type: DataTypes.INTEGER, allowNull: false },
+    lesson_id: { type: DataTypes.INTEGER, allowNull: false },
 });
 const Token = sequelize.define<IToken>('token', {
     id: {

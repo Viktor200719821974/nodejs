@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { AiFillSound, } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { IMAGES_CHOOSE_IMAGE_COMPONENT } from '../../constants';
+import { IMAGES_SERVER_PATH } from '../../constants';
 import { arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer } from '../../redux/actions';
-import BlockTranslateComponent from './BlockTranslateComponent';
+// import BlockTranslateComponent from './BlockTranslateComponent';
 
 const ChoosePositiveAnswerComponent = ({
     src, alt, question, task, showBlockTranslate, setShowBlockTranslate, setIdElement, setName, 
@@ -63,7 +63,7 @@ const ChoosePositiveAnswerComponent = ({
             </span>
             <div className="lessonPage_main_div_image_choosePositiveAnswerComponent">
                 <img
-                    src={IMAGES_CHOOSE_IMAGE_COMPONENT + src}
+                    src={IMAGES_SERVER_PATH + src}
                     alt={alt}
                     className="lessonPage_image_choosePositiveAnswerComponent"
                 />
@@ -75,9 +75,9 @@ const ChoosePositiveAnswerComponent = ({
                             style={{ width: '29px', height: '22px', cursor: 'pointer' }}
                         />
                         {
-                            question.map(c => 
+                            question.split(' ').map((c, index) => 
                                 <span
-                                    key={c.id}
+                                    key={index}
                                     className="lessonPage_span_question_choosePositiveAnswerComponent"
                                     onMouseLeave={() => { 
                                         setShowBlockTranslate(false); 
@@ -89,10 +89,10 @@ const ChoosePositiveAnswerComponent = ({
                                         setNameTranslate(e.target.innerHTML);
                                     }}
                                     >
-                                        {c.word}
+                                        {c}
                                         
-                                    {
-                                        (showBlockTranslate && nameTranslate === c.word) &&
+                                    {/* {
+                                        (showBlockTranslate && nameTranslate === c) &&
                                             <BlockTranslateComponent
                                                 setShowBlockTranslate={setShowBlockTranslate}
                                                 translate={c.translate}
@@ -102,7 +102,7 @@ const ChoosePositiveAnswerComponent = ({
                                                 setMoreInfo={setMoreInfo}
                                                 wordId={c.id}
                                             />
-                                    }
+                                    } */}
                                 </span> 
                             )
                         }           
@@ -125,7 +125,7 @@ const ChoosePositiveAnswerComponent = ({
             </div>
             <div className="lessonPage_main_div_option_answer_choosePositiveAnswerComponent display_alien_justify">
                 {
-                    arrayChange.map(c =>
+                    arrayChange && arrayChange.map(c =>
                         <span
                             className={ "lessonPage_span_option_answer_choosePositiveAnswerComponent " +
                                 "lessonPage_style_joint_choosePositiveAnswerComponent"

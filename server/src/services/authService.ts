@@ -11,8 +11,26 @@ class AuthService {
             // eslint-disable-next-line no-param-reassign
             user.name = 'Anonymous';
         }
+        const themes = await model.Theme.findAll();
+        let moduleId = 1;
+        let lessonId = 1;
+        if (themes) {
+            const theme = themes.sort((a, b) => a.id - b.id)[0];
+            const themeId = theme.id;
+            const modules = await model.Module.findAll({ where: { themeId } });
+            if (modules) {
+                const module = modules.sort((a, b) => a.id - b.id)[0];
+                moduleId = module.id;
+                const lessons = await model.Lesson.findAll({ where: { themeId, moduleId } });
+                if (lessons) {
+                    const lesson = lessons.sort((a, b) => a.id - b.id)[0];
+                    lessonId = lesson.id;
+                }
+            }
+        } 
         const hashedPassword = await AuthService._hashPassword(password);
-        const id = await model.User.create({ ...user, password: hashedPassword })
+        const id = await model.User
+            .create({ ...user, password: hashedPassword, module_id: moduleId, lesson_id: lessonId })
             .then((data) => data.id);
         const tokenActivate = await tokenService.generateTokenActivate({ userId: id, userEmail });
         //@ts-ignore

@@ -23,7 +23,7 @@ import { getThemes } from '../http/themesApi';
 const MainLearnPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-
+    
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
@@ -54,9 +54,7 @@ const MainLearnPage = () => {
     const [updateBool, setUpdateBool] = useState(false);
     const [dateUpdate, setDateUpdate] = useState(' ');
     const [themes, setThemes] = useState([]);
-    const [moduleId, setModuleId] = useState(1);
     const [show, setShow] = useState(false);
-    // const [activeModule, setActiveModule] = useState(false);
     
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     // let pointsOfDayArray = [10, 20, 30, 40, 50, 60, 70];
@@ -209,12 +207,6 @@ const MainLearnPage = () => {
             } else {
                 setIsActive(false);
             }
-            // window.addEventListener('scroll', handleScroll, { passive: true });
-            // if (scrollPosition >= 250) {
-            //     setScrollBool(true);
-            // } else {
-            //     setScrollBool(false);
-            // }
         }
         return(() => {
             action = false;
@@ -224,8 +216,9 @@ const MainLearnPage = () => {
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
-        offExerciseToAudio, activeButton,  everyDayTarget, moduleId, show,
-        idPurpose, dayWeek, index, arrayIndex, updateBool, dayUpdate,
+        offExerciseToAudio, activeButton, show,
+        idPurpose, dayWeek, index, arrayIndex, updateBool, 
+        // dayUpdate, everyDayTarget, moduleId,
     ]);
     useMemo(() => {
         const fetchThemes = async() => {
@@ -268,6 +261,8 @@ const MainLearnPage = () => {
             }
         }
         fetchGetAgendaUser();
+    }, []);
+    useMemo(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
             if (scrollPosition >= 250) {
                 setScrollBool(true);
@@ -304,10 +299,8 @@ const MainLearnPage = () => {
                     { learnPage && 
                         <LearnComponent
                             themes={themes}
-                            moduleId={moduleId}
                             show={show}
                             setShow={setShow}
-                            setModuleId={setModuleId}
                         /> 
                     }
                     { reviewPage && <ReviewComponent/> }

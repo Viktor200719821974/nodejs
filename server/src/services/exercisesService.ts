@@ -19,6 +19,9 @@ class ExercisesService {
                 exclude: ['createdAt', 'updatedAt'],
             },
             where: { lessonId },
+            include: [
+                { model: model.ImageExercise, as: 'image' },
+            ]
         });
     }
 

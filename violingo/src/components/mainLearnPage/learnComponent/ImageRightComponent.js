@@ -4,9 +4,8 @@ import ActiveButtonComponent from './ActiveButtonComponent';
 import NoActiveButtonComponent from './NoActiveButtonComponent';
 
 const ImageRightComponent = ({ 
-    module, image_right, image_left, moduleId, backgroundTheme, show, setShow,
+    module, image_right, image_left, moduleId, backgroundTheme, show, setShow, 
 }) => {
-    // console.log(module);
     return (
         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
             <div className="mainLearnPage_div_button_right_learnComponent">
@@ -29,7 +28,7 @@ const ImageRightComponent = ({
                                                     backgroundTheme={backgroundTheme}
                                                     show={show}
                                                     setShow={setShow}
-                                                    lessons={module.map(c => c.lessons)}
+                                                    moduleId={c.id}
                                                 />
                                         }
                                     </div>
@@ -51,7 +50,13 @@ const ImageRightComponent = ({
                                                     image_module={c.image_module}
                                                 />
                                             :
-                                                <ActiveButtonComponent style={`${index % 2 === 0 ? 270 : 180}px`}/>
+                                                <ActiveButtonComponent 
+                                                    style={`${index % 2 === 0 ? 270 : 180}px`}
+                                                    backgroundTheme={backgroundTheme}
+                                                    show={show}
+                                                    setShow={setShow}
+                                                    moduleId={c.id}
+                                                />
                                         }
                                     </div>
                             }
@@ -76,7 +81,13 @@ const ImageRightComponent = ({
                                                     image_module={c.image_module}
                                                 />
                                             :
-                                                <ActiveButtonComponent style={`${index * 90}px`}/>
+                                                <ActiveButtonComponent 
+                                                    style={`${index * 90}px`}
+                                                    backgroundTheme={backgroundTheme}
+                                                    show={show}
+                                                    setShow={setShow}
+                                                    moduleId={c.id}
+                                                />
                                         }
                                     </div>
                             }
@@ -97,7 +108,13 @@ const ImageRightComponent = ({
                                                     image_module={c.image_module}
                                                 />
                                             :
-                                                <ActiveButtonComponent style={`${index % 2 === 0 ? 180 : 270}px`}/>
+                                                <ActiveButtonComponent 
+                                                    style={`${index % 2 === 0 ? 180 : 270}px`}
+                                                    backgroundTheme={backgroundTheme}
+                                                    show={show}
+                                                    setShow={setShow}
+                                                    moduleId={c.id}
+                                                />
                                         }
                                     </div>
                             }
