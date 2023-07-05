@@ -1,4 +1,4 @@
-import { $authHost } from './index';
+import { $authHost, $host } from './index';
 
 export const getTasksForTheme = async (title) => {
     return await $authHost.get('/tasks/' + title);
@@ -12,6 +12,14 @@ export const createTask = async (formData) => {
 
 export const getAllTasks = async () => {
     return await $authHost.get('/tasks');
+}
+
+export const getTaskById = async (id) => {
+    return await $host.get('/tasks/' + id);
+}
+
+export const getTaskByIdForChooseTranslateWords = async (id) => {
+    return await $host.get('/tasks/chooseTranslateWords/' + id);
 }
 
 export const getTasks = async (

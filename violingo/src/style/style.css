@@ -3390,7 +3390,7 @@ input[type=checkbox]:checked:after {
     display: flex;
     width: 100%;
     align-items: center;
-    margin: 100px 0;
+    margin: 60px 0;
     padding: 0 24px;
 }
 .lessonPage_div_task_chooseTranslateWordsComponent {

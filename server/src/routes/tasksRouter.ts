@@ -7,6 +7,8 @@ import { tasksMiddleware } from '../middlewares/tasksMiddleware';
 const router = Router();
 
 router.get('/', authMiddleware.checkAccessToken, authMiddleware.userStaff, tasksController.getTasks);
+router.get('/:id', tasksController.getTaskById);
+router.get('/chooseTranslateWords/:id', tasksController.getTaskByIdForChooseTranslateWords);
 router.post(
     '/',
     authMiddleware.checkAccessToken,

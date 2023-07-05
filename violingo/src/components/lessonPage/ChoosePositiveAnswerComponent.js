@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { AiFillSound, } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,12 +15,12 @@ const ChoosePositiveAnswerComponent = ({
     const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
     const dispatch = useDispatch();
 
-    const filterTask = (array1, array2) => {
-        array2.forEach(element => {
-            array1 = array1.filter(item => item.id !== element);
-        });
-        return array1;
-    };
+    // const filterTask = (array1, array2) => {
+    //     array2.forEach(element => {
+    //         array1 = array1.filter(item => item.id !== element);
+    //     });
+    //     return array1;
+    // };
     const pushItems = (id, nameValue) => {
         if (array.length === 0) {
             array.push(nameValue);
@@ -29,7 +29,7 @@ const ChoosePositiveAnswerComponent = ({
             dispatch(arrayIdChoosePositiveAnswer(arrayId));
             setIdElement(id);
             setName(nameValue);
-            setArrayChange(filterTask(task, arrayId));
+            // setArrayChange(filterTask(task, arrayId));
         } else {
             const filter = arrayId.filter(c => c === id);
             if (filter.length === 0) {
@@ -39,7 +39,7 @@ const ChoosePositiveAnswerComponent = ({
                 dispatch(arrayIdChoosePositiveAnswer(arrayId));
                 setIdElement(id);
                 setName(nameValue);
-                setArrayChange(filterTask(task, arrayId));
+                // setArrayChange(filterTask(task, arrayId));
             } 
         }
         setName(array.join(' '));   
@@ -52,10 +52,10 @@ const ChoosePositiveAnswerComponent = ({
         setIdElement(0);
         setName('');
     }
-    useEffect(() => {
-        setArrayChange(filterTask(task, arrayId));
-        // eslint-disable-next-line
-    }, [arrayId, task]);
+    // useEffect(() => {
+    //     setArrayChange(filterTask(task, arrayId));
+    //     // eslint-disable-next-line
+    // }, [arrayId, task]);
     return (
         <div className="lessonPage_main_div_choosePositiveAnswerComponent">
             <span className="lessonPage_span_title_choosePositiveAnswerComponent">
@@ -125,7 +125,7 @@ const ChoosePositiveAnswerComponent = ({
             </div>
             <div className="lessonPage_main_div_option_answer_choosePositiveAnswerComponent display_alien_justify">
                 {
-                    arrayChange && arrayChange.map(c =>
+                    task && task.map((c, index) =>
                         <span
                             className={ "lessonPage_span_option_answer_choosePositiveAnswerComponent " +
                                 "lessonPage_style_joint_choosePositiveAnswerComponent"
@@ -134,12 +134,12 @@ const ChoosePositiveAnswerComponent = ({
                                 //     : "lessonPage_span_option_answer_empty_place_choosePositiveAnswerComponent
                                 //      lessonPage_style_joint_choosePositiveAnswerComponent"
                             }
-                            key={c.id}
+                            key={index}
                             onClick={() => {
-                                chooseWrong && pushItems(c.id, c.name);
+                                chooseWrong && pushItems(index, c);
                             }}
                         >
-                            {c.name}
+                            {c}
                         </span>
                     )
                 }

@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
-import { useLocation } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // import { arrayLessonPageChooseImage } from '../constants/arrays';
 import SayAboutWrongModalComponent from '../components/lessonPage/SayAboutWrongModalComponent';
@@ -19,6 +18,7 @@ import FinishTestComponent from '../components/lessonPage/FinishTestComponent';
 import FooterMenuFinishTestComponent from '../components/lessonPage/FooterMenuFinishTestComponent';
 import LookLessonModalComponent from '../components/lessonPage/LookLessonModalComponent';
 import { getExercisesForLesson } from '../http/exercisesApi';
+import { LEARN_PAGE } from '../constants';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -52,18 +52,19 @@ const LessonPage = () => {
     const [backgroundValue, setBackgroundValue] = useState('#58cc02');
     const [finishTest, setFinishTest] = useState(false);
     const [modalFinishTest, setModalFinishTest] = useState(false);
-    const [arrayDifferent, setArrayDifferent] = useState([]);
+    const [arrayDifferent, setArrayDifferent] = useState(null);
     const [arrayLessonPageChooseImage, setArrayLessonPageChooseImage] = useState(null);
     // console.log(arrayLessonPageChooseImage[0].image);
-    // console.log(arrayDifferent[0].image);
-    // const navigate = useNavigate();
+    // console.log(arrayDifferent);
+
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
     const dispatch = useDispatch();
     const location = useLocation();
-    const lessonId = location.state;
+    const navigate = useNavigate();
 
-    const answer = arrayDifferent
+    const lessonId = location.state;
+    const answer = arrayDifferent && arrayDifferent
         .filter((c, index) => index === exerciseNumber)
         .map(c => c.answer)[0];
     const taskArray = arrayLessonPageChooseImage && arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
@@ -79,7 +80,7 @@ const LessonPage = () => {
            dispatch(arrayWrongAnswer(arrayWrongs));
     }
     const click = () => {
-
+        navigate(LEARN_PAGE);
     }
     const cleaner = () => {
         setTaskChose('');
@@ -93,7 +94,11 @@ const LessonPage = () => {
             if (name === answer) {
                 setWrong(false);
                 setPositiveAnswer(true);
-                setWidthValue(widthValue + 6.67);
+                if (arrayLessonPageChooseImage && arrayLessonPageChooseImage.length > 0) {
+                    setWidthValue(widthValue + (100 / arrayLessonPageChooseImage.length));
+                } else {
+                    setWidthValue(0);
+                }
                 setChooseWrong(false);
                 if (count >= 2) {
                     setNumberSuborder(true);
@@ -126,62 +131,68 @@ const LessonPage = () => {
     }
 
     useEffect(() => {
-        if (idElement > 0) {
-            setChangedElement(true);
-        }
-        if (whichWrongs.length > 0) {
-            setChooseSendWrong(true);
-        } else {
-            setChooseSendWrong(false);
-        }
-        if (exerciseNumber >= 15) {
-            setExerciseNumber(0);
-            setWorkMistakes(true);
-        }
-        if (taskChose === answerChose && taskChose !== '' && answerChose !== '') {
-            array.push(questionNameChose, answerChose);
-            // let unique = [...new Set(array)];
-            dispatch(arrayChoosePositiveAnswer(array));
-            setTrueAnswer(false);
-            const timer = setTimeout(() => {
-                cleaner();
-            }, 100);
-            if (trueAnswer) {
-                clearTimeout(timer);
+        let action = true;
+        if (action) {
+            if (idElement > 0) {
+                setChangedElement(true);
             }
-        }
-        if (taskChose !== answerChose && taskChose !== '' && answerChose !== '') {
-            setTrueAnswer(true);
-            setChangeClassName('lessonPage_main_span_wrong_answer_chooseTranslateWordsComponent');
-            setChangeClassNameNumber('lessonPage_span_number_wrong_answer_chooseTranslateWordsComponent');
-            setChangeClassNameName('lessonPage_span_name_wrong_answer_chooseTranslateWordsComponent');
-            const timer = setTimeout(() => {  
+            if (whichWrongs.length > 0) {
+                setChooseSendWrong(true);
+            } else {
+                setChooseSendWrong(false);
+            }
+            if (arrayDifferent && exerciseNumber >= arrayDifferent.length) {
+                setExerciseNumber(0);
+                setWorkMistakes(true);
+            }
+            if (taskChose === answerChose && taskChose !== '' && answerChose !== '') {
+                array.push(questionNameChose, answerChose);
+                // let unique = [...new Set(array)];
+                dispatch(arrayChoosePositiveAnswer(array));
                 setTrueAnswer(false);
-                cleaner();
-            }, 500);
+                const timer = setTimeout(() => {
+                    cleaner();
+                }, 100);
+                if (trueAnswer) {
+                    clearTimeout(timer);
+                }
+            }
+            if (taskChose !== answerChose && taskChose !== '' && answerChose !== '') {
+                setTrueAnswer(true);
+                setChangeClassName('lessonPage_main_span_wrong_answer_chooseTranslateWordsComponent');
+                setChangeClassNameNumber('lessonPage_span_number_wrong_answer_chooseTranslateWordsComponent');
+                setChangeClassNameName('lessonPage_span_name_wrong_answer_chooseTranslateWordsComponent');
+                const timer = setTimeout(() => {  
+                    setTrueAnswer(false);
+                    cleaner();
+                }, 500);
+                if (!trueAnswer) {
+                   clearTimeout(timer); 
+                }  
+            }
             if (!trueAnswer) {
-               clearTimeout(timer); 
-            }  
+                setChangeClassName('lessonPage_main_span_select_chooseTranslateWordsComponent');
+                setChangeClassNameNumber("lessonPage_span_number_select_chooseTranslateWordsComponent");
+                setChangeClassNameName("lessonPage_span_name_select_chooseTranslateWordsComponent");
+            }   
+            if (wrong && !workMistakes) {
+                arrayWrongs.push(arrayLessonPageChooseImage.filter((c, index) => index === exerciseNumber)[0]);
+                dispatch(arrayWrongAnswer(arrayWrongs));
+            } 
+            if (workMistakes && arrayWrongs.length === 0) {
+                setWorkMistakes(false);
+                // navigate(SUCCESS_EXERCISE);
+                setFinishTest(true);
+            }
+            // if (!workMistakes && arrayLessonPageChooseImage) {
+            //     setArrayDifferent(arrayLessonPageChooseImage);
+            // } else {
+            //     setArrayDifferent(arrayWrongs);
+            // }
         }
-        if (!trueAnswer) {
-            setChangeClassName('lessonPage_main_span_select_chooseTranslateWordsComponent');
-            setChangeClassNameNumber("lessonPage_span_number_select_chooseTranslateWordsComponent");
-            setChangeClassNameName("lessonPage_span_name_select_chooseTranslateWordsComponent");
-        }   
-        if (wrong && !workMistakes) {
-            arrayWrongs.push(arrayLessonPageChooseImage.filter((c, index) => index === exerciseNumber)[0]);
-            dispatch(arrayWrongAnswer(arrayWrongs));
-        } 
-        if (workMistakes && arrayWrongs.length === 0) {
-            setWorkMistakes(false);
-            // navigate(SUCCESS_EXERCISE);
-            setFinishTest(true);
-        }
-        // if (!workMistakes && arrayLessonPageChooseImage) {
-        //     setArrayDifferent(arrayLessonPageChooseImage);
-        // } else {
-        //     setArrayDifferent(arrayWrongs);
-        // }
+        return (() => {
+            action = false;
+        })
         // eslint-disable-next-line
     }, [
         idElement, changedElement, name, wrong, answer, chooseWrong, modalShow, chooseSendWrong,
@@ -260,7 +271,7 @@ const LessonPage = () => {
                     <div>
                         <div className="lessonPage_main_div_body">
                             {
-                                arrayDifferent.filter((a, index) => index === exerciseNumber)
+                                arrayDifferent && arrayDifferent.filter((a, index) => index === exerciseNumber)
                                     .map(c => 
                                         <LessonPageBodyComponent
                                             key={c.id}
@@ -270,7 +281,7 @@ const LessonPage = () => {
                                             chooseMissingWord={c.chooseMissingWord}
                                             chooseTranslateWords={c.chooseTranslateWords}
                                             question={c.question}
-                                            task={c.task}
+                                            tasks={c.tasks}
                                             setIdElement={setIdElement}
                                             idElement={idElement}
                                             setName={setName}

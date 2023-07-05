@@ -1,22 +1,22 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 const ChooseTranslateWordsComponent = ({ 
     task, answer, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
     setTaskChose, changeClassNameNumber,changeClassNameName, questionIdChose, titleTask,
     setQuestionIdChose, setQuestionNameChose, setPositiveAnswer, taskArray, answerArray,
-    widthValue, setWidthValue, changeWidth, setChangeWidth,
+    widthValue, setWidthValue, changeWidth, setChangeWidth, arrayAnswers,
 }) => {
-    const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
+    // const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     
-    const filterTask = (array1, array2) => {
-        array2.forEach(element => {
-            array1 = array1.filter(item => item.name !== element);
-        });
-        return array1;
-    };
-    const firstArray = filterTask(task, array);
-    const secondArray = filterTask(answer, array);
+    // const filterTask = (array1, array2) => {
+    //     array2.forEach(element => {
+    //         array1 = array1.filter(item => item.name !== element);
+    //     });
+    //     return array1;
+    // };
+    // const firstArray = filterTask(task, array);
+    // const secondArray = filterTask(answer, array);
 
     useEffect(() => {
         const keyDownHandlerTranslate = (e) => { 
@@ -34,19 +34,19 @@ const ChooseTranslateWordsComponent = ({
                     .map(c => c.name)[0]);
             }
         }
-        if (firstArray.length === 0 && secondArray.length === 0) {
-            setPositiveAnswer(true);
-            if(changeWidth) {
-               setWidthValue(widthValue + 6.67); 
-               setChangeWidth(false);
-            }  
-        }
+        // if (firstArray.length === 0 && secondArray.length === 0) {
+        //     setPositiveAnswer(true);
+        //     if(changeWidth) {
+        //        setWidthValue(widthValue + 6.67); 
+        //        setChangeWidth(false);
+        //     }  
+        // }
         document.addEventListener('keydown',  keyDownHandlerTranslate);
         return function cleanup() {
             document.removeEventListener('keydown', keyDownHandlerTranslate);
           }
         // eslint-disable-next-line
-    }, [firstArray, secondArray, widthValue, changeWidth]);
+    }, [ widthValue, changeWidth]);
     return (
         <div className="lessonPage_main_div_chooseTranslateWordsComponent">
             <span className="lessonPage_span_title_chooseTranslateWordsComponent">
@@ -55,7 +55,7 @@ const ChooseTranslateWordsComponent = ({
             <div className="lessonPage_main_div_task_answer_chooseTranslateWordsComponent">
                <div className="lessonPage_div_task_chooseTranslateWordsComponent">
                     {
-                        firstArray.map((c) =>
+                        task && task.map((c, index) =>
                             <span 
                                 key={c.id}
                                 className={
@@ -76,7 +76,7 @@ const ChooseTranslateWordsComponent = ({
                                                 : `${changeClassNameNumber}`
                                             }
                                         >
-                                        {c.id}
+                                        {index + 1}
                                     </span>
                                     <span 
                                         className={
@@ -85,7 +85,7 @@ const ChooseTranslateWordsComponent = ({
                                                 : `${changeClassNameName}`
                                             }
                                         >
-                                        {c.name}
+                                        {c.question}
                                     </span>
                             </span>
                         )
@@ -93,36 +93,36 @@ const ChooseTranslateWordsComponent = ({
                 </div>
                 <div className="lessonPage_div_task_chooseTranslateWordsComponent">
                     {
-                        secondArray.map((c) => 
+                        arrayAnswers && arrayAnswers.map((c, index) => 
                             <span 
-                                key={c.id}
+                                key={index}
                                 className={
-                                    (c.id !== answerIdChose)
+                                    (index + 1 !== answerIdChose)
                                         ? "lessonPage_main_span_chooseTranslateWordsComponent"
                                         : `${changeClassName}`
                                     }
                                 onClick={() => {
-                                    setAnswerIdChose(c.id);
-                                    setAnswerChose(c.name);
+                                    setAnswerIdChose(index + 1);
+                                    setAnswerChose(c);
                                 }}
                                 >
                                     <span 
                                         className={
-                                            (c.id !== answerIdChose) 
+                                            (index + 1 !== answerIdChose) 
                                                 ? "lessonPage_span_number_chooseTranslateWordsComponent"
                                                 : `${changeClassNameNumber}`
                                             }
                                         >
-                                            {c.id + task.length}
+                                            {index + 1 + task.length}
                                     </span>
                                     <span 
                                         className={
-                                            (c.id !== answerIdChose) 
+                                            (index + 1 !== answerIdChose) 
                                                 ? "lessonPage_span_name_chooseTranslateWordsComponent"
                                                 : `${changeClassNameName}`
                                             }
                                         >
-                                            {c.name}
+                                            {c}
                                     </span>
                             </span>
                         )

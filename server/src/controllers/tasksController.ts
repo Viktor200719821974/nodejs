@@ -71,6 +71,26 @@ class TasksController {
         }
     }
 
+    async getTaskById(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            const task = await tasksService.getTaskById(+id);
+            res.status(200).json(task);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async getTaskByIdForChooseTranslateWords(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            const tasks = await tasksService.getTaskByIdForChooseTranslateWords(+id);
+            res.status(200).json(tasks);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async createTask(req: Request, res: Response, next: NextFunction) {
         try {
             const image = req.files?.image as UploadedFile;

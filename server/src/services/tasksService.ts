@@ -1,9 +1,10 @@
 import { UploadedFile } from 'express-fileupload';
 import fs from 'fs';
 import path from 'path';
+import { Op } from 'sequelize';
 
 import { model } from '../models';
-import { IPaginationResponse, ITask } from '../interfaces';
+import { IChooseTranslateWordsArrays, IPaginationResponse, ITask } from '../interfaces';
 import { chooseTypeTasksService } from './chooseTypeTasksService';
 import { filterTasksService } from './filterTasksService';
 
@@ -57,6 +58,27 @@ class TasksService {
 
     async getTaskById(id: number): Promise<ITask | null> {
         return model.Task.findOne({ where: { id } });
+    }
+
+    async getTaskByIdForChooseTranslateWords(id: number): Promise<IChooseTranslateWordsArrays> {
+        const task = await model.Task.findOne({ where: { id } });
+        let arrayTasks;
+        let arrayAnswers;
+        if (task) {
+            const arrayTasksId = task?.translateWordsTasks;
+            arrayAnswers = task?.translateWordsAnswers;
+            arrayTasks = await model.Task.findAll({
+                where: {
+                    id: {
+                        [Op.or]: arrayTasksId,
+                   }, 
+                }
+            })
+        } 
+        return {
+            arrayTasks,
+            arrayAnswers,
+        };
     }
 
     async getTasksForChooseAnswer()

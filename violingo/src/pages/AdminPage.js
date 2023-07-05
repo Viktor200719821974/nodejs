@@ -381,7 +381,7 @@ const AdminPage = () => {
                 const task = allTasks.filter(c => c.id === id);
                 const chooseTranslateWordsTrue = task.map(c => c.chooseTranslateWords)[0];
                 if (chooseTranslateWordsTrue) {
-                    const arrayTasks = task.map(c => c.translatewordsTasks)[0];
+                    const arrayTasks = task.map(c => c.translateWordsTasks)[0];
                     setArrayTranslateWordsTasks(filterTasksForChooseTranslateWords(allTasks, arrayTasks));
                 }
             }   
@@ -393,6 +393,7 @@ const AdminPage = () => {
             array.push(tasks.filter(c => c.id === id)[0]);
             dispatch(fetchTasks(filterTasksForChooseTranslateWordsNotEqual(tasks, arrayId)));
             setArrayIdTranslateWords(array);
+            setTaskId(id);
         }
         if (choosePositiveAnswerValue) {
             setShowFieldAddImage(true);

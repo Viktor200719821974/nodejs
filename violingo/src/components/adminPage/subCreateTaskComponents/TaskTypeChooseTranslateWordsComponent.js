@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 const TaskTypeChooseTranslateWordsComponent = ({ id }) => {
     const { allTasks } = useSelector(state => state.allTasksWithoutFiltersReducer);
     const task = allTasks.filter(c => c.id === id);
-    const translatewordsTasks = task.map(c => c.translatewordsTasks)[0];
+    const translateWordsTasks = task.map(c => c.translateWordsTasks)[0];
     
     let filter = [];
     for (let i = 0; i < allTasks.length; i++) {
-        for (let j = 0; j < translatewordsTasks.length; j++) {
-            if (allTasks[i].id === translatewordsTasks[j]) {
+        for (let j = 0; j < translateWordsTasks.length; j++) {
+            if (allTasks[i].id === translateWordsTasks[j]) {
                 filter.push(allTasks[i]);
             }
         }

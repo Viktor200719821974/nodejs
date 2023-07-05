@@ -8,8 +8,7 @@ const ChooseAnswerComponent = ({
         const keyDownHandler = (e) => {
             if (e.key > 0 && e.key <= 3 && chooseWrong) {
                 setIdElement(Number(e.key));
-                const chooseAnswer = task.filter(c => c.id === Number(e.key))
-                    .map(item => item.name)[0];
+                const chooseAnswer = task && task.filter((c, index) => index + 1 === Number(e.key))[0];
                 setName(chooseAnswer);
             } else {
                     setIdElement(idElement);
@@ -20,7 +19,7 @@ const ChooseAnswerComponent = ({
             document.removeEventListener('keydown', keyDownHandler);
         }
         // eslint-disable-next-line
-    }, [chooseWrong]);
+    }, [chooseWrong, task]);
     return (
         <div className="lessonPage_main_div_chooseAnswerComponent">          
             <span className="lessonPage_span_question_chooseAnswerComponent">
@@ -28,11 +27,11 @@ const ChooseAnswerComponent = ({
             </span> 
             <div className="lessonPage_main_div_choose_answer_chooseAnswerComponent">
                 {
-                    task.map((c, index) => 
+                    task && task.map((c, index) => 
                         <div 
-                            key={c.id}
+                            key={index}
                             className={
-                                (idElement !== c.id) 
+                                (idElement !== index + 1) 
                                     ? "lessonPage_div_choose_answer_chooseAnswerComponent display_alien_justify " +
                                     "lessonPage_choose_answer_joint_style"
                                     : "lessonPage_div_choose_answer_select_chooseAnswerComponent display_alien_justify " +
@@ -40,25 +39,25 @@ const ChooseAnswerComponent = ({
                             }
                             style={{top: `${index * 63}px`}}
                             onClick={() => {
-                                chooseWrong && setIdElement(c.id);
-                                chooseWrong && setName(c.name);
+                                chooseWrong && setIdElement(index + 1);
+                                chooseWrong && setName(c);
                             }}
                             >
                             <span className={
-                                    (idElement !== c.id) 
+                                    (idElement !== index + 1) 
                                         ? "lessonPage_span_choose_answer_number_chooseAnswerComponent display_alien_justify"
                                         : "lessonPage_span_choose_answer_number_select_chooseAnswerComponent display_alien_justify"
                                 }
                                 >
-                                {c.id}
+                                {index + 1}
                             </span>
                             <span className={
-                                (idElement !== c.id) 
+                                (idElement !== index + 1) 
                                     ? "lessonPage_span_choose_answer_name_chooseAnswerComponent"
                                     : "lessonPage_span_choose_answer_name_select_chooseAnswerComponent"
                                 }
                                 >
-                                {c.name}
+                                {c}
                             </span>
                         </div>
                     )

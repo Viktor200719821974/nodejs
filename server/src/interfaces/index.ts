@@ -200,3 +200,7 @@ export interface IAgendaUser extends Model
 //         chooseTranslateWords: boolean;
 //         exerciseId: number;
 // }
+export interface IChooseTranslateWordsArrays {
+    arrayTasks: ITask[] | undefined;
+    arrayAnswers: string[] | undefined;
+}

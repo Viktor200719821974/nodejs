@@ -217,8 +217,8 @@ const MainLearnPage = () => {
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
         offExerciseToAudio, activeButton, show,
-        idPurpose, dayWeek, index, arrayIndex, updateBool, 
-        // dayUpdate, everyDayTarget, moduleId,
+        idPurpose,  index, arrayIndex, updateBool, 
+        // dayUpdate, everyDayTarget, moduleId, dayWeek,
     ]);
     useMemo(() => {
         const fetchThemes = async() => {
