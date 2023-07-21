@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { IMAGES_CHOOSE_IMAGE_COMPONENT } from '../../constants';
+import { IMAGES_SERVER_PATH } from '../../constants';
 
 const ChooseImageComponent = ({
     question, task, setIdElement, idElement, setName, chooseWrong, titleTask,
 }) => {
-
+    
     useEffect(() => {
         const keyDownHandlerChooseImage = (e) => {
             if ((e.key > 0 && e.key <= 3) && chooseWrong) {
@@ -30,7 +30,7 @@ const ChooseImageComponent = ({
             <div 
                 className="lessonPage_main_div_image_chooseImageComponent"            >
                 {
-                    task.map((c, index) =>   
+                    task && task.map((c, index) =>   
                         <div 
                             key={c.id} 
                             style={{left: `${index * 203}px`}}
@@ -45,8 +45,8 @@ const ChooseImageComponent = ({
                             }}
                             >  
                             <img 
-                                src={IMAGES_CHOOSE_IMAGE_COMPONENT + c.src} 
-                                alt={c.alt}
+                                src={IMAGES_SERVER_PATH + c.image.src} 
+                                alt={c.image.alt}
                                 className="lessonPage_image_chooseImageComponent"
                             />
                             <div className="lessonPage_main_div_sign_chooseImageComponent">
@@ -57,7 +57,7 @@ const ChooseImageComponent = ({
                                             : "lessonPage_span_sign_name_select_chooseImageComponent"
                                     }
                                     >
-                                        {c.name}
+                                        {c.answer}
                                 </span>
                                 <span 
                                     className={

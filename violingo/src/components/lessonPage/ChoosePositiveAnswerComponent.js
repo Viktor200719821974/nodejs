@@ -3,7 +3,7 @@ import { AiFillSound, } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IMAGES_SERVER_PATH } from '../../constants';
-import { arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer } from '../../redux/actions';
+import { arrayChoosePositiveAnswer } from '../../redux/actions';
 // import BlockTranslateComponent from './BlockTranslateComponent';
 
 const ChoosePositiveAnswerComponent = ({
@@ -12,9 +12,9 @@ const ChoosePositiveAnswerComponent = ({
     titleTask, chooseWrong,
 }) => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
-    const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
+    // const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
     const dispatch = useDispatch();
-
+    
     // const filterTask = (array1, array2) => {
     //     array2.forEach(element => {
     //         array1 = array1.filter(item => item.id !== element);
@@ -22,35 +22,16 @@ const ChoosePositiveAnswerComponent = ({
     //     return array1;
     // };
     const pushItems = (id, nameValue) => {
-        if (array.length === 0) {
-            array.push(nameValue);
-            arrayId.push(id);
-            dispatch(arrayChoosePositiveAnswer(array));
-            dispatch(arrayIdChoosePositiveAnswer(arrayId));
-            setIdElement(id);
-            setName(nameValue);
-            // setArrayChange(filterTask(task, arrayId));
-        } else {
-            const filter = arrayId.filter(c => c === id);
-            if (filter.length === 0) {
-                array.push(nameValue);
-                arrayId.push(id);
-                dispatch(arrayChoosePositiveAnswer(array));
-                dispatch(arrayIdChoosePositiveAnswer(arrayId));
-                setIdElement(id);
-                setName(nameValue);
-                // setArrayChange(filterTask(task, arrayId));
-            } 
-        }
+        array.push(nameValue);
+        dispatch(arrayChoosePositiveAnswer(array));
+        setIdElement(id);
+        // setName(nameValue);
         setName(array.join(' '));   
     }
     const deleteItem = (index) => {
         array.splice(index, 1);
-        arrayId.splice(index, 1);
         dispatch(arrayChoosePositiveAnswer(array));
-        dispatch(arrayIdChoosePositiveAnswer(arrayId));
-        setIdElement(0);
-        setName('');
+        setName(array.join(' ')); 
     }
     // useEffect(() => {
     //     setArrayChange(filterTask(task, arrayId));
@@ -125,7 +106,7 @@ const ChoosePositiveAnswerComponent = ({
             </div>
             <div className="lessonPage_main_div_option_answer_choosePositiveAnswerComponent display_alien_justify">
                 {
-                    task && task.map((c, index) =>
+                    task && task.filter(c => c !== array.filter(a => a === c)[0]).map((c, index) =>
                         <span
                             className={ "lessonPage_span_option_answer_choosePositiveAnswerComponent " +
                                 "lessonPage_style_joint_choosePositiveAnswerComponent"
@@ -136,7 +117,7 @@ const ChoosePositiveAnswerComponent = ({
                             }
                             key={index}
                             onClick={() => {
-                                chooseWrong && pushItems(index, c);
+                                chooseWrong && pushItems(index + 1, c);
                             }}
                         >
                             {c}

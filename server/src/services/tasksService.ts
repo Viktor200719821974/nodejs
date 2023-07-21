@@ -60,6 +60,22 @@ class TasksService {
         return model.Task.findOne({ where: { id } });
     }
 
+    async getTaskByArrayId(tasksId: string[]) {
+        return model.Task.findAll({
+            where: {
+                id: {
+                    [Op.or]: tasksId,
+                },
+            },
+            include: [
+                { model: model.ImageTask, as: 'image' },
+            ],
+            attributes: {
+                exclude: ['createdAt', 'updatedAt'],
+            },
+        });
+    }
+
     async getTaskByIdForChooseTranslateWords(id: number): Promise<IChooseTranslateWordsArrays> {
         const task = await model.Task.findOne({ where: { id } });
         let arrayTasks;
@@ -73,7 +89,7 @@ class TasksService {
                         [Op.or]: arrayTasksId,
                    }, 
                 }
-            })
+            });
         } 
         return {
             arrayTasks,

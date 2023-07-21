@@ -81,6 +81,17 @@ class TasksController {
         }
     }
 
+    async getTaskByArrayId(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { tasksIdString } = req.params;
+            const tasksId = tasksIdString.split(' ');
+            const task = await tasksService.getTaskByArrayId(tasksId);
+            res.status(200).json(task);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async getTaskByIdForChooseTranslateWords(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;

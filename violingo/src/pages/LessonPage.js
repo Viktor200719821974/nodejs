@@ -54,9 +54,7 @@ const LessonPage = () => {
     const [modalFinishTest, setModalFinishTest] = useState(false);
     const [arrayDifferent, setArrayDifferent] = useState(null);
     const [arrayLessonPageChooseImage, setArrayLessonPageChooseImage] = useState(null);
-    // console.log(arrayLessonPageChooseImage[0].image);
-    // console.log(arrayDifferent);
-
+    
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
     const dispatch = useDispatch();
@@ -71,7 +69,7 @@ const LessonPage = () => {
         .map(c => c.task)[0];
     const answerArray = arrayLessonPageChooseImage && arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.answer)[0];
-
+        
     const clickNext = () => {
         setWrong(true);
         setChooseWrong(false);
@@ -81,6 +79,7 @@ const LessonPage = () => {
     }
     const click = () => {
         navigate(LEARN_PAGE);
+        dispatch(arrayChoosePositiveAnswerEmpty());
     }
     const cleaner = () => {
         setTaskChose('');
@@ -147,10 +146,11 @@ const LessonPage = () => {
             }
             if (taskChose === answerChose && taskChose !== '' && answerChose !== '') {
                 array.push(questionNameChose, answerChose);
-                // let unique = [...new Set(array)];
-                dispatch(arrayChoosePositiveAnswer(array));
+                let unique = [...new Set(array)];
+                dispatch(arrayChoosePositiveAnswer(unique));
                 setTrueAnswer(false);
                 const timer = setTimeout(() => {
+                    setTrueAnswer(true);
                     cleaner();
                 }, 100);
                 if (trueAnswer) {
@@ -207,6 +207,7 @@ const LessonPage = () => {
         const getExercises = async() => {
             await getExercisesForLesson(lessonId).then(data => {
                 if (data.status === 200) {
+                    // console.log(data.data);
                     setArrayLessonPageChooseImage(data.data);
                     if (!workMistakes) {
                         setArrayDifferent(data.data);
@@ -299,8 +300,6 @@ const LessonPage = () => {
                                             setQuestionIdChose={setQuestionIdChose}
                                             setQuestionNameChose={setQuestionNameChose}
                                             setPositiveAnswer={setPositiveAnswer}
-                                            taskArray={taskArray}
-                                            answerArray={answerArray}
                                             widthValue={widthValue}
                                             setWidthValue={setWidthValue}
                                             changeWidth={changeWidth}
@@ -315,7 +314,6 @@ const LessonPage = () => {
                                             setNameTranslate={setNameTranslate}
                                             moreInfo={moreInfo}
                                             setMoreInfo={setMoreInfo}
-                                            answer={answer}
                                             workMistakes={workMistakes}
                                             showBlockTranslate={showBlockTranslate}
                                             image={c.image}

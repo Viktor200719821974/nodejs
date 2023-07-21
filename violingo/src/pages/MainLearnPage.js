@@ -114,17 +114,6 @@ const MainLearnPage = () => {
         let action = true;
         if (action) {
             setDayWeek(getDayName(date, locate));
-            const fetchUpdateAgendaUser = async () => {
-                try {
-                    await updateAgendaUser(daysOfWeekArray, points, index, pointsOfDayArray, arrayIndex, updateBool)
-                        .then();
-                } catch(e) {
-                    console.log(e.message);
-                }
-            }
-            if (daysOfWeekArray && pointsOfDayArray) {
-                fetchUpdateAgendaUser();
-            }
             if (dateUpdate !== ' '){
                 if (new Date().getDate() !== new Date(dateUpdate).getDate()) {
                     setArrayIndex(daysNotLearned(dayUpdate, dayWeek, daysOfWeekArray, dateUpdate, date));
@@ -214,11 +203,11 @@ const MainLearnPage = () => {
     // eslint-disable-next-line   
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
-        mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, points, settingsCoach,
+        mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
         offExerciseToAudio, activeButton, show,
-        idPurpose,  index, arrayIndex, updateBool, 
-        // dayUpdate, everyDayTarget, moduleId, dayWeek,
+        idPurpose,   
+        // dayUpdate, everyDayTarget, moduleId, dayWeek, index, updateBool,
     ]);
     useMemo(() => {
         const fetchThemes = async() => {
@@ -261,7 +250,22 @@ const MainLearnPage = () => {
             }
         }
         fetchGetAgendaUser();
-    }, []);
+        const fetchUpdateAgendaUser = async () => {
+            try {
+                await updateAgendaUser(daysOfWeekArray, points, index, pointsOfDayArray, arrayIndex, updateBool)
+                    .then();
+            } catch(e) {
+                console.log(e.message);
+            }
+        }
+        // if (daysOfWeekArray && pointsOfDayArray) {
+        //     fetchUpdateAgendaUser();
+        // }
+        if (updateBool) {
+            fetchUpdateAgendaUser();
+        }
+    // eslint-disable-next-line
+    }, [arrayIndex, updateBool, index, points,]);
     useMemo(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
             if (scrollPosition >= 250) {

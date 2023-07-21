@@ -6,12 +6,12 @@ import ChooseMissingWordComponent from './ChooseMissingWordComponent';
 import ChoosePositiveAnswerComponent from './ChoosePositiveAnswerComponent';
 import ChooseTranslateWordsComponent from './ChooseTranslateWordsComponent';
 import wrongAnswer from '../../icons/wrongAnswer.svg';
-import { getTaskById, getTaskByIdForChooseTranslateWords, } from '../../http/tasksApi';
+import { getTaskById, getTaskByIdForChooseTranslateWords, getTaskByArrayId } from '../../http/tasksApi';
 
 const LessonPageBodyComponent = ({
-    tasks, answer, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
+    tasks, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
     setTaskChose, changeClassNameNumber,changeClassNameName, questionIdChose, titleTask,
-    setQuestionIdChose, setQuestionNameChose, setPositiveAnswer, taskArray, answerArray,
+    setQuestionIdChose, setQuestionNameChose, setPositiveAnswer,
     widthValue, setWidthValue, changeWidth, setChangeWidth, chooseImage, chooseMissingWord,
     chooseTranslateWords, choosePositiveAnswer, chooseAnswer, question, setIdElement, idElement,
     setName, chooseWrong, name, wrong, showBlockTranslate, setShowBlockTranslate,
@@ -25,7 +25,7 @@ const LessonPageBodyComponent = ({
         if (action) {
             const fetchTask = async() => {
                 try {
-                    if (!chooseTranslateWords) {
+                    if (!chooseTranslateWords && !chooseImage) {
                         await getTaskById(tasks[0]).then(data => {
                             if (data.status === 200) {
                                 setTask(data.data.optionsAnswer);
@@ -40,6 +40,14 @@ const LessonPageBodyComponent = ({
                             }
                         });
                     }
+                    if (chooseImage) {
+                        const tasksIdString = tasks.join(' ');
+                        await getTaskByArrayId(tasksIdString).then(data => {
+                            if (data.status === 200) {
+                                setTask(data.data);
+                            }
+                        });
+                    }
                 } catch (e) {
                     console.log(e.message);
                 }
@@ -49,7 +57,7 @@ const LessonPageBodyComponent = ({
         return (() => {
             action = false;
         });
-    }, [tasks, chooseTranslateWords,]);
+    }, [tasks, chooseTranslateWords, chooseImage, ]);
     return (
         <div className="lessonPage_main_div_lessonPageBodyComponent">
             {
@@ -68,7 +76,7 @@ const LessonPageBodyComponent = ({
             {
                 chooseImage && 
                     <ChooseImageComponent
-                        question={question.map(c => c.word)}
+                        question={question}
                         task={task}
                         setIdElement={setIdElement}
                         idElement={idElement}
@@ -129,7 +137,6 @@ const LessonPageBodyComponent = ({
                     chooseTranslateWords && 
                         <ChooseTranslateWordsComponent
                             task={task}
-                            answer={answer}
                             setAnswerChose={setAnswerChose}
                             setAnswerIdChose={setAnswerIdChose}
                             answerIdChose={answerIdChose}
@@ -141,8 +148,6 @@ const LessonPageBodyComponent = ({
                             setQuestionIdChose={setQuestionIdChose}
                             setQuestionNameChose={setQuestionNameChose}
                             setPositiveAnswer={setPositiveAnswer}
-                            taskArray={taskArray}
-                            answerArray={answerArray}
                             titleTask={titleTask}
                             widthValue={widthValue}
                             setWidthValue={setWidthValue}

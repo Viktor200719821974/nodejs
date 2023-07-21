@@ -18,13 +18,17 @@ export const getTaskById = async (id) => {
     return await $host.get('/tasks/' + id);
 }
 
+export const getTaskByArrayId = async (tasksIdString) => {
+    return await $host.get('/tasks/chooseImage/' + tasksIdString);
+}
+
 export const getTaskByIdForChooseTranslateWords = async (id) => {
     return await $host.get('/tasks/chooseTranslateWords/' + id);
 }
 
 export const getTasks = async (
-    themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords, question, answer, word,
-    lessonId, taskId, page, createWhat,
+    themeId, chooseImage, chooseAnswer, choosePositiveAnswer, chooseMissingWord, chooseTranslateWords, 
+    question, answer, word, lessonId, taskId, page, createWhat,
 ) => {
     return await $authHost
         .get(
