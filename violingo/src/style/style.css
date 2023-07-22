@@ -2405,8 +2405,8 @@ input[type=number] {
     width: 98px;
     height: 92px;
     border-radius: 50%;
-    --value: 0%;
-    background: conic-gradient(#ffc800 var(--value), transparent 0);
+    /* --value: 20%; */
+    /* background: conic-gradient(#ffc800 var(--value), transparent 0); */
 }
 .mainLearnPage_active_button_third_div_learnComponent {
     display: flex;
@@ -2575,7 +2575,7 @@ input[type=number] {
 .lessonPage_main_div_down_block {
     display: flex;
     align-items: center;
-    min-height: 140px;
+    min-height: 116px;
     padding: 0 166px;
     width: 100%;
     background: #fff;

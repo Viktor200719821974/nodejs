@@ -15,6 +15,18 @@ class ModulesService {
         return modules;
     }
 
+    async getModuleById(id: number): Promise<IModule | null> {
+        return model.Module.findOne({ 
+            where: { id },
+            include: [
+                { model: model.Lesson, as: 'lessons' },
+            ],
+            attributes: {
+                exclude: ['createdAt', 'updatedAt'],
+            }, 
+        });
+    }
+
     async createModule(module: IModule, image: UploadedFile): Promise<IModule> {
         const fileName = await saveImageService.saveImage(image);
         return model.Module.create({ ...module, image_module: fileName });
@@ -24,7 +36,9 @@ class ModulesService {
         themeId: number,
         moduleNumber: number,
     ): Promise<IModule | null> {
-        return model.Module.findOne({ where: { themeId, moduleNumber } });
+        return model.Module.findOne({ 
+            where: { themeId, moduleNumber },
+        });
     }
 }
 

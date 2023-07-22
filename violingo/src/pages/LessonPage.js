@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // import { arrayLessonPageChooseImage } from '../constants/arrays';
 import SayAboutWrongModalComponent from '../components/lessonPage/SayAboutWrongModalComponent';
@@ -11,6 +11,7 @@ import FooterMenuPositiveAnswerComponent from '../components/lessonPage/FooterMe
 import { 
     arrayChoosePositiveAnswer, arrayWrongAnswer, arrayChoosePositiveAnswerEmpty, 
     arrayIdChoosePositiveAnswerEmpty,
+    fetchUser,
  } from '../redux/actions';
 // import { SUCCESS_EXERCISE } from '../constants';
 import LessonPageBodyComponent from '../components/lessonPage/LessonPageBodyComponent';
@@ -19,6 +20,8 @@ import FooterMenuFinishTestComponent from '../components/lessonPage/FooterMenuFi
 import LookLessonModalComponent from '../components/lessonPage/LookLessonModalComponent';
 import { getExercisesForLesson } from '../http/exercisesApi';
 import { LEARN_PAGE } from '../constants';
+import { getModuleById } from '../http/modulesApi';
+import { updateUserLessonId } from '../http/userApi';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -54,14 +57,20 @@ const LessonPage = () => {
     const [modalFinishTest, setModalFinishTest] = useState(false);
     const [arrayDifferent, setArrayDifferent] = useState(null);
     const [arrayLessonPageChooseImage, setArrayLessonPageChooseImage] = useState(null);
+    const [lessons, setLessons] = useState(null);
     
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
+    const { user } = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
-    const location = useLocation();
     const navigate = useNavigate();
 
-    const lessonId = location.state;
+    const moduleId = user.module_id;
+    const lessonId = user.lesson_id;
+    
+    const indexLesson = lessons && lessons.findIndex(c => c.id === lessonId);
+    const lessonIdNext = lessons && lessons.filter((c, index) => index === indexLesson + 1).map(c => c.id)[0];
+    
     const answer = arrayDifferent && arrayDifferent
         .filter((c, index) => index === exerciseNumber)
         .map(c => c.answer)[0];
@@ -127,6 +136,23 @@ const LessonPage = () => {
         setChangeWidth(true);
         dispatch(arrayChoosePositiveAnswerEmpty());
         dispatch(arrayIdChoosePositiveAnswerEmpty()); 
+    }
+    const continueExercise = async() => {
+        navigate(LEARN_PAGE);
+        cleaner();
+        dispatch(arrayChoosePositiveAnswerEmpty());
+        dispatch(arrayIdChoosePositiveAnswerEmpty());
+        if (indexLesson <= lessons.length) {
+            try {
+                await updateUserLessonId(lessonIdNext).then(data => {
+                    if(data.status === 200) {
+                        dispatch(fetchUser(data.data));
+                    }
+                });
+            } catch(e) {
+                console.log(e.message);
+            }
+        }
     }
 
     useEffect(() => {
@@ -204,20 +230,32 @@ const LessonPage = () => {
         // arrayDifferent, workMistakes,
     ]);
     useMemo(() => {
-        const getExercises = async() => {
-            await getExercisesForLesson(lessonId).then(data => {
-                if (data.status === 200) {
-                    // console.log(data.data);
-                    setArrayLessonPageChooseImage(data.data);
-                    if (!workMistakes) {
-                        setArrayDifferent(data.data);
-                    } else {
-                        setArrayDifferent(arrayWrongs);
+        try {
+            const getExercises = async() => {
+                await getExercisesForLesson(lessonId).then(data => {
+                    if (data.status === 200) {
+                        // console.log(data.data);
+                        setArrayLessonPageChooseImage(data.data);
+                        if (!workMistakes) {
+                            setArrayDifferent(data.data);
+                        } else {
+                            setArrayDifferent(arrayWrongs);
+                        }
                     }
-                }
-            });
+                });
+            }
+            getExercises();
+            const fetchModuleId = async() => {
+                await getModuleById(moduleId).then(data => {
+                    if (data.status === 200) {
+                        setLessons(data.data.lessons);
+                    }
+                });
+            }
+            fetchModuleId();
+        } catch (e) {
+            console.log(e.message);
         }
-        getExercises();
     // eslint-disable-next-line
     }, [arrayWrongs, lessonId, workMistakes]);
     return (
@@ -305,8 +343,6 @@ const LessonPage = () => {
                                             changeWidth={changeWidth}
                                             setChangeWidth={setChangeWidth}
                                             wrong={wrong}
-                                            // src={c.src}
-                                            // alt={c.alt}
                                             setShowBlockTranslate={setShowBlockTranslate}
                                             arrayChange={arrayChange}
                                             setArrayChange={setArrayChange}
@@ -317,6 +353,7 @@ const LessonPage = () => {
                                             workMistakes={workMistakes}
                                             showBlockTranslate={showBlockTranslate}
                                             image={c.image}
+                                            arrayLessonPageChooseImage={arrayLessonPageChooseImage}
                                         />
                                 )
                             } 
@@ -356,6 +393,7 @@ const LessonPage = () => {
                 finishTest && 
                     <FooterMenuFinishTestComponent
                         setModalFinishTest={setModalFinishTest}
+                        continueExercise={continueExercise}
                     />
             }                  
         </div>

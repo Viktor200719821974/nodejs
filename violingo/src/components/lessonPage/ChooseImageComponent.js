@@ -9,8 +9,8 @@ const ChooseImageComponent = ({
         const keyDownHandlerChooseImage = (e) => {
             if ((e.key > 0 && e.key <= 3) && chooseWrong) {
                 setIdElement(Number(e.key));
-                const chooseAnswer = task.filter(c => c.id === Number(e.key))
-                    .map(item => item.name)[0];
+                const chooseAnswer = task && task.filter((c, index) => index + 1 === Number(e.key))
+                    .map(item => item.answer)[0];
                 setName(chooseAnswer);
             } else {
                     setIdElement(idElement);
@@ -28,20 +28,21 @@ const ChooseImageComponent = ({
                 {titleTask} «{question}»
             </h1>
             <div 
-                className="lessonPage_main_div_image_chooseImageComponent"            >
+                className="lessonPage_main_div_image_chooseImageComponent"  
+            >
                 {
                     task && task.map((c, index) =>   
                         <div 
                             key={c.id} 
                             style={{left: `${index * 203}px`}}
                             className={
-                                idElement !== c.id 
+                                idElement !== index + 1 
                                     ? "lessonPage_div_image_and_sign_chooseImageComponent"
                                     : "lessonPage_div_image_and_sign_select_chooseImageComponent"
                             }
                             onClick={() => {
-                                chooseWrong && setIdElement(c.id);
-                                chooseWrong && setName(c.name);
+                                chooseWrong && setIdElement(index + 1);
+                                chooseWrong && setName(c.answer);
                             }}
                             >  
                             <img 
@@ -52,7 +53,7 @@ const ChooseImageComponent = ({
                             <div className="lessonPage_main_div_sign_chooseImageComponent">
                                 <span 
                                     className={
-                                        idElement !== c.id 
+                                        idElement !== index + 1 
                                             ? "lessonPage_span_sign_name_chooseImageComponent"
                                             : "lessonPage_span_sign_name_select_chooseImageComponent"
                                     }
@@ -61,7 +62,7 @@ const ChooseImageComponent = ({
                                 </span>
                                 <span 
                                     className={
-                                        idElement !== c.id 
+                                        idElement !== index + 1 
                                             ? "lessonPage_span_sign_index_chooseImageComponent display_alien_justify"
                                             : "lessonPage_span_sign_index_select_chooseImageComponent display_alien_justify"
                                     }

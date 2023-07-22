@@ -1,15 +1,15 @@
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import { LESSON_PAGE } from '../../../constants';
 
-const LessonStartWindowModalComponent = ({ backgroundTheme, lessons, }) => {
+const LessonStartWindowModalComponent = ({ backgroundTheme, lessons, numberLesson, }) => {
     const navigate = useNavigate();
-    const { user } = useSelector(state => state.userReducer);
+    // const { user } = useSelector(state => state.userReducer);
     const startLesson = () => {
-        navigate(LESSON_PAGE, { state: user.lesson_id });
+        navigate(LESSON_PAGE);
     }
-    const numberLesson = lessons.findIndex(c => c.id === user.lesson_id);
+    
     return (
         <div 
             className="main_div_lessonStartWindowModalComponent"

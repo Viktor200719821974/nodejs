@@ -9,3 +9,6 @@ export const activateAccount = async (token) => {
     const {data} = await $host.get(`/users/activateUser/${token}`);
     return data;
 }
+export const updateUserLessonId = async (lessonId) => {
+    return await $authHost.patch('/users/userLessonId',  { lessonId });
+}

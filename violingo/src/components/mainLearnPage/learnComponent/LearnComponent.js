@@ -6,6 +6,7 @@ import ImageRightComponent from './ImageRightComponent';
 
 const LearnComponent = ({ themes, show, setShow, }) => {
     const { user } = useSelector(state => state.userReducer);
+    
     return (
         <div>
             {

@@ -8,3 +8,6 @@ export const createModule = async (formData) => {
 export const getModules = async (themeId) => {
     return await $authHost.get(`/modules?themeId=${themeId}`);
 }
+export const getModuleById = async (id) => {
+    return await $authHost.get('/modules/' + id);
+}

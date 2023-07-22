@@ -15,6 +15,16 @@ class ModulesController {
         }
     }
 
+    async getModuleById(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            const module = await modulesService.getModuleById(+id);
+            res.status(200).json(module);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async createModule(req: Request, res: Response, next: NextFunction) {
         try {
             const image = req.files?.image as UploadedFile;

@@ -11,7 +11,7 @@ import { getTaskById, getTaskByIdForChooseTranslateWords, getTaskByArrayId } fro
 const LessonPageBodyComponent = ({
     tasks, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
     setTaskChose, changeClassNameNumber,changeClassNameName, questionIdChose, titleTask,
-    setQuestionIdChose, setQuestionNameChose, setPositiveAnswer,
+    setQuestionIdChose, setQuestionNameChose, setPositiveAnswer, arrayLessonPageChooseImage,
     widthValue, setWidthValue, changeWidth, setChangeWidth, chooseImage, chooseMissingWord,
     chooseTranslateWords, choosePositiveAnswer, chooseAnswer, question, setIdElement, idElement,
     setName, chooseWrong, name, wrong, showBlockTranslate, setShowBlockTranslate,
@@ -154,6 +154,7 @@ const LessonPageBodyComponent = ({
                             changeWidth={changeWidth}
                             setChangeWidth={setChangeWidth}
                             arrayAnswers={arrayAnswers}
+                            arrayLessonPageChooseImage={arrayLessonPageChooseImage}
                         />
                 }
         </div>

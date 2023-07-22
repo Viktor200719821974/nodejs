@@ -72,6 +72,11 @@ class UsersService {
     async updateStatisticUser(id: number) {
         return model.User.update({ statistic: true }, { where: { id } });
     }
+
+    async updateUserLessonId(id: number, lesson_id: number): Promise<IUser | null> {
+        await model.User.update( { lesson_id }, { where: { id } });
+        return model.User.findOne( { where: { id } });
+    }
 }
 
 export const usersService = new UsersService();

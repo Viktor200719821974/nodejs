@@ -13,5 +13,6 @@ router.patch('/userBlocked/:id', authMiddleware.checkAccessToken, authMiddleware
 router.patch('/userIsNotManager/:id', authMiddleware.checkAccessToken, authMiddleware.userStaff, usersController.userIsNotManager);
 router.patch('/userManager/:id', authMiddleware.checkAccessToken, authMiddleware.userStaff, usersController.userManager);
 router.patch('/userUnlocked/:id', authMiddleware.checkAccessToken, authMiddleware.userStaff, usersController.userUnlocked);
+router.patch('/userLessonId', authMiddleware.checkAccessToken, usersController.updateUserLessonId);
 
 export const usersRouter = router;

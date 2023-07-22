@@ -199,7 +199,7 @@ const MainLearnPage = () => {
         }
         return(() => {
             action = false;
-        })
+        });
     // eslint-disable-next-line   
     }, [
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
@@ -265,7 +265,7 @@ const MainLearnPage = () => {
             fetchUpdateAgendaUser();
         }
     // eslint-disable-next-line
-    }, [arrayIndex, updateBool, index, points,]);
+    }, [arrayIndex, updateBool, points,]);
     useMemo(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
             if (scrollPosition >= 250) {

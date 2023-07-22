@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 const ChooseTranslateWordsComponent = ({ 
     task, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
     setTaskChose, changeClassNameNumber,changeClassNameName, questionIdChose, titleTask,
-    setQuestionIdChose, setQuestionNameChose, setPositiveAnswer, 
+    setQuestionIdChose, setQuestionNameChose, setPositiveAnswer, arrayLessonPageChooseImage,
     widthValue, setWidthValue, changeWidth, setChangeWidth, arrayAnswers,
 }) => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
@@ -43,7 +43,7 @@ const ChooseTranslateWordsComponent = ({
         if ((firstArray && secondArray) && (firstArray.length === 0 && secondArray.length === 0)) {
             setPositiveAnswer(true);
             if(changeWidth) {
-               setWidthValue(widthValue + 6.67); 
+               setWidthValue(widthValue + (100 / arrayLessonPageChooseImage.length)); 
                setChangeWidth(false);
             }  
         }
