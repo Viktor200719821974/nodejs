@@ -6,9 +6,17 @@ import { modulesService } from '../services/modulesService';
 class ModulesController {
     async getModules(req: Request, res: Response, next: NextFunction) {
         try {
+            const modules = await modulesService.getModules();
+            res.status(200).json(modules);
+        }  catch(e) {
+            next(e);
+        }
+    }
+    async getModulesByTheme(req: Request, res: Response, next: NextFunction) {
+        try {
             const { themeId } = req.query;
             // @ts-ignore
-            const modules = await modulesService.getModules(+themeId);
+            const modules = await modulesService.getModulesByTheme(+themeId);
             res.status(200).json(modules);
         } catch (e) {
             next(e);

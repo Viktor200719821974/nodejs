@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import book from '../../../icons/book.svg';
 import ImageLeftComponent from './ImageLeftComponent';
 import ImageRightComponent from './ImageRightComponent';
 
-const LearnComponent = ({ themes, show, setShow, }) => {
-    const { user } = useSelector(state => state.userReducer);
-    
+const LearnComponent = ({ themes, show, setShow, moduleId, }) => {
+    // const { user } = useSelector(state => state.userReducer); 
     return (
         <div>
             {
@@ -41,7 +40,7 @@ const LearnComponent = ({ themes, show, setShow, }) => {
                                         <ImageLeftComponent 
                                             module={c.module} 
                                             image_left={c.image_left}
-                                            moduleId={user.module_id}
+                                            moduleId={moduleId}
                                             backgroundTheme={c.background_theme}
                                             show={show}
                                             setShow={setShow}
@@ -53,7 +52,7 @@ const LearnComponent = ({ themes, show, setShow, }) => {
                                             module={c.module} 
                                             image_right={c.image_right}
                                             image_left={c.image_left}
-                                            moduleId={user.module_id}
+                                            moduleId={moduleId}
                                             backgroundTheme={c.background_theme}
                                             show={show}
                                             setShow={setShow}

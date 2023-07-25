@@ -118,6 +118,18 @@ class UsersController {
             next(e);
         }
     }
+
+    async updateUserModuleId(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            //@ts-ignore
+            const { id } = req.user;
+            const { moduleId } = req.body;
+            const user = await usersService.updateUserModuleId(+id, +moduleId);
+            res.status(200).json(user);
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export const usersController = new UsersController();

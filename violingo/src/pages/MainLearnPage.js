@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate, } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { 
     LEARN_PAGE, REVIEW_PAGE, SHOP_PAGE, SCHOOLS_PAGE, SETTINGS_COACH, SETTINGS_SOUND, 
@@ -19,11 +20,17 @@ import arrow from '../icons/arrow-up-blue.svg';
 import { getStatistic } from '../http/statisticApi';
 import { getAgendaUser, updateAgendaUser } from '../http/agendaApi';
 import { getThemes } from '../http/themesApi';
+import { updateUserLessonId } from '../http/userApi';
+import { fetchUser, isEndModuleActions } from '../redux/actions';
+import { getModuleById } from '../http/modulesApi';
 
 const MainLearnPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    
+    const dispatch = useDispatch();
+    const { user } = useSelector(state => state.userReducer);
+    const { isEndModule } = useSelector(state => state.isEndModuleReducer);
+    console.log(isEndModule);
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
@@ -264,8 +271,25 @@ const MainLearnPage = () => {
         if (updateBool) {
             fetchUpdateAgendaUser();
         }
+        const fetchUpdateUserLessonId = async() => {
+            try {
+                const lessonId = await getModuleById(user.module_id)
+                    .then(data => data.data.lessons[0].id);
+                await updateUserLessonId(lessonId).then(data => {
+                    if(data.status === 200) {
+                        dispatch(fetchUser(data.data));
+                    }
+                }); 
+                dispatch(isEndModuleActions(false));
+            } catch(e) {
+                console.log(e.message);
+            }          
+        }
+        if (isEndModule) {
+            fetchUpdateUserLessonId();
+        }
     // eslint-disable-next-line
-    }, [arrayIndex, updateBool, points,]);
+    }, [arrayIndex, updateBool, points, user.module_id, isEndModule, ]);
     useMemo(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
             if (scrollPosition >= 250) {
@@ -305,6 +329,7 @@ const MainLearnPage = () => {
                             themes={themes}
                             show={show}
                             setShow={setShow}
+                            moduleId={user.module_id}
                         /> 
                     }
                     { reviewPage && <ReviewComponent/> }

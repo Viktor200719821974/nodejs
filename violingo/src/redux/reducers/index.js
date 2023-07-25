@@ -11,12 +11,13 @@ import { isAdminUserReducer } from './isAdminUserReducer';
 import { tasksReducer } from './tasksReducer';
 import { allTasksWithoutFiltersReducer } from './allTasksWithoutFiltersReducer';
 import { agendaUserReducer } from './agendaUserReducer';
+import { isEndModuleReducer } from './isEndModuleReducer';
 
 const rootReducer = combineReducers({ 
     userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, 
     arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, 
     arrayWrongAnswerReducer, isAdminUserReducer, tasksReducer, allTasksWithoutFiltersReducer, 
-    agendaUserReducer,
+    agendaUserReducer, isEndModuleReducer,
 });
 
 export { rootReducer };

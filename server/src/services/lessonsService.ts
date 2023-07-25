@@ -3,7 +3,7 @@ import { model } from '../models';
 
 class LessonsService {
     async getLessons(themeId: string, moduleId: string): Promise<ILesson[]> {
-        if (themeId) {
+        if (themeId !== 'undefined' && moduleId === 'undefined') {
             return model.Lesson.findAll({
                 where: { themeId },
                 attributes: {
@@ -11,9 +11,17 @@ class LessonsService {
                 },
             });
         }
-        if (moduleId) {
+        if (moduleId !== 'undefined' && themeId === 'undefined') {
             return model.Lesson.findAll({
                 where: { moduleId },
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                },
+            });
+        }
+        if (moduleId !== 'undefined' && themeId !== 'undefined') {
+            return model.Lesson.findAll({
+                where: { moduleId, themeId },
                 attributes: {
                     exclude: ['createdAt', 'updatedAt'],
                 },

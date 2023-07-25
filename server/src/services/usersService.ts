@@ -77,6 +77,11 @@ class UsersService {
         await model.User.update( { lesson_id }, { where: { id } });
         return model.User.findOne( { where: { id } });
     }
+
+    async updateUserModuleId(id: number, module_id: number): Promise<IUser | null> {
+        await model.User.update( { module_id }, { where: { id } });
+        return model.User.findOne( { where: { id } });
+    }
 }
 
 export const usersService = new UsersService();

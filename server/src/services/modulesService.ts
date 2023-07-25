@@ -5,7 +5,11 @@ import { model } from '../models';
 import { saveImageService } from './saveImageService';
 
 class ModulesService {
-    async getModules(themeId: number): Promise<IModule[]> {
+    async getModules(): Promise<IModule[]> {
+        return model.Module.findAll();
+    }
+    
+    async getModulesByTheme(themeId: number): Promise<IModule[]> {
         let modules;
         if (themeId !== 0) {
             modules = await model.Module.findAll({ where: { themeId } });

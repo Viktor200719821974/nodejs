@@ -34,6 +34,7 @@ const ImageLeftComponent = ({ module, image_left, moduleId, backgroundTheme, sho
                                                     show={show}
                                                     setShow={setShow}
                                                     moduleId={c.id}
+                                                    themeId={c.themeId}
                                                 />
                                         }
                                     </div>

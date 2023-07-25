@@ -15,7 +15,8 @@ router.post(
     modulesMiddleware.findModuleByNumberByThemeId,
     modulesController.createModule,
 );
-router.get('/', authMiddleware.checkAccessToken, modulesController.getModules);
+router.get('/', modulesController.getModules);
+router.get('/modulesByTheme', modulesController.getModulesByTheme);
 router.get('/:id', modulesController.getModuleById);
 
 export const modulesRouter = router;

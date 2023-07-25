@@ -29,6 +29,7 @@ const ImageRightComponent = ({
                                                     show={show}
                                                     setShow={setShow}
                                                     moduleId={c.id}
+                                                    themeId={c.themeId}
                                                 />
                                         }
                                     </div>

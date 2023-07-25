@@ -14,7 +14,7 @@ import {
     arrayIdChoosePositiveAnswerEmpty, arrayChoosePositiveAnswer, arrayIdChoosePositiveAnswer, 
     arrayChoosePositiveAnswerEmpty,
 } from '../redux/actions';
-import { getModules, createModule } from '../http/modulesApi';
+import { getModulesByTheme, createModule } from '../http/modulesApi';
 import ArrowBackComponent from '../components/adminPage/subComponents/ArrowBackComponent';
 import { LEARN_PAGE } from '../constants';
 
@@ -220,7 +220,7 @@ const AdminPage = () => {
         try {
             setDropdownMenuModules(value => !value);
             setDropdown(false);
-            await getModules(themeId).then(data => {
+            await getModulesByTheme(themeId).then(data => {
                 if (data.status === 200) {
                     setModules(data.data);
                 }

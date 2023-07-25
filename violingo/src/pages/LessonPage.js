@@ -10,8 +10,7 @@ import FooterMenuWrongAnswerComponent from '../components/lessonPage/FooterMenuW
 import FooterMenuPositiveAnswerComponent from '../components/lessonPage/FooterMenuPositiveAnswerComponent';
 import { 
     arrayChoosePositiveAnswer, arrayWrongAnswer, arrayChoosePositiveAnswerEmpty, 
-    arrayIdChoosePositiveAnswerEmpty,
-    fetchUser,
+    arrayIdChoosePositiveAnswerEmpty, fetchUser, isEndModuleActions,
  } from '../redux/actions';
 // import { SUCCESS_EXERCISE } from '../constants';
 import LessonPageBodyComponent from '../components/lessonPage/LessonPageBodyComponent';
@@ -20,8 +19,8 @@ import FooterMenuFinishTestComponent from '../components/lessonPage/FooterMenuFi
 import LookLessonModalComponent from '../components/lessonPage/LookLessonModalComponent';
 import { getExercisesForLesson } from '../http/exercisesApi';
 import { LEARN_PAGE } from '../constants';
-import { getModuleById } from '../http/modulesApi';
-import { updateUserLessonId } from '../http/userApi';
+import { getModuleById, getModulesByTheme } from '../http/modulesApi';
+import { updateUserLessonId, updateUserModuleId } from '../http/userApi';
 
 const LessonPage = () => {
     const [idElement, setIdElement] = useState(0);
@@ -58,6 +57,8 @@ const LessonPage = () => {
     const [arrayDifferent, setArrayDifferent] = useState(null);
     const [arrayLessonPageChooseImage, setArrayLessonPageChooseImage] = useState(null);
     const [lessons, setLessons] = useState(null);
+    const [themeId, setThemeId] = useState(0);
+    const [modules, setModules] = useState(null);
     
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { arrayWrongs } = useSelector(state => state.arrayWrongAnswerReducer);
@@ -70,6 +71,8 @@ const LessonPage = () => {
     
     const indexLesson = lessons && lessons.findIndex(c => c.id === lessonId);
     const lessonIdNext = lessons && lessons.filter((c, index) => index === indexLesson + 1).map(c => c.id)[0];
+    const indexModule = modules && modules.findIndex(c => c.id === user.module_id);
+    const moduleIdNext = modules && modules.filter((c, index) => index === indexModule + 1).map(c => c.id)[0];
     
     const answer = arrayDifferent && arrayDifferent
         .filter((c, index) => index === exerciseNumber)
@@ -142,11 +145,23 @@ const LessonPage = () => {
         cleaner();
         dispatch(arrayChoosePositiveAnswerEmpty());
         dispatch(arrayIdChoosePositiveAnswerEmpty());
-        if (indexLesson <= lessons.length) {
+        if (lessonIdNext <= lessons.length) {
             try {
                 await updateUserLessonId(lessonIdNext).then(data => {
                     if(data.status === 200) {
                         dispatch(fetchUser(data.data));
+                    }
+                });
+            } catch(e) {
+                console.log(e.message);
+            }
+        }
+        if (lessonIdNext === undefined) { 
+            try {
+                await updateUserModuleId(moduleIdNext).then(data => {
+                    if (data.status === 200) {
+                        dispatch(fetchUser(data.data));
+                        dispatch(isEndModuleActions(true));
                     }
                 });
             } catch(e) {
@@ -225,7 +240,7 @@ const LessonPage = () => {
         whichWrongs, positiveAnswer, widthValue, exerciseNumber, showBlockTranslate, arrayChange,
         nameTranslate, moreInfo, answerChose, answerIdChose, changeClassName, trueAnswer,
         taskChose, changeClassNameNumber, changeClassNameName, questionIdChose, changeWidth,
-        questionNameChose, answerArray, taskArray,  numberSuborder, count,
+        questionNameChose, answerArray, taskArray,  numberSuborder, count, 
         backgroundValue, finishTest, modalFinishTest, 
         // arrayDifferent, workMistakes,
     ]);
@@ -249,15 +264,24 @@ const LessonPage = () => {
                 await getModuleById(moduleId).then(data => {
                     if (data.status === 200) {
                         setLessons(data.data.lessons);
+                        setThemeId(data.data.themeId);
                     }
                 });
             }
             fetchModuleId();
+            const fetchModules = async() => {
+                await getModulesByTheme(themeId).then(data => {
+                    if (data.status === 200) {
+                        setModules(data.data);
+                    }
+                });
+            }
+            fetchModules();
         } catch (e) {
             console.log(e.message);
         }
     // eslint-disable-next-line
-    }, [arrayWrongs, lessonId, workMistakes]);
+    }, [arrayWrongs, lessonId, workMistakes, ]);
     return (
         <div className="lessonPage_main_div">
             {

@@ -5,12 +5,12 @@ import { IMAGES_LEARN_COMPONENT } from '../../../constants';
 import { getLessons } from '../../../http/lessonsApi';
 import LessonStartWindowModalComponent from './LessonStartWindowModalComponent';
 
-const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, }) => {
+const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, themeId, }) => {
     const { user } = useSelector(state => state.userReducer);
     const [lessons, setLessons] = useState([]);
+    
     // const [countProcents, setCountProcents] = useState(0);
     const numberLesson = lessons.findIndex(c => c.id === user.lesson_id);
-    // console.log(countProcents);
     // console.log((100 / lessons.length) * numberLesson);
     const valueSuccess = `${(100 / lessons.length) * numberLesson}%`;
     const openModal = () => {
@@ -22,7 +22,7 @@ const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId
             // setCountProcents((100 / lessons.length) * numberLesson);
             try {
                 const fetchLessons = async () => {
-                    await getLessons(moduleId).then(data => {
+                    await getLessons(themeId, moduleId).then(data => {
                         if (data.status === 200) {
                             setLessons(data.data);
                         }
