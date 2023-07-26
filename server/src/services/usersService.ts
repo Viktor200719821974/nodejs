@@ -79,7 +79,21 @@ class UsersService {
     }
 
     async updateUserModuleId(id: number, module_id: number): Promise<IUser | null> {
-        await model.User.update( { module_id }, { where: { id } });
+        const user = await model.User.findOne({ where: { id } });
+        const moduleId = user?.module_id;
+        let array = user?.closed_modules;
+        if (!array) {
+            array = [];
+        }
+        if (moduleId) {
+            array.push(moduleId);
+        }
+        await model.User.update( { module_id, closed_modules: array }, { where: { id } });
+        return model.User.findOne( { where: { id } });
+    }
+
+    async updateUserThemeId(id: number, theme_id: number): Promise<IUser | null> {
+        await model.User.update( { theme_id }, { where: { id } });
         return model.User.findOne( { where: { id } });
     }
 }

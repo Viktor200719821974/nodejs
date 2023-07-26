@@ -130,6 +130,18 @@ class UsersController {
             next(e);
         }
     }
+
+    async updateUserThemeId(req: IRequestExtended, res: Response, next: NextFunction) {
+        try {
+            //@ts-ignore
+            const { id } = req.user;
+            const { themeId } = req.body;
+            const user = await usersService.updateUserThemeId(+id, +themeId);
+            res.status(200).json(user);
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export const usersController = new UsersController();

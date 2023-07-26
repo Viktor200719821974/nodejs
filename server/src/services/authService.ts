@@ -14,9 +14,10 @@ class AuthService {
         const themes = await model.Theme.findAll();
         let moduleId = 1;
         let lessonId = 1;
+        let themeId = 1;
         if (themes) {
             const theme = themes.sort((a, b) => a.id - b.id)[0];
-            const themeId = theme.id;
+            themeId = theme.id;
             const modules = await model.Module.findAll({ where: { themeId } });
             if (modules) {
                 const module = modules.sort((a, b) => a.id - b.id)[0];
@@ -30,7 +31,7 @@ class AuthService {
         } 
         const hashedPassword = await AuthService._hashPassword(password);
         const id = await model.User
-            .create({ ...user, password: hashedPassword, module_id: moduleId, lesson_id: lessonId })
+            .create({ ...user, password: hashedPassword, module_id: moduleId, lesson_id: lessonId, theme_id: themeId })
             .then((data) => data.id);
         const tokenActivate = await tokenService.generateTokenActivate({ userId: id, userEmail });
         //@ts-ignore

@@ -15,5 +15,6 @@ router.patch('/userManager/:id', authMiddleware.checkAccessToken, authMiddleware
 router.patch('/userUnlocked/:id', authMiddleware.checkAccessToken, authMiddleware.userStaff, usersController.userUnlocked);
 router.patch('/userLessonId', authMiddleware.checkAccessToken, usersController.updateUserLessonId);
 router.patch('/userModuleId', authMiddleware.checkAccessToken, usersController.updateUserModuleId);
+router.patch('/userThemeId', authMiddleware.checkAccessToken, usersController.updateUserThemeId);
 
 export const usersRouter = router;

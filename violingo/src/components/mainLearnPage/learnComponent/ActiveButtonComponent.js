@@ -1,43 +1,18 @@
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { IMAGES_LEARN_COMPONENT } from '../../../constants';
-import { getLessons } from '../../../http/lessonsApi';
 import LessonStartWindowModalComponent from './LessonStartWindowModalComponent';
 
-const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, themeId, }) => {
+const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, }) => {
     const { user } = useSelector(state => state.userReducer);
-    const [lessons, setLessons] = useState([]);
-    
-    // const [countProcents, setCountProcents] = useState(0);
-    const numberLesson = lessons.findIndex(c => c.id === user.lesson_id);
-    // console.log((100 / lessons.length) * numberLesson);
+    const { lessons } = useSelector(state => state.arrayLessonsReducer);
+   
+    const numberLesson = lessons.filter(c => c.moduleId === moduleId).findIndex(c => c.id === user.lesson_id);
     const valueSuccess = `${(100 / lessons.length) * numberLesson}%`;
+
     const openModal = () => {
         setShow(value => !value);
     }
-    useEffect(() => {
-        let action = true;
-        if (action) {
-            // setCountProcents((100 / lessons.length) * numberLesson);
-            try {
-                const fetchLessons = async () => {
-                    await getLessons(themeId, moduleId).then(data => {
-                        if (data.status === 200) {
-                            setLessons(data.data);
-                        }
-                    });
-                }  
-                fetchLessons(); 
-            }catch (e) {
-                console.log(e.message);
-            }  
-        }  
-        return(() => {
-            action = false;
-        });
-    // eslint-disable-next-line
-    }, []);
     return (
         <div 
             style={{marginLeft: style}}
@@ -63,7 +38,7 @@ const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId
                 show &&
                     <LessonStartWindowModalComponent 
                         backgroundTheme={backgroundTheme}
-                        lessons={lessons}
+                        lessons={lessons.filter(c => c.moduleId === moduleId)}
                         numberLesson={numberLesson}
                     />
             }

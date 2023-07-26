@@ -12,12 +12,15 @@ import { tasksReducer } from './tasksReducer';
 import { allTasksWithoutFiltersReducer } from './allTasksWithoutFiltersReducer';
 import { agendaUserReducer } from './agendaUserReducer';
 import { isEndModuleReducer } from './isEndModuleReducer';
+import { arrayThemesReducer } from './arrayThemesReducer';
+import { arrayLessonsReducer } from './arrayLessonsReducer';
+import { arrayModulesReducer } from './arrayModulesReducer';
 
 const rootReducer = combineReducers({ 
     userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, 
     arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, 
     arrayWrongAnswerReducer, isAdminUserReducer, tasksReducer, allTasksWithoutFiltersReducer, 
-    agendaUserReducer, isEndModuleReducer,
+    agendaUserReducer, isEndModuleReducer, arrayThemesReducer, arrayLessonsReducer, arrayModulesReducer,
 });
 
 export { rootReducer };

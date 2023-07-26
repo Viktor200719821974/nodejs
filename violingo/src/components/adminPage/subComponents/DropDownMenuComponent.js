@@ -27,25 +27,25 @@ const DropDownMenuComponent = ({
                 dropdown &&
                     <div className={"adminPage_div_dropdown_menu_createComponent"}>
                         {
-                            themes.map((c, index) =>
+                            themes.sort((a, b) => a.id - b.id).map((c, index) =>
                                 <div key={c.id}>
                                     {
-                                    !dropdownMenuModules 
-                                    ?
-                                        <span
-                                            className={"adminPage_span_dropdown_menu_createComponent"}
-                                            onClick={() => click(c.title, c.id)}
-                                            >
-                                                {index + 1}.{c.title}
-                                        </span>
-                                    :
-                                        <span
-                                            className={"adminPage_span_dropdown_menu_createComponent"}
-                                            onClick={() => click(c.moduleNumber, c.id)}
-                                            >
-                                                Модуль № {c.moduleNumber}
-                                        </span>
-                                    }
+                                        !dropdownMenuModules 
+                                            ?
+                                                <span
+                                                    className={"adminPage_span_dropdown_menu_createComponent"}
+                                                    onClick={() => click(c.title, c.id)}
+                                                    >
+                                                        {index + 1}.{c.title}
+                                                </span>
+                                            :
+                                                <span
+                                                    className={"adminPage_span_dropdown_menu_createComponent"}
+                                                    onClick={() => click(c.moduleNumber, c.id)}
+                                                    >
+                                                        Модуль № {c.moduleNumber}
+                                                </span>
+                                            }
                                 </div>
                             )
                         }

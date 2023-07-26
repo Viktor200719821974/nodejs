@@ -5,19 +5,21 @@ import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import './style/style.css';
-import { fetchUser, isAdminUser, isLoginUser, isStatisticUser} from './redux/actions';
+import { 
+    fetchUser, isAdminUser, isLoginUser, isStatisticUser, arrayLessons, arrayThemes, arrayModules, 
+} from './redux/actions';
 import ApiRouter from './components/ApiRouter';
 import { getUserById } from './http/userApi';
 import violingoLoading from './icons/violingo_loading.png';
-// import { getTasks } from './http/tasksApi';
-// import { getStatistic } from './http/statisticApi';
+import { getLessons } from './http/lessonsApi';
+import { getThemes } from './http/themesApi';
+import { getModules } from './http/modulesApi';
 
 function App() {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const { isLogin } = useSelector(state => state.isLoginUserReducer);
-    // const { isStatistic } = useSelector(state => state.isStatisticUserReducer);
-    // const { isAdmin } = useSelector(state => state.isAdminUserReducer);
+   
     useEffect(() => {
         let action = true;
             if (action) {
@@ -30,22 +32,36 @@ function App() {
                                 dispatch(isLoginUser(true));
                                 dispatch(isStatisticUser(data.data.statistic));
                                 dispatch(isAdminUser(data.data.is_staff));
-                                // dispatch(agendaUser(data.data.agenda));
-                                // window.location.pathname="/learn";
-                                // if (data.data.is_staff) {
-                                //     getTasks().then(data => {
-                                //         if (data.status === 200) {
-                                //             dispatch(fetchTasks(data.data));
-                                //         }
-                                //     });
-                                // }
                             }
                         });
-                        // getStatistic().then(data => {
-                        //   if (data.status === 200) {
-                        //     dispatch(statisticUser(data.data));
-                        //   }
-                        // });
+                        const fetchThemes = async() => {
+                            try {
+                                await getThemes().then(data => {
+                                    if (data.status === 200) {
+                                        dispatch(arrayThemes(data.data));
+                                    }
+                                });
+                            } catch(e) {
+                                console.log(e.message);
+                            }
+                        }
+                        fetchThemes();
+                        const fetchLessons = async () => {
+                            await getLessons().then(data => {
+                                if (data.status === 200) {
+                                    dispatch(arrayLessons(data.data));
+                                }
+                            });
+                        }  
+                        fetchLessons(); 
+                        const fetchModules = async() => {
+                            await getModules().then(data => {
+                                if (data.status === 200) {
+                                    dispatch(arrayModules(data.data));
+                                }
+                            });
+                        }
+                        fetchModules();
                     }
                 } catch(err) {
                     console.log(err);

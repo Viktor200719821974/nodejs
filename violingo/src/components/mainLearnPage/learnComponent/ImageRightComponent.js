@@ -4,7 +4,7 @@ import ActiveButtonComponent from './ActiveButtonComponent';
 import NoActiveButtonComponent from './NoActiveButtonComponent';
 
 const ImageRightComponent = ({ 
-    module, image_right, image_left, moduleId, backgroundTheme, show, setShow, 
+    module, image_right, image_left, moduleId, backgroundTheme, show, setShow, themes,
 }) => {
     return (
         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
@@ -29,7 +29,6 @@ const ImageRightComponent = ({
                                                     show={show}
                                                     setShow={setShow}
                                                     moduleId={c.id}
-                                                    themeId={c.themeId}
                                                 />
                                         }
                                     </div>

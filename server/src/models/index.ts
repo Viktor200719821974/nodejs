@@ -1,10 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db';
 import {
-    IToken, IUser, IStatistic, IAgendaUser,
-    // ISection, IPart1,
-    IExercise, ITask,
-    // ILookLessonAnswer,
+    IToken, IUser, IStatistic, IAgendaUser, IExercise, ITask,
     ILesson, ITheme, IImageTask, IImageExercise, IModule,
 } from '../interfaces';
 
@@ -23,6 +20,10 @@ const User = sequelize.define<IUser>('user', {
     statistic: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     module_id: { type: DataTypes.INTEGER, allowNull: false },
     lesson_id: { type: DataTypes.INTEGER, allowNull: false },
+    theme_id: { type: DataTypes.INTEGER, allowNull: false },
+    closed_modules: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER), allowNull: true,
+    },
 });
 const Token = sequelize.define<IToken>('token', {
     id: {
@@ -64,100 +65,6 @@ const Theme = sequelize.define<ITheme>('theme', {
         type: DataTypes.STRING,  
     },
 });
-// const Section = sequelize.define<ISection>('Section', {
-//     id: {
-//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-//     },
-//     section: {
-//         type: DataTypes.INTEGER, allowNull: false,
-//     },
-//     background: {
-//         type: DataTypes.STRING, allowNull: false, defaultValue: '#000',
-//     },
-//     title: {
-//         type: DataTypes.STRING, allowNull: false,
-//     },
-//     image1: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     alt1: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     image2: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     alt2: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-// });
-// const Part1 = sequelize.define<IPart1>('Part1', {
-//     id: {
-//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-//     },
-//     src: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     alt: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     width: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     sectionId: {
-//         type: DataTypes.INTEGER, allowNull: false,
-//     },
-// });
-// const Part2 = sequelize.define<IPart1>('Part2', {
-//     id: {
-//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-//     },
-//     src: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     alt: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     width: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     sectionId: {
-//         type: DataTypes.INTEGER, allowNull: false,
-//     },
-// });
-// const Part3 = sequelize.define<IPart1>('Part3', {
-//     id: {
-//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-//     },
-//     src: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     alt: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     width: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     sectionId: {
-//         type: DataTypes.INTEGER, allowNull: false,
-//     },
-// });
-// const Part4 = sequelize.define<IPart1>('Part4', {
-//     id: {
-//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-//     },
-//     src: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     alt: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     width: {
-//         type: DataTypes.STRING, allowNull: true,
-//     },
-//     sectionId: {
-//         type: DataTypes.INTEGER, allowNull: false,
-//     },
-// });
 const Module = sequelize.define<IModule>('module', {
     id: {
         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
@@ -357,14 +264,6 @@ Statistic.belongsTo(User);
 User.hasOne(AgendaUser, { foreignKey: 'userId', as: 'agenda' });
 AgendaUser.belongsTo(User);
 
-// Section.hasOne(Part1, { foreignKey: 'sectionId' });
-// Part1.belongsTo(Section);
-// Section.hasOne(Part2, { foreignKey: 'sectionId' });
-// Part2.belongsTo(Section);
-// Section.hasOne(Part3, { foreignKey: 'sectionId' });
-// Part3.belongsTo(Section);
-// Section.hasOne(Part4, { foreignKey: 'sectionId' });
-// Part4.belongsTo(Section);
 Module.hasMany(Lesson, { foreignKey: 'moduleId', as: 'lessons' });
 Lesson.belongsTo(Module);
 
@@ -389,11 +288,6 @@ export const model = {
     User,
     Token,
     Statistic,
-    // Section,
-    // Part1,
-    // Part2,
-    // Part3,
-    // Part4,
     Exercise,
     Task,
     // LookLessonAnswer,

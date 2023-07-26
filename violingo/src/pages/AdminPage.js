@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import CreateThemesComponent from '../components/adminPage/CreateThemesComponent';
-import {createTheme, getThemes} from '../http/themesApi';
+import {createTheme } from '../http/themesApi';
 import CreateLessonsComponent from '../components/adminPage/CreateLessonsComponent';
-import { createLesson, getLessons } from '../http/lessonsApi';
+import { createLesson } from '../http/lessonsApi';
 import { createTask, deleteTask, getTasks, getAllTasks, } from '../http/tasksApi';
 import { fetchTasks, fetchAllTasksWithoutFilters, } from '../redux/actions';
 import CreateComponent from '../components/adminPage/CreateComponent';
@@ -25,6 +25,8 @@ const AdminPage = () => {
     const { arrayId } = useSelector(state => state.arrayIdChoosePositiveAnswerReducer);
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
     const { allTasks } = useSelector(state => state.allTasksWithoutFiltersReducer);
+    const { themes } = useSelector(state => state.arrayThemesReducer);
+    const { lessons } = useSelector(state => state.arrayLessonsReducer);
     
     const [show, setShow] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -32,7 +34,6 @@ const AdminPage = () => {
     const [showModal, setShowModal] = useState(false);
     const [lessonNumber, setLessonNumber] = useState(0);
     const [themeId, setThemeId] = useState(0);
-    const [themes, setThemes] = useState([]);
     const [themeTitle, setThemeTitle] = useState('Choose theme');
     const [dropdown, setDropdown] = useState(false);
     const [chooseImage, setChooseImage] = useState(false);
@@ -57,7 +58,6 @@ const AdminPage = () => {
     const [dragLeft, setDragLeft] = useState(false);
     const [showComponentCreate, setShowComponentCreate] = useState(false);
     const [createWhat, setCreateWhat] = useState('');
-    const [lessons, setLessons] = useState([]);
     const [dropdownMenuLessons, setDropdownMenuLessons] = useState(false);
     const [lessonId, setLessonId] = useState(0);
     const [createExerciseBool, setCreateExerciseBool] = useState(false);
@@ -187,44 +187,44 @@ const AdminPage = () => {
             setModuleNumber(newModuleNumber);
             setModuleId(id);
             setDropdownMenuModules(false);
+            if (createWhat === 'exercise') {
+                if (lessons.filter(c => c.moduleId === id).length === 0) {
+                    setErrorEmptyArrayLessons(true);
+                    setErrorEmptyArrayLessonsMessage('There are no created lessons');
+                } else {
+                    setErrorEmptyArrayLessons(false);
+                    setErrorEmptyArrayLessonsMessage('');
+                }
+            }
         } catch (e) {
             console.log(e.message);
         }
     }
     const openCloseDropdownMenu = async () => {
-        try {
-            if (arrayId.length === 0) {
-                setDropdown(value => !value);
-                setDropdownMenuModules(false);
-                setModuleNumber('Choose number of module');
-                setModuleId(0);
-                setLessonId(0);
-            }
-            await getThemes().then(data => {
-                if (data.status === 200) {
-                    setThemes(data.data);
-                    if (data.data.length === 0) {
-                        setErrorEmptyArrayThemes(true);
-                        setErrorEmptyArrayThemesMessage('There are no created themes')
-                    } else {
-                        setErrorEmptyArrayThemes(false);
-                        setErrorEmptyArrayThemesMessage('');
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(e.message);
+        if (arrayId.length === 0) {
+            setDropdown(value => !value);
+            setDropdownMenuModules(false);
+            setModuleNumber('Choose number of module');
+            setModuleId(0);
+            setLessonId(0);
+        }
+        if (themes.length === 0) {
+            setErrorEmptyArrayThemes(true);
+            setErrorEmptyArrayThemesMessage('There are no created themes')
+        } else {
+            setErrorEmptyArrayThemes(false);
+            setErrorEmptyArrayThemesMessage('');
         }
     }
     const openCloseDropdownMenuModules = async () => {
         try {
             setDropdownMenuModules(value => !value);
             setDropdown(false);
-            await getModulesByTheme(themeId).then(data => {
+            await getModulesByTheme(themeId, moduleId).then(data => {
                 if (data.status === 200) {
                     setModules(data.data);
                 }
-            })
+            });
         } catch (e) {
             console.log(e.message);
         }
@@ -243,20 +243,6 @@ const AdminPage = () => {
             setThemeId(id);
             setDropdown(false);
             setPage(1);
-            if (createWhat === 'exercise') {
-                await getLessons(id).then(data => {
-                    if (data.status === 200) {
-                        setLessons(data.data);
-                        if (data.data.length === 0) {
-                            setErrorEmptyArrayLessons(true);
-                            setErrorEmptyArrayLessonsMessage('There are no created lessons');
-                        } else {
-                            setErrorEmptyArrayLessons(false);
-                            setErrorEmptyArrayLessonsMessage('');
-                        }
-                    }
-                });
-            }
         } catch (e) {
             console.log(e.message);
         }
@@ -529,7 +515,7 @@ const AdminPage = () => {
         show, title, errorMessage, error, showModal, themeId, themeTitle, dropdown, typeTask, chooseImage, 
         choosePositiveAnswer, chooseAnswer, chooseMissingWord, chooseTranslateWords, choose, lessonNumber,
         dropdown, answer, question, word, tasks.length, onHide, taskId, translate, dropdownTypeMenu, imageExample, 
-        file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessons, lessonId, createExerciseBool,
+        file, drag, showComponentCreate, createWhat, dropdownMenuLessons, lessonId, createExerciseBool,
         countExecisesLesson, questionForExercise, answerForExercise, showFieldAddImage, errorEmptyArrayLessons,
         errorEmptyArrayThemes, errorEmptyArrayLessonsMessage, errorEmptyArrayThemesMessage, arrayId.length, page, countPage,
         arraytTranslateWordsTasks, moduleNumber, modules, dropdownMenuModules, moduleId, backgroundTheme, themeImageLeft,
@@ -671,7 +657,7 @@ const AdminPage = () => {
                         createWhat={createWhat}
                         functionBack={functionBack}
                         dropdownMenuLessons={dropdownMenuLessons}
-                        lessons={lessons}
+                        lessons={lessons.filter(c => c.moduleId === moduleId)}
                         openCloseDropdownMenuLessons={openCloseDropdownMenuLessons}
                         chooseLesson={chooseLesson}
                         lessonNumber={lessonNumber}

@@ -15,3 +15,6 @@ export const updateUserLessonId = async (lessonId) => {
 export const updateUserModuleId = async (moduleId) => {
     return await $authHost.patch('/users/userModuleId',  { moduleId });
 }
+export const updateUserThemeId = async (themeId) => {
+    return await $authHost.patch('/users/userThemeId',  { themeId });
+}

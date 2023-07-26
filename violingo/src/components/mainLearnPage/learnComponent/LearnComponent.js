@@ -1,15 +1,12 @@
-// import { useSelector } from 'react-redux';
-
 import book from '../../../icons/book.svg';
 import ImageLeftComponent from './ImageLeftComponent';
 import ImageRightComponent from './ImageRightComponent';
 
 const LearnComponent = ({ themes, show, setShow, moduleId, }) => {
-    // const { user } = useSelector(state => state.userReducer); 
     return (
         <div>
             {
-                themes.map((c, index) => 
+                themes.sort((a, b) => a.id - b.id).map((c, index) => 
                     <section key={c.id}>
                         <div
                             className="mainLearnPage_div_main_header_learnComponent"

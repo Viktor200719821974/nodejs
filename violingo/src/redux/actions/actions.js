@@ -1,7 +1,8 @@
 import { 
     FETCH_USER, IS_LOGIN_USER, NO_USER, STATISTIC_USER, IS_STATISTIC_USER, ARRAY_WRONG_ANSWER, IS_END_MODULE,
     ARRAY_CHOOSE_POSITIVE_ANSWER, ARRAY_ID_CHOOSE_POSITIVE_ANSWER, IS_ADMIN_USER, FETCH_ALL_TASKS_WITHOUT_FILTERS,
-    ARRAY_CHOOSE_POSITIVE_ANSWER_EMPTY, ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY, FETCH_TASKS, AGENDA_USER,
+    ARRAY_CHOOSE_POSITIVE_ANSWER_EMPTY, ARRAY_ID_CHOOSE_POSITIVE_ANSWER_EMPTY, FETCH_TASKS, AGENDA_USER, ARRAY_THEMES,
+    ARRAY_LESSONS, ARRAY_MODULES,
 } from './index';
 
 export const fetchUser = (data) => {
@@ -48,4 +49,13 @@ export const agendaUser = (data) => {
 }
 export const isEndModuleActions = (data) => {
     return { type: IS_END_MODULE, payload: data };
+}
+export const arrayThemes = (data) => {
+    return { type: ARRAY_THEMES, payload: data };
+}
+export const arrayLessons = (data) => {
+    return { type: ARRAY_LESSONS, payload: data };
+}
+export const arrayModules = (data) => {
+    return { type: ARRAY_MODULES, payload: data };
 }

@@ -19,10 +19,8 @@ import MainLearnBodyRightComponent from '../components/mainLearnPage/mainLearnPa
 import arrow from '../icons/arrow-up-blue.svg';
 import { getStatistic } from '../http/statisticApi';
 import { getAgendaUser, updateAgendaUser } from '../http/agendaApi';
-import { getThemes } from '../http/themesApi';
 import { updateUserLessonId } from '../http/userApi';
-import { fetchUser, isEndModuleActions } from '../redux/actions';
-import { getModuleById } from '../http/modulesApi';
+import { fetchUser, isEndModuleActions, } from '../redux/actions';
 
 const MainLearnPage = () => {
     const location = useLocation();
@@ -30,7 +28,9 @@ const MainLearnPage = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.userReducer);
     const { isEndModule } = useSelector(state => state.isEndModuleReducer);
-    console.log(isEndModule);
+    const { themes } = useSelector(state => state.arrayThemesReducer);
+    const { lessons } = useSelector(state => state.arrayLessonsReducer);
+   
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
@@ -60,13 +60,9 @@ const MainLearnPage = () => {
     const [arrayIndex, setArrayIndex] = useState([]);
     const [updateBool, setUpdateBool] = useState(false);
     const [dateUpdate, setDateUpdate] = useState(' ');
-    const [themes, setThemes] = useState([]);
     const [show, setShow] = useState(false);
     
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
-    // let pointsOfDayArray = [10, 20, 30, 40, 50, 60, 70];
-    // let daysOfWeekArray = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
-    
     const date = new Date();
     const locate = 'ukr';
     const index = daysOfWeekArray && daysOfWeekArray.indexOf(dayWeek);
@@ -217,18 +213,6 @@ const MainLearnPage = () => {
         // dayUpdate, everyDayTarget, moduleId, dayWeek, index, updateBool,
     ]);
     useMemo(() => {
-        const fetchThemes = async() => {
-            try {
-                await getThemes().then(data => {
-                    if (data.status === 200) {
-                        setThemes(data.data);
-                    }
-                });
-            } catch(e) {
-                console.log(e.message);
-            }
-        }
-        fetchThemes();
         const fetchStatistic = () => {
             try {
                 getStatistic().then(data => {
@@ -265,21 +249,21 @@ const MainLearnPage = () => {
                 console.log(e.message);
             }
         }
-        // if (daysOfWeekArray && pointsOfDayArray) {
-        //     fetchUpdateAgendaUser();
-        // }
         if (updateBool) {
             fetchUpdateAgendaUser();
         }
         const fetchUpdateUserLessonId = async() => {
             try {
-                const lessonId = await getModuleById(user.module_id)
-                    .then(data => data.data.lessons[0].id);
-                await updateUserLessonId(lessonId).then(data => {
-                    if(data.status === 200) {
-                        dispatch(fetchUser(data.data));
-                    }
-                }); 
+                const lessonId = lessons.filter(c => c.moduleId === user.module_id).map(c => c.id)[0];
+                if (lessonId === undefined) {
+                    alert('The next module do not content the lessons. ');
+                } else {
+                   await updateUserLessonId(lessonId).then(data => {
+                        if(data.status === 200) {
+                            dispatch(fetchUser(data.data));
+                        }
+                    });  
+                }
                 dispatch(isEndModuleActions(false));
             } catch(e) {
                 console.log(e.message);

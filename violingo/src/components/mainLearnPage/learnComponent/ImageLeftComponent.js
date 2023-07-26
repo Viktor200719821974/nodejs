@@ -2,6 +2,7 @@ import coffer from '../../../icons/coffer.svg';
 import { IMAGES_SERVER_PATH } from '../../../constants';
 import NoActiveButtonComponent from './NoActiveButtonComponent';
 import ActiveButtonComponent from './ActiveButtonComponent';
+import ClosedModuleComponent from './ClosedModuleComponent';
 
 const ImageLeftComponent = ({ module, image_left, moduleId, backgroundTheme, show, setShow, }) => {
     return (
@@ -28,14 +29,14 @@ const ImageLeftComponent = ({ module, image_left, moduleId, backgroundTheme, sho
                                                     image_module={c.image_module}
                                                 />
                                             :
-                                                <ActiveButtonComponent 
-                                                    style={`${50 * index}px`}
-                                                    backgroundTheme={backgroundTheme}
-                                                    show={show}
-                                                    setShow={setShow}
-                                                    moduleId={c.id}
-                                                    themeId={c.themeId}
-                                                />
+                                                // <ActiveButtonComponent 
+                                                //     style={`${50 * index}px`}
+                                                //     backgroundTheme={backgroundTheme}
+                                                //     show={show}
+                                                //     setShow={setShow}
+                                                //     moduleId={c.id}
+                                                // />
+                                                <ClosedModuleComponent style={`${50 * index}px`}/>
                                         }
                                     </div>
                             }
@@ -60,13 +61,14 @@ const ImageLeftComponent = ({ module, image_left, moduleId, backgroundTheme, sho
                                                     image_module={c.image_module}
                                                 />
                                             :
-                                                <ActiveButtonComponent 
-                                                    style={`${index % 2 === 0 ? 25 * index : 25}px`}
-                                                    backgroundTheme={backgroundTheme}
-                                                    show={show}
-                                                    setShow={setShow}
-                                                    moduleId={c.id}
-                                                />
+                                                // <ActiveButtonComponent 
+                                                //     style={`${index % 2 === 0 ? 25 * index : 25}px`}
+                                                //     backgroundTheme={backgroundTheme}
+                                                //     show={show}
+                                                //     setShow={setShow}
+                                                //     moduleId={c.id}
+                                                // />
+                                                <ClosedModuleComponent style={`${index % 2 === 0 ? 25 * index : 25}px`}/>
                                         }
                                     </div>
                             }

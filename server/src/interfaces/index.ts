@@ -15,6 +15,8 @@ export interface IUser extends Model
         statistic: boolean;
         module_id: number;
         lesson_id: number;
+        theme_id: number;
+        closed_modules: number[];
 }
 export interface IToken extends Model
     <InferAttributes<IToken>, InferCreationAttributes<IToken>> {

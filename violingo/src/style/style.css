@@ -2371,6 +2371,23 @@ input[type=number] {
     border: none;
     box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
     margin: 10px;
+    pointer-events: none;
+}
+.mainLearnPage_button_with_image_closedModuleComponent {
+    height: 57px;
+    width: 70px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 8px 0 rgba(255, 150, 0);
+    margin: 10px;
+    pointer-events: none;
+    background: rgb(255, 200, 0);
+    position: relative;
+}
+.mainLearnPage_image_success_closedModuleComponent {
+    position: absolute;
+    right: 13px;
+    top: 13px;
 }
 .mainLearnPage_active_button_with_image_learnComponent {
     height: 57px;
