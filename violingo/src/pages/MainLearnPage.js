@@ -61,6 +61,8 @@ const MainLearnPage = () => {
     const [updateBool, setUpdateBool] = useState(false);
     const [dateUpdate, setDateUpdate] = useState(' ');
     const [show, setShow] = useState(false);
+    const [topBlock, setTopBlock] = useState('');
+    const [topTriangle, setTopTriangle] = useState('');
     
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     const date = new Date();
@@ -282,6 +284,9 @@ const MainLearnPage = () => {
                 setScrollBool(false);
             }
     },[scrollPosition,]);
+    useMemo(() => {
+        
+    },[topBlock, topTriangle]);
     return (
         <>
             <HeaderComponent

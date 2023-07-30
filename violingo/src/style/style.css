@@ -2405,6 +2405,38 @@ input[type=number] {
     position: absolute;
     height: 68px;
 }
+.windowStartLessonComponent_main_div {
+    position: relative;
+}
+.windowStartLessonComponent_div {
+    position: absolute;
+    color: #fff;
+    padding: 16px 12px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    top: -44px;
+    right: 0;
+}
+.windowStartLessonComponent_span {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: .03em;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.windowStartLessonComponent_div_triangle {
+    transform: rotateY(0deg) rotate(45deg);
+    transition: transform 2s;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 7px;
+    right: 42%;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
 .mainLearnPage_main_div_active_button_with_image_learnComponent {
     position: relative;
     width: 98px;

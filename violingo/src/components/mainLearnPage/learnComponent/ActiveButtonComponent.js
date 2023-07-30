@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { IMAGES_LEARN_COMPONENT } from '../../../constants';
 import LessonStartWindowModalComponent from './LessonStartWindowModalComponent';
+import WindowStartLessonComponent from './WindowStartLessonComponent';
 
 const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, }) => {
     const { user } = useSelector(state => state.userReducer);
@@ -41,6 +42,11 @@ const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId
                         lessons={lessons.filter(c => c.moduleId === moduleId)}
                         numberLesson={numberLesson}
                     />
+            }
+            
+            {
+                !show &&
+                    <WindowStartLessonComponent backgroundTheme={backgroundTheme}/>
             }
         </div>
     );

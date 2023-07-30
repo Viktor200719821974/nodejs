@@ -1,8 +1,14 @@
+import { useSelector } from 'react-redux';
+
 import book from '../../../icons/book.svg';
 import ImageLeftComponent from './ImageLeftComponent';
 import ImageRightComponent from './ImageRightComponent';
 
 const LearnComponent = ({ themes, show, setShow, moduleId, }) => {
+    const { user } = useSelector(state => state.userReducer);
+    const falseOrTrue = (id) => {
+        return !!user.closed_modules.find(c => c === id);  
+    }
     return (
         <div>
             {
@@ -41,6 +47,7 @@ const LearnComponent = ({ themes, show, setShow, moduleId, }) => {
                                             backgroundTheme={c.background_theme}
                                             show={show}
                                             setShow={setShow}
+                                            falseOrTrue={falseOrTrue}
                                         />
                                 }
                                 {
@@ -53,6 +60,7 @@ const LearnComponent = ({ themes, show, setShow, moduleId, }) => {
                                             backgroundTheme={c.background_theme}
                                             show={show}
                                             setShow={setShow}
+                                            falseOrTrue={falseOrTrue}
                                         />
                                 }  
                             </div>     

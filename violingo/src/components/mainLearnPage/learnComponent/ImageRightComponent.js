@@ -2,9 +2,10 @@ import { IMAGES_SERVER_PATH } from '../../../constants';
 import coffer from '../../../icons/coffer.svg';
 import ActiveButtonComponent from './ActiveButtonComponent';
 import NoActiveButtonComponent from './NoActiveButtonComponent';
+import ClosedModuleComponent from './ClosedModuleComponent';
 
 const ImageRightComponent = ({ 
-    module, image_right, image_left, moduleId, backgroundTheme, show, setShow, themes,
+    module, image_right, image_left, moduleId, backgroundTheme, show, setShow, falseOrTrue,
 }) => {
     return (
         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
@@ -16,13 +17,14 @@ const ImageRightComponent = ({
                                 (index < 2 && !image_left) && 
                                     <div>
                                        {
-                                            moduleId !== c.id 
-                                            ?
+                                            !falseOrTrue(c.id) && c.id !== moduleId &&
                                                 <NoActiveButtonComponent 
                                                     style={`${270 - index * 90}px`} 
                                                     image_module={c.image_module}
                                                 />
-                                            :
+                                        }
+                                        {
+                                            !falseOrTrue(c.id) && c.id === moduleId &&
                                                 <ActiveButtonComponent 
                                                     style={`${270 - index * 90}px`}
                                                     backgroundTheme={backgroundTheme}
@@ -30,6 +32,10 @@ const ImageRightComponent = ({
                                                     setShow={setShow}
                                                     moduleId={c.id}
                                                 />
+                                        }
+                                        {
+                                            falseOrTrue(c.id) && c.id !== moduleId &&
+                                                <ClosedModuleComponent style={`${270 - index * 90}px`}/>
                                         }
                                     </div>
                             }
@@ -42,14 +48,15 @@ const ImageRightComponent = ({
                             {
                                 (index > 3 && index < 6 && image_left) &&
                                     <div>
-                                        {
-                                            moduleId !== c.id  
-                                            ?
+                                        {  
+                                            !falseOrTrue(c.id) && c.id !== moduleId &&
                                                 <NoActiveButtonComponent
                                                     style={`${index % 2 === 0 ? 270 : 180}px`} 
                                                     image_module={c.image_module}
                                                 />
-                                            :
+                                        }
+                                        {
+                                            !falseOrTrue(c.id) && c.id === moduleId &&
                                                 <ActiveButtonComponent 
                                                     style={`${index % 2 === 0 ? 270 : 180}px`}
                                                     backgroundTheme={backgroundTheme}
@@ -57,6 +64,10 @@ const ImageRightComponent = ({
                                                     setShow={setShow}
                                                     moduleId={c.id}
                                                 />
+                                        }
+                                        {
+                                            falseOrTrue(c.id) && c.id !== moduleId &&
+                                                <ClosedModuleComponent style={`${index % 2 === 0 ? 270 : 180}px`}/>
                                         }
                                     </div>
                             }
@@ -73,14 +84,15 @@ const ImageRightComponent = ({
                             {
                                 (index < 4 && index > 1 && !image_left) &&
                                     <div>
-                                        {
-                                            moduleId !== c.id  
-                                            ?
+                                        {  
+                                            !falseOrTrue(c.id) && c.id !== moduleId &&
                                                 <NoActiveButtonComponent
                                                     style={`${index * 90}px`} 
                                                     image_module={c.image_module}
                                                 />
-                                            :
+                                        }
+                                        {
+                                            !falseOrTrue(c.id) && c.id === moduleId &&
                                                 <ActiveButtonComponent 
                                                     style={`${index * 90}px`}
                                                     backgroundTheme={backgroundTheme}
@@ -88,6 +100,10 @@ const ImageRightComponent = ({
                                                     setShow={setShow}
                                                     moduleId={c.id}
                                                 />
+                                        }
+                                        {
+                                            falseOrTrue(c.id) && c.id !== moduleId &&
+                                                <ClosedModuleComponent style={`${index * 90}px`}/>
                                         }
                                     </div>
                             }
@@ -100,14 +116,15 @@ const ImageRightComponent = ({
                             {
                                 (index > 5 && image_left) &&
                                     <div>
-                                        {
-                                            moduleId !== c.id  
-                                            ?
+                                        {  
+                                            !falseOrTrue(c.id) && c.id !== moduleId &&
                                                 <NoActiveButtonComponent
                                                     style={`${index % 2 === 0 ? 180 : 270}px`} 
                                                     image_module={c.image_module}
                                                 />
-                                            :
+                                        }
+                                        {
+                                            !falseOrTrue(c.id) && c.id === moduleId &&
                                                 <ActiveButtonComponent 
                                                     style={`${index % 2 === 0 ? 180 : 270}px`}
                                                     backgroundTheme={backgroundTheme}
@@ -115,6 +132,10 @@ const ImageRightComponent = ({
                                                     setShow={setShow}
                                                     moduleId={c.id}
                                                 />
+                                        }
+                                        {
+                                            falseOrTrue(c.id) && c.id !== moduleId &&
+                                                <ClosedModuleComponent style={`${index % 2 === 0 ? 180 : 270}px`}/>
                                         }
                                     </div>
                             }
