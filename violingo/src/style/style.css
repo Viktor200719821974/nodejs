@@ -2416,6 +2416,8 @@ input[type=number] {
     border: 2px solid #fff;
     top: -44px;
     right: 0;
+    transition-duration: 400ms;
+    transition-property: top;
 }
 .windowStartLessonComponent_span {
     font-size: 17px;
@@ -2436,6 +2438,8 @@ input[type=number] {
     right: 42%;
     border-right: 2px solid #fff;
     border-bottom: 2px solid #fff;
+    transition-duration: 400ms;
+    transition-property: top;
 }
 .mainLearnPage_main_div_active_button_with_image_learnComponent {
     position: relative;

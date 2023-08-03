@@ -1,7 +1,7 @@
 const SubLookLessonModalComponent = ({question, answer, choosePositiveAnswer}) => {
     return (
         <div>
-            {   
+            {/* {   
                 choosePositiveAnswer &&
                     question.map(c => 
                         <span 
@@ -22,7 +22,7 @@ const SubLookLessonModalComponent = ({question, answer, choosePositiveAnswer}) =
                             {c.name},
                         </span>
                     ) 
-            }
+            } */}
         </div>
     );
 };

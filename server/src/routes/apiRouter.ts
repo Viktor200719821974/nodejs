@@ -11,6 +11,7 @@ import { themesRouter } from './themesRouter';
 import { tasksRouter } from './tasksRouter';
 import { modulesRouter } from './modulesRouter';
 import { agendaRouter } from './agendaRouter';
+import { lookLessonAnswersRouter } from './lookLessonAnswersRouter';
 
 const router = Router();
 
@@ -23,6 +24,7 @@ router.use('/themes', themesRouter);
 router.use('/tasks', tasksRouter);
 router.use('/modules', modulesRouter);
 router.use('/agenda', agendaRouter);
+router.use('/lookLessonAnswers', lookLessonAnswersRouter);
 // @ts-ignore
 router.use('*', (err: any, req: Request, res: Response, next: NextFunction) => {
     res.status(err.status || 500)

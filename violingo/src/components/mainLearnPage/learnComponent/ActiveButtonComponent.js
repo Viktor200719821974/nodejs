@@ -4,13 +4,14 @@ import { IMAGES_LEARN_COMPONENT } from '../../../constants';
 import LessonStartWindowModalComponent from './LessonStartWindowModalComponent';
 import WindowStartLessonComponent from './WindowStartLessonComponent';
 
-const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, }) => {
+const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, topBlock, topTriangle, }) => {
     const { user } = useSelector(state => state.userReducer);
     const { lessons } = useSelector(state => state.arrayLessonsReducer);
    
+    const lessonsModule = lessons.filter(c => c.moduleId === moduleId);
     const numberLesson = lessons.filter(c => c.moduleId === moduleId).findIndex(c => c.id === user.lesson_id);
-    const valueSuccess = `${(100 / lessons.length) * numberLesson}%`;
-
+    const valueSuccess = `${(100 / lessonsModule.length) * numberLesson}%`;
+    
     const openModal = () => {
         setShow(value => !value);
     }
@@ -46,7 +47,11 @@ const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId
             
             {
                 !show &&
-                    <WindowStartLessonComponent backgroundTheme={backgroundTheme}/>
+                    <WindowStartLessonComponent 
+                        backgroundTheme={backgroundTheme}
+                        topBlock={topBlock}
+                        topTriangle={topTriangle}
+                    />
             }
         </div>
     );

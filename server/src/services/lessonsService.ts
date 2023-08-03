@@ -9,6 +9,9 @@ class LessonsService {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt'],
                 },
+                include: [
+                    { model: model.Exercise, as: 'exercises' },
+                ],
             });
         }
         if (moduleId !== 'undefined' && themeId === 'undefined') {
@@ -17,6 +20,9 @@ class LessonsService {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt'],
                 },
+                include: [
+                    { model: model.Exercise, as: 'exercises' },
+                ],
             });
         }
         if (moduleId !== 'undefined' && themeId !== 'undefined') {
@@ -25,12 +31,18 @@ class LessonsService {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt'],
                 },
+                include: [
+                    { model: model.Exercise, as: 'exercises' },
+                ],
             });
         }
         return model.Lesson.findAll({
             attributes: {
                 exclude: ['createdAt', 'updatedAt'],
             },
+            include: [
+                { model: model.Exercise, as: 'exercises' },
+            ],
         });
     }
 

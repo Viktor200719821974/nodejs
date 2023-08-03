@@ -1,13 +1,33 @@
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { BsCheck } from 'react-icons/bs';
 
 import { arrayLessonPageChooseImage } from '../../constants/arrays';
 import SubLookLessonModalComponent from './SubLookLessonModalComponent';
 import cross from '../../icons/cross-closedModal.svg';
+import { getLookLessonAnswers } from '../../http/lookLessonAnswersApi';
 
 const LookLessonModalComponent = ({ show, onHide }) => {
-    arrayLessonPageChooseImage.length = 15;
+    const { user } = useSelector(state => state.userReducer);
+    const [arrayAnswers, setArrayAnswers] = useState(null);
     
+    arrayLessonPageChooseImage.length = 15;
+    useEffect(() => {
+        const fetchArrayAnswers = async() => {
+            try {
+                await getLookLessonAnswers(user.lesson_id).then(data => {
+                    if (data.status === 200) {
+                        console.log(data.data);
+                        setArrayAnswers(data.data);
+                    }
+                });
+            } catch(e) {
+                console.log(e.message);
+            }
+        }
+        fetchArrayAnswers();
+    },[user.lesson_id]);
     return (
         <Modal
             size="lg"
@@ -33,7 +53,7 @@ const LookLessonModalComponent = ({ show, onHide }) => {
                 </div>
                 <div className="lessonPage_main_div_blocks_lookLessonModalComponent">
                     {
-                        arrayLessonPageChooseImage.map((c, index) =>
+                        arrayAnswers && arrayAnswers.map((c, index) =>
                             <div 
                                 key={index}
                                 className="lessonPage_div_block_title_image_success_lookLessonModalComponent"

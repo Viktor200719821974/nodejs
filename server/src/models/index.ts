@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../db';
 import {
-    IToken, IUser, IStatistic, IAgendaUser, IExercise, ITask,
+    IToken, IUser, IStatistic, IAgendaUser, IExercise, ITask, ILookLessonAnswer,
     ILesson, ITheme, IImageTask, IImageExercise, IModule,
 } from '../interfaces';
 
@@ -22,7 +22,7 @@ const User = sequelize.define<IUser>('user', {
     lesson_id: { type: DataTypes.INTEGER, allowNull: false },
     theme_id: { type: DataTypes.INTEGER, allowNull: false },
     closed_modules: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER), allowNull: true,
+        type: DataTypes.ARRAY(DataTypes.INTEGER), allowNull: false, defaultValue: [],
     },
 });
 const Token = sequelize.define<IToken>('token', {
@@ -217,44 +217,47 @@ const AgendaUser = sequelize.define<IAgendaUser>('agendaUser', {
         type: DataTypes.INTEGER, allowNull: false,
     },
 });
-// const LookLessonAnswer = sequelize.define<ILookLessonAnswer>('LookLessonAnswer', {
-//     id: {
-//         type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
-//     },
-//     titleTask: {
-//         type: DataTypes.STRING, allowNull: false,
-//     },
-//     answerTrue: {
-//         type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
-//     },
-//     answerUser: {
-//         type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
-//     },
-//     wrong: {
-//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-//     },
-//     question: {
-//         type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false,
-//     },
-//     chooseImage: {
-//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-//     },
-//     choosePositiveAnswer: {
-//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-//     },
-//     chooseAnswer: {
-//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-//     },
-//     chooseMissingWord: {
-//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-//     },
-//     chooseTranslateWords: {
-//         type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
-//     },
-//     exerciseId: {
-//         type: DataTypes.INTEGER, allowNull: false,
-//     },
-// });
+const LookLessonAnswer = sequelize.define<ILookLessonAnswer>('lookLessonAnswer', {
+    id: {
+        type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false,
+    },
+    titleTask: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+    answerTrue: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+    answerUser: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+    wrong: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    question: {
+        type: DataTypes.STRING, allowNull: false,
+    },
+    chooseImage: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    choosePositiveAnswer: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    chooseAnswer: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    chooseMissingWord: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    chooseTranslateWords: {
+        type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false,
+    },
+    lessonId: {
+        type: DataTypes.INTEGER, allowNull: false,
+    },
+    userId: {
+        type: DataTypes.INTEGER, allowNull: false,
+    }
+});
 User.hasOne(Token);
 Token.belongsTo(User);
 
@@ -281,8 +284,9 @@ ImageTask.belongsTo(Task);
 
 Exercise.hasOne(ImageExercise, { foreignKey: 'exerciseId', as: 'image' });
 ImageExercise.belongsTo(Exercise);
-// Exercise.hasOne(LookLessonAnswer, { foreignKey: 'exerciseId' });
-// LookLessonAnswer.belongsTo(Exercise);
+
+Lesson.hasOne(LookLessonAnswer, { foreignKey: 'lessonId' });
+LookLessonAnswer.belongsTo(Lesson);
 
 export const model = {
     User,
@@ -290,7 +294,7 @@ export const model = {
     Statistic,
     Exercise,
     Task,
-    // LookLessonAnswer,
+    LookLessonAnswer,
     Module,
     Lesson,
     Theme,

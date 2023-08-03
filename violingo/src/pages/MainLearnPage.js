@@ -61,8 +61,8 @@ const MainLearnPage = () => {
     const [updateBool, setUpdateBool] = useState(false);
     const [dateUpdate, setDateUpdate] = useState(' ');
     const [show, setShow] = useState(false);
-    const [topBlock, setTopBlock] = useState('');
-    const [topTriangle, setTopTriangle] = useState('');
+    const [topBlock, setTopBlock] = useState('-44');
+    const [topTriangle, setTopTriangle] = useState('7');
     
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     const date = new Date();
@@ -285,8 +285,21 @@ const MainLearnPage = () => {
             }
     },[scrollPosition,]);
     useMemo(() => {
-        
-    },[topBlock, topTriangle]);
+        if (!show && topBlock === '-44' && topTriangle === '7') {
+            const timer = () => {
+                setTopBlock('-50');
+                setTopTriangle('1');
+            };
+            setTimeout(timer, 1000);
+        }
+        if (!show && topBlock === '-50' && topTriangle === '1') {
+            const previosTimer = () => {
+                setTopBlock('-44');
+                setTopTriangle('7');
+            };
+            setTimeout(previosTimer, 1000);
+        }
+    },[show, topBlock, topTriangle]);
     return (
         <>
             <HeaderComponent
@@ -319,6 +332,8 @@ const MainLearnPage = () => {
                             show={show}
                             setShow={setShow}
                             moduleId={user.module_id}
+                            topBlock={topBlock}
+                            topTriangle={topTriangle}
                         /> 
                     }
                     { reviewPage && <ReviewComponent/> }

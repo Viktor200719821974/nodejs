@@ -18,6 +18,7 @@ import LookLessonModalComponent from '../components/lessonPage/LookLessonModalCo
 import { getExercisesForLesson } from '../http/exercisesApi';
 import { LEARN_PAGE } from '../constants';
 import { updateUserLessonId, updateUserModuleId, updateUserThemeId } from '../http/userApi';
+import { createLookLessonAnswers } from '../http/lookLessonAnswersApi';
 
 const LessonPage = () => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
@@ -77,13 +78,15 @@ const LessonPage = () => {
     const themeIdNext = themes.filter((c, index) => index === indexTheme + 1).map(c => c.id)[0];
     
     const answer = arrayDifferent && arrayDifferent
+        .sort((a, b) => a.id - b.id)
         .filter((c, index) => index === exerciseNumber)
         .map(c => c.answer)[0];
     const taskArray = arrayLessonPageChooseImage && arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.task)[0];
     const answerArray = arrayLessonPageChooseImage && arrayLessonPageChooseImage.filter(c => c.chooseTranslateWords === true)
         .map(c => c.answer)[0];
-        
+    const exercise = arrayDifferent && arrayDifferent.filter((c, index) => index === exerciseNumber)[0];
+    
     const clickNext = () => {
         setWrong(true);
         setChooseWrong(false);
@@ -127,7 +130,28 @@ const LessonPage = () => {
                 setPositiveAnswer(false);
                 setChooseWrong(false);
             }
-        }       
+        }   
+        try {
+            const formData = new FormData();
+            formData.append('answerUser', name);
+            formData.append('answerTrue', answer);
+            formData.append('wrong', wrong);
+            formData.append('lessonId', lessonId);
+            formData.append('titleTask', exercise.titleExercise);
+            formData.append('question', exercise.question);
+            formData.append('choosePositiveAnswer', exercise.choosePositiveAnswer);
+            formData.append('chooseImage', exercise.chooseImage);
+            formData.append('chooseAnswer', exercise.chooseAnswer);
+            formData.append('chooseMissingWord', exercise.chooseMissingWord);
+            formData.append('chooseTranslateWords', exercise.chooseTranslateWords);
+            createLookLessonAnswers(formData).then(data => {
+                if (data.status === 200) {
+                    console.log(data.data);
+                }
+            });
+        } catch(e) {
+            console.log(e.message);
+        } 
     }
     const footerMenuNext = () => {
         !workMistakes && setExerciseNumber(exerciseNumber + 1);

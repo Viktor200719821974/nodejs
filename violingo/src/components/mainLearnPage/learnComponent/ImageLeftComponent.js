@@ -4,7 +4,9 @@ import NoActiveButtonComponent from './NoActiveButtonComponent';
 import ActiveButtonComponent from './ActiveButtonComponent';
 import ClosedModuleComponent from './ClosedModuleComponent';
 
-const ImageLeftComponent = ({ module, image_left, moduleId, backgroundTheme, show, setShow, falseOrTrue, }) => {
+const ImageLeftComponent = ({
+    module, image_left, moduleId, backgroundTheme, show, setShow, falseOrTrue, topBlock, topTriangle,
+}) => {
     return (
         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
             <div className="mainLearnPage_div_big_image_left_learnComponent">
@@ -40,6 +42,8 @@ const ImageLeftComponent = ({ module, image_left, moduleId, backgroundTheme, sho
                                                     show={show}
                                                     setShow={setShow}
                                                     moduleId={c.id}
+                                                    topBlock={topBlock}
+                                                    topTriangle={topTriangle}
                                                 />
                                         }
                                     </div>
@@ -57,21 +61,27 @@ const ImageLeftComponent = ({ module, image_left, moduleId, backgroundTheme, sho
                             {
                                 (index < 4 && index > 1) &&
                                     <div>
-                                        {
-                                            moduleId !== c.id 
-                                            ?
+                                        { 
+                                            !falseOrTrue(c.id) && c.id !== moduleId &&
                                                 <NoActiveButtonComponent
                                                     style={`${index % 2 === 0 ? 25 * index : 25}px`} 
                                                     image_module={c.image_module}
                                                 />
-                                            :
-                                                // <ActiveButtonComponent 
-                                                //     style={`${index % 2 === 0 ? 25 * index : 25}px`}
-                                                //     backgroundTheme={backgroundTheme}
-                                                //     show={show}
-                                                //     setShow={setShow}
-                                                //     moduleId={c.id}
-                                                // />
+                                        }
+                                        {
+                                            !falseOrTrue(c.id) && c.id === moduleId &&
+                                                <ActiveButtonComponent 
+                                                    style={`${index % 2 === 0 ? 25 * index : 25}px`}
+                                                    backgroundTheme={backgroundTheme}
+                                                    show={show}
+                                                    setShow={setShow}
+                                                    moduleId={c.id}
+                                                    topBlock={topBlock}
+                                                    topTriangle={topTriangle}
+                                                />
+                                        }
+                                        {
+                                            falseOrTrue(c.id) && c.id !== moduleId &&
                                                 <ClosedModuleComponent style={`${index % 2 === 0 ? 25 * index : 25}px`}/>
                                         }
                                     </div>

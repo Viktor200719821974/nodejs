@@ -36,27 +36,22 @@ export interface IStatistic extends Model
 export interface IRequestExtended extends Request{
     user?: IUser;
 }
-
 export interface ITokenActivate {
     activateToken: string;
 }
-
 export interface IUserPayload {
     userId: number;
     userEmail: string;
 }
-
 export interface ITokenPair {
     accessToken: string;
     refreshToken: string;
     userId: number;
 }
-
 export interface ITokenActivateAndName {
     activateToken: string;
     userName?: string;
 }
-
 export interface IModule extends Model
     <InferAttributes<IModule>, InferCreationAttributes<IModule>> {
         id: number;
@@ -64,54 +59,6 @@ export interface IModule extends Model
         image_module: string;
         themeId: number;
 }
-
-// export interface ISection extends Model
-//     <InferAttributes<ISection>, InferCreationAttributes<ISection>> {
-//         id: number;
-//         section: number;
-//         background: string;
-//         title: string;
-//         image1: string;
-//         alt1: string;
-//         image2: string;
-//         alt2: string;
-// }
-
-// export interface IPart1 extends Model
-//     <InferAttributes<IPart1>, InferCreationAttributes<IPart1>> {
-//         id: number;
-//         src: string;
-//         alt: string;
-//         width: string;
-//         sectionId: number;
-// }
-
-// export interface IPart2 extends Model
-//     <InferAttributes<IPart2>, InferCreationAttributes<IPart2>> {
-//         id: number;
-//         src: string;
-//         alt: string;
-//         width: string;
-//         sectionId: number;
-// }
-
-// export interface IPart3 extends Model
-//     <InferAttributes<IPart3>, InferCreationAttributes<IPart3>> {
-//         id: number;
-//         src: string;
-//         alt: string;
-//         width: string;
-//         sectionId: number;
-// }
-
-// export interface IPart4 extends Model
-//     <InferAttributes<IPart4>, InferCreationAttributes<IPart4>> {
-//         id: number;
-//         src: string;
-//         alt: string;
-//         width: string;
-//         sectionId: number;
-// }
 export interface ILesson extends Model
     <InferAttributes<ILesson>, InferCreationAttributes<ILesson>> {
         id: number;
@@ -119,7 +66,6 @@ export interface ILesson extends Model
         themeId: number;
         moduleId: number;
 }
-
 export interface IExercise extends Model
     <InferAttributes<IExercise>, InferCreationAttributes<IExercise>> {
         id: number;
@@ -134,7 +80,6 @@ export interface IExercise extends Model
         chooseTranslateWords: boolean;
         lessonId: number;
 }
-
 export interface ITheme extends Model
     <InferAttributes<ITheme>, InferCreationAttributes<ITheme>> {
         id: number;
@@ -187,21 +132,22 @@ export interface IAgendaUser extends Model
         pointsOfDayArray: number[];
         userId: number;
     }
-// export interface ILookLessonAnswer extends Model
-//     <InferAttributes<ILookLessonAnswer>, InferCreationAttributes<ILookLessonAnswer>> {
-//         id: number;
-//         titleTask: string;
-//         answerTrue: [];
-//         answerUser: [];
-//         wrong: boolean;
-//         question: [];
-//         chooseImage: boolean;
-//         choosePositiveAnswer: boolean;
-//         chooseAnswer: boolean;
-//         chooseMissingWord: boolean;
-//         chooseTranslateWords: boolean;
-//         exerciseId: number;
-// }
+export interface ILookLessonAnswer extends Model
+    <InferAttributes<ILookLessonAnswer>, InferCreationAttributes<ILookLessonAnswer>> {
+        id: number;
+        titleTask: string;
+        answerTrue: string;
+        answerUser: string;
+        wrong: boolean;
+        question: string;
+        chooseImage: boolean;
+        choosePositiveAnswer: boolean;
+        chooseAnswer: boolean;
+        chooseMissingWord: boolean;
+        chooseTranslateWords: boolean;
+        lessonId: number;
+        userId: number;
+}
 export interface IChooseTranslateWordsArrays {
     arrayTasks: ITask[] | undefined;
     arrayAnswers: string[] | undefined;

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+import { createLookLessonAnswers } from '../../http/lookLessonAnswersApi';
+
 const ChooseTranslateWordsComponent = ({ 
     task, answerIdChose, setAnswerIdChose, setAnswerChose, changeClassName, 
     setTaskChose, changeClassNameNumber,changeClassNameName, questionIdChose, titleTask,
@@ -8,6 +10,10 @@ const ChooseTranslateWordsComponent = ({
     widthValue, setWidthValue, changeWidth, setChangeWidth, arrayAnswers,
 }) => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
+    const { user } = useSelector(state => state.userReducer);
+    
+    const answers = task && task.map(c => c.answer).join();
+    const questions = task && task.map(c => c.question).join();
     
     const filterTask = (array1, array2) => {
         array2.forEach(element => {
@@ -45,6 +51,23 @@ const ChooseTranslateWordsComponent = ({
             if(changeWidth) {
                setWidthValue(widthValue + (100 / arrayLessonPageChooseImage.length)); 
                setChangeWidth(false);
+               try {
+                    const formData = new FormData();
+                    formData.append('answerUser', answers);
+                    formData.append('answerTrue', answers);
+                    formData.append('wrong', 'true');
+                    formData.append('lessonId', user.lesson_id);
+                    formData.append('titleTask', titleTask);
+                    formData.append('question', questions);
+                    formData.append('chooseTranslateWords', 'true');
+                    createLookLessonAnswers(formData).then(data => {
+                        if (data.status === 200) {
+                            console.log(data.data);
+                        }
+                    });
+                } catch(e) {
+                    console.log(e.message);
+                } 
             }  
         }
         document.addEventListener('keydown',  keyDownHandlerTranslate);
