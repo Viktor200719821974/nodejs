@@ -1,4 +1,4 @@
-const FooterMenuFinishTestComponent = ({ setModalFinishTest, continueExercise, }) => {
+const FooterMenuFinishTestComponent = ({ continueExercise, lookLessonUserAnswers, }) => {
     return (
         <div className="lessonPage_main_div_down_block">
             <div className="lessonPage_main_div_button_left">
@@ -7,7 +7,7 @@ const FooterMenuFinishTestComponent = ({ setModalFinishTest, continueExercise, }
                     >
                     <span 
                         className="lessonPage_span_button_next"
-                        onClick={() => setModalFinishTest(true)}
+                        onClick={lookLessonUserAnswers}
                         >
                         Проглянути урок
                     </span> 

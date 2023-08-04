@@ -3667,6 +3667,13 @@ input[type=checkbox]:checked:after {
 .lessonPage_span_question_no_chooseImage_lookLessonModalComponent {
     margin-top: 15px;
 }
+.lessonPage_div_question_lookLessonModalComponent {
+    font-size: 12px;
+}
+.lessonPage_main_div_subLookLessonModalComponent {
+    background: white;
+    border-radius: 12px;
+}
 .adminPage_main_div {
     flex-direction: column;
     width: 100%;

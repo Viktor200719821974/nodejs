@@ -1,33 +1,12 @@
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { BsCheck } from 'react-icons/bs';
 
-import { arrayLessonPageChooseImage } from '../../constants/arrays';
-import SubLookLessonModalComponent from './SubLookLessonModalComponent';
 import cross from '../../icons/cross-closedModal.svg';
-import { getLookLessonAnswers } from '../../http/lookLessonAnswersApi';
+import SubLookLessonModalComponent from './SubLookLessonModalComponent';
 
-const LookLessonModalComponent = ({ show, onHide }) => {
-    const { user } = useSelector(state => state.userReducer);
-    const [arrayAnswers, setArrayAnswers] = useState(null);
-    
-    arrayLessonPageChooseImage.length = 15;
-    useEffect(() => {
-        const fetchArrayAnswers = async() => {
-            try {
-                await getLookLessonAnswers(user.lesson_id).then(data => {
-                    if (data.status === 200) {
-                        console.log(data.data);
-                        setArrayAnswers(data.data);
-                    }
-                });
-            } catch(e) {
-                console.log(e.message);
-            }
-        }
-        fetchArrayAnswers();
-    },[user.lesson_id]);
+const LookLessonModalComponent = ({ 
+    show, onHide, arrayAnswers, openClosedSubLookLessonModalComponent, showSubLookLessonModal, idForSubLookLessonModal,
+}) => {
     return (
         <Modal
             size="lg"
@@ -52,11 +31,12 @@ const LookLessonModalComponent = ({ show, onHide }) => {
                     </span>
                 </div>
                 <div className="lessonPage_main_div_blocks_lookLessonModalComponent">
-                    {
+                    {   
                         arrayAnswers && arrayAnswers.map((c, index) =>
                             <div 
                                 key={index}
                                 className="lessonPage_div_block_title_image_success_lookLessonModalComponent"
+                                onClick={() => openClosedSubLookLessonModalComponent(c.id)}
                                 >
                                 <span 
                                     className="lessonPage_main_spain_title_image_successes_lookLessonModalCompoent"
@@ -77,43 +57,38 @@ const LookLessonModalComponent = ({ show, onHide }) => {
                                             ? "lessonPage_span_question_chooseImage_lookLessonModalComponent"
                                             : "lessonPage_span_question_no_chooseImage_lookLessonModalComponent"
                                     }
-                                    >
-                                    {   
-                                        c.question.length === 1 &&
-                                            c.question.map(d => 
-                                                <span 
-                                                    key={d.id}
-                                                    >
+                                >
+                                        
+                                    {
+                                        (c.chooseAnswer || c.chooseImage)
+                                            ?
+                                                <span>
+                                                    «{c.question}»
+                                                    {c.chooseAnswer ? '?' : ''} 
+                                                </span>  
+                                            :
+                                                <span>
+                                                    {!c.chooseTranslateWords && c.question}
                                                     {
-                                                        (c.chooseImage || c.chooseAnswer) 
-                                                            ? 
-                                                                <span>
-                                                                    «{d.word}»
-                                                                    {c.chooseAnswer ? '?' : ''}
-                                                                </span>
-                                                            :   
-                                                                <span>
-                                                                    {d.word}
-                                                                </span>
+                                                        c.chooseTranslateWords &&
+                                                            c.question.split(',').map((a, index) => 
+                                                                <div 
+                                                                    key={index}
+                                                                    className='lessonPage_div_question_lookLessonModalComponent'
+                                                                >
+                                                                    {a}
+                                                                </div>
+                                                            )
                                                     }
                                                 </span>
-                                            )
-                                    }
-                                    {
-                                        c.question.length === 0 && 
-                                            <SubLookLessonModalComponent
-                                                answer={c.answer}
-                                                choosePositiveAnswer={c.choosePositiveAnswer}
-                                            />
-                                    }
-                                    {
-                                        c.question.length > 1 &&
-                                            <SubLookLessonModalComponent
-                                                question={c.question}
-                                                choosePositiveAnswer={c.choosePositiveAnswer}
-                                            />
                                     }
                                 </div>
+                                {
+                                    (showSubLookLessonModal && c.id === idForSubLookLessonModal) &&
+                                        <SubLookLessonModalComponent 
+                                            
+                                        />
+                                }
                             </div>
                         )
                     }

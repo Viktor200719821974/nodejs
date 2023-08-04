@@ -18,7 +18,7 @@ import LookLessonModalComponent from '../components/lessonPage/LookLessonModalCo
 import { getExercisesForLesson } from '../http/exercisesApi';
 import { LEARN_PAGE } from '../constants';
 import { updateUserLessonId, updateUserModuleId, updateUserThemeId } from '../http/userApi';
-import { createLookLessonAnswers } from '../http/lookLessonAnswersApi';
+import { createLookLessonAnswers, getLookLessonAnswers } from '../http/lookLessonAnswersApi';
 
 const LessonPage = () => {
     const { array } = useSelector(state => state.arrayChoosePositiveAnswerReducer);
@@ -63,7 +63,15 @@ const LessonPage = () => {
     const [modalFinishTest, setModalFinishTest] = useState(false);
     const [arrayDifferent, setArrayDifferent] = useState(null);
     const [arrayLessonPageChooseImage, setArrayLessonPageChooseImage] = useState(null);
-    
+    const [arrayAnswers, setArrayAnswers] = useState(null);
+    const [showSubLookLessonModal, setShowSubLookLessonModal] = useState(false);
+    const [idForSubLookLessonModal, setIdForSubLookLessonModal] = useState(0);
+    const [points, setPoints] = useState(0);
+    const [bonusCombo, setBonusCombo] = useState(0);
+    const [countWrongs, setCountWrongs] = useState(0);
+    // const [activeCoffer, setActiveCoffer] = useState(false);
+    console.log(bonusCombo);
+    console.log(points);
     const moduleId = user.module_id;
     const lessonId = user.lesson_id;
     const themeId = user.theme_id;
@@ -115,7 +123,6 @@ const LessonPage = () => {
                 } else {
                     setWidthValue(0);
                 }
-                setChooseWrong(false);
                 if (count >= 2) {
                     setNumberSuborder(true);
                 } else {
@@ -129,6 +136,7 @@ const LessonPage = () => {
                 setWrong(true);
                 setPositiveAnswer(false);
                 setChooseWrong(false);
+                setCountWrongs(countWrongs + 1);
             }
         }   
         try {
@@ -219,10 +227,26 @@ const LessonPage = () => {
                 fetchUpdateUserModuleId(newModuleId);
             }
         }
-        navigate(LEARN_PAGE);
+        navigate(LEARN_PAGE, points);
         cleaner();
         dispatch(arrayChoosePositiveAnswerEmpty());
         dispatch(arrayIdChoosePositiveAnswerEmpty());
+    }
+    const lookLessonUserAnswers = async() => {
+        setModalFinishTest(true);
+        try {
+            await getLookLessonAnswers(lessonId).then(data => {
+                if (data.status === 200) {
+                    setArrayAnswers(data.data);
+                }
+            });
+        } catch(e) {
+            console.log(e.message);
+        }
+    }
+    const openClosedSubLookLessonModalComponent = (id) => {
+        setShowSubLookLessonModal(true);
+        setIdForSubLookLessonModal(id);
     }
 
     useEffect(() => {
@@ -314,11 +338,15 @@ const LessonPage = () => {
                 });
             }
             getExercises();
+            if (countWrongs > 0 && finishTest) {
+                setBonusCombo(Math.round(5 - (countWrongs / arrayLessonPageChooseImage.length)));
+                setPoints(points + bonusCombo + 10);
+            } 
         } catch (e) {
             console.log(e.message);
         }
     // eslint-disable-next-line
-    }, [arrayWrongs, lessonId, workMistakes, user.theme_id, ]);
+    }, [arrayWrongs, lessonId, workMistakes, user.theme_id, finishTest, ]);
     return (
         <div className="lessonPage_main_div">
             {
@@ -351,7 +379,10 @@ const LessonPage = () => {
             <div>
                 {
                     finishTest &&  
-                        <FinishTestComponent/> 
+                        <FinishTestComponent
+                            points={points}
+                            bonusCombo={bonusCombo}
+                        /> 
                 }
             </div>
             <SayAboutWrongModalComponent
@@ -365,6 +396,10 @@ const LessonPage = () => {
             <LookLessonModalComponent
                 show={modalFinishTest}
                 onHide={() => setModalFinishTest(false)}
+                arrayAnswers={arrayAnswers}
+                openClosedSubLookLessonModalComponent={openClosedSubLookLessonModalComponent}
+                showSubLookLessonModal={showSubLookLessonModal}
+                idForSubLookLessonModal={idForSubLookLessonModal}
             />
            { 
                 !finishTest &&
@@ -453,8 +488,8 @@ const LessonPage = () => {
             {
                 finishTest && 
                     <FooterMenuFinishTestComponent
-                        setModalFinishTest={setModalFinishTest}
                         continueExercise={continueExercise}
+                        lookLessonUserAnswers={lookLessonUserAnswers}
                     />
             }                  
         </div>

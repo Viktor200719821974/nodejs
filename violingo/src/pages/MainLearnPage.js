@@ -30,7 +30,7 @@ const MainLearnPage = () => {
     const { isEndModule } = useSelector(state => state.isEndModuleReducer);
     const { themes } = useSelector(state => state.arrayThemesReducer);
     const { lessons } = useSelector(state => state.arrayLessonsReducer);
-   
+    // console.log(location);
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
