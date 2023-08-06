@@ -5,8 +5,9 @@ import ActiveButtonComponent from './ActiveButtonComponent';
 import ClosedModuleComponent from './ClosedModuleComponent';
 
 const ImageLeftComponent = ({
-    module, image_left, moduleId, backgroundTheme, show, setShow, falseOrTrue, topBlock, topTriangle,
+    module, image_left, moduleId, backgroundTheme, show, setShow, falseOrTrue, topBlock, topTriangle, points,
 }) => {
+    console.log(points, 'imageLeftComponent');
     return (
         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
             <div className="mainLearnPage_div_big_image_left_learnComponent">
@@ -44,6 +45,7 @@ const ImageLeftComponent = ({
                                                     moduleId={c.id}
                                                     topBlock={topBlock}
                                                     topTriangle={topTriangle}
+                                                    points={points}
                                                 />
                                         }
                                     </div>
@@ -78,6 +80,7 @@ const ImageLeftComponent = ({
                                                     moduleId={c.id}
                                                     topBlock={topBlock}
                                                     topTriangle={topTriangle}
+                                                    points={points}
                                                 />
                                         }
                                         {

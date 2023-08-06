@@ -12,11 +12,11 @@ const ClosedModuleComponent = ({ style, }) => {
                     alt={'module closed stamp'}
                     className='mainLearnPage_image_light_closedModuleComponent'
                 />
-                <img 
+                {/* <img 
                     src={IMAGES_LEARN_COMPONENT + 'closedModuleSuccess.svg'}
                     alt={'module closed stamp'}
                     className='mainLearnPage_image_success_closedModuleComponent'
-                />
+                /> */}
             </button>
         </div>
     );

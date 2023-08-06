@@ -3,11 +3,13 @@
 import { useNavigate } from 'react-router-dom';
 import { LESSON_PAGE } from '../../../constants';
 
-const LessonStartWindowModalComponent = ({ backgroundTheme, lessons, numberLesson, }) => {
+const LessonStartWindowModalComponent = ({ backgroundTheme, lessons, numberLesson, points, }) => {
     const navigate = useNavigate();
+    console.log(numberLesson);
+    console.log(points, 'LessonStartWindowModalComponent');
     // const { user } = useSelector(state => state.userReducer);
     const startLesson = () => {
-        navigate(LESSON_PAGE);
+        navigate(LESSON_PAGE, { state: points });
     }
     
     return (
@@ -27,7 +29,6 @@ const LessonStartWindowModalComponent = ({ backgroundTheme, lessons, numberLesso
                     Почати +10 балів
                 </button>
             </div>
-            
         </div>
     );
 };

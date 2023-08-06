@@ -15,12 +15,15 @@ class AgendaService {
         arrayIndex: number[],
         updateBool: boolean,
     ) {
+        console.log(points, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
         if (updateBool) {
             for (let i = 0; i < arrayIndex.length; i++) {
                 pointsOfDayArray[arrayIndex[i]] = 0;
             }
         }
+        console.log(pointsOfDayArray,'>>>>>>>>>>>>>>>>>>>>');
         pointsOfDayArray[index] = points;
+        console.log(pointsOfDayArray, '>>>>>>>>>>>>>>>>>>>>>>>');
         return model.AgendaUser.update({ daysOfWeekArray, pointsOfDayArray }, { where: { userId } });
     }
 }

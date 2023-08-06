@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import SayAboutWrongModalComponent from '../components/lessonPage/SayAboutWrongModalComponent';
 import FooterMenuFirstPositionComponent from '../components/lessonPage/FooterMenuFirstPositionComponent';
@@ -29,6 +29,7 @@ const LessonPage = () => {
     const { modules } = useSelector(state => state.arrayModulesReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [idElement, setIdElement] = useState(0);
     const [changedElement, setChangedElement] = useState(false);
@@ -66,15 +67,16 @@ const LessonPage = () => {
     const [arrayAnswers, setArrayAnswers] = useState(null);
     const [showSubLookLessonModal, setShowSubLookLessonModal] = useState(false);
     const [idForSubLookLessonModal, setIdForSubLookLessonModal] = useState(0);
-    const [points, setPoints] = useState(0);
-    const [bonusCombo, setBonusCombo] = useState(0);
+    const [points, setPoints] = useState(null);
     const [countWrongs, setCountWrongs] = useState(0);
     // const [activeCoffer, setActiveCoffer] = useState(false);
-    console.log(bonusCombo);
+    
     console.log(points);
+    console.log(location);
     const moduleId = user.module_id;
     const lessonId = user.lesson_id;
     const themeId = user.theme_id;
+    const oldPoints = location.state;
     
     const lessonsForModuleId = lessons.filter(c => c.moduleId === moduleId);
     const modulesForTheme = modules.filter(c => c.themeId === themeId);
@@ -103,7 +105,7 @@ const LessonPage = () => {
            dispatch(arrayWrongAnswer(arrayWrongs));
     }
     const click = () => {
-        navigate(LEARN_PAGE);
+        navigate(LEARN_PAGE, { state: points });
         dispatch(arrayChoosePositiveAnswerEmpty());
     }
     const cleaner = () => {
@@ -199,7 +201,7 @@ const LessonPage = () => {
     }
     const fetchUpdateUserThemeId = async(idNext) => {
         try {
-            await updateUserThemeId(themeIdNext).then(data => {
+            await updateUserThemeId(idNext).then(data => {
                 if (data.status === 200) {
                     dispatch(fetchUser(data.data));
                 }
@@ -210,10 +212,14 @@ const LessonPage = () => {
     }
     const continueExercise = () => {
         if (indexLesson + 1 <= lessonsForModuleId.length && lessonIdNext !== undefined) {
-            fetchUpdateUserLessonId(lessonIdNext);
+            setTimeout(() => {
+                fetchUpdateUserLessonId(lessonIdNext);
+            }, 2000); 
         }
         if (lessonIdNext === undefined && moduleIdNext !== undefined) { 
-            fetchUpdateUserModuleId(moduleIdNext);
+            setTimeout(() => {
+                fetchUpdateUserModuleId(moduleIdNext);
+            }, 2000); 
         }
         if (moduleIdNext === undefined && lessonIdNext === undefined && themeId !== undefined) {
             const newModuleId = modules.filter(c => c.themeId === themeIdNext).map(c => c.id)[0];
@@ -227,7 +233,7 @@ const LessonPage = () => {
                 fetchUpdateUserModuleId(newModuleId);
             }
         }
-        navigate(LEARN_PAGE, points);
+        navigate(LEARN_PAGE, { state: points });
         cleaner();
         dispatch(arrayChoosePositiveAnswerEmpty());
         dispatch(arrayIdChoosePositiveAnswerEmpty());
@@ -309,6 +315,7 @@ const LessonPage = () => {
             // } else {
             //     setArrayDifferent(arrayWrongs);
             // }
+            // setPoints(oldPoints);
         }
         return (() => {
             action = false;
@@ -320,7 +327,7 @@ const LessonPage = () => {
         nameTranslate, moreInfo, answerChose, answerIdChose, changeClassName, trueAnswer,
         taskChose, changeClassNameNumber, changeClassNameName, questionIdChose, changeWidth,
         questionNameChose, answerArray, taskArray,  numberSuborder, count, 
-        backgroundValue, finishTest, modalFinishTest, 
+        backgroundValue, finishTest, modalFinishTest, points,
         // arrayDifferent, workMistakes,
     ]);
     useMemo(() => {
@@ -338,15 +345,11 @@ const LessonPage = () => {
                 });
             }
             getExercises();
-            if (countWrongs > 0 && finishTest) {
-                setBonusCombo(Math.round(5 - (countWrongs / arrayLessonPageChooseImage.length)));
-                setPoints(points + bonusCombo + 10);
-            } 
         } catch (e) {
             console.log(e.message);
         }
     // eslint-disable-next-line
-    }, [arrayWrongs, lessonId, workMistakes, user.theme_id, finishTest, ]);
+    }, [arrayWrongs, lessonId, workMistakes, user.theme_id, ]);
     return (
         <div className="lessonPage_main_div">
             {
@@ -381,7 +384,9 @@ const LessonPage = () => {
                     finishTest &&  
                         <FinishTestComponent
                             points={points}
-                            bonusCombo={bonusCombo}
+                            setPoints={setPoints}
+                            countWrongs={countWrongs}
+                            arrayLessonPageChooseImage={arrayLessonPageChooseImage}
                         /> 
                 }
             </div>

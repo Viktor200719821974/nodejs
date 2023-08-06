@@ -4,17 +4,20 @@ import { IMAGES_LEARN_COMPONENT } from '../../../constants';
 import LessonStartWindowModalComponent from './LessonStartWindowModalComponent';
 import WindowStartLessonComponent from './WindowStartLessonComponent';
 
-const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, topBlock, topTriangle, }) => {
+const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId, topBlock, topTriangle, points, }) => {
     const { user } = useSelector(state => state.userReducer);
     const { lessons } = useSelector(state => state.arrayLessonsReducer);
    
     const lessonsModule = lessons.filter(c => c.moduleId === moduleId);
-    const numberLesson = lessons.filter(c => c.moduleId === moduleId).findIndex(c => c.id === user.lesson_id);
+    const numberLesson = lessonsModule.findIndex(c => c.id === user.lesson_id);
     const valueSuccess = `${(100 / lessonsModule.length) * numberLesson}%`;
-    
+    console.log(numberLesson);
+    console.log(lessonsModule);
+    console.log(user.lesson_id);
     const openModal = () => {
         setShow(value => !value);
     }
+    console.log(points, 'activeButton');
     return (
         <div 
             style={{marginLeft: style}}
@@ -42,6 +45,7 @@ const ActiveButtonComponent = ({ style, backgroundTheme, show, setShow, moduleId
                         backgroundTheme={backgroundTheme}
                         lessons={lessons.filter(c => c.moduleId === moduleId)}
                         numberLesson={numberLesson}
+                        points={points}
                     />
             }
             

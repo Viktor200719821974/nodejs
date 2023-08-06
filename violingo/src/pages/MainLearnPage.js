@@ -30,7 +30,7 @@ const MainLearnPage = () => {
     const { isEndModule } = useSelector(state => state.isEndModuleReducer);
     const { themes } = useSelector(state => state.arrayThemesReducer);
     const { lessons } = useSelector(state => state.arrayLessonsReducer);
-    // console.log(location);
+    
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
     const [reviewPage, setReviewPage] = useState(false);
@@ -63,7 +63,8 @@ const MainLearnPage = () => {
     const [show, setShow] = useState(false);
     const [topBlock, setTopBlock] = useState('-44');
     const [topTriangle, setTopTriangle] = useState('7');
-    
+    console.log(points);
+    console.log(location.state);
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     const date = new Date();
     const locate = 'ukr';
@@ -122,6 +123,7 @@ const MainLearnPage = () => {
             if (dateUpdate !== ' '){
                 if (new Date().getDate() !== new Date(dateUpdate).getDate()) {
                     setArrayIndex(daysNotLearned(dayUpdate, dayWeek, daysOfWeekArray, dateUpdate, date));
+                    console.log(arrayIndex);
                     if (arrayIndex.length > 0) {
                         setUpdateBool(true);
                     } else {
@@ -251,7 +253,7 @@ const MainLearnPage = () => {
                 console.log(e.message);
             }
         }
-        if (updateBool) {
+        if (updateBool || points > 0) {
             fetchUpdateAgendaUser();
         }
         const fetchUpdateUserLessonId = async() => {
@@ -274,8 +276,11 @@ const MainLearnPage = () => {
         if (isEndModule) {
             fetchUpdateUserLessonId();
         }
+        if (pointsOfDayArray) {
+            setPoints(pointsOfDayArray[6]);
+        }
     // eslint-disable-next-line
-    }, [arrayIndex, updateBool, points, user.module_id, isEndModule, ]);
+    }, [ updateBool, user.module_id, isEndModule, ]);
     useMemo(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
             if (scrollPosition >= 250) {
@@ -299,7 +304,10 @@ const MainLearnPage = () => {
             };
             setTimeout(previosTimer, 1000);
         }
-    },[show, topBlock, topTriangle]);
+    },[
+        show, 
+        // topBlock, topTriangle
+    ]);
     return (
         <>
             <HeaderComponent
@@ -334,6 +342,7 @@ const MainLearnPage = () => {
                             moduleId={user.module_id}
                             topBlock={topBlock}
                             topTriangle={topTriangle}
+                            points={points}
                         /> 
                     }
                     { reviewPage && <ReviewComponent/> }

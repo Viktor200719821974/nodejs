@@ -5,7 +5,6 @@ import GraphicComponent from './GraphicComponent';
 const AgendaComponent = ({
     points, navigate, setIdElement, purposeDay, daysOfWeekArray, pointsOfDayArray, maxNumberInArrayPoints,
 }) => {
-    
     const click = () => {
         navigate(SETTINGS_COACH);
         setIdElement(10);
