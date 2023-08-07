@@ -4,12 +4,11 @@ import book from '../../../icons/book.svg';
 import ImageLeftComponent from './ImageLeftComponent';
 import ImageRightComponent from './ImageRightComponent';
 
-const LearnComponent = ({ themes, show, setShow, moduleId, topBlock, topTriangle, points, }) => {
+const LearnComponent = ({ themes, show, setShow, moduleId, topBlock, topTriangle, }) => {
     const { user } = useSelector(state => state.userReducer);
     const falseOrTrue = (id) => {
         return !!user.closed_modules.find(c => c === id);  
     }
-    console.log(points, 'learnComponent');
     return (
         <div>
             {
@@ -51,7 +50,6 @@ const LearnComponent = ({ themes, show, setShow, moduleId, topBlock, topTriangle
                                             falseOrTrue={falseOrTrue}
                                             topBlock={topBlock}
                                             topTriangle={topTriangle}
-                                            points={points}
                                         />
                                 }
                                 {
@@ -67,7 +65,6 @@ const LearnComponent = ({ themes, show, setShow, moduleId, topBlock, topTriangle
                                             falseOrTrue={falseOrTrue}
                                             topBlock={topBlock}
                                             topTriangle={topTriangle}
-                                            points={points}
                                         />
                                 }  
                             </div>     

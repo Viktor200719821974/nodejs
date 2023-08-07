@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import SayAboutWrongModalComponent from '../components/lessonPage/SayAboutWrongModalComponent';
 import FooterMenuFirstPositionComponent from '../components/lessonPage/FooterMenuFirstPositionComponent';
@@ -9,7 +9,7 @@ import FooterMenuWrongAnswerComponent from '../components/lessonPage/FooterMenuW
 import FooterMenuPositiveAnswerComponent from '../components/lessonPage/FooterMenuPositiveAnswerComponent';
 import { 
     arrayChoosePositiveAnswer, arrayWrongAnswer, arrayChoosePositiveAnswerEmpty, 
-    arrayIdChoosePositiveAnswerEmpty, fetchUser, isEndModuleActions,
+    arrayIdChoosePositiveAnswerEmpty, fetchUser, isEndModuleActions, pointsUserForDay, valueSuccessForActiveButtton,
  } from '../redux/actions';
 import LessonPageBodyComponent from '../components/lessonPage/LessonPageBodyComponent';
 import FinishTestComponent from '../components/lessonPage/FinishTestComponent';
@@ -27,10 +27,11 @@ const LessonPage = () => {
     const { themes } = useSelector(state => state.arrayThemesReducer);
     const { lessons } = useSelector(state => state.arrayLessonsReducer);
     const { modules } = useSelector(state => state.arrayModulesReducer);
+    const { points } = useSelector(state => state.pointsUserForDayReducer);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
-
+    
     const [idElement, setIdElement] = useState(0);
     const [changedElement, setChangedElement] = useState(false);
     const [name, setName] = useState('');
@@ -67,16 +68,14 @@ const LessonPage = () => {
     const [arrayAnswers, setArrayAnswers] = useState(null);
     const [showSubLookLessonModal, setShowSubLookLessonModal] = useState(false);
     const [idForSubLookLessonModal, setIdForSubLookLessonModal] = useState(0);
-    const [points, setPoints] = useState(null);
     const [countWrongs, setCountWrongs] = useState(0);
+    const [bonus, setBonus] = useState(0);
+    const [pointsUser, setPointsUser] = useState(0);
     // const [activeCoffer, setActiveCoffer] = useState(false);
-    
-    console.log(points);
-    console.log(location);
+   
     const moduleId = user.module_id;
     const lessonId = user.lesson_id;
     const themeId = user.theme_id;
-    const oldPoints = location.state;
     
     const lessonsForModuleId = lessons.filter(c => c.moduleId === moduleId);
     const modulesForTheme = modules.filter(c => c.themeId === themeId);
@@ -105,7 +104,7 @@ const LessonPage = () => {
            dispatch(arrayWrongAnswer(arrayWrongs));
     }
     const click = () => {
-        navigate(LEARN_PAGE, { state: points });
+        navigate(LEARN_PAGE);
         dispatch(arrayChoosePositiveAnswerEmpty());
     }
     const cleaner = () => {
@@ -210,16 +209,17 @@ const LessonPage = () => {
             console.log(e.message);
         }
     }
-    const continueExercise = () => {
+    const continueExercise = async() => {
         if (indexLesson + 1 <= lessonsForModuleId.length && lessonIdNext !== undefined) {
-            setTimeout(() => {
-                fetchUpdateUserLessonId(lessonIdNext);
-            }, 2000); 
+            fetchUpdateUserLessonId(lessonIdNext);
         }
         if (lessonIdNext === undefined && moduleIdNext !== undefined) { 
-            setTimeout(() => {
+            const time = () => {
+                dispatch(valueSuccessForActiveButtton(0));
+                dispatch(isEndModuleActions(false));
                 fetchUpdateUserModuleId(moduleIdNext);
-            }, 2000); 
+            }; 
+            setTimeout(time, 5000);
         }
         if (moduleIdNext === undefined && lessonIdNext === undefined && themeId !== undefined) {
             const newModuleId = modules.filter(c => c.themeId === themeIdNext).map(c => c.id)[0];
@@ -233,10 +233,16 @@ const LessonPage = () => {
                 fetchUpdateUserModuleId(newModuleId);
             }
         }
-        navigate(LEARN_PAGE, { state: points });
+        navigate(LEARN_PAGE);
         cleaner();
         dispatch(arrayChoosePositiveAnswerEmpty());
         dispatch(arrayIdChoosePositiveAnswerEmpty());
+        dispatch(pointsUserForDay(pointsUser));
+        lessonIdNext !== undefined &&  
+            dispatch(valueSuccessForActiveButtton(Math.round((100 / lessonsForModuleId.length) * (indexLesson + 1))));
+        lessonIdNext === undefined && 
+                dispatch(valueSuccessForActiveButtton(100));
+        lessonIdNext === undefined && dispatch(isEndModuleActions(true));
     }
     const lookLessonUserAnswers = async() => {
         setModalFinishTest(true);
@@ -315,7 +321,7 @@ const LessonPage = () => {
             // } else {
             //     setArrayDifferent(arrayWrongs);
             // }
-            // setPoints(oldPoints);
+            
         }
         return (() => {
             action = false;
@@ -384,9 +390,11 @@ const LessonPage = () => {
                     finishTest &&  
                         <FinishTestComponent
                             points={points}
-                            setPoints={setPoints}
                             countWrongs={countWrongs}
                             arrayLessonPageChooseImage={arrayLessonPageChooseImage}
+                            bonus={bonus}
+                            setBonus={setBonus}
+                            setPointsUser={setPointsUser}
                         /> 
                 }
             </div>

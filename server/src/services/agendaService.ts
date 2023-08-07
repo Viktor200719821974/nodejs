@@ -14,17 +14,15 @@ class AgendaService {
         pointsOfDayArray: number[],
         arrayIndex: number[],
         updateBool: boolean,
-    ) {
-        console.log(points, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+    ): Promise<IAgendaUser | null> {
         if (updateBool) {
             for (let i = 0; i < arrayIndex.length; i++) {
                 pointsOfDayArray[arrayIndex[i]] = 0;
             }
         }
-        console.log(pointsOfDayArray,'>>>>>>>>>>>>>>>>>>>>');
         pointsOfDayArray[index] = points;
-        console.log(pointsOfDayArray, '>>>>>>>>>>>>>>>>>>>>>>>');
-        return model.AgendaUser.update({ daysOfWeekArray, pointsOfDayArray }, { where: { userId } });
+        await model.AgendaUser.update({ daysOfWeekArray, pointsOfDayArray }, { where: { userId } });
+        return model.AgendaUser.findOne({ where: { userId } });
     }
 }
 

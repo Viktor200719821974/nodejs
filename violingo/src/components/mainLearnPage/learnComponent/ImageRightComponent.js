@@ -5,9 +5,8 @@ import NoActiveButtonComponent from './NoActiveButtonComponent';
 import ClosedModuleComponent from './ClosedModuleComponent';
 
 const ImageRightComponent = ({ 
-    module, image_right, image_left, moduleId, backgroundTheme, show, setShow, falseOrTrue, topBlock, topTriangle, points,
+    module, image_right, image_left, moduleId, backgroundTheme, show, setShow, falseOrTrue, topBlock, topTriangle, 
 }) => {
-    console.log(points, 'imageRightComponent');
     return (
         <div className="mainLearnPage_div_main_buttons_with_image_learnComponent">
             <div className="mainLearnPage_div_button_right_learnComponent">
@@ -34,7 +33,6 @@ const ImageRightComponent = ({
                                                     moduleId={c.id}
                                                     topBlock={topBlock}
                                                     topTriangle={topTriangle}
-                                                    points={points}
                                                 />
                                         }
                                         {
@@ -69,7 +67,6 @@ const ImageRightComponent = ({
                                                     moduleId={c.id}
                                                     topBlock={topBlock}
                                                     topTriangle={topTriangle}
-                                                    points={points}
                                                 />
                                         }
                                         {
@@ -108,7 +105,6 @@ const ImageRightComponent = ({
                                                     moduleId={c.id}
                                                     topBlock={topBlock}
                                                     topTriangle={topTriangle}
-                                                    points={points}
                                                 />
                                         }
                                         {
@@ -142,8 +138,7 @@ const ImageRightComponent = ({
                                                     setShow={setShow}
                                                     moduleId={c.id}
                                                     topBlock={topBlock}
-                                                    topTriangle={topTriangle}
-                                                    points={points}
+                                                    topTriangle={topTriangle}     
                                                 />
                                         }
                                         {

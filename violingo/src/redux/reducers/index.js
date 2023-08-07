@@ -15,10 +15,12 @@ import { isEndModuleReducer } from './isEndModuleReducer';
 import { arrayThemesReducer } from './arrayThemesReducer';
 import { arrayLessonsReducer } from './arrayLessonsReducer';
 import { arrayModulesReducer } from './arrayModulesReducer';
+import { pointsUserForDayReducer } from './pointsUserForDayReducer';
+import { valueSuccessForActiveButtonReducer } from './valueSuccessForActiveButtonReducer';
 
 const rootReducer = combineReducers({ 
-    userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, 
-    arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, 
+    userReducer, isLoginUserReducer, statisticUserReducer, isStatisticUserReducer, valueSuccessForActiveButtonReducer,
+    arrayChoosePositiveAnswerReducer, arrayIdChoosePositiveAnswerReducer, pointsUserForDayReducer,
     arrayWrongAnswerReducer, isAdminUserReducer, tasksReducer, allTasksWithoutFiltersReducer, 
     agendaUserReducer, isEndModuleReducer, arrayThemesReducer, arrayLessonsReducer, arrayModulesReducer,
 });

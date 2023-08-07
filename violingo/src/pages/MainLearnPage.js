@@ -20,7 +20,7 @@ import arrow from '../icons/arrow-up-blue.svg';
 import { getStatistic } from '../http/statisticApi';
 import { getAgendaUser, updateAgendaUser } from '../http/agendaApi';
 import { updateUserLessonId } from '../http/userApi';
-import { fetchUser, isEndModuleActions, } from '../redux/actions';
+import { fetchUser, isEndModuleActions, pointsUserForDay, } from '../redux/actions';
 
 const MainLearnPage = () => {
     const location = useLocation();
@@ -30,6 +30,7 @@ const MainLearnPage = () => {
     const { isEndModule } = useSelector(state => state.isEndModuleReducer);
     const { themes } = useSelector(state => state.arrayThemesReducer);
     const { lessons } = useSelector(state => state.arrayLessonsReducer);
+    const { points } = useSelector(state => state.pointsUserForDayReducer);
     
     const [everyDayTarget, setEveryDayTarget] = useState('');
     const [learnPage, setLearnPage] = useState(false);
@@ -44,7 +45,6 @@ const MainLearnPage = () => {
     const [mouseOnRuby, setMouseOnRuby] = useState(false);
     const [mouseOnAvatar, setMouseOnAvatar] = useState(false);
     const [idElement, setIdElement] = useState(1);
-    const [points, setPoints] = useState(0);
     const [choosePurposeDay, setChoosePurposeDay] = useState('');
     const [changeBodyRight, setChangeBodyRight] = useState(false);
     const [offSoundEffects, setOffSoundEffects] = useState(true);
@@ -63,8 +63,8 @@ const MainLearnPage = () => {
     const [show, setShow] = useState(false);
     const [topBlock, setTopBlock] = useState('-44');
     const [topTriangle, setTopTriangle] = useState('7');
-    console.log(points);
-    console.log(location.state);
+    // console.log(topBlock, topTriangle);
+
     let daysOfWeekArrayConst = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
     const date = new Date();
     const locate = 'ukr';
@@ -212,14 +212,14 @@ const MainLearnPage = () => {
         learnPage, shopPage, reviewPage, location.pathname, schoolPage, isActive, mouseOnAvatar,
         mouseOnFire, mouseOnFlag, mouseOnRuby, idElement, settingsCoach,
         settingsSound, choosePurposeDay, changeBodyRight, offSoundEffects, offExerciseToSpeak,
-        offExerciseToAudio, activeButton, show,
+        offExerciseToAudio, activeButton, show, 
         idPurpose,   
         // dayUpdate, everyDayTarget, moduleId, dayWeek, index, updateBool,
     ]);
     useMemo(() => {
-        const fetchStatistic = () => {
+        const fetchStatistic = async() => {
             try {
-                getStatistic().then(data => {
+                await getStatistic().then(data => {
                     if (data.status === 200) {
                         setEveryDayTarget(data.data.everyDayTarget);
                     }
@@ -238,6 +238,7 @@ const MainLearnPage = () => {
                         setPointsOfDayArray(data.data.pointsOfDayArray);
                         setDayUpdate(getDayName(new Date(data.data.updatedAt), locate));
                         setDateUpdate(data.data.updatedAt);
+                        points === 0 && dispatch(pointsUserForDay(data.data.pointsOfDayArray[6]));
                     }
                 });
             } catch(e) {
@@ -245,17 +246,6 @@ const MainLearnPage = () => {
             }
         }
         fetchGetAgendaUser();
-        const fetchUpdateAgendaUser = async () => {
-            try {
-                await updateAgendaUser(daysOfWeekArray, points, index, pointsOfDayArray, arrayIndex, updateBool)
-                    .then();
-            } catch(e) {
-                console.log(e.message);
-            }
-        }
-        if (updateBool || points > 0) {
-            fetchUpdateAgendaUser();
-        }
         const fetchUpdateUserLessonId = async() => {
             try {
                 const lessonId = lessons.filter(c => c.moduleId === user.module_id).map(c => c.id)[0];
@@ -276,34 +266,64 @@ const MainLearnPage = () => {
         if (isEndModule) {
             fetchUpdateUserLessonId();
         }
-        if (pointsOfDayArray) {
-            setPoints(pointsOfDayArray[6]);
-        }
     // eslint-disable-next-line
-    }, [ updateBool, user.module_id, isEndModule, ]);
+    }, [ updateBool, user.module_id, isEndModule, arrayIndex, points, ]);
     useMemo(() => {
+        const fetchUpdateAgendaUser = async () => {
+            try {
+                if (daysOfWeekArray && points && index && pointsOfDayArray) {
+                    await updateAgendaUser(daysOfWeekArray, points, index, pointsOfDayArray, arrayIndex, updateBool)
+                    .then(data => {
+                        if (data.status === 200) {
+                            dispatch(pointsUserForDay(data.data.pointsOfDayArray[6]));
+                        }
+                    });
+                }
+            } catch(e) {
+                console.log(e.message);
+            }
+        }
+        if (updateBool || points > 0) {
+            fetchUpdateAgendaUser();
+        }
         window.addEventListener('scroll', handleScroll, { passive: true });
             if (scrollPosition >= 250) {
                 setScrollBool(true);
             } else {
                 setScrollBool(false);
             }
-    },[scrollPosition,]);
+    // eslint-disable-next-line
+    },[scrollPosition, updateBool, points, arrayIndex, daysOfWeekArray, index, pointsOfDayArray,]);
     useMemo(() => {
-        if (!show && topBlock === '-44' && topTriangle === '7') {
-            const timer = () => {
-                setTopBlock('-50');
-                setTopTriangle('1');
-            };
-            setTimeout(timer, 1000);
+        const moveSignStart = () => {
+            while (!show) {
+                const timer = () => {
+                    setTopBlock('-50');
+                    setTopTriangle('1');
+                };
+                setTimeout(timer, 1000);
+                const previosTimer = () => {
+                    setTopBlock('-44');
+                    setTopTriangle('7');
+                };
+                setTimeout(previosTimer, 1000);
+            }
         }
-        if (!show && topBlock === '-50' && topTriangle === '1') {
-            const previosTimer = () => {
-                setTopBlock('-44');
-                setTopTriangle('7');
-            };
-            setTimeout(previosTimer, 1000);
-        }
+        // moveSignStart();
+        // if (!show && topBlock === '-44' && topTriangle === '7') {
+        //     const timer = () => {
+        //         setTopBlock('-50');
+        //         setTopTriangle('1');
+        //     };
+        //     setTimeout(timer, 1000);
+        // }
+        // if (!show && topBlock === '-50' && topTriangle === '1') {
+        //     const previosTimer = () => {
+        //         setTopBlock('-44');
+        //         setTopTriangle('7');
+        //     };
+        //     setTimeout(previosTimer, 1000);
+        // }
     },[
         show, 
         // topBlock, topTriangle
@@ -342,7 +362,6 @@ const MainLearnPage = () => {
                             moduleId={user.module_id}
                             topBlock={topBlock}
                             topTriangle={topTriangle}
-                            points={points}
                         /> 
                     }
                     { reviewPage && <ReviewComponent/> }
@@ -353,7 +372,6 @@ const MainLearnPage = () => {
                                             idElement={idElement}
                                             setChoosePurposeDay={setChoosePurposeDay}
                                             setIdElement={setIdElement}
-                                            setPoints={setPoints}
                                             idPurpose={idPurpose}
                                         /> 
                     }
