@@ -1,0 +1,19 @@
+.header_mainPage {
+    position: fixed;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    background: white;
+}
+.wrap {
+    display: flex;
+    margin-top: 70px;
+}
+.navBar_mainPage {
+    width: 20%;
+}
+.body_mainPage {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+}

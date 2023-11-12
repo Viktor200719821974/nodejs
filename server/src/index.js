@@ -1,6 +1,7 @@
 const express = require('express');
 const { Sequelize } = require('sequelize');
 
+
 const app = express();
 app.get('/', (req, res) => {
     res.send('Hello World');
