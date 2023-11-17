@@ -1,7 +1,7 @@
 .main_div {
     display: flex;
     flex-direction: column;
-    border: 2px solid rgb(202, 198, 198);
+    border: 2px solid #cac6c6;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: 0 4px 0 rgb(179, 176, 176);
