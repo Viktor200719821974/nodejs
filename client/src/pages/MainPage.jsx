@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from "react";
 
 import "../style/MainPage.css";
-import { fetchMovie } from "../http";
+import { fetchMovie, fetchMovieSearch } from "../http";
 import BodyComponent from "../components/mainPage/BodyComponent";
 import NavBarComponent from "../components/mainPage/NavBarComponent";
 import HeaderComponent from "../components/mainPage/HeaderComponent";
 
 const MainPage = () => {
     const [movies, setMovies] = useState(null);
+    const [searchText, setSearchText] = useState('');
+    
     useEffect(() => {
         try {
-            fetchMovie().then(data => {
-                if (data.status === 200) {
-                    console.log(data.data.results);
-                    setMovies(data.data.results);
-                }
-            });
+            if (searchText === '') {
+                fetchMovie().then(data => {
+                    if (data.status === 200) {
+                        console.log(data.data.results);
+                        setMovies(data.data.results);
+                    }
+                });
+            } else {
+                fetchMovieSearch(searchText).then(data => {
+                    if (data.status === 200) {
+                        setMovies(data.data.results);
+                        console.log(data.data.results);
+                    }
+                });
+            }
         } catch (e) {
             console.log(e.message);
         }
-    }, []);
+    }, [searchText, ]);
     return(
         <>
             <div className="header_mainPage">
-                <HeaderComponent/>
+                <HeaderComponent
+                    setSearchText={setSearchText}
+                />
             </div>
             <div className="wrap">
                 <div className="navBar_mainPage">

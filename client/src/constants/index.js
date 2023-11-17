@@ -1,5 +1,6 @@
 export const APP_API_KEY = '5fdecb08903428e95f9c26c85a6fac4e';
 export const API_MOVIES = 'https://api.themoviedb.org/3/discover/movie?api_key=';
+export const API_MOVIES_SEARCH = 'https://api.themoviedb.org/3/search/movie?query='
 
 //Images url
 export const image_300 = 'https://image.tmdb.org/t/p/w300';
