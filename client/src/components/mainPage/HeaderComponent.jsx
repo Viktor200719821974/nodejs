@@ -3,7 +3,7 @@ import React from "react";
 const HeaderComponent = () => {
     return (
         <header>
-            Header
+            Head
         </header>
     );
 };
