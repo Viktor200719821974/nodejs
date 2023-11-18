@@ -8,12 +8,25 @@
 .wrap {
     display: flex;
     margin-top: 70px;
+    width: 100%;
 }
 .navBar_mainPage {
     width: 20%;
+    border-right: 2px solid #cac6c6;
+}
+.body_pagination_mainPage {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
 }
 .body_mainPage {
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    justify-content: center;
+    margin-top: 20px;
+}
+.pagination_mainPage {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
