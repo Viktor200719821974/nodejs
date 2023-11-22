@@ -7,13 +7,16 @@ const GenresComponent = () => {
     const { genres } = useSelector(state => state.genresReducer);
     
     return (
-        <div className="main_div_genresComponent">
-            {
-                genres && genres.map(c => 
-                    <span className="span_genresComponent" key={c.id}>{c.name}</span>   
-                )
-            }
-        </div>
+        <>
+            <h2 className="h2_genresComponent">Genres:</h2>
+            <div className="main_div_genresComponent">            
+                {
+                    genres && genres.map(c => 
+                        <span className="span_genresComponent" key={c.id}>{c.name}</span>   
+                    )
+                }
+            </div>
+        </>
     );
 };
 
