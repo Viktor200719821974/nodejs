@@ -1,7 +1,6 @@
 .main_div_pagination {
     display: flex;
     flex-wrap: wrap;
-    /* width: 80%; */
     align-items: center;
     justify-content: center;
 }

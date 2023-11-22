@@ -34,19 +34,6 @@ const BodyComponent = ({ title, id, poster_path, release_date, vote_average, mov
                 />
             </div>
         </div>
-        // <div className="main_div">
-        //     <img src={ poster_path === null ? noImage : image_300 + poster_path} alt="poster" className="image_300"/>
-        //     <span className="title_span">
-        //         {title}
-        //     </span>
-        //     <div className="date_release_rating_div">
-        //         <span className="date_release_span">{release_date}</span>
-        //         <div className="rating_image_div">
-        //             <img src={star} alt="star" className="image_rating_star"/>
-        //             <span className="rating_span">{vote_average}</span>
-        //         </div>
-        //     </div>
-        // </div>
     );
 };
 

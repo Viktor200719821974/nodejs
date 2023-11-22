@@ -4,7 +4,7 @@ import { BiLogoZoom } from "react-icons/bi";
 
 import "../../style/HeaderComponent.css";
 
-const HeaderComponent = ({ setSearchText, }) => {
+const HeaderComponent = ({ setSearchText, functionSearch, }) => {
     return (
         <header className="main_header_headerComponent">
             <div className="logo_div_headerComponent"> 
@@ -16,7 +16,7 @@ const HeaderComponent = ({ setSearchText, }) => {
                     type="text" 
                     placeholder="Search..." 
                     className="input_search_headerComponent"
-                    onChange={(e) => setSearchText(e.target.value)}
+                    onChange={(e) => functionSearch(e)}
                 />
                 <div 
                     className="icon_search_div_headerComponent"

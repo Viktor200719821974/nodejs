@@ -9,6 +9,15 @@ const PaginationComponent = ({ page, setPage, totalPage, }) => {
         Number(i);
         numberPage.push(i);
     }
+
+    let startIndex = page - 1;
+    let endIndex = page + 10;
+    
+    if (endIndex > totalPage) {
+        startIndex = totalPage - 10;
+        endIndex = totalPage;
+    } 
+    
     return (
         <div className="main_div_pagination">
             { 
@@ -20,7 +29,7 @@ const PaginationComponent = ({ page, setPage, totalPage, }) => {
                             /> 
             }
             {
-                numberPage.map((c, index) => 
+                numberPage.slice(startIndex, endIndex).map((c, index) => 
                     <div key={index}>
                        {
                             page !== c && page + 19 >= c && 
