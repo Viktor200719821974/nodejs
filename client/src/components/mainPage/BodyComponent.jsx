@@ -1,25 +1,52 @@
 import React from "react";
 
+import PaginationComponent from "../../components/mainPage/pagination/PaginationComponent";
 import "../../style/BodyComponent.css";
 import { image_300 } from "../../constants";
 import star from "../../static/star12s.png";
 import noImage from "../../static/noImage.png";
 
-const BodyComponent = ({ title, id, poster_path, release_date, vote_average }) => {
+const BodyComponent = ({ title, id, poster_path, release_date, vote_average, movies, page, setPage, totalPage, }) => {
     return (
         <div className="main_div">
-            <img src={ poster_path === null ? noImage : image_300 + poster_path} alt="poster" className="image_300"/>
-            <span className="title_span">
-                {title}
-            </span>
-            <div className="date_release_rating_div">
-                <span className="date_release_span">{release_date}</span>
-                <div className="rating_image_div">
-                    <img src={star} alt="star" className="image_rating_star"/>
-                    <span className="rating_span">{vote_average}</span>
-                </div>
+            {
+                movies && movies.map(c => 
+                    <div key={c.id} className="div_movie">
+                        <img src={ c.poster_path === null ? noImage : image_300 + c.poster_path} alt="poster" className="image_300"/>
+                        <span className="title_span">
+                            {c.title}
+                        </span>
+                        <div className="date_release_rating_div">
+                            <span className="date_release_span">{c.release_date}</span>
+                            <div className="rating_image_div">
+                                <img src={star} alt="star" className="image_rating_star"/>
+                                <span className="rating_span">{c.vote_average}</span>
+                            </div>
+                        </div>
+                    </div>    
+                )
+            }
+            <div className="div_pagination">
+                <PaginationComponent
+                    page={page}
+                    setPage={setPage}
+                    totalPage={totalPage}
+                />
             </div>
         </div>
+        // <div className="main_div">
+        //     <img src={ poster_path === null ? noImage : image_300 + poster_path} alt="poster" className="image_300"/>
+        //     <span className="title_span">
+        //         {title}
+        //     </span>
+        //     <div className="date_release_rating_div">
+        //         <span className="date_release_span">{release_date}</span>
+        //         <div className="rating_image_div">
+        //             <img src={star} alt="star" className="image_rating_star"/>
+        //             <span className="rating_span">{vote_average}</span>
+        //         </div>
+        //     </div>
+        // </div>
     );
 };
 
