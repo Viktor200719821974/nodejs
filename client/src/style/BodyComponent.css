@@ -15,7 +15,7 @@
     width: 300px;
     cursor: pointer;
 }
-.main_div:hover {
+.div_movie:hover {
     border: 2px solid rgb(104, 135, 226);
     box-shadow: 0 4px 0 rgb(94, 124, 216);
 }

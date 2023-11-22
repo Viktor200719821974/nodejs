@@ -1,0 +1,19 @@
+.main_div_genresComponent {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 12px;
+    /* justify-content: center;
+    align-items: center; */
+}
+.span_genresComponent {
+    border: 2px solid #cac6c6;
+    padding: 4px;
+    margin: 0 4px 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    color: #8f8d8d;
+}

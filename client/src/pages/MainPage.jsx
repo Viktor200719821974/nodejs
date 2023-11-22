@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import "../style/MainPage.css";
-import { fetchMovie, fetchMovieSearch } from "../http";
+import { fetchGenres, fetchMovies, fetchMoviesSearch } from "../http";
 import BodyComponent from "../components/mainPage/BodyComponent";
 import NavBarComponent from "../components/mainPage/NavBarComponent";
 import HeaderComponent from "../components/mainPage/HeaderComponent";
+import { fetchGenresRedux, fetchMoviesRedux } from "../redux/actions/actions";
 
 const MainPage = () => {
-    const [movies, setMovies] = useState(null);
+    const dispatch = useDispatch();
+    // const [movies, setMovies] = useState(null);
     const [searchText, setSearchText] = useState('');
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState();
@@ -23,24 +26,32 @@ const MainPage = () => {
     useEffect(() => {
         try {
             if (searchText === '') {
-                fetchMovie(page).then(data => {
+                fetchMovies(page).then(data => {
                     if (data.status === 200) {
-                        console.log(data);
-                        setMovies(data.data.results);
+                        // console.log(data);
+                        // setMovies(data.data.results);
                         setTotalPage(500);
+                        dispatch(fetchMoviesRedux(data.data.results));
                     }
                 });
             } else {
-                fetchMovieSearch(searchText, page).then(data => {
+                fetchMoviesSearch(searchText, page).then(data => {
                     if (data.status === 200) {
-                        setMovies(data.data.results);
+                        // setMovies(data.data.results);
                         setTotalPage(data.data.total_pages);
+                        dispatch(fetchMoviesRedux(data.data.results));
                     }
                 });
             }
+            fetchGenres().then(data => {
+                if (data.status === 200) {
+                    dispatch(fetchGenresRedux(data.data.genres));
+                }
+            })
         } catch (e) {
             console.log(e.message);
         }
+    // eslint-disable-next-line
     }, [searchText, page]);
     return(
         <>
@@ -56,7 +67,7 @@ const MainPage = () => {
                 </div>
                 <div className="body_mainPage">
                     <BodyComponent 
-                        movies={movies}
+                        // movies={movies}
                         page={page}
                         setPage={setPage}
                         totalPage={totalPage}

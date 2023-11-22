@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import PaginationComponent from "../../components/mainPage/pagination/PaginationComponent";
 import "../../style/BodyComponent.css";
@@ -6,7 +7,9 @@ import { image_300 } from "../../constants";
 import star from "../../static/star12s.png";
 import noImage from "../../static/noImage.png";
 
-const BodyComponent = ({ title, id, poster_path, release_date, vote_average, movies, page, setPage, totalPage, }) => {
+const BodyComponent = ({ page, setPage, totalPage, }) => {
+    const { movies } = useSelector(state => state.moviesReducer);
+    
     return (
         <div className="main_div">
             {
