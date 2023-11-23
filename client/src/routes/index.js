@@ -1,7 +1,6 @@
 import { HOME_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, } from "../constants";
 import MainPage from "../pages/MainPage";
-import LoginComponent from "../components/authorization/LoginComponent";
-import RegistrationComponent from "../components/authorization/RegistrationComponent";
+import LoginRegistrationComponent from "../components/authorization/LoginRegistrationComponent";
 
 export const pablicRoutes = [
     {
@@ -10,10 +9,10 @@ export const pablicRoutes = [
     },
     {
         path: LOGIN_PAGE,
-        Component: LoginComponent
+        Component: LoginRegistrationComponent
     },
     {
         path: REGISTRATION_PAGE,
-        Component: RegistrationComponent
+        Component: LoginRegistrationComponent
     },
 ]

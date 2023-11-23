@@ -46,3 +46,21 @@
 input:focus {
     outline: none !important;
 }
+.div_sign_in_sign_out {
+    display: flex;
+    justify-content: flex-end;
+    width: 29%;
+    margin-right: 30px;
+}
+.span_main_sign_in_sign_out {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+.span_sign_in_sign_out {
+    margin-left: 4px;
+    color: #cac6c6;
+    text-transform: uppercase;
+    font-weight: 600;
+}
