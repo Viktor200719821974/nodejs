@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RiHome2Line } from "react-icons/ri";
 import { LuLogIn } from "react-icons/lu";
 
 import "../../style/LoginRegistrationComponent.css";
-import { HOME_PAGE, LOGIN_PAGE, REGISTRATION_PAGE } from "../../constants";
+import { HOME_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, FORGET_PASSWORD_PAGE, } from "../../constants";
 import RegistrationComponent from "./RegistrationComponent";
+import { loginUser } from "../../http/authApi";
 
 const LoginRegistrationComponent = () => {
     const navigate = useNavigate();
@@ -15,7 +16,31 @@ const LoginRegistrationComponent = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+
+    const singIn = (e) => {
+        e.preventDefault();
+        try {
+                loginUser(email, password).then(data => {
+                    if (data.status === 200) {
+                        console.log(data);
+                    }
+                });
+            } catch (e) {
+                console.log(e.message);
+        }
+    };
     // console.log(email, password);
+    // useEffect(() => {
+    //     try {
+    //         loginUser(email, password).then(data => {
+    //             if (data.status === 200) {
+    //                 console.log(data);
+    //             }
+    //         });
+    //     } catch (e) {
+    //         console.log(e.message);
+    //     }
+    // },[]);
     return(
         <div>
             <div className="div_buttons_home_sign_in">
@@ -27,7 +52,7 @@ const LoginRegistrationComponent = () => {
                     Home
                 </button>
                 {
-                    location.pathname === REGISTRATION_PAGE &&
+                    (location.pathname === REGISTRATION_PAGE || location.pathname === FORGET_PASSWORD_PAGE) &&
                         <button
                             className="button_sign_in_up button"
                             onClick={() => navigate(LOGIN_PAGE)}
@@ -48,15 +73,18 @@ const LoginRegistrationComponent = () => {
                             className="input_class"
                         />
                     </div>
-                    <div className="div_input">
-                        <input 
-                            type="password"
-                            name="password"
-                            placeholder="*********"
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="input_class"
-                        />
-                    </div>  
+                    {
+                        (location.pathname === LOGIN_PAGE || location.pathname === REGISTRATION_PAGE) &&
+                            <div className="div_input">
+                                <input 
+                                    type="password"
+                                    name="password"
+                                    placeholder="*********"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="input_class"
+                                />
+                            </div>  
+                    }
                     {
                         location.pathname === REGISTRATION_PAGE &&
                             <RegistrationComponent
@@ -68,7 +96,7 @@ const LoginRegistrationComponent = () => {
                         location.pathname === LOGIN_PAGE &&
                             <div className="div_forget_password_and_registration">
                                 <span
-                                    onClick={() => navigate()}
+                                    onClick={() => navigate(FORGET_PASSWORD_PAGE)}
                                     className="span_forget_password"
                                     >
                                         Forget password?
@@ -84,7 +112,7 @@ const LoginRegistrationComponent = () => {
                     <div className="div_button_sign_in">
                         <button
                             className="button_sign_in button"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={singIn}
                             >
                                 { location.pathname === LOGIN_PAGE ? 'sign in' : 'send' }
                         </button>

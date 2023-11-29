@@ -1,4 +1,4 @@
-import { HOME_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, } from "../constants";
+import { FORGET_PASSWORD_PAGE, HOME_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, } from "../constants";
 import MainPage from "../pages/MainPage";
 import LoginRegistrationComponent from "../components/authorization/LoginRegistrationComponent";
 
@@ -15,4 +15,8 @@ export const pablicRoutes = [
         path: REGISTRATION_PAGE,
         Component: LoginRegistrationComponent
     },
-]
+    {
+        path: FORGET_PASSWORD_PAGE,
+        Component: LoginRegistrationComponent
+    },
+];

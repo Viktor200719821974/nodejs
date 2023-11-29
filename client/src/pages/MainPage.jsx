@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import "../style/MainPage.css";
-import { fetchGenres, fetchMovies, fetchMoviesSearch } from "../http";
+import { fetchGenres, fetchMovies, fetchMoviesSearch } from "../http/moviesApi";
 import BodyComponent from "../components/mainPage/BodyComponent";
 import NavBarComponent from "../components/mainPage/NavBarComponent";
 import HeaderComponent from "../components/mainPage/HeaderComponent";
