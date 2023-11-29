@@ -31,6 +31,10 @@ const BodyComponent = ({ page, setPage, totalPage, }) => {
                     </div>    
                 )
             }
+            {
+                totalPage === 0 &&
+                    <span className="span_no_content">No content</span>
+            }
             <div className="div_pagination">
                 <PaginationComponent
                     page={page}

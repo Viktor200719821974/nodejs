@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "../style/MainPage.css";
 import { fetchGenres, fetchMovies, fetchMoviesSearch } from "../http/moviesApi";
@@ -10,10 +10,14 @@ import { fetchGenresRedux, fetchMoviesRedux } from "../redux/actions/actions";
 
 const MainPage = () => {
     const dispatch = useDispatch();
+    const { arrayChooseGenres } = useSelector(state => state.arrayChooseGenresReducer);
     // const [movies, setMovies] = useState(null);
     const [searchText, setSearchText] = useState('');
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState();
+
+    const genresUrl = arrayChooseGenres.join();
+    console.log(genresUrl);
     
     const functionSearch = (e) => {
         setPage(1);
@@ -25,13 +29,18 @@ const MainPage = () => {
 
     useEffect(() => {
         try {
-            if (searchText === '') {
-                fetchMovies(page).then(data => {
+            if (searchText === '' || arrayChooseGenres.length > 0) {
+                fetchMovies(page, genresUrl).then(data => {
                     if (data.status === 200) {
                         // console.log(data);
                         // setMovies(data.data.results);
-                        setTotalPage(500);
                         dispatch(fetchMoviesRedux(data.data.results));
+                        console.log(data.data);
+                        if (genresUrl === '') {
+                            setTotalPage(500);
+                        } else {
+                            setTotalPage(data.data.total_pages);
+                        }
                     }
                 });
             } else {
@@ -40,6 +49,7 @@ const MainPage = () => {
                         // setMovies(data.data.results);
                         setTotalPage(data.data.total_pages);
                         dispatch(fetchMoviesRedux(data.data.results));
+                        console.log(data.data);
                     }
                 });
             }
@@ -52,7 +62,7 @@ const MainPage = () => {
             console.log(e.message);
         }
     // eslint-disable-next-line
-    }, [searchText, page]);
+    }, [searchText, page, arrayChooseGenres.length]);
     return(
         <>
             <div className="header_mainPage">

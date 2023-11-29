@@ -3,8 +3,6 @@
     flex-wrap: wrap;
     margin-top: 20px;
     padding: 12px;
-    /* justify-content: center;
-    align-items: center; */
 }
 .h2_genresComponent {
     margin-left: 20px;
@@ -18,5 +16,21 @@
     justify-content: center;
     align-items: center;
     border-radius: 12px;
+    font-weight: 500;
     color: #8f8d8d;
+    text-transform: uppercase;
+}
+.span_genresComponent_active {
+    border: 2px solid #3e9fcc;
+    background-color: #1899d6;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 4px;
+    margin: 0 4px 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    color: #fff;
 }

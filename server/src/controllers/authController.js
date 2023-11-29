@@ -11,7 +11,19 @@ const loginUser = async(req, res, next) => {
 };
 
 const registrationUser = async(req, res, next) => {
-    res.send('Hello');
+    try {
+        res.send('Hello');
+    } catch (e) {
+        next(e);
+    }
 };
 
-module.exports = { loginUser, registrationUser, };
+const forgetPasswordUser = async(req, res, next) => {
+    try {
+        res.send('Hello');
+    } catch (e) {
+        next(e);
+    }
+};
+
+module.exports = { loginUser, registrationUser, forgetPasswordUser, };

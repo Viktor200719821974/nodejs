@@ -47,7 +47,7 @@ const PaginationComponent = ({ page, setPage, totalPage, }) => {
                 )
             }
             { 
-                page !== totalPage && <IoIosArrowDropright 
+                (page !== totalPage && totalPage !== 0) && <IoIosArrowDropright 
                                     size={"40px"} 
                                     color="#cac6c6" 
                                     onClick={() => setPage(page + 1)}

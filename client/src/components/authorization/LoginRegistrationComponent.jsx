@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RiHome2Line } from "react-icons/ri";
 import { LuLogIn } from "react-icons/lu";
@@ -6,7 +6,7 @@ import { LuLogIn } from "react-icons/lu";
 import "../../style/LoginRegistrationComponent.css";
 import { HOME_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, FORGET_PASSWORD_PAGE, } from "../../constants";
 import RegistrationComponent from "./RegistrationComponent";
-import { loginUser } from "../../http/authApi";
+import { forgetPasswordUser, loginUser, registrationUser } from "../../http/authApi";
 
 const LoginRegistrationComponent = () => {
     const navigate = useNavigate();
@@ -17,10 +17,9 @@ const LoginRegistrationComponent = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    const singIn = (e) => {
-        e.preventDefault();
+    const singIn = async() => {
         try {
-                loginUser(email, password).then(data => {
+                await loginUser(email, password).then(data => {
                     if (data.status === 200) {
                         console.log(data);
                     }
@@ -29,18 +28,28 @@ const LoginRegistrationComponent = () => {
                 console.log(e.message);
         }
     };
-    // console.log(email, password);
-    // useEffect(() => {
-    //     try {
-    //         loginUser(email, password).then(data => {
-    //             if (data.status === 200) {
-    //                 console.log(data);
-    //             }
-    //         });
-    //     } catch (e) {
-    //         console.log(e.message);
-    //     }
-    // },[]);
+    const registration = async() => {
+        try {
+            await registrationUser(email, password, firstName, lastName).then(data => {
+                if (data.status === 200) {
+                    console.log(data);
+                }
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
+    };
+    const forgetPassword = async() => {
+        try {
+            await forgetPasswordUser(email).then(data => {
+                if (data.status === 200) {
+                    console.log(data);
+                }
+            });
+        } catch (e) {
+            console.log(e.message);
+        }
+    };
     return(
         <div>
             <div className="div_buttons_home_sign_in">
@@ -110,12 +119,33 @@ const LoginRegistrationComponent = () => {
                             </div>
                     }
                     <div className="div_button_sign_in">
-                        <button
-                            className="button_sign_in button"
-                            onClick={singIn}
-                            >
-                                { location.pathname === LOGIN_PAGE ? 'sign in' : 'send' }
-                        </button>
+                        {
+                            location.pathname === LOGIN_PAGE &&
+                                <button
+                                    className="button_sign_in button"
+                                    onClick={singIn}
+                                    >
+                                       sign in
+                                </button>
+                        }
+                        {
+                            location.pathname === REGISTRATION_PAGE &&
+                                <button
+                                    className="button_sign_in button"
+                                    onClick={registration}
+                                    >
+                                        send
+                                </button>
+                        }
+                        {
+                            location.pathname === FORGET_PASSWORD_PAGE && 
+                                <button
+                                    className="button_sign_in button"
+                                    onClick={forgetPassword}
+                                    >
+                                        send
+                                </button>
+                        }
                     </div>
                 </form>
             </div>
