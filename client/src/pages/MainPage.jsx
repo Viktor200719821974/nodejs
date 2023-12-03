@@ -11,13 +11,11 @@ import { fetchGenresRedux, fetchMoviesRedux } from "../redux/actions/actions";
 const MainPage = () => {
     const dispatch = useDispatch();
     const { arrayChooseGenres } = useSelector(state => state.arrayChooseGenresReducer);
-    // const [movies, setMovies] = useState(null);
     const [searchText, setSearchText] = useState('');
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState();
 
     const genresUrl = arrayChooseGenres.join();
-    console.log(genresUrl);
     
     const functionSearch = (e) => {
         setPage(1);
@@ -35,7 +33,7 @@ const MainPage = () => {
                         // console.log(data);
                         // setMovies(data.data.results);
                         dispatch(fetchMoviesRedux(data.data.results));
-                        console.log(data.data);
+                        // console.log(data.data);
                         if (genresUrl === '') {
                             setTotalPage(500);
                         } else {
@@ -49,7 +47,7 @@ const MainPage = () => {
                         // setMovies(data.data.results);
                         setTotalPage(data.data.total_pages);
                         dispatch(fetchMoviesRedux(data.data.results));
-                        console.log(data.data);
+                        // console.log(data.data);
                     }
                 });
             }

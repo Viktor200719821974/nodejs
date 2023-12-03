@@ -1,6 +1,6 @@
 .main_div_genresComponent {
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex;
+    flex-wrap: wrap; */
     margin-top: 20px;
     padding: 12px;
 }

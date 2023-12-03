@@ -5,7 +5,6 @@ import { FaStar } from "react-icons/fa";
 import PaginationComponent from "../../components/mainPage/pagination/PaginationComponent";
 import "../../style/BodyComponent.css";
 import { image_300 } from "../../constants";
-// import star from "../../static/star12s.png";
 import noImage from "../../static/noImage.png";
 
 const BodyComponent = ({ page, setPage, totalPage, }) => {
@@ -24,7 +23,6 @@ const BodyComponent = ({ page, setPage, totalPage, }) => {
                             <span className="date_release_span">{c.release_date}</span>
                             <div className="rating_image_div">
                                 <FaStar color="yellow"/>
-                                {/* <img src={star} alt="star" className="image_rating_star"/> */}
                                 <span className="rating_span">{c.vote_average}</span>
                             </div>
                         </div>
