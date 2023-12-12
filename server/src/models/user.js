@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   //     forenKey: 'userId'
   //   })
   // };
+  // User.associate();
   // User.init({
   //   firstName: DataTypes.STRING,
   //   lastName: DataTypes.STRING,
