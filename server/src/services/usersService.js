@@ -1,7 +1,8 @@
-const db = require("../models/index");
+const db = require("../models");
 
 const findUserById = async(email) => {
-    const user = await db.Users.findOne({ where: { email } });
+    const user = await db.User.findOne({ where: { email } });
+    console.log(user);
     return user;
 };
 

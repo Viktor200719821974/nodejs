@@ -1,10 +1,8 @@
 const express = require('express');
-// const { Sequelize } = require('sequelize');
-const sequelize = require('sequelize');
+require('dotenv').config();
 
-const config = require('./config/config.json');
+const sequelize = require('./db');
 const apiRouter = require('./routes/apiRouter');
-const constants = require('./constants');
 const db = require('./models');
 
 const app = express();
@@ -44,22 +42,22 @@ app.use('/api', apiRouter);
 //     }
 //   };
 // testDbConnection();
-const PORT = constants.PORT || 5500;
-db.sequelize.sync({ force: false }).then(results => { 
-    app.listen(PORT, function () {    
-      console.log("server is successfully running!");  
-    });
-  });
-// const start = async() => {
-//   try {
-
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-//     await sequelize.sync();
-//     app.listen(PORT, () => {
-//         // eslint-disable-next-line no-console
-//         console.log(`Server has started on port ${PORT}!!!`);
+const PORT = process.env.PORT || 5500;
+// db.sequelize.sync({ force: false }).then(results => { 
+//     app.listen(PORT, function () {    
+//       console.log("server is successfully running!");  
 //     });
-// }
-// start();
+//   });
+const start = async() => {
+  try {
+
+  } catch (e) {
+    console.log(e.message);
+  }
+    await sequelize.authenticate();
+    app.listen(PORT, () => {
+        // eslint-disable-next-line no-console
+        console.log(`Server has started on port ${PORT}!!!`);
+    });
+}
+start();

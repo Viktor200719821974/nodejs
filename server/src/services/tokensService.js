@@ -1,18 +1,18 @@
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
-const config = require("../constants");
 const db = require("../models/index");
 
 const generateTokenPair = async(email, userId) => {
     const payload = { email, userId };
     const accessToken = jwt.sign(
         payload,
-        config.SECRET_ACCESS_KEY,
+        process.env.SECRET_ACCESS_KEY,
         { expiresIn: '10m'}
     );
     const refreshToken = jwt.sign(
         payload,
-        config.SECRET_REFRESH_KEY,
+        process.env.SECRET_REFRESH_KEY,
         { expiresIn: '24h'}
     );
     return {
