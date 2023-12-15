@@ -1,9 +1,10 @@
 // const { DataTypes } = require('sequelize');
 
 // const db = require('../models');
+// const sequelize = require("../db");
 
 // module.exports = (sequelize, DataTypes) => {
-//   const User = sequelize.define("Users",{
+//   const User = sequelize.define("User",{
 //     id: {
 //       type: DataTypes.INTEGER,
 //       primaryKey: true,
@@ -30,14 +31,16 @@
 //       allowNull: false
 //     }
 //   });
-//   // User.associate = (models) => {
-//   //   User.hasOne(models.Token, {
-//   //     as: 'tokens',
-//   //     forenKey: 'userId'
-//   //   })
-//   // };
+
+  // module.exports = User;
+  // User.associate = (models) => {
+  //   User.hasOne(models.Token, {
+  //     as: 'tokens',
+  //     forenKey: 'userId'
+  //   })
+  // };
 //   // console.log(db);
-//   // User.associate(db);
+  // User.associate(db);
 //   // User.init({
 //   //   firstName: DataTypes.STRING,
 //   //   lastName: DataTypes.STRING,
@@ -95,6 +98,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
+    freezeTableName: true,
     sequelize,
     modelName: 'User',
   });

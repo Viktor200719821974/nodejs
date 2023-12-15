@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false 
     }
   }, {
+    freezeTableName: true,
     sequelize,
     modelName: 'Token',
   });
@@ -47,9 +48,9 @@ module.exports = (sequelize, DataTypes) => {
 
 // const db = require('../models');
 // const sequelize = require('../db');
-// // console.log(sequelize);
-// // module.exports = (sequelize, DataTypes) => {
-//   const Token = sequelize.define("Tokens",{
+// console.log(sequelize);
+// module.exports = (sequelize, DataTypes) => {
+//   const Token = sequelize.define("Token",{
 //     id: {
 //       type: DataTypes.INTEGER,
 //       primaryKey: true,

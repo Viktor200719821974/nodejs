@@ -1,9 +1,29 @@
-const db = require("../models");
+const models = require("../models");
 
-const findUserById = async(email) => {
-    const user = await db.User.findOne({ where: { email } });
-    console.log(user);
-    return user;
+const findUserByEmail = async(email) => {
+    return await models.User.findOne({ 
+        where: { email },
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        }, 
+    });
 };
 
-module.exports = { findUserById, };
+const getUsers = async() => {
+    return await models.User.findAll({
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        }
+    });
+};
+
+const getUserById = async(id) => {
+    return await models.User.findOne({ 
+        where: { id },
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        }, 
+    });
+};
+
+module.exports = { findUserByEmail, getUsers, getUserById, };

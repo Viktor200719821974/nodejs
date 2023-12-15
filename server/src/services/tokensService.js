@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
-const db = require("../models/index");
+const model = require("../models");
 
 const generateTokenPair = async(email, userId) => {
     const payload = { email, userId };
@@ -22,9 +22,7 @@ const generateTokenPair = async(email, userId) => {
 };
 
 const saveTokens = async(accessToken, refreshToken, userId) => {
-    console.log(accessToken, 'save tokens');
-    console.log("save tokens");
-    await db.Tokens.create({ accessToken, refreshToken, userId } );
+    await model.Token.create({ accessToken, refreshToken, userId } );
 };
 
 const verifyToken = async(authToken, tokenType) => {
@@ -33,10 +31,20 @@ const verifyToken = async(authToken, tokenType) => {
         secretWord = config.SECRET_REFRESH_KEY;
     }
     return jwt.verify(authToken, secretWord);
-}
+};
+
+const findTokenByUserId = async(userId) => {
+    return !!await model.Token.findOne({ where: { userId } });
+};
+
+const deleteTokenPair = async(userId) => {
+    return await model.Token.destroy({ where: { userId } });
+};
 
 module.exports = {
     generateTokenPair,
     saveTokens,
     verifyToken,
+    deleteTokenPair,
+    findTokenByUserId,
 };

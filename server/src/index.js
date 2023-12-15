@@ -1,13 +1,13 @@
 const express = require('express');
 require('dotenv').config();
 
-const sequelize = require('./db');
 const apiRouter = require('./routes/apiRouter');
 const db = require('./models');
 
 const app = express();
 app.use(express.json());
-app.use(express.static(__dirname +'/static'));
+app.use(express.urlencoded({ extended: true }));
+// app.use(express.static(__dirname +'/static'));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   // res.header('Access-Control-Allow-Credentials', true);
@@ -50,14 +50,13 @@ const PORT = process.env.PORT || 5500;
 //   });
 const start = async() => {
   try {
-
-  } catch (e) {
-    console.log(e.message);
-  }
-    await sequelize.authenticate();
+    await db.sequelize.sync({ force: false });
     app.listen(PORT, () => {
         // eslint-disable-next-line no-console
         console.log(`Server has started on port ${PORT}!!!`);
     });
+  } catch (e) {
+    console.log(e.message);
+  }
 }
 start();

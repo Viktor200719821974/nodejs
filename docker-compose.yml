@@ -4,8 +4,8 @@ services:
   app:
     build:
       context: .
-    # env_file:
-    #   - .env
+    env_file:
+      - .env
     restart: on-failure
     volumes:
       - ./server:/app
