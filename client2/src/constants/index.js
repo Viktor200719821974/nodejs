@@ -5,7 +5,7 @@ export const API_MOVIES_SEARCH = 'https://api.themoviedb.org/3/search/movie?quer
 export const API_MOVIES_GENRES = 'https://api.themoviedb.org/3/genre/';
 
 //Localhost urls
-export const LOCALHOST_BASIC_API = 'http://localhost/api';
+export const LOCALHOST_BASIC_API = 'http://localhost:8080/api';
 
 
 //Images urls
