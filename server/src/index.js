@@ -15,7 +15,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, PUT, HEAD, OPTIONS');
   next();
 });
-app.use(apiRouter);
+app.use("/api", apiRouter);
 // app.get('/', (req, res) => {
 //     res.send('Hello World');
 // });
@@ -33,15 +33,15 @@ app.use(apiRouter);
 //       },
 // });
 
-// const testDbConnection = async () => {
-//     try {
-//       await sequelize.authenticate();
-//       console.log("Connection has been established successfully.");
-//     } catch (error) {
-//       console.error("Unable to connect to the database:", error);
-//     }
-//   };
-// testDbConnection();
+const testDbConnection = async () => {
+    try {
+      await db.sequelize.authenticate();
+      console.log("Connection has been established successfully.");
+    } catch (error) {
+      console.error("Unable to connect to the database:", error);
+    }
+  };
+testDbConnection();
 const PORT = process.env.PORT || 5500;
 // db.sequelize.sync({ force: false }).then(results => { 
 //     app.listen(PORT, function () {    
@@ -56,7 +56,7 @@ const start = async() => {
         console.log(`Server has started on port ${PORT}!!!`);
     });
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message, "error index.js");
   }
 }
 start();

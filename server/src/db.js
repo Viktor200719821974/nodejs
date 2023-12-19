@@ -1,13 +1,13 @@
 const { Sequelize } = require("sequelize");
 require('dotenv').config();
-console.log(process.env.POSTGRES_DB);
+
 const sequelize = new Sequelize(
-    // process.env.POSTGRES_DB,
-    // process.env.POSTGRES_USER,
-    // process.env.POSTGRES_PASSWORD,
-    "postgres",
-    "root",
-    "postgres",
+    process.env.POSTGRES_DB,
+    process.env.POSTGRES_USER,
+    process.env.POSTGRES_PASSWORD,
+    // "postgres",
+    // "root",
+    // "postgres",
     {
         dialect: 'postgres',
         host: process.env.POSTGRES_HOST,
