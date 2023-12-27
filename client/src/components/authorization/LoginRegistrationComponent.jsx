@@ -17,7 +17,8 @@ const LoginRegistrationComponent = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    const singIn = async() => {
+    const singIn = async(e) => {
+        e.preventDefault();
         try {
                 await loginUser(email, password).then(data => {
                     if (data.status === 200) {
@@ -28,7 +29,8 @@ const LoginRegistrationComponent = () => {
                 console.log(e.message);
         }
     };
-    const registration = async() => {
+    const registration = async(e) => {
+        e.preventDefault();
         try {
             await registrationUser(email, password, firstName, lastName).then(data => {
                 if (data.status === 200) {
@@ -39,7 +41,8 @@ const LoginRegistrationComponent = () => {
             console.log(e.message);
         }
     };
-    const forgetPassword = async() => {
+    const forgetPassword = async(e) => {
+        e.preventDefault();
         try {
             await forgetPasswordUser(email).then(data => {
                 if (data.status === 200) {

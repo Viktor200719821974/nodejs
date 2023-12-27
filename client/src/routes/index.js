@@ -1,4 +1,4 @@
-import { FORGET_PASSWORD_PAGE, HOME_PAGE, LOGIN_PAGE, REGISTRATION_PAGE, } from "../constants";
+import { FORGET_PASSWORD_PAGE, LOGIN_PAGE, HOME_PAGE, REGISTRATION_PAGE, } from "../constants";
 import MainPage from "../pages/MainPage";
 import LoginRegistrationComponent from "../components/authorization/LoginRegistrationComponent";
 
